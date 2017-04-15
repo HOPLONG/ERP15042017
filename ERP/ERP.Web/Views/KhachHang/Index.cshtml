@@ -25,9 +25,12 @@
     .thongtinchung input{
         font-size: 12px;
     }
+    #phanhoikhachhang .table>tbody>tr>td{
+        border-top: none !important;
+        border-bottom: 1px solid #ddd;
+    }
 </style>
 <div ng-app="myApp" ng-controller="khachhangCtrl">
-    <input type="button" onclick="location.href='/KinhDoanh/Donhangdukien';" value="Đơn hàng dự kiến" />
 
     <div class="content">
         <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
@@ -47,7 +50,7 @@
         <input type="button" class="btn btn-info" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
         <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
         <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/KhachChuaGiaoDich';" value="Danh sách khách chưa có giao dịch" />
-
+     
         <!-- Modal Add New khách hàng -->
         <div class="modal fade" id="myModal" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-lg" style="width: 90%">
@@ -183,7 +186,7 @@
                             <p class="col-md-3" style="font-size: 20px; color: blue; font-weight: 700">Tài khoản khách hàng</p>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <table class="table" id="taikhoan">
+                                    <table  id="taikhoan">
                                         <thead class="table-header-popup" style="background-color: #d7f1f9">
                                             <tr>
                                                 <th style="text-align: center; height: 27px;padding-left: 5px;">Số tài khoản</th>
@@ -221,10 +224,10 @@
                         
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <table class="table" id="lienhe">
+                                    <table id="lienhe">
                                         <thead class="table-header-popup" style="background-color: #d7f1f9">
                                             <tr>
-                                                <th style="text-align: center">Người liên hệ</th>
+                                                <th>Người liên hệ</th>
                                                 <th style="text-align: center">Chức vụ</th>
                                                 <th style="text-align: center">Phòng ban</th>
                                                 <th style="text-align: center">Ngày sinh</th>
@@ -239,25 +242,25 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="i in range(0,2)">
-                                                <td><input style="height:44px" type="text" class="form-control" ng-model="arraylienhe[$index].nguoi_lien_he"></td>
-                                                <td><input style="height:44px" type="text" class="form-control" ng-model="arraylienhe[$index].chuc_vu"></td>
-                                                <td><input  style="height:44px" type="text" class="form-control" ng-model="arraylienhe[$index].phong_ban"></td>
+                                                <td><input  type="text" class="form-control" ng-model="arraylienhe[$index].nguoi_lien_he"></td>
+                                                <td><input type="text" class="form-control" ng-model="arraylienhe[$index].chuc_vu"></td>
+                                                <td><input   type="text" class="form-control" ng-model="arraylienhe[$index].phong_ban"></td>
                                                 <td>
-                                                    <input style="height:44px" type="text" class="form-control" ng-model="arraylienhe[$index].ngay_sinh">
+                                                    <input  type="text" class="form-control" ng-model="arraylienhe[$index].ngay_sinh">
                                                 </td>
                                                 <td>
-                                                    <input style="height:44px" type="text" class="form-control" ng-model="arraylienhe[$index].gioi_tinh">
+                                                    <input type="text" class="form-control" ng-model="arraylienhe[$index].gioi_tinh">
                                                 </td>
                                                 <td>
-                                                    <input type="tel"  ng-model="arraylienhe[$index].so_dien_thoai1" style="width: 100%; height: 27px;padding-left: 5px;" placeholder="Số điện thoại 1">
-                                                    <input type="tel"  ng-model="arraylienhe[$index].so_dien_thoai2" style="width: 100%; height: 27px;padding-left: 5px;" placeholder="Số điện thoại 2">
+                                                    <input type="tel"  ng-model="arraylienhe[$index].so_dien_thoai1"  placeholder="Số điện thoại 1">
+                                                    <input type="tel"  ng-model="arraylienhe[$index].so_dien_thoai2"  placeholder="Số điện thoại 2">
                                                 </td>
                                                 <td>
-                                                    <input type="text"  ng-model="arraylienhe[$index].email_ca_nhan" style="width: 100%;height: 27px;padding-left: 5px;" placeholder="Email cá nhân">
-                                                    <input type="text"  ng-model="arraylienhe[$index].email_cong_ty" style="width: 100%;height: 27px;padding-left: 5px;" placeholder="Email công ty">
+                                                    <input type="text"  ng-model="arraylienhe[$index].email_ca_nhan"  placeholder="Email cá nhân">
+                                                    <input type="text"  ng-model="arraylienhe[$index].email_cong_ty" placeholder="Email công ty">
                                                 </td>
-                                                <td><input style="height:44px" type="text" class="form-control" ng-model="arraylienhe[$index].skype"></td>
-                                                <td><input style="height:44px" type="text" class="form-control" ng-model="arraylienhe[$index].facebook"></td>
+                                                <td><input  type="text" class="form-control" ng-model="arraylienhe[$index].skype"></td>
+                                                <td><input  type="text" class="form-control" ng-model="arraylienhe[$index].facebook"></td>
                                                 <td>
                                                     <md-input-container>
                                                         <md-select ng-model="arraylienhe[$index].sales_phu_trach">
@@ -769,11 +772,16 @@
                                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newtaikhoan">Thêm mới</button>
                                     </div>
                                     <div id="phanhoikhachhang" class="tab-pane fade">
-                                        <table class="table" ng-repeat="khachphanhoi in list_phanhoi">
-                                            <tr>
-                                                <td style="width: 10%;border: 1px solid black">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
-                                                <td style="width: 20%;border: 1px solid black">{{khachphanhoi.HO_VA_TEN}}</td>
-                                                <td  ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 69%;border: 1px solid black"></td>
+                                        <table class="table">
+                                            <tr style="border: 1px solid #ddd !important">
+                                                <th style="border: 1px solid #ddd !important">Ngày phản hồi</th>
+                                                <th style="border: 1px solid #ddd !important">Người phản hồi</th>
+                                                <th style="border: 1px solid #ddd !important">Thông tin phản hồi</th>
+                                            </tr>
+                                            <tr  ng-repeat="khachphanhoi in list_phanhoi">
+                                                <td style="width: 10%;">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
+                                                <td style="width: 20%;">{{khachphanhoi.HO_VA_TEN}}</td>
+                                                <td  ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 69%;"></td>
                                             </tr>
                                         </table>
                                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newphanhoi">Thêm mới</button>
@@ -1049,6 +1057,7 @@
                     <th>Tình trạng hoạt động</th>
                     <th>Sales phụ trách</th>
                     <th>Sửa</th>
+                    <th>Tạo đơn dự kiến</th>
                 </tr>
             </thead>
             <tbody>
@@ -1058,7 +1067,6 @@
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.EMAIL}}</td>
                     <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{ item.TINH}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.QUOC_GIA}}</td>
-
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_LOAI_KHACH}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TINH_TRANG_HOAT_DONG}}</td>
                     <td class="text-center">
@@ -1078,6 +1086,7 @@
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; chuyensale(item)" class="btn btn-default">Save</button>
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
                     </td>
+                    <td><a href="/KinhDoanh/Donhangdukien/TaoDuKienMoi/{{item.MA_KHACH_HANG}}">Tạo đơn dự kiến</a></td>
                 </tr>
                 <!--Detail row-->
 

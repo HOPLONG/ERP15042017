@@ -22,6 +22,10 @@
     .thongtinchung input {
         font-size: 12px;
     }
+    #phanhoikhachhang .table>tbody>tr>td{
+        border-top: none !important;
+        border-bottom: 1px solid #ddd;
+    }
 </style>
 <div ng-app="myApp" ng-controller="khachhangCtrl">
     <!-- Modal them moi lien he -->
@@ -379,11 +383,16 @@
                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newtaikhoan">Thêm mới</button>
                     </div>
                     <div id="phanhoikhachhang" class="tab-pane fade">
-                        <table class="table" ng-repeat="khachphanhoi in list_phanhoi">
-                            <tr>
-                                <td style="width: 10%;border: 1px solid black">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
-                                <td style="width: 20%;border: 1px solid black">{{khachphanhoi.HO_VA_TEN}}</td>
-                                <td ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 69%;border: 1px solid black"></td>
+                        <table class="table">
+                            <tr style="border: 1px solid #ddd !important">
+                                <th style="border: 1px solid #ddd !important">Ngày phản hồi</th>
+                                <th style="border: 1px solid #ddd !important">Người phản hồi</th>
+                                <th style="border: 1px solid #ddd !important">Thông tin phản hồi</th>
+                            </tr>
+                            <tr ng-repeat="khachphanhoi in list_phanhoi">
+                                <td style="width: 10%;">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
+                                <td style="width: 20%;">{{khachphanhoi.HO_VA_TEN}}</td>
+                                <td ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 69%;"></td>
                             </tr>
                         </table>
                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newphanhoi">Thêm mới</button>
