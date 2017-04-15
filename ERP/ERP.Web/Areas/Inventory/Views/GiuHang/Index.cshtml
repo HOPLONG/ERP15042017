@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Inventory/Views/Shared/Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Index";
+}
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+<style>
+    .md-pane-open {
+        z-index: 9999;
+    }
+</style>
+
+<div ng-app="myApp" ng-controller="khogiuhangCtrl">
+    <div class="content">
+
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Mã giữ kho</th>
+                        <th>Sale giữ</th>
+                        <th>Tên công ty</th>
+                        <th>Ngày giữ</th>
+                        <th>Hủy đơn giữ</th>
+                        <th>Đơn đang xuất</th>
+                        <th>Đơn đã hoàn thành</th>
+                        <th>Sửa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="entry in list_khogiuhang" ng-click="get_chitietgiuhang(entry)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                        <td data-toggle="modal" data-target="#chitiethanghoa">{{entry.MA_GIU_KHO}}</td>
+                        <td data-toggle="modal" data-target="#chitiethanghoa">{{entry.HO_VA_TEN}}</td>
+                        <td data-toggle="modal" data-target="#chitiethanghoa">{{entry.TEN_CONG_TY}}</td>
+                        <td data-toggle="modal" data-target="#chitiethanghoa">{{entry.NGAY_GIU | stringToDate:"dd/MM/yyyy"}}</td>
+                        <td class="text-left">
+                            <input type="checkbox" data-ng-hide="editMode" ng-model="entry.HUY_DON_GIU" ng-disabled="true" />
+                            <input type="checkbox" data-ng-show="editMode" data-ng-model="entry.HUY_DON_GIU" data-ng-required />
+                        </td>
+                        <td class="text-left">
+                            <input type="checkbox" data-ng-hide="editMode" ng-model="entry.DON_DANG_XUAT" ng-disabled="true" />
+                            <input type="checkbox" data-ng-show="editMode" data-ng-model="entry.DON_DANG_XUAT" data-ng-required />
+                        </td>
+                        <td>
+                            <input type="checkbox" data-ng-hide="editMode" ng-model="entry.DON_DA_HOAN_THANH" ng-disabled="true" />
+                            <input type="checkbox" data-ng-show="editMode" data-ng-model="entry.DON_DA_HOAN_THANH" data-ng-required />
+                        </td>
+                        <td>
+                            <button type="submit" data-ng-hide="editMode" data-ng-click="editMode = true; editAppKey(entry)" class="btn btn-default">Edit</button>
+                            <button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; save(entry)" class="btn btn-default">Save</button>
+                            <button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="modal fade" id="chitiethanghoa" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-lg" style="width: 90%">
+                <div class="modal-content" style="width: 100%">
+
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mã hàng</th>
+                                    <th>Đơn vị tính</th>
+                                    <th>Xuất xứ</th>
+                                    <th>Số lượng giữ</th>
+                                    <th>Đơn giá</th>
+                                    <th>Thành tiền</th>
+                                    <th>Ngày xuất</th>
+                                    <th>Đã xuất</th>
+                                    <th>Ghi chú</th>
+                                    <th>Sửa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="item in filtered = (list_chitietgiukho) |  itemsPerPage:10 track by item.MA_HANG " class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                                    <td class="text-left">
+                                        <p style="display:none">{{item.ID}}</p>
+                                        <p style="display:none">{{item.MA_GIU_KHO}}</p>
+                                        <p data-ng-hide="editMode" ng-model="item.MA_HANG">{{item.MA_HANG}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.MA_HANG" data-ng-required />
+                                    </td>
+                                    <td class="text-left">
+                                        <p data-ng-hide="editMode" ng-model="item.DVT">{{item.DVT}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.DVT" data-ng-required />
+                                    </td>
+                                    <td>
+                                        <p data-ng-hide="editMode" ng-model="item.XUAT_XU">{{item.XUAT_XU}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.XUAT_XU" data-ng-required />
+                                    </td>
+                                    <td class="text-left">
+                                        <p data-ng-hide="editMode" ng-model="item.SL_GIU">{{item.SL_GIU}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.SL_GIU" data-ng-required />
+                                    </td>
+                                    <td class="text-left">
+                                        <p data-ng-hide="editMode" ng-model="item.DON_GIA">{{item.DON_GIA}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.DON_GIA" data-ng-required />
+                                    </td>
+                                    <td class="text-left">
+                                        <p data-ng-hide="editMode" ng-model="item.THANH_TIEN">{{item.THANH_TIEN}}</p>
+                                        <p type="text" data-ng-show="editMode">{{item.DON_GIA * item.SL_GIU}}</p>
+                                    </td>
+                                    <td>
+                                        <p data-ng-hide="editMode" ng-model="item.NGAY_XUAT">{{item.NGAY_XUAT}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.NGAY_XUAT" data-ng-required />
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" data-ng-hide="editMode" ng-model="item.DA_XUAT" ng-disabled="true" />
+                                        <input type="checkbox" data-ng-show="editMode" data-ng-model="item.DA_XUAT" data-ng-required />
+                                    </td>
+                                    <td>
+                                        <p data-ng-hide="editMode" ng-model="item.GHI_CHU">{{item.GHI_CHU}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.GHI_CHU" data-ng-required />
+                                    </td>
+                                    <td>
+                                        <button type="submit" data-ng-hide="editMode" data-ng-click="editMode = true; editAppKey(entry)" class="btn btn-default">Edit</button>
+                                        <button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; save_edit(item)" class="btn btn-default">Save</button>
+                                        <button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; cancel_edit()" class="btn btn-default">Cancel</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="item.expanded" dir-paginate-end=""></tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="9" style="border: none !important">
+                                        <dir-pagination-controls max-size="12" style="float:right;"
+                                                                 direction-links="true"
+                                                                 boundary-links="true">
+                                        </dir-pagination-controls>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="anmelden"></label>
+                            <div class="col-md-8 addnew">
+                                <button id="exit" name="exit" class="btn addnewmodal" data-dismiss="modal">Exit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

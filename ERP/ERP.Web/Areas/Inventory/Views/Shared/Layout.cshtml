@@ -1,0 +1,366 @@
+﻿@{
+    ViewBag.Title = "layout";
+    if (Session["USERNAME"] == null)
+    {
+        Response.Redirect("~/Home/Login");
+    }
+
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>KHO | HOPLONG</title>
+    <link rel="shortcut icon" type="image/ico" href="~/logo_hoplong.png">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link href="~/Content/download/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/self-writing/css/nav_hoplong_multilevel.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link href="~/Content/download/dist/css/AdminLTE.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/icons/icomoon/styles.css" rel="stylesheet" />
+    
+    @*<link href="~/Content/assets/css/bootstrap.css" rel="stylesheet" />*@
+
+    <link href="~/Content/assets/css/core.css" rel="stylesheet" />
+    @*<link href="~/Content/assets/css/components.css" rel="stylesheet" />*@
+    <link href="~/Content/assets/css/colors.css" rel="stylesheet" />
+
+    <link href="~/Content/download/bootstrap/css/layout_all.css" rel="stylesheet" />
+    <link href="~/Content/self-writing/css/Layout-CSS.css" rel="stylesheet" />
+    <link href="~/Content/self-writing/css/LayoutHL.css" rel="stylesheet" />
+
+    <link href="~/Content/download/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
+
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <script src="~/Content/assets/js/plugins/loaders/pace.min.js"></script>
+    <script src="~/Content/download/plugins/jQuery/jquery.min.js"></script>
+    <script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
+    <script src="~/Content/assets/js/plugins/loaders/blockui.min.js"></script>
+    <script src="~/Content/assets/js/plugins/visualization/d3/d3.min.js"></script>
+    <script src="~/Content/assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+    <script src="~/Content/assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script src="~/Content/assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script src="~/Content/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+    <script src="~/Content/assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="~/Content/assets/js/plugins/pickers/datepicker.js"></script>
+    <script src="~/Content/assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script src="~/Content/assets/js/plugins/notifications/pnotify.min.js"></script>
+    <script src="~/Content/Scripts/angularjs/angular.js"></script>
+    <script src="~/Content/download/angularjs/angular.min.js"></script>
+    
+    @*<script src="~/Content/self-writing/js/app.js"></script>*@
+    @*<script src="~/Content/self-writing/js/Service.js"></script>
+    <script src="~/Content/self-writing/js/Controller.js"></script>*@
+    <script src="~/Content/Scripts/angularjs/angular-route.min.js"></script>
+    <script src="~/Content/Scripts/angularjs/dirPagination.js"></script>
+    <script src="~/Content/Scripts/angularjs/app.js"></script>
+    @*<script src="~/Content/Scripts/angularjs/app.js"></script>*@
+    <script src="~/Content/Scripts/daterangepicker.js"></script>
+    <script src="~/Content/Scripts/moment.min.js"></script>
+
+    <script src="~/Content/download/bootstrap-datetimepicker.js"></script>
+    <script src="~/Content/download/moment.min.js"></script>
+
+
+
+
+
+    @*<script src="~/Content/download/date_directive.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="~/Content/download/angular-smart-table/angular-smart-table/dist/smart-table.js"></script>*@
+    <!-- Angular Material Library -->
+    @*<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>*@
+
+
+    
+
+    @*<script src="~/Content/assets/js/plugins/loaders/pace.min.js"></script>
+    <script src="~/Content/download/jquery/dist/jquery.min.js"></script>
+    <script src="~/Content/assets/js/plugins/loaders/blockui.min.js"></script>
+    <script src="~/Content/assets/js/plugins/visualization/d3/d3.min.js"></script>
+    <script src="~/Content/assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+    <script src="~/Content/assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script src="~/Content/assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script src="~/Content/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+    <script src="~/Content/assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="~/Content/assets/js/plugins/pickers/datepicker.js"></script>
+    <script src="~/Content/assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script src="~/Content/assets/js/plugins/notifications/pnotify.min.js"></script>
+    <script src="~/Content/Scripts/angularjs/angular.js"></script>
+    <script src="~/Content/Scripts/angularjs/angular-route.min.js"></script>
+    <script src="~/Content/Scripts/angularjs/dirPagination.js"></script>
+    <script src="~/Content/Scripts/angularjs/app.js"></script>
+    <script src="~/Content/Scripts/daterangepicker.js"></script>
+    <script src="~/Content/Scripts/moment.min.js"></script>*@
+    <script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
+    <script>
+        $(function () {
+            CKEDITOR.config.extraPlugins = 'justify';
+            CKEDITOR.config.extraPlugins = 'filebrowser';
+        });
+    </script>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper" style="padding-bottom: 50px;">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="/Home/Index" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini" style="color: white">
+                    <img src="~/Content/Images/Logos/logo_hoplong.png" height="30" width="40" />
+                </span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><img src="~/Content/Images/Logos/logo_hoplong.png" height="60" width="100" /></span>
+
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" style="background: deepskyblue">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="color: white;">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <!-- DANH SÁCH MENU TRÊN-->
+                <div class="navbar-custom-menu pull-left col-md-8">
+                    <input type="hidden" value="@Session["MA_PHONG_BAN"]" id="maphongban" />
+                    <input type="hidden" value="@Session["USERNAME"]" id="username" />
+                    <h4 class="text-center" style="color: white">BẠN ĐANG TRONG KHU VỰC KHO</h4>
+                </div><!-- /end menu bar -->
+
+
+
+                <div class="navbar-custom-menu pull-right">
+                    <ul class="nav navbar-nav ">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope-o"></i>
+                                <!--<span class="label label-success">4</span>-->
+                            </a>
+
+                        </li>
+                        <!-- Notifications: style can be found in dropdown.less -->
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <!--<span class="label label-warning">10</span>-->
+                            </a>
+
+                        </li>
+                        <!-- Tasks: style can be found in dropdown.less -->
+                        <li class="dropdown tasks-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-flag-o"></i>
+                                <!--<span class="label label-danger">9</span>-->
+                            </a>
+
+                        </li>
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="/UserDetails/Index"><img src="~/Content/Images/Avatar/@Session["AVATAR"]" class="user-image" alt="User Image"></a>
+                            <a href="/UserDetails/Index"><span class="hidden-xs">@Session["HO_VA_TEN"]</span></a>
+                        </li>
+                        <!-- Control Sidebar Toggle Button -->
+                        <li><a href="/Home/Logout"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar" style="background: #3C8DBC;color: white;">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+                <!-- search form -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group" style="width: 100%">
+                        <input id="searchtextbox" type="text" name="q" class="form-control" placeholder="Search...">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat" style="display:inline-block;background:none !important;float:left;">
+                            <i class="fa fa-search" id="searchtext"></i>
+                        </button>
+                    </div>
+                </form>
+                <!-- /.search form -->
+                <!-- DANH SÁCH MENU TRÁI -->
+                <ul class="sidebar-menu">
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-cubes"></i>
+                            <span>HÀNG HÓA</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/Inventory/HangHoa/Index"><i class="fa fa-angle-double-right"></i>Danh sách hàng hóa</a></li>
+                            <li><a href="/Inventory/HangSp/Index"><i class="fa fa-angle-double-right"></i>Nhóm vật tư hàng hóa</a></li>
+                            <li><a href="/Inventory/Kho/Index"><i class="fa fa-angle-double-right"></i>Kho</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-cart-plus"></i>
+                            <span>GIỮ HÀNG</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/Inventory/GiuHang/Index"><i class="fa fa-angle-double-right"></i>Danh sách đề nghị giữ</a></li>
+                            <li><a href="/Inventory/GiuHang/Giu_Hang_HL"><i class="fa fa-angle-double-right"></i>Đã giữ</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Chưa giữ</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đang giữ</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-hand-o-right"></i>
+                            <span>ĐỀ NGHỊ XUẤT HÀNG</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Danh sách đề nghị</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đề nghị đã xuất</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đang xuất</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Chưa xuất</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đã giữ</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Chưa giữ</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đang giữ</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="active treeview">
+                        <a href="#">
+                            <i class="fa fa-sign-out"></i>
+                            <span>XUẤT HÀNG</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu ">
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Danh sách xuất kho</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Phiếu xuất kho mới</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-sign-in"></i>
+                            <span>NHẬP KHO</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Danh sách nhập kho</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Phiếu nhập kho mới</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-truck"></i>
+                            <span>GIAO HÀNG</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Danh sách đơn hàng</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đơn hàng đang giao</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đơn hàng đã hoàn thành</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đơn chưa giao</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-download"></i>
+                            <span>IMPORT FILE</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/Inventory/ImportHangHoa/Import_HangHoa"><i class="fa fa-angle-double-right"></i>Import hàng hóa</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper" style="background: none !important">
+            @RenderBody()
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Add the sidebar's background. This div must be placed
+             immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1.0
+        </div>
+        <strong>Bản quyền &copy; thuộc về <a href="https://hoplongtech.com">hoplongtech.com</a>.</strong>
+    </footer>
+
+    <script src="~/Content/download/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="~/Content/download/plugins/fastclick/fastclick.js"></script>
+    <script src="~/Content/self-writing/js/nav_hoplong_multilevel.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngMask/3.1.1/ngMask.min.js"></script>
+    <style>
+        body input {
+            border: 1px solid #00BFFF !important;
+            border-radius: 5px !important;
+        }
+
+        body select {
+            border: 1px solid #00BFFF !important;
+            border-radius: 5px !important;
+        }
+
+        body textarea {
+            border: 1px solid #00BFFF !important;
+            border-radius: 5px !important;
+        }
+
+        body button {
+            background: #00BFFF !important;
+            color: white !important;
+            border: none !important;
+        }
+
+        body {
+            font-family: 'Times New Roman';
+        }
+
+        .hienthi {
+            display: block !important;
+        }
+
+        .bienmat {
+            display: none !important;
+        }
+    </style>
+
+   
+    <script>
+        //window.setInterval(function () {
+        //    $.get("/Home/Alive", function (data) {
+        //        //alert("still alive")
+        //    }, 180000);
+        //});
+
+    </script>
+
+</body>
+</html>

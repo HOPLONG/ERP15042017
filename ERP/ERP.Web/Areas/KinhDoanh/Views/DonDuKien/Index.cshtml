@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ERP.Web.Models.Database.BH_DON_HANG_DU_KIEN>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+    <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
+    <div class="content">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height: 40px;">
+                 <div class="panel-title">
+                     <div style="float: left">Danh sách đơn dự kiến</div>
+                     <div style="float: right">@Html.ActionLink("Tạo đơn mới", "Create")</div>
+                 </div>
+                    
+            
+                   
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Mã dự kiến
+                            </th>
+                            <th>
+                                Ngày tạo
+                            </th>
+                            <th>
+                                Khách hàng
+                            </th>
+                            <th>
+                                Liên hệ
+                            </th>
+                            <th>
+                                Thành công
+                            </th>
+                            <th>
+                                Thất bại
+                            </th>
+                            <th>
+                                Lý do thất bại
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MA_DU_KIEN)
+                                </td>
+                                <td>
+                                    @item.NGAY_TAO.ToString("dd/MM/yyyy")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.KH.TEN_CONG_TY)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.KH_LIEN_HE.NGUOI_LIEN_HE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.THANH_CONG)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.THAT_BAI)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LY_DO_THAT_BAI)
+                                </td>
+                                <td>
+                                    <a href="/Baogia/Index/@item.MA_DU_KIEN">Sinh báo giá</a>|
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.MA_DU_KIEN }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.MA_DU_KIEN }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.MA_DU_KIEN })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

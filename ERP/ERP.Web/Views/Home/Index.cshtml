@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-app="myApp" ng-controller="danhmucCtrl">
+    <div class="panel content panel-default col-md-9" style="overflow: auto;">
+        <div class="panel-heading title">Thông báo</div>
+        <div class="panel-body">
+            <div ng-repeat="item in listpost | orderBy : '-NGAY_DANG_BAI'" class="col-md-12" style="margin-bottom: 20px;padding: 20px;border: 1px solid #DCF5FC;box-shadow: 3px 3px 3px #DCF5FC; border-radius:5px">
+                <div class=col-md-3>
+                    <a href="/Home/Details/{{item.MA_BAI_VIET}}"><img ng-src="~/Content/Images/BaiViet/{{item.ANH_BAI_VIET}}" style="width: 100%;height: 150px;" /></a>
+                </div>
+                <div class=col-md-9>
+                    <a href="/Home/Details/{{item.MA_BAI_VIET}}"><h2 style="color: #097be0;font-weight: bold; font-family:Yanone Kaffeesatz">{{item.TIEU_DE_BAI_VIET}}</h2></a>
+                    <p style="height: 60px; overflow: hidden;word-wrap: break-word" class="col-md-12" ng-bind-html="item.NOI_DUNG_BAI_VIET | unsafe"></p>
+                    <p class="col-md-4" style="color: #097be0"><i class="fa fa-clock-o" aria-hidden="true" style="margin-right: 5px;"></i>{{item.NGAY_DANG_BAI | date : 'dd/MM/yyyy'}}</p>
+                    <a class="col-md-4" style="color: #097be0" href="/UserDetails/Details/{{item.NGUOI_DANG_BAI}}"><i class="fa fa-user" aria-hidden="true" style="margin-right: 5px;"></i>{{item.HO_VA_TEN}}</a>
+                    @*<a href="#" onclick="DeleteBaiViet({{item.MA_BAI_VIET}})">Xóa</a>*@
+                     
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel content panel-default col-md-3">
+        <div class="panel-heading title">Danh mục</div>
+        <div class="panel-body">
+            <ul>
+                <li ng-repeat="list in danhsachdanhmuc" ng-click="transfer(list.MA_DANH_MUC)" style="cursor: pointer;list-style-type: none;color: #097be0; border-bottom: 1px solid #0099FF"><h4>{{list.TEN_DANH_MUC}}</h4></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    this.DeleteBaiViet = function (idBaiViet) {
+        var a = $('id').val()
+        var response = $http({
+            method: "delete",
+            url: "BaiVietMoi/Delete_BaiViet",
+            params: {
+                id: JSON.stringify(a)
+            }
+        });
+        return response;
+    }
+
+</script>

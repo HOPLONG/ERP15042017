@@ -1,0 +1,165 @@
+﻿
+@model IEnumerable<ERP.Web.Models.Database.XL_DANG_KY_PHE_DUYET>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/self-writing/css/Donhangdukien.css" rel="stylesheet" />
+<script src="~/Content/self-writing/js/Services/TonCacNoiService.js"></script>
+<script src="~/Content/self-writing/js/Controllers/TonCacNoiCtrl.js"></script>
+<div class="panel-heading title">Bạn đang ở mục check tồn kho</div>
+<br />
+<div ng-app="myApp">
+    <div class="content" ng-controller="TonCacNoiCtrl">
+
+        <!--Tìm Kiếm Hàng Hóa-->
+        <div class="tab-pane fade in" style="border:1px solid #ddd">
+            <center>
+                <div id="quick-access" style="padding-bottom: 20px;padding-top: 20px; align-content:center">
+                    <form class="form-inline quick-search-form" role="form" action="#">
+                        <div class="form-group" style="width: 90%">
+                            <input type="text" style="width: 60%" class="form-control" placeholder="Nhập mã hàng chuẩn tại đây" ng-model="search_text">
+
+                            <button type="button" style="border-radius: 5px" class="btn btn-info" ng-model="find" ng-click="datatonkho(search_text)">Tìm kiếm</button>
+                        </div>
+                    </form>
+                </div>
+            </center>
+
+
+
+            <div class="col-md-12 content-group" style="">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover ">
+                        <thead>
+                            <tr class="bg-primary-300">
+                                <th style="width:6%" class="text-left">Mã hàng</th>
+                                <th style="width:6%" class="text-center">Tên hàng</th>
+                                <th style="width:6%" class="text-center">Mã chuẩn</th>
+                                <th style="width:8%" class="text-center">Thông số</th>
+                                <th style="width:4%" class="text-center">Hãng</th>
+                                <th style="width:2%" class="text-center">ĐVT</th>
+                                <th style="width:5%" class="text-center">Xuất xứ</th>
+                                <th style="width:6%" class="text-center">Giá List</th>
+                                <th style="width:5%" class="text-center">Discontinue</th>
+                                <th style="width:8%" class="text-center">Mã chuyển đổi</th>
+                                <th style="width:4%" class="text-center">Tồn HL</th>
+                                <th style="width:4%" class="text-center">Tồn ĐN</th>
+                                <th style="width:5%" class="text-center">Tồn HCM</th>
+                                <th style="width:4%" class="text-center">Tồn HP</th>
+                                <th style="width:5%" class="text-center">Đang giữ</th>
+                                <th style="width:5%" class="text-center">Ký gửi</th>
+                                <th style="width:5%" class="text-center">Tồn Hãng</th>
+                                <th style="width:9%" class="text-center">Thời gian cấp hàng (Hãng)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in listtonkho">
+
+                                <td>
+                                    <div>
+                                        {{item.MA_HANG }}
+                                    </div>
+                                </td>
+                                <td>
+                                    {{item.TEN_HANG }}
+                                </td>
+                                <td class="text-center">
+                                    {{item.MA_CHUAN }}
+                                </td>
+                                <td class="text-center">
+                                    {{item.THONG_SO }}
+                                </td>
+                                <td class="text-center">
+                                    {{item.MA_NHOM_HANG }}
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.DVT }}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div>
+                                        {{item.XUAT_XU }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.GIA_LIST | currency:'':0}} vnd
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="text-center">
+                                        <input type="checkbox" ng-model="item.DISCONTINUE">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.MA_CHUYEN_DOI }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.TON_HOPLONG }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.TON_DANANG }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.TON_HCM }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.TON_HAIPHONG }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.SL_DANG_GIU }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.SL_KY_GUI_DI }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.TON_TAI_HANG }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.THOI_GIAN_CAP_HANG }}
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+
+                </div>
+            </div>
+
+        </div>
+        <!--End tìm kiếm hàng hóa-->
+    </div>
+</div>
+
+<script src="~/Content/download/angularjs/angular-ui-router.js"></script>
+
+

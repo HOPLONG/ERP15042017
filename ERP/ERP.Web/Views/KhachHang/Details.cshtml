@@ -1,0 +1,757 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+}
+<link href="~/Content/self-writing/css/KhachHang.css" rel="stylesheet" />
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+<style>
+    #myModal .col-md-12 {
+        margin: 10px 0px;
+    }
+
+    #taikhoan td {
+        padding: 0px !important;
+    }
+
+    #lienhe td {
+        padding: 0px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .thongtinchung input {
+        font-size: 12px;
+    }
+</style>
+<div ng-app="myApp" ng-controller="khachhangCtrl">
+    <!-- Modal them moi lien he -->
+    <input type="hidden" value="@Session["USERNAME"]" id="salehienthoi"/>
+    <div class="modal fade" id="newlienhe" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" style="width: 90%">
+            <div class="modal-content" style="height: 100%">
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="addtencongty" class="col-sm-2 control-label">Người liên hệ</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="addtencongty" ng-model="nguoi_lien_he">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addvpgiaodich" class="col-sm-2 control-label">Chức vụ</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="addvpgiaodich" ng-model="chuc_vu">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="adddiachixuathoadon" class="col-sm-2 control-label">Phòng ban</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="adddiachixuathoadon" ng-model="phong_ban">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addmasothue" class="col-sm-2 control-label">Ngày sinh</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" ng-model="ngay_sinh">
+                        </div>
+                        <label for="addwebsite" class="col-sm-1 control-label">Giới tính</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="addwebsite" ng-model="gioi_tinh">
+                        </div>
+                        <label for="addsomayban" class="col-sm-1 control-label">Email cá nhân</label>
+                        <div class="col-sm-2">
+                            <input type="tel" class="form-control" id="addsomayban" ng-model="email_ca_nhan">
+                        </div>
+                        <label for="addemail" class="col-sm-1 control-label">Số điện thoại 1</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="addemail" ng-model="so_dien_thoai1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addsongayduocno" class="col-sm-2 control-label">Skype</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="addsongayduocno" ng-model="skype">
+                        </div>
+                        <label for="addsonotoida" class="col-sm-1 control-label">Facebook</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="addsonotoida" ng-model="facebook">
+                        </div>
+                        <label for="addfax" class="col-sm-1 control-label">Email công ty</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="addfax" ng-model="email_cong_ty">
+                        </div>
+                        <label for="addemail" class="col-sm-1 control-label">Số điện thoại 2</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="addemail" ng-model="so_dien_thoai2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Sales phụ trách</label>
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="nvkd.HO_VA_TEN" value="{{nvkd.HO_VA_TEN}}" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
+                                <input type="hidden" class="form-control" ng-model="nvkd.USERNAME" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_ho_va_ten = !showtable_ho_va_ten" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_ho_va_ten">
+                                        <div class="table-responsive" style="max-height: 280px">
+                                            <table class="table table-striped table-hover" st-pagination-scroll st-table="staffsCollection" st-safe-src="arrayNVFinded">
+                                                <tbody>
+                                                    <tr ng-repeat="staff in staffsCollection" style="cursor:pointer" ng-click="showInfoStaff(staff)">
+                                                        <td>{{staff.HO_VA_TEN}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label class="col-sm-2 control-label">Tình trạng làm việc</label>
+                        <div class="col-sm-3">
+                            <select ng-model="tinh_trang_lam_viec" id="adddieukhoanthanhtoan" style="height: 27px;padding-left: 5px;width:100%" data-ng-options="item as item for item in tinh_trang"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addghichu" class="col-sm-2 control-label">Ghi chú</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" id="addghichu" ng-model="ghi_chu_lh"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save" name="save" class="btn btn-default" data-dismiss="modal" ng-click="addnew_lienhe_ct(item.MA_KHACH_HANG)">Thêm</button>
+                    <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end modal-->
+    <!-- Modal thêm mới tài khoản -->
+    <div class="modal fade" id="newtaikhoan" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <form class="form-horizontal" name="myForm" novalidate>
+                        <fieldset>
+                            <!-- Form Name -->
+                            <legend>Add New Maker</legend>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="name">Số tài khoản: </label>
+                                <div class="col-md-10">
+                                    <input type="text" placeholder="Maker Code" class="form-control input-md" ng-model="so_tai_khoan">
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="name">Tên tài khoản: </label>
+                                <div class="col-md-10">
+                                    <input type="text" placeholder="Maker Name" class="form-control input-md" ng-model="ten_tai_khoan">
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="name">Tên ngân hàng : </label>
+                                <div class="col-md-10">
+                                    <input type="text" placeholder="Maker's Parent Code " class="form-control input-md" ng-model="ten_ngan_hang">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="name">Chi nhánh: </label>
+                                <div class="col-md-10">
+                                    <input type="text" placeholder="Note" class="form-control input-md" ng-model="chi_nhanh">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="name">Tỉnh/Thành phố: </label>
+                                <div class="col-md-10">
+                                    <input type="text" placeholder="Note" class="form-control input-md" ng-model="tinh_tp">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="addghichu" class="col-sm-2 control-label">Ghi chú</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="3" placeholder="Ghi chú" id="addghichu" ng-model="ghi_chu_tk"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top: 50px;">
+                                <label class="col-sm-2 control-label">Loại tài khoản</label>
+                                <div class="col-sm-6">
+                                    <select ng-model="loai_tai_khoan" class="form-control input-md">
+                                        <option ng-repeat="loaitaikhoan in list_loaitaikhoan" value="{{loaitaikhoan.MA_LOAI}}">{{loaitaikhoan.TEN_LOAI}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Button (Double) -->
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="anmelden"></label>
+                        <div class="col-md-8 addnew">
+                            <button id="addnew" name="addnew" class="btn" ng-click="addnewtk(item.MA_KHACH_HANG)" data-dismiss="modal">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end modal-->
+    <!-- Modal thêm mới phản hồi -->
+    <div class="modal fade" id="newphanhoi" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <label class="col-md-2">Phản hồi mới</label>
+                        <div class="col-sm-10">
+                            <textarea id="phanhoimoi" name="phanhoimoi" class="form-control input-md"></textarea>
+                        </div>
+                    </div>
+                    <script>
+                                        CKEDITOR.replace('phanhoimoi', {
+                                        height: 150
+                                    });
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="anmelden"></label>
+                        <div class="col-md-8 addnew" style="text-align: left;margin-top: 30px;">
+                            <button id="addnew" name="addnew" class="btn" ng-click="addnewphanhoi(item.MA_KHACH_HANG)" data-dismiss="modal">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end modal-->
+
+
+
+    <div class="col-md-12"  ng-repeat="item in list_chitietkhachhangnew">
+        <div class="col-md-3">
+            <img ng-src="~/Content/Images/KhachHang/{{item.LOGO}}" style="width: 90%;height: 250px;" />
+        </div>
+        <div class="col-md-9">
+            <div style="margin-bottom: 5%;" class="col-md-12">
+                <h1>{{item.TEN_CONG_TY | uppercase}}</h1>
+                <div class="col-md-3 detail">Mã khách hàng: {{item.MA_KHACH_HANG}}</div>
+                <div class="col-md-2 detail">Tỉnh: {{item.TINH}}</div>
+                <div class="col-md-2 detail">Quốc gia: {{item.QUOC_GIA}}</div>
+                <div class="col-md-9">Tình trạng hoạt động: {{item.TINH_TRANG_HOAT_DONG}}</div>
+            </div>
+            <div>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#chitiet">Thông tin chi tiết</a></li>
+                    <li><a data-toggle="tab" href="#lienhekhachhang" ng-click="get_lienhe(item.MA_KHACH_HANG);">Liên hệ</a></li>
+                    <li><a data-toggle="tab" href="#taikhoankhachhang" ng-click="get_taikhoan(item.MA_KHACH_HANG)">Tài khoản</a></li>
+                    <li><a data-toggle="tab" href="#phanhoikhachhang" ng-click="get_phanhoi(item.MA_KHACH_HANG)">Phản hồi khách hàng</a></li>
+                </ul>
+                <div class="tab-content">
+                    <!--Tab chi tiết hàng hóa-->
+                    <div id="chitiet" class="tab-pane fade in active">
+                        <div class="col-md-12" style="box-shadow: 3px 3px 3px #ddd">
+                            <div class="col-md-6">
+                                <table class="table noborder">
+                                    <tr>
+                                        <td>Văn phòng giao dịch</td>
+                                        <td>{{item.VAN_PHONG_GIAO_DICH}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Địa chỉ xuất hóa đơn:</td>
+                                        <td>{{item.DIA_CHI_XUAT_HOA_DON}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mã số thuế:</td>
+                                        <td>{{item.MST}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Điện thoại:</td>
+                                        <td>{{item.HOTLINE}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td>{{item.EMAIL}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fax:</td>
+                                        <td>{{item.FAX}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table noborder">
+                                    <tr>
+                                        <td>Website</td>
+                                        <td>{{item.WEBSITE}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Điều khoản thanh toán</td>
+                                        <td>{{item.DIEU_KHOAN_THANH_TOAN}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Số ngày được nợ</td>
+                                        <td>{{item.SO_NGAY_DUOC_NO}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Số nợ tối đa</td>
+                                        <td>{{item.SO_NO_TOI_DA}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ghi chú</td>
+                                        <td ng-bind-html="item.GHI_CHU | unsafe" class="{{item.MA_KHACH_HANG}}-1"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#myEdit" ng-click="edit(item)" class="btn btn-default">Sửa</button>
+                    </div>
+                    <div id="lienhekhachhang" class="tab-pane fade">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead class="table-header-popup">
+                                    <tr>
+                                        <th style="text-align: center">Người liên hệ</th>
+                                        <th style="text-align: center">Chức vụ</th>
+                                        <th style="text-align: center">Email</th>
+                                        <th style="text-align: center">SĐT</th>
+                                        <th style="text-align: center">Skype</th>
+                                        <th style="text-align: center">Sale phụ trách</th>
+                                        <th style="text-align: center">Loại sales</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="lienhe in list_lienhe" ng-click="details(lienhe)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.NGUOI_LIEN_HE}}</td>
+                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.CHUC_VU}}</td>
+                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.EMAIL_CA_NHAN}}</td>
+                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.SDT1}}</td>
+                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.SKYPE}}</td>
+                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.HO_VA_TEN}}</td>
+                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe" ng-if="lienhe.SALES_MOI == true">Sales mới</td>
+                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe" ng-if="lienhe.SALES_CU == true">Sales cũ</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>
+                                            <button type="button" ng-click="trasnfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newlienhe">Thêm mới</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="taikhoankhachhang" class="tab-pane fade">
+                        <table class="table">
+                            <thead class="table-header-popup">
+                                <tr>
+                                    <th style="text-align: center">Số tài khoản</th>
+                                    <th style="text-align: center">Tên tài khoản</th>
+                                    <th style="text-align: center">Tên ngân hàng</th>
+                                    <th style="text-align: center">Chi nhánh</th>
+                                    <th style="text-align: center">Tỉnh/Thành phố</th>
+                                    <th style="text-align: center">Ghi chú</th>
+                                    <th style="text-align: center">Loại tài khoản</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="taikhoan in list_taikhoankh" ng-click="details(taikhoan)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                                    <td>{{taikhoan.SO_TAI_KHOAN}}</td>
+                                    <td>{{taikhoan.TEN_TAI_KHOAN}}</td>
+                                    <td>{{taikhoan.TEN_NGAN_HANG}}</td>
+                                    <td>{{taikhoan.CHI_NHANH}}</td>
+                                    <td>{{taikhoan.TINH_TP}}</td>
+                                    <td>{{taikhoan.GHI_CHU}}</td>
+                                    <td>{{taikhoan.TEN_LOAI}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newtaikhoan">Thêm mới</button>
+                    </div>
+                    <div id="phanhoikhachhang" class="tab-pane fade">
+                        <table class="table" ng-repeat="khachphanhoi in list_phanhoi">
+                            <tr>
+                                <td style="width: 10%;border: 1px solid black">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
+                                <td style="width: 20%;border: 1px solid black">{{khachphanhoi.HO_VA_TEN}}</td>
+                                <td ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 69%;border: 1px solid black"></td>
+                            </tr>
+                        </table>
+                        <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newphanhoi">Thêm mới</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Update khách hàng-->
+    <div class="modal fade" id="myEdit" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" style="width: 90%">
+            <div class="modal-content" style="height: 100%">
+
+                <div class="modal-body">
+                    <form class="form-horizontal" action="/KhachHang/Index" method="post">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="addmakhachhang" class="col-sm-2 control-label">Mã khách hàng</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" disabled="disabled" id="addmakhachhang" ng-model="kh.MA_KHACH_HANG">
+                                </div>
+                                <div ng-controller="imgCtrl" class="col-md-8">
+                                    <div class="col-md-6">
+                                        @Html.AntiForgeryToken()
+                                        <input type='file' name="files" id="imgEdit" style="width: 25%;display: inline-block" />
+                                        <input type="submit" value="Upload Ảnh" style="width: 25%;display: inline-block;float: right" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img id="edit_img" src="#" height="100" width="150" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="addtencongty" class="col-sm-2 control-label">Tên công ty</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="addtencongty" ng-model="kh.TEN_CONG_TY">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-sm-2 control-label">Phân loại khách hàng</label>
+                                <div class="col-sm-10">
+                                    <div class="container">
+                                        <label class="radio-inline" ng-repeat="phanloai in list_phanloai">
+                                            <input type="radio" name="optradio" ng-value="phanloai.MA_LOAI_KHACH" ng-model="kh.MA_LOAI_KHACH">{{phanloai.TEN_LOAI_KHACH}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="addvpgiaodich" class="col-sm-2 control-label">Văn phòng giao dịch</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="addvpgiaodich" ng-model="kh.VAN_PHONG_GIAO_DICH">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="adddiachixuathoadon" class="col-sm-2 control-label">Địa chỉ xuất hóa đơn</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="adddiachixuathoadon" ng-model="kh.DIA_CHI_XUAT_HOA_DON">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-sm-2 control-label">Tình trạng hoạt động</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control" ng-model="kh.TINH_TRANG_HOAT_DONG" style="width: 100%;" data-ng-options="item as item for item in tinhtranghoatdong"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="addmasothue" class="col-sm-2 control-label">Mã số thuế</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="addmasothue" ng-model="kh.MST">
+                                </div>
+                                <label for="addwebsite" class="col-sm-1 control-label">Website</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="addwebsite" ng-model="kh.WEBSITE">
+                                </div>
+                                <label for="addsomayban" class="col-sm-1 control-label">Số máy bàn</label>
+                                <div class="col-sm-2">
+                                    <input type="tel" class="form-control" id="addsomayban" ng-model="kh.HOTLINE">
+                                </div>
+                                <label for="addfax" class="col-sm-1 control-label">Fax</label>
+                                <div class="col-sm-1">
+                                    <input type="text" class="form-control" id="addfax" ng-model="kh.FAX">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-sm-2 control-label">Điều khoản thanh toán</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control" ng-model="kh.DIEU_KHOAN_THANH_TOAN" id="adddieukhoanthanhtoan" style="width: 100%;" data-ng-options="item as item for item in dieukhoantt"></select>
+                                </div>
+                                <label for="addsongayduocno" class="col-sm-2 control-label">Số ngày được nợ</label>
+                                <div class="col-sm-1">
+                                    <input type="number" class="form-control" id="addsongayduocno" ng-model="kh.SO_NGAY_DUOC_NO">
+                                </div>
+                                <label for="addsonotoida" class="col-sm-1 control-label">Số nợ tối đa</label>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="addsonotoida" ng-model="kh.SO_NO_TOI_DA">
+                                </div>
+                                <label for="addemail" class="col-sm-1 control-label">Email</label>
+                                <div class="col-sm-1">
+                                    <input type="text" class="form-control" id="addemail" ng-model="kh.EMAIL">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="col-md-1">
+                                    <label class="col-md-12">Ghi chú</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <textarea id="editghichu" name="editghichu" class="form-control input-md" ng-model="kh.GHI_CHU"></textarea>
+                                </div>
+                            </div>
+                            <script>
+                                    CKEDITOR.replace('editghichu', {
+                                        height: 150
+                                    });
+                            </script>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="save" name="save" class="btn" data-dismiss="modal" ng-click="save_chitiet_kh(kh.MA_KHACH_HANG,kh.ID)">Save</button>
+                    <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!--end modal-->
+    <!-- Modal chi tiet lien he -->
+    <div class="modal fade" id="chitietlienhe" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" style="width:80%;">
+            <div class="modal-content" style="height: 600px;">
+                <div class="modal-body">
+                    <div class="col-md-12" style="box-shadow: 3px 3px 3px #ddd">
+                        <div class="col-md-6">
+                            <table class="table noborder">
+                                <tr>
+                                    <td>Tên công ty</td>
+                                    <td>{{lienhe.TEN_CONG_TY}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Người liên hệ</td>
+                                    <td>{{lienhe.NGUOI_LIEN_HE}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Chức vụ</td>
+                                    <td>{{lienhe.CHUC_VU}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Phòng ban</td>
+                                    <td>{{lienhe.PHONG_BAN}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày sinh:</td>
+                                    <td>{{lienhe.NGAY_SINH}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Email cá nhân:</td>
+                                    <td>{{lienhe.EMAIL_CA_NHAN}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email công ty:</td>
+                                    <td>{{lienhe.EMAIL_CONG_TY}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tình trạng làm việc</td>
+                                    <td>{{lienhe.TINH_TRANG_LAM_VIEC}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table noborder">
+                                <tr>
+                                    <td>Giới tính:</td>
+                                    <td>{{lienhe.GIOI_TINH}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Skype</td>
+                                    <td>{{lienhe.SKYPE}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Facebook</td>
+                                    <td>{{lienhe.FACEBOOK}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Số điện thoại 1:</td>
+                                    <td>{{lienhe.SDT1}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Số điện thoại 2:</td>
+                                    <td>{{lienhe.SDT2}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Sales phụ trách</td>
+                                    <td>{{lienhe.HO_VA_TEN}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ghi chú</td>
+                                    <td>{{lienhe.GHI_CHU}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#myEditLienHe" ng-click="EditLienHe(lienhe)" class="btn btn-default">Sửa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!--end modal-->
+    <!-- Modal Update lien he-->
+    <div class="modal fade" id="myEditLienHe" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" style="width: 90%">
+            <div class="modal-content" style="height: 100%">
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="addmakhachhang" class="col-sm-2 control-label">ID Liên hệ</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" disabled="disabled" id="addmakhachhang" ng-model="editlh.ID_LIEN_HE">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addtencongty" class="col-sm-2 control-label">Mã khách hàng</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" disabled="disabled" id="addtencongty" ng-model="editlh.MA_KHACH_HANG">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addtencongty" class="col-sm-2 control-label">Người liên hệ</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="addtencongty" ng-model="editlh.NGUOI_LIEN_HE">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addvpgiaodich" class="col-sm-2 control-label">Chức vụ</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="addvpgiaodich" ng-model="editlh.CHUC_VU">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="adddiachixuathoadon" class="col-sm-2 control-label">Phòng ban</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="adddiachixuathoadon" ng-model="editlh.PHONG_BAN">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addmasothue" class="col-sm-2 control-label">Ngày sinh</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" ng-model="editlh.NGAY_SINH">
+                        </div>
+                        <label for="addwebsite" class="col-sm-1 control-label">Giới tính</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="addwebsite" ng-model="editlh.GIOI_TINH">
+                        </div>
+                        <label for="addsomayban" class="col-sm-1 control-label">Email cá nhân</label>
+                        <div class="col-sm-2">
+                            <input type="tel" class="form-control" disabled="disabled" id="addsomayban" ng-model="editlh.EMAIL_CA_NHAN">
+                        </div>
+                        <label for="addemail" class="col-sm-1 control-label">Số điện thoại 1</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" disabled="disabled" id="addemail" ng-model="editlh.SDT1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addsongayduocno" class="col-sm-2 control-label">Skype</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="addsongayduocno" ng-model="editlh.SKYPE">
+                        </div>
+                        <label for="addsonotoida" class="col-sm-1 control-label">Facebook</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="addsonotoida" ng-model="editlh.FACEBOOK">
+                        </div>
+                        <label for="addfax" class="col-sm-1 control-label">Email công ty</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="addfax" ng-model="editlh.EMAIL_CONG_TY">
+                        </div>
+                        <label for="addemail" class="col-sm-1 control-label">Số điện thoại 2</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="addemail" ng-model="editlh.SDT2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Sales phụ trách</label>
+                        <div class="col-sm-2">
+                            <select ng-model="editlh.SALES_PHU_TRACH" class="form-control input-md" disabled="disabled">
+                                <option ng-repeat="abc in list_nhanvienkd" value="{{abc.USERNAME}}">{{abc.HO_VA_TEN}}</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-2 control-label">Tình trạng làm việc</label>
+                        <div class="col-md-4">
+                            <select ng-model="editlh.TINH_TRANG_LAM_VIEC" style="height: 27px;padding-left: 5px;width:100%" data-ng-options="item as item for item in tinh_trang"></select>
+                        </div>
+                        <label class="col-sm-1 control-label">Trạng thái</label>
+                        <div class="col-sm-1">
+                            <input type="checkbox" id="addemail" ng-model="editlh.TRANG_THAI">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addmasothue" class="col-sm-2 control-label">Ngày kết thúc phụ trách</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" ng-model="editlh.NGAY_KET_THUC_PHU_TRACH">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addghichu" class="col-sm-2 control-label">Ghi chú</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" id="addghichu" ng-model="editlh.GHI_CHU"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save" name="save" class="btn" data-dismiss="modal" ng-click="savelienhe(editlh.ID_LIEN_HE)">Save</button>
+                    <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end modal-->
+    <script>
+    (function () {
+
+        var bar = $('.progress-bar');
+        var percent = $('.progress-bar');
+        var status = $('#status');
+
+        $('form').ajaxForm({
+            beforeSend: function () {
+                status.empty();
+                var percentVal = '0%';
+                bar.width(percentVal)
+                percent.html(percentVal);
+            },
+            uploadProgress: function (event, position, total, percentComplete) {
+                var percentVal = percentComplete + '%';
+                bar.width(percentVal)
+                percent.html(percentVal);
+            },
+            success: function () {
+                var percentVal = '100%';
+                bar.width(percentVal)
+                percent.html(percentVal);
+            },
+            complete: function (xhr) {
+                status.html(xhr.responseText);
+            }
+        });
+
+
+    })();
+    </script>
+</div>
+

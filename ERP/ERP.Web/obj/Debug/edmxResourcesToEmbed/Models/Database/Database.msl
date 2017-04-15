@@ -1,0 +1,1830 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ERP_DATABASEModelStoreContainer" CdmEntityContainer="ERP_DATABASEEntities">
+    <FunctionImportMapping FunctionImportName="XL_TimKiemHangHoa" FunctionName="ERP_DATABASEModel.Store.XL_TimKiemHangHoa">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.XL_TimKiemHangHoa_Result">
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="MA_CHUAN" ColumnName="MA_CHUAN" />
+          <ScalarProperty Name="THONG_SO" ColumnName="THONG_SO" />
+          <ScalarProperty Name="MA_NHAP_HANG" ColumnName="MA_NHAP_HANG" />
+          <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
+          <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+          <ScalarProperty Name="DON_VI_TINH" ColumnName="DON_VI_TINH" />
+          <ScalarProperty Name="KHOI_LUONG" ColumnName="KHOI_LUONG" />
+          <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+          <ScalarProperty Name="GIA_NHAP" ColumnName="GIA_NHAP" />
+          <ScalarProperty Name="GIA_LIST" ColumnName="GIA_LIST" />
+          <ScalarProperty Name="BAO_HANH" ColumnName="BAO_HANH" />
+          <ScalarProperty Name="THONG_SO_KY_THUAT" ColumnName="THONG_SO_KY_THUAT" />
+          <ScalarProperty Name="QUY_CACH_DONG_GOI" ColumnName="QUY_CACH_DONG_GOI" />
+          <ScalarProperty Name="DISCONTINUE" ColumnName="DISCONTINUE" />
+          <ScalarProperty Name="MA_CHUYEN_DOI" ColumnName="MA_CHUYEN_DOI" />
+          <ScalarProperty Name="HINH_ANH" ColumnName="HINH_ANH" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TK_HACH_TOAN_KHO" ColumnName="TK_HACH_TOAN_KHO" />
+          <ScalarProperty Name="TK_DOANH_THU" ColumnName="TK_DOANH_THU" />
+          <ScalarProperty Name="TK_CHI_PHI" ColumnName="TK_CHI_PHI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="BaiVietTheoDanhMuc" FunctionName="ERP_DATABASEModel.Store.BaiVietTheoDanhMuc">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.BaiVietTheoDanhMuc_Result">
+          <ScalarProperty Name="MA_BAI_VIET" ColumnName="MA_BAI_VIET" />
+          <ScalarProperty Name="NGAY_DANG_BAI" ColumnName="NGAY_DANG_BAI" />
+          <ScalarProperty Name="TIEU_DE_BAI_VIET" ColumnName="TIEU_DE_BAI_VIET" />
+          <ScalarProperty Name="NOI_DUNG_BAI_VIET" ColumnName="NOI_DUNG_BAI_VIET" />
+          <ScalarProperty Name="NGUOI_DANG_BAI" ColumnName="NGUOI_DANG_BAI" />
+          <ScalarProperty Name="ANH_BAI_VIET" ColumnName="ANH_BAI_VIET" />
+          <ScalarProperty Name="TEN_DANH_MUC" ColumnName="TEN_DANH_MUC" />
+          <ScalarProperty Name="MA_DANH_MUC" ColumnName="MA_DANH_MUC" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="XL_LayMaKhachMoiNhat" FunctionName="ERP_DATABASEModel.Store.XL_LayMaKhachMoiNhat" />
+    <FunctionImportMapping FunctionImportName="XL_LayMaGiuHangMoiNhat" FunctionName="ERP_DATABASEModel.Store.XL_LayMaGiuHangMoiNhat" />
+    <FunctionImportMapping FunctionImportName="GetAll_KhachHang" FunctionName="ERP_DATABASEModel.Store.GetAll_KhachHang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_KhachHang_Result">
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="TINH" ColumnName="TINH" />
+          <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+          <ScalarProperty Name="MST" ColumnName="MST" />
+          <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+          <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+          <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+          <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
+          <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="TEN_LOAI_KHACH" ColumnName="TEN_LOAI_KHACH" />
+          <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SALES_PHU_TRACH" ColumnName="SALES_PHU_TRACH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="TimKiemKhachHang" FunctionName="ERP_DATABASEModel.Store.TimKiemKhachHang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.TimKiemKhachHang_Result">
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="TINH" ColumnName="TINH" />
+          <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+          <ScalarProperty Name="SALES_PHU_TRACH" ColumnName="SALES_PHU_TRACH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="HopLong_LocKHTheoSale" FunctionName="ERP_DATABASEModel.Store.HopLong_LocKHTheoSale">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_LocKHTheoSale_Result">
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="TINH" ColumnName="TINH" />
+          <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+          <ScalarProperty Name="MST" ColumnName="MST" />
+          <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+          <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+          <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+          <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
+          <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+          <ScalarProperty Name="TEN_LOAI_KHACH" ColumnName="TEN_LOAI_KHACH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SALES_PHU_TRACH" ColumnName="SALES_PHU_TRACH" />
+          <ScalarProperty Name="NHOM_NGANH" ColumnName="NHOM_NGANH" />
+          <ScalarProperty Name="TINH_TRANG_HOAT_DONG" ColumnName="TINH_TRANG_HOAT_DONG" />
+          <ScalarProperty Name="TEN_CUA_SALES_PHU_TRACH" ColumnName="TEN_CUA_SALES_PHU_TRACH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="HopLong_GetAllSale" FunctionName="ERP_DATABASEModel.Store.HopLong_GetAllSale">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_GetAllSale_Result">
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="HO_VA_TEN" ColumnName="HO_VA_TEN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="HopLong_DS_TONKHO" FunctionName="ERP_DATABASEModel.Store.HopLong_DS_TONKHO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_DS_TONKHO_Result">
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
+          <ScalarProperty Name="MA_CHUAN" ColumnName="MA_CHUAN" />
+          <ScalarProperty Name="THONG_SO" ColumnName="THONG_SO" />
+          <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+          <ScalarProperty Name="GIA_LIST" ColumnName="GIA_LIST" />
+          <ScalarProperty Name="DISCONTINUE" ColumnName="DISCONTINUE" />
+          <ScalarProperty Name="MA_CHUYEN_DOI" ColumnName="MA_CHUYEN_DOI" />
+          <ScalarProperty Name="TON_HOPLONG" ColumnName="TON_HOPLONG" />
+          <ScalarProperty Name="TON_DANANG" ColumnName="TON_DANANG" />
+          <ScalarProperty Name="TON_HCM" ColumnName="TON_HCM" />
+          <ScalarProperty Name="TON_HAIPHONG" ColumnName="TON_HAIPHONG" />
+          <ScalarProperty Name="SL_DANG_GIU" ColumnName="SL_DANG_GIU" />
+          <ScalarProperty Name="SL_NHAN_KY_GUI" ColumnName="SL_NHAN_KY_GUI" />
+          <ScalarProperty Name="SL_KY_GUI_DI" ColumnName="SL_KY_GUI_DI" />
+          <ScalarProperty Name="TON_TAI_HANG" ColumnName="TON_TAI_HANG" />
+          <ScalarProperty Name="THOI_GIAN_CAP_HANG" ColumnName="THOI_GIAN_CAP_HANG" />
+          <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+          <ScalarProperty Name="DVT" ColumnName="DVT" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="HopLong_PhanTrang_TonKho" FunctionName="ERP_DATABASEModel.Store.HopLong_PhanTrang_TonKho">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_PhanTrang_TonKho_Result">
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
+          <ScalarProperty Name="MA_CHUAN" ColumnName="MA_CHUAN" />
+          <ScalarProperty Name="THONG_SO" ColumnName="THONG_SO" />
+          <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+          <ScalarProperty Name="DVT" ColumnName="DVT" />
+          <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+          <ScalarProperty Name="GIA_LIST" ColumnName="GIA_LIST" />
+          <ScalarProperty Name="DISCONTINUE" ColumnName="DISCONTINUE" />
+          <ScalarProperty Name="MA_CHUYEN_DOI" ColumnName="MA_CHUYEN_DOI" />
+          <ScalarProperty Name="TON_HOPLONG" ColumnName="TON_HOPLONG" />
+          <ScalarProperty Name="TON_DANANG" ColumnName="TON_DANANG" />
+          <ScalarProperty Name="TON_HCM" ColumnName="TON_HCM" />
+          <ScalarProperty Name="TON_HAIPHONG" ColumnName="TON_HAIPHONG" />
+          <ScalarProperty Name="SL_DANG_GIU" ColumnName="SL_DANG_GIU" />
+          <ScalarProperty Name="SL_NHAN_KY_GUI" ColumnName="SL_NHAN_KY_GUI" />
+          <ScalarProperty Name="SL_KY_GUI_DI" ColumnName="SL_KY_GUI_DI" />
+          <ScalarProperty Name="TON_TAI_HANG" ColumnName="TON_TAI_HANG" />
+          <ScalarProperty Name="THOI_GIAN_CAP_HANG" ColumnName="THOI_GIAN_CAP_HANG" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAll_LienHeTheoKhach" FunctionName="ERP_DATABASEModel.Store.GetAll_LienHeTheoKhach">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_LienHeTheoKhach_Result">
+          <ScalarProperty Name="ID_LIEN_HE" ColumnName="ID_LIEN_HE" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="NGUOI_LIEN_HE" ColumnName="NGUOI_LIEN_HE" />
+          <ScalarProperty Name="CHUC_VU" ColumnName="CHUC_VU" />
+          <ScalarProperty Name="PHONG_BAN" ColumnName="PHONG_BAN" />
+          <ScalarProperty Name="NGAY_SINH" ColumnName="NGAY_SINH" />
+          <ScalarProperty Name="GIOI_TINH" ColumnName="GIOI_TINH" />
+          <ScalarProperty Name="EMAIL_CA_NHAN" ColumnName="EMAIL_CA_NHAN" />
+          <ScalarProperty Name="EMAIL_CONG_TY" ColumnName="EMAIL_CONG_TY" />
+          <ScalarProperty Name="SKYPE" ColumnName="SKYPE" />
+          <ScalarProperty Name="FACEBOOK" ColumnName="FACEBOOK" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="SDT1" ColumnName="SDT1" />
+          <ScalarProperty Name="SDT2" ColumnName="SDT2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAll_KhachCuaSale" FunctionName="ERP_DATABASEModel.Store.GetAll_KhachCuaSale">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_KhachCuaSale_Result">
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllChungTu" FunctionName="ERP_DATABASEModel.Store.GetAllChungTu">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAllChungTu_Result">
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllChungTu_WithDate" FunctionName="ERP_DATABASEModel.Store.GetAllChungTu_WithDate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAllChungTu_WithDate_Result">
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllHangHoaVaTon" FunctionName="ERP_DATABASEModel.Store.GetAllHangHoaVaTon">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAllHangHoaVaTon_Result">
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
+          <ScalarProperty Name="TON_HOPLONG" ColumnName="TON_HOPLONG" />
+          <ScalarProperty Name="TON_DANANG" ColumnName="TON_DANANG" />
+          <ScalarProperty Name="TON_HCM" ColumnName="TON_HCM" />
+          <ScalarProperty Name="TON_HAIPHONG" ColumnName="TON_HAIPHONG" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetChungTuFromDoiTuong" FunctionName="ERP_DATABASEModel.Store.GetChungTuFromDoiTuong">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetChungTuFromDoiTuong_Result">
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetChungTuFromDoiTuong_WithDate" FunctionName="ERP_DATABASEModel.Store.GetChungTuFromDoiTuong_WithDate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetChungTuFromDoiTuong_WithDate_Result">
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Search_SearchByType" FunctionName="ERP_DATABASEModel.Store.Search_SearchByType">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.Search_SearchByType_Result">
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Search_SearchByTypeWithDate" FunctionName="ERP_DATABASEModel.Store.Search_SearchByTypeWithDate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.Search_SearchByTypeWithDate_Result">
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllDoiTuong" FunctionName="ERP_DATABASEModel.Store.GetAllDoiTuong">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAllDoiTuong_Result">
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+          <ScalarProperty Name="TEN_DOI_TUONG" ColumnName="TEN_DOI_TUONG" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Query_DS_KhachHang_ChuaPhatSinhGiaoDich" FunctionName="ERP_DATABASEModel.Store.Query_DS_KhachHang_ChuaPhatSinhGiaoDich">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.Query_DS_KhachHang_ChuaPhatSinhGiaoDich_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="TINH" ColumnName="TINH" />
+          <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+          <ScalarProperty Name="MST" ColumnName="MST" />
+          <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+          <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+          <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+          <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+          <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
+          <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="TEN_LOAI_KHACH" ColumnName="TEN_LOAI_KHACH" />
+          <ScalarProperty Name="NHOM_NGANH" ColumnName="NHOM_NGANH" />
+          <ScalarProperty Name="TINH_TRANG_HOAT_DONG" ColumnName="TINH_TRANG_HOAT_DONG" />
+          <ScalarProperty Name="SALES_PHU_TRACH" ColumnName="SALES_PHU_TRACH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Query_DS_KhachHang_DaPhatSinhGiaoDich" FunctionName="ERP_DATABASEModel.Store.Query_DS_KhachHang_DaPhatSinhGiaoDich">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.Query_DS_KhachHang_DaPhatSinhGiaoDich_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="TINH" ColumnName="TINH" />
+          <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+          <ScalarProperty Name="MST" ColumnName="MST" />
+          <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+          <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+          <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+          <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+          <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
+          <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="TEN_LOAI_KHACH" ColumnName="TEN_LOAI_KHACH" />
+          <ScalarProperty Name="NHOM_NGANH" ColumnName="NHOM_NGANH" />
+          <ScalarProperty Name="TINH_TRANG_HOAT_DONG" ColumnName="TINH_TRANG_HOAT_DONG" />
+          <ScalarProperty Name="SALES_PHU_TRACH" ColumnName="SALES_PHU_TRACH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="XL_CHUYEN_SALES" FunctionName="ERP_DATABASEModel.Store.XL_CHUYEN_SALES">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.XL_CHUYEN_SALES_Result">
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="TINH" ColumnName="TINH" />
+          <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+          <ScalarProperty Name="SALE_HIEN_THOI" ColumnName="SALE_HIEN_THOI" />
+          <ScalarProperty Name="SALE_SAP_CHUYEN" ColumnName="SALE_SAP_CHUYEN" />
+          <ScalarProperty Name="SALE_CU" ColumnName="SALE_CU" />
+          <ScalarProperty Name="SALE_CU_2" ColumnName="SALE_CU_2" />
+          <ScalarProperty Name="TEN_SALE_HIEN_THOI" ColumnName="TEN_SALE_HIEN_THOI" />
+          <ScalarProperty Name="TEN_SALE_SAP_CHUYEN" ColumnName="TEN_SALE_SAP_CHUYEN" />
+          <ScalarProperty Name="TEN_SALE_CU" ColumnName="TEN_SALE_CU" />
+          <ScalarProperty Name="TEN_SALE_CU_HON" ColumnName="TEN_SALE_CU_HON" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAll_ChiTietBaoGia" FunctionName="ERP_DATABASEModel.Store.GetAll_ChiTietBaoGia">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_ChiTietBaoGia_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SO_BAO_GIA" ColumnName="SO_BAO_GIA" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="SO_LUONG" ColumnName="SO_LUONG" />
+          <ScalarProperty Name="DON_GIA" ColumnName="DON_GIA" />
+          <ScalarProperty Name="CHIET_KHAU" ColumnName="CHIET_KHAU" />
+          <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
+          <ScalarProperty Name="TINH_TRANG_HANG" ColumnName="TINH_TRANG_HANG" />
+          <ScalarProperty Name="THOI_GIAN_GIAO_HANG" ColumnName="THOI_GIAN_GIAO_HANG" />
+          <ScalarProperty Name="NGAY_GIAO_HANG" ColumnName="NGAY_GIAO_HANG" />
+          <ScalarProperty Name="DIA_DIEM_GIAO_HANG" ColumnName="DIA_DIEM_GIAO_HANG" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="DON_GIA_LIST" ColumnName="DON_GIA_LIST" />
+          <ScalarProperty Name="DON_GIA_NHAP" ColumnName="DON_GIA_NHAP" />
+          <ScalarProperty Name="HE_SO_LOI_NHUAN" ColumnName="HE_SO_LOI_NHUAN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAll_ThongTinBaoGia" FunctionName="ERP_DATABASEModel.Store.GetAll_ThongTinBaoGia">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_ThongTinBaoGia_Result">
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="NGUOI_LIEN_HE" ColumnName="NGUOI_LIEN_HE" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="EMAIL_CA_NHAN" ColumnName="EMAIL_CA_NHAN" />
+          <ScalarProperty Name="EMAIL_CONG_TY" ColumnName="EMAIL_CONG_TY" />
+          <ScalarProperty Name="SO_BAO_GIA" ColumnName="SO_BAO_GIA" />
+          <ScalarProperty Name="SALES_BAO_GIA" ColumnName="SALES_BAO_GIA" />
+          <ScalarProperty Name="TEN_NGUOI_BAO_GIA" ColumnName="TEN_NGUOI_BAO_GIA" />
+          <ScalarProperty Name="SDT_NGUOI_BAO_GIA" ColumnName="SDT_NGUOI_BAO_GIA" />
+          <ScalarProperty Name="EMAIL_NGUOI_BAO_GIA" ColumnName="EMAIL_NGUOI_BAO_GIA" />
+          <ScalarProperty Name="NGAY_BAO_GIA" ColumnName="NGAY_BAO_GIA" />
+          <ScalarProperty Name="PHI_VAN_CHUYEN" ColumnName="PHI_VAN_CHUYEN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAll_ThongTinChiTietBaoGia" FunctionName="ERP_DATABASEModel.Store.GetAll_ThongTinChiTietBaoGia">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_ThongTinChiTietBaoGia_Result">
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="MA_CHUAN" ColumnName="MA_CHUAN" />
+          <ScalarProperty Name="CHIET_KHAU" ColumnName="CHIET_KHAU" />
+          <ScalarProperty Name="THONG_SO" ColumnName="THONG_SO" />
+          <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
+          <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+          <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+          <ScalarProperty Name="DON_VI_TINH" ColumnName="DON_VI_TINH" />
+          <ScalarProperty Name="SO_LUONG" ColumnName="SO_LUONG" />
+          <ScalarProperty Name="DON_GIA" ColumnName="DON_GIA" />
+          <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
+          <ScalarProperty Name="THOI_GIAN_GIAO_HANG" ColumnName="THOI_GIAN_GIAO_HANG" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TINH_TRANG_HANG" ColumnName="TINH_TRANG_HANG" />
+          <ScalarProperty Name="NGAY_GIAO_HANG" ColumnName="NGAY_GIAO_HANG" />
+          <ScalarProperty Name="DIA_DIEM_GIAO_HANG" ColumnName="DIA_DIEM_GIAO_HANG" />
+          <ScalarProperty Name="HE_SO_LOI_NHUAN" ColumnName="HE_SO_LOI_NHUAN" />
+          <ScalarProperty Name="DON_GIA_LIST" ColumnName="DON_GIA_LIST" />
+          <ScalarProperty Name="DON_GIA_NHAP" ColumnName="DON_GIA_NHAP" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_BaiViet_ThongBaoKinhDoanh" FunctionName="ERP_DATABASEModel.Store.Get_BaiViet_ThongBaoKinhDoanh">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.Get_BaiViet_ThongBaoKinhDoanh_Result">
+          <ScalarProperty Name="MA_BAI_VIET" ColumnName="MA_BAI_VIET" />
+          <ScalarProperty Name="TIEU_DE_BAI_VIET" ColumnName="TIEU_DE_BAI_VIET" />
+          <ScalarProperty Name="NGAY_DANG_BAI" ColumnName="NGAY_DANG_BAI" />
+          <ScalarProperty Name="NOI_DUNG_BAI_VIET" ColumnName="NOI_DUNG_BAI_VIET" />
+          <ScalarProperty Name="ANH_BAI_VIET" ColumnName="ANH_BAI_VIET" />
+          <ScalarProperty Name="NGUOI_DANG_BAI" ColumnName="NGUOI_DANG_BAI" />
+          <ScalarProperty Name="TEN_DANH_MUC" ColumnName="TEN_DANH_MUC" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_BaoGia_TheoDuKien" FunctionName="ERP_DATABASEModel.Store.Get_BaoGia_TheoDuKien">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.Get_BaoGia_TheoDuKien_Result">
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="NGUOI_LIEN_HE" ColumnName="NGUOI_LIEN_HE" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="EMAIL_CA_NHAN" ColumnName="EMAIL_CA_NHAN" />
+          <ScalarProperty Name="EMAIL_CONG_TY" ColumnName="EMAIL_CONG_TY" />
+          <ScalarProperty Name="SO_BAO_GIA" ColumnName="SO_BAO_GIA" />
+          <ScalarProperty Name="SALES_BAO_GIA" ColumnName="SALES_BAO_GIA" />
+          <ScalarProperty Name="TEN_NGUOI_BAO_GIA" ColumnName="TEN_NGUOI_BAO_GIA" />
+          <ScalarProperty Name="SDT_NGUOI_BAO_GIA" ColumnName="SDT_NGUOI_BAO_GIA" />
+          <ScalarProperty Name="EMAIL_NGUOI_BAO_GIA" ColumnName="EMAIL_NGUOI_BAO_GIA" />
+          <ScalarProperty Name="NGAY_BAO_GIA" ColumnName="NGAY_BAO_GIA" />
+          <ScalarProperty Name="PHI_VAN_CHUYEN" ColumnName="PHI_VAN_CHUYEN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_ChiTiet_Tung_KhachHang" FunctionName="ERP_DATABASEModel.Store.Get_ChiTiet_Tung_KhachHang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.Get_ChiTiet_Tung_KhachHang_Result">
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="TINH" ColumnName="TINH" />
+          <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+          <ScalarProperty Name="MST" ColumnName="MST" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+          <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+          <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+          <ScalarProperty Name="TINH_TRANG_HOAT_DONG" ColumnName="TINH_TRANG_HOAT_DONG" />
+          <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
+          <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="SALES_TAO" ColumnName="SALES_TAO" />
+          <ScalarProperty Name="HO_VA_TEN" ColumnName="HO_VA_TEN" />
+          <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+          <ScalarProperty Name="NHOM_NGANH" ColumnName="NHOM_NGANH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAll_DonDuKienTheoSale" FunctionName="ERP_DATABASEModel.Store.GetAll_DonDuKienTheoSale">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_DonDuKienTheoSale_Result">
+          <ScalarProperty Name="MA_DU_KIEN" ColumnName="MA_DU_KIEN" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="ID_LIEN_HE" ColumnName="ID_LIEN_HE" />
+          <ScalarProperty Name="LY_DO_THAT_BAI" ColumnName="LY_DO_THAT_BAI" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="THANH_CONG" ColumnName="THANH_CONG" />
+          <ScalarProperty Name="THAT_BAI" ColumnName="THAT_BAI" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="TEN_KHACH_HANG" ColumnName="TEN_KHACH_HANG" />
+          <ScalarProperty Name="NGUOI_LIEN_HE" ColumnName="NGUOI_LIEN_HE" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="XL_LayBaoGiaMoiNhat" FunctionName="ERP_DATABASEModel.Store.XL_LayBaoGiaMoiNhat" />
+    <EntitySetMapping Name="BH_BAO_GIA">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.BH_BAO_GIA">
+        <MappingFragment StoreEntitySet="BH_BAO_GIA">
+          <ScalarProperty Name="DANG_CHO_PHAN_HOI" ColumnName="DANG_CHO_PHAN_HOI" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="SALES_BAO_GIA" ColumnName="SALES_BAO_GIA" />
+          <ScalarProperty Name="LY_DO_HUY" ColumnName="LY_DO_HUY" />
+          <ScalarProperty Name="DA_HUY" ColumnName="DA_HUY" />
+          <ScalarProperty Name="DA_TRUNG" ColumnName="DA_TRUNG" />
+          <ScalarProperty Name="NGUOI_DUYET" ColumnName="NGUOI_DUYET" />
+          <ScalarProperty Name="DA_DUYET" ColumnName="DA_DUYET" />
+          <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
+          <ScalarProperty Name="PHI_VAN_CHUYEN" ColumnName="PHI_VAN_CHUYEN" />
+          <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+          <ScalarProperty Name="HIEU_LUC_BAO_GIA" ColumnName="HIEU_LUC_BAO_GIA" />
+          <ScalarProperty Name="HAN_THANH_TOAN" ColumnName="HAN_THANH_TOAN" />
+          <ScalarProperty Name="PHUONG_THUC_THANH_TOAN" ColumnName="PHUONG_THUC_THANH_TOAN" />
+          <ScalarProperty Name="LIEN_HE_KHACH_HANG" ColumnName="LIEN_HE_KHACH_HANG" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="MA_DU_KIEN" ColumnName="MA_DU_KIEN" />
+          <ScalarProperty Name="NGAY_BAO_GIA" ColumnName="NGAY_BAO_GIA" />
+          <ScalarProperty Name="SO_BAO_GIA" ColumnName="SO_BAO_GIA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BH_CT_BAO_GIA">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.BH_CT_BAO_GIA">
+        <MappingFragment StoreEntitySet="BH_CT_BAO_GIA">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="DIA_DIEM_GIAO_HANG" ColumnName="DIA_DIEM_GIAO_HANG" />
+          <ScalarProperty Name="NGAY_GIAO_HANG" ColumnName="NGAY_GIAO_HANG" />
+          <ScalarProperty Name="THOI_GIAN_GIAO_HANG" ColumnName="THOI_GIAN_GIAO_HANG" />
+          <ScalarProperty Name="TINH_TRANG_HANG" ColumnName="TINH_TRANG_HANG" />
+          <ScalarProperty Name="HE_SO_LOI_NHUAN" ColumnName="HE_SO_LOI_NHUAN" />
+          <ScalarProperty Name="DON_GIA_NHAP" ColumnName="DON_GIA_NHAP" />
+          <ScalarProperty Name="CHIET_KHAU" ColumnName="CHIET_KHAU" />
+          <ScalarProperty Name="DON_GIA_LIST" ColumnName="DON_GIA_LIST" />
+          <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
+          <ScalarProperty Name="DON_GIA" ColumnName="DON_GIA" />
+          <ScalarProperty Name="SO_LUONG" ColumnName="SO_LUONG" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="SO_BAO_GIA" ColumnName="SO_BAO_GIA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BH_DE_NGHI_GIU_HANG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.BH_DE_NGHI_GIU_HANG">
+        <MappingFragment StoreEntitySet="BH_DE_NGHI_GIU_HANG">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="CHUA_GIU" ColumnName="CHUA_GIU" />
+          <ScalarProperty Name="DA_GIU" ColumnName="DA_GIU" />
+          <ScalarProperty Name="LOAI_GIU" ColumnName="LOAI_GIU" />
+          <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="KHACH_HANG" ColumnName="KHACH_HANG" />
+          <ScalarProperty Name="SALES_DN" ColumnName="SALES_DN" />
+          <ScalarProperty Name="NGAY_XUAT" ColumnName="NGAY_XUAT" />
+          <ScalarProperty Name="NGAY_DN" ColumnName="NGAY_DN" />
+          <ScalarProperty Name="MA_SO_DN" ColumnName="MA_SO_DN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BH_DON_HANG_DU_KIEN">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.BH_DON_HANG_DU_KIEN">
+        <MappingFragment StoreEntitySet="BH_DON_HANG_DU_KIEN">
+          <ScalarProperty Name="ID_LIEN_HE" ColumnName="ID_LIEN_HE" />
+          <ScalarProperty Name="SALES_QUAN_LY" ColumnName="SALES_QUAN_LY" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="LY_DO_THAT_BAI" ColumnName="LY_DO_THAT_BAI" />
+          <ScalarProperty Name="THAT_BAI" ColumnName="THAT_BAI" />
+          <ScalarProperty Name="THANH_CONG" ColumnName="THANH_CONG" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="MA_DU_KIEN" ColumnName="MA_DU_KIEN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CATEGORIES">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CATEGORy">
+        <MappingFragment StoreEntitySet="CATEGORIES">
+          <ScalarProperty Name="MA_DANH_MUC_CHA" ColumnName="MA_DANH_MUC_CHA" />
+          <ScalarProperty Name="TEN_DANH_MUC" ColumnName="TEN_DANH_MUC" />
+          <ScalarProperty Name="MA_DANH_MUC" ColumnName="MA_DANH_MUC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CCTC_BANG_CHAM_CONG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CCTC_BANG_CHAM_CONG">
+        <MappingFragment StoreEntitySet="CCTC_BANG_CHAM_CONG">
+          <ScalarProperty Name="PHU_CAP_THEM" ColumnName="PHU_CAP_THEM" />
+          <ScalarProperty Name="SO_LAN_QUEN_DEO_THE" ColumnName="SO_LAN_QUEN_DEO_THE" />
+          <ScalarProperty Name="SO_LAN_QUEN_DONG_PHUC" ColumnName="SO_LAN_QUEN_DONG_PHUC" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="UNG_LUONG" ColumnName="UNG_LUONG" />
+          <ScalarProperty Name="VAY_TIN_DUNG" ColumnName="VAY_TIN_DUNG" />
+          <ScalarProperty Name="CONG_THUC_TE" ColumnName="CONG_THUC_TE" />
+          <ScalarProperty Name="SO_NGAY_NGHI" ColumnName="SO_NGAY_NGHI" />
+          <ScalarProperty Name="SO_LAN_QUEN_CHAM" ColumnName="SO_LAN_QUEN_CHAM" />
+          <ScalarProperty Name="TANG_CA_NGAY_LE" ColumnName="TANG_CA_NGAY_LE" />
+          <ScalarProperty Name="TANG_CA_NGAY_THUONG" ColumnName="TANG_CA_NGAY_THUONG" />
+          <ScalarProperty Name="GIO_VE_SOM" ColumnName="GIO_VE_SOM" />
+          <ScalarProperty Name="GIO_DI_MUON" ColumnName="GIO_DI_MUON" />
+          <ScalarProperty Name="NGAY_CHUAN" ColumnName="NGAY_CHUAN" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="THANG_CHAM_CONG" ColumnName="THANG_CHAM_CONG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CCTC_BANG_LUONG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CCTC_BANG_LUONG">
+        <MappingFragment StoreEntitySet="CCTC_BANG_LUONG">
+          <ScalarProperty Name="PHU_CAP_THEM" ColumnName="PHU_CAP_THEM" />
+          <ScalarProperty Name="THUC_LINH" ColumnName="THUC_LINH" />
+          <ScalarProperty Name="LUONG_LAO_CONG" ColumnName="LUONG_LAO_CONG" />
+          <ScalarProperty Name="CONG_DOAN" ColumnName="CONG_DOAN" />
+          <ScalarProperty Name="PHAT_QUEN_DEO_THE" ColumnName="PHAT_QUEN_DEO_THE" />
+          <ScalarProperty Name="PHAT_QUEN_DONG_PHUC" ColumnName="PHAT_QUEN_DONG_PHUC" />
+          <ScalarProperty Name="PHAT_DI_TRE" ColumnName="PHAT_DI_TRE" />
+          <ScalarProperty Name="GIO_DI_TRE" ColumnName="GIO_DI_TRE" />
+          <ScalarProperty Name="VAY_TIN_DUNG" ColumnName="VAY_TIN_DUNG" />
+          <ScalarProperty Name="TAM_UNG" ColumnName="TAM_UNG" />
+          <ScalarProperty Name="TONG_THU_NHAP" ColumnName="TONG_THU_NHAP" />
+          <ScalarProperty Name="LUONG_LAM_THEM_TIEN_CONG_NGAY_LE" ColumnName="LUONG_LAM_THEM_TIEN_CONG_NGAY_LE" />
+          <ScalarProperty Name="LUONG_LAM_THEM_CONG_NGAY_LE" ColumnName="LUONG_LAM_THEM_CONG_NGAY_LE" />
+          <ScalarProperty Name="LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI" ColumnName="LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI" />
+          <ScalarProperty Name="LUONG_LAM_THEM_CONG_NGAY_NGHI" ColumnName="LUONG_LAM_THEM_CONG_NGAY_NGHI" />
+          <ScalarProperty Name="LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG" ColumnName="LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG" />
+          <ScalarProperty Name="LUONG_LAM_THEM_CONG_NGAY_THUONG" ColumnName="LUONG_LAM_THEM_CONG_NGAY_THUONG" />
+          <ScalarProperty Name="LUONG_THUC_TE_SO_TIEN" ColumnName="LUONG_THUC_TE_SO_TIEN" />
+          <ScalarProperty Name="LUONG_THUC_TE_CONG_LAM_THUC" ColumnName="LUONG_THUC_TE_CONG_LAM_THUC" />
+          <ScalarProperty Name="BAO_HIEM_NHAN_VIEN_DONG" ColumnName="BAO_HIEM_NHAN_VIEN_DONG" />
+          <ScalarProperty Name="BAO_HIEM_CONG_TY_DONG" ColumnName="BAO_HIEM_CONG_TY_DONG" />
+          <ScalarProperty Name="LUONG_CO_BAN_GIO" ColumnName="LUONG_CO_BAN_GIO" />
+          <ScalarProperty Name="LUONG_CO_BAN_NGAY" ColumnName="LUONG_CO_BAN_NGAY" />
+          <ScalarProperty Name="CONG_CO_BAN" ColumnName="CONG_CO_BAN" />
+          <ScalarProperty Name="PHU_CAP_TRACH_NHIEM" ColumnName="PHU_CAP_TRACH_NHIEM" />
+          <ScalarProperty Name="PHU_CAP_THUONG_DOANH_SO" ColumnName="PHU_CAP_THUONG_DOANH_SO" />
+          <ScalarProperty Name="PHU_CAP_DI_LAI_DIEN_THOAI" ColumnName="PHU_CAP_DI_LAI_DIEN_THOAI" />
+          <ScalarProperty Name="PHU_CAP_AN_TRUA" ColumnName="PHU_CAP_AN_TRUA" />
+          <ScalarProperty Name="LUONG_BAO_HIEM" ColumnName="LUONG_BAO_HIEM" />
+          <ScalarProperty Name="LUONG_CO_BAN" ColumnName="LUONG_CO_BAN" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="THANG_LUONG" ColumnName="THANG_LUONG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CCTC_CONG_TY">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CCTC_CONG_TY">
+        <MappingFragment StoreEntitySet="CCTC_CONG_TY">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="CAP_TO_CHUC" ColumnName="CAP_TO_CHUC" />
+          <ScalarProperty Name="CONG_TY_ME" ColumnName="CONG_TY_ME" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="DIA_CHI" ColumnName="DIA_CHI" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+          <ScalarProperty Name="MST" ColumnName="MST" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="NGAY_THANH_LAP" ColumnName="NGAY_THANH_LAP" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="MA_CONG_TY" ColumnName="MA_CONG_TY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CCTC_MO_HINH_CONG_TY">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CCTC_MO_HINH_CONG_TY">
+        <MappingFragment StoreEntitySet="CCTC_MO_HINH_CONG_TY">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TEN_MO_HINH" ColumnName="TEN_MO_HINH" />
+          <ScalarProperty Name="MA_MO_HINH" ColumnName="MA_MO_HINH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CCTC_NHAN_VIEN">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CCTC_NHAN_VIEN">
+        <MappingFragment StoreEntitySet="CCTC_NHAN_VIEN">
+          <ScalarProperty Name="LINH_VUC_CONG_TAC" ColumnName="LINH_VUC_CONG_TAC" />
+          <ScalarProperty Name="PASS_XEM_LUONG" ColumnName="PASS_XEM_LUONG" />
+          <ScalarProperty Name="MA_PHONG_BAN" ColumnName="MA_PHONG_BAN" />
+          <ScalarProperty Name="THANH_TICH_CONG_TAC" ColumnName="THANH_TICH_CONG_TAC" />
+          <ScalarProperty Name="TRINH_DO_HOC_VAN" ColumnName="TRINH_DO_HOC_VAN" />
+          <ScalarProperty Name="CHUC_VU" ColumnName="CHUC_VU" />
+          <ScalarProperty Name="QUE_QUAN" ColumnName="QUE_QUAN" />
+          <ScalarProperty Name="NGAY_SINH" ColumnName="NGAY_SINH" />
+          <ScalarProperty Name="GIOI_TINH" ColumnName="GIOI_TINH" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CCTC_PHONG_BAN">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CCTC_PHONG_BAN">
+        <MappingFragment StoreEntitySet="CCTC_PHONG_BAN">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="MA_CONG_TY" ColumnName="MA_CONG_TY" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="TEN_PHONG_BAN" ColumnName="TEN_PHONG_BAN" />
+          <ScalarProperty Name="MA_PHONG_BAN" ColumnName="MA_PHONG_BAN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CN_CHI_TIET_NGHIEP_VU">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CN_CHI_TIET_NGHIEP_VU">
+        <MappingFragment StoreEntitySet="CN_CHI_TIET_NGHIEP_VU">
+          <ScalarProperty Name="MO_TA" ColumnName="MO_TA" />
+          <ScalarProperty Name="ID_NGHIEP_VU" ColumnName="ID_NGHIEP_VU" />
+          <ScalarProperty Name="TEN_CHI_TIET" ColumnName="TEN_CHI_TIET" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CN_CHI_TIET_NHOM_NGHIEP_VU">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CN_CHI_TIET_NHOM_NGHIEP_VU">
+        <MappingFragment StoreEntitySet="CN_CHI_TIET_NHOM_NGHIEP_VU">
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="ID_CHI_TIET_NGHIEP_VU" ColumnName="ID_CHI_TIET_NGHIEP_VU" />
+          <ScalarProperty Name="ID_NHOM_NGHIEP_VU" ColumnName="ID_NHOM_NGHIEP_VU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CN_NGHIEP_VU">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CN_NGHIEP_VU">
+        <MappingFragment StoreEntitySet="CN_NGHIEP_VU">
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="TEN_NGHIEP_VU" ColumnName="TEN_NGHIEP_VU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CN_NGHIEP_VU_NHAN_VIEN">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CN_NGHIEP_VU_NHAN_VIEN">
+        <MappingFragment StoreEntitySet="CN_NGHIEP_VU_NHAN_VIEN">
+          <ScalarProperty Name="MO_TA" ColumnName="MO_TA" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="ID_CHI_TIET_NGHIEP_VU" ColumnName="ID_CHI_TIET_NGHIEP_VU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CN_NHOM_NGHIEP_VU">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CN_NHOM_NGHIEP_VU">
+        <MappingFragment StoreEntitySet="CN_NHOM_NGHIEP_VU">
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+          <ScalarProperty Name="TEN_NHOM" ColumnName="TEN_NHOM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CN_NHOM_NGUOI_DUNG_NGHIEP_VU">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.CN_NHOM_NGUOI_DUNG_NGHIEP_VU">
+        <MappingFragment StoreEntitySet="CN_NHOM_NGUOI_DUNG_NGHIEP_VU">
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="ID_NHOM_NGHIEP_VU" ColumnName="ID_NHOM_NGHIEP_VU" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_DINH_KHOAN_TU_DONG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_DINH_KHOAN_TU_DONG">
+        <MappingFragment StoreEntitySet="DM_DINH_KHOAN_TU_DONG">
+          <ScalarProperty Name="TK_CO" ColumnName="TK_CO" />
+          <ScalarProperty Name="TK_NO" ColumnName="TK_NO" />
+          <ScalarProperty Name="TEN_LY_DO" ColumnName="TEN_LY_DO" />
+          <ScalarProperty Name="MA_LY_DO" ColumnName="MA_LY_DO" />
+          <ScalarProperty Name="MA_LOAI_CHUNG_TU" ColumnName="MA_LOAI_CHUNG_TU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_DOI_TUONG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_DOI_TUONG">
+        <MappingFragment StoreEntitySet="DM_DOI_TUONG">
+          <ScalarProperty Name="MA_CONG_TY" ColumnName="MA_CONG_TY" />
+          <ScalarProperty Name="MA_LOAI_DOI_TUONG" ColumnName="MA_LOAI_DOI_TUONG" />
+          <ScalarProperty Name="DIA_CHI" ColumnName="DIA_CHI" />
+          <ScalarProperty Name="TEN_DOI_TUONG" ColumnName="TEN_DOI_TUONG" />
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_KHO">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_KHO">
+        <MappingFragment StoreEntitySet="DM_KHO">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="MA_KHO_CHA" ColumnName="MA_KHO_CHA" />
+          <ScalarProperty Name="DIA_CHI_KHO" ColumnName="DIA_CHI_KHO" />
+          <ScalarProperty Name="TEN_KHO" ColumnName="TEN_KHO" />
+          <ScalarProperty Name="MA_KHO" ColumnName="MA_KHO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_LOAI_CHUNG_TU">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_LOAI_CHUNG_TU">
+        <MappingFragment StoreEntitySet="DM_LOAI_CHUNG_TU">
+          <ScalarProperty Name="TEN_LOAI_CHUNG_TU" ColumnName="TEN_LOAI_CHUNG_TU" />
+          <ScalarProperty Name="MA_LOAI_CHUNG_TU" ColumnName="MA_LOAI_CHUNG_TU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_LOAI_DOI_TUONG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_LOAI_DOI_TUONG">
+        <MappingFragment StoreEntitySet="DM_LOAI_DOI_TUONG">
+          <ScalarProperty Name="TEN_LOAI_DOI_TUONG" ColumnName="TEN_LOAI_DOI_TUONG" />
+          <ScalarProperty Name="MA_LOAI_DOI_TUONG" ColumnName="MA_LOAI_DOI_TUONG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_LOAI_TK_NGAN_HANG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_LOAI_TK_NGAN_HANG">
+        <MappingFragment StoreEntitySet="DM_LOAI_TK_NGAN_HANG">
+          <ScalarProperty Name="TEN_LOAI" ColumnName="TEN_LOAI" />
+          <ScalarProperty Name="MA_LOAI" ColumnName="MA_LOAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_MAU_SO_HOA_DON">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_MAU_SO_HOA_DON">
+        <MappingFragment StoreEntitySet="DM_MAU_SO_HOA_DON">
+          <ScalarProperty Name="TEN_MAU" ColumnName="TEN_MAU" />
+          <ScalarProperty Name="MAU_SO" ColumnName="MAU_SO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_TAI_KHOAN_HACH_TOAN">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_TAI_KHOAN_HACH_TOAN">
+        <MappingFragment StoreEntitySet="DM_TAI_KHOAN_HACH_TOAN">
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+          <ScalarProperty Name="TK_CAP_CHA" ColumnName="TK_CAP_CHA" />
+          <ScalarProperty Name="TEN_TA" ColumnName="TEN_TA" />
+          <ScalarProperty Name="TINH_CHAT" ColumnName="TINH_CHAT" />
+          <ScalarProperty Name="TEN_TK" ColumnName="TEN_TK" />
+          <ScalarProperty Name="SO_TK" ColumnName="SO_TK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_TK_NGAN_HANG_NOI_BO">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_TK_NGAN_HANG_NOI_BO">
+        <MappingFragment StoreEntitySet="DM_TK_NGAN_HANG_NOI_BO">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TINH_TP" ColumnName="TINH_TP" />
+          <ScalarProperty Name="CHI_NHANH" ColumnName="CHI_NHANH" />
+          <ScalarProperty Name="TEN_NGAN_HANG" ColumnName="TEN_NGAN_HANG" />
+          <ScalarProperty Name="LOAI_TAI_KHOAN" ColumnName="LOAI_TAI_KHOAN" />
+          <ScalarProperty Name="TEN_TAI_KHOAN" ColumnName="TEN_TAI_KHOAN" />
+          <ScalarProperty Name="MA_CONG_TY" ColumnName="MA_CONG_TY" />
+          <ScalarProperty Name="SO_TAI_KHOAN" ColumnName="SO_TAI_KHOAN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DVs">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.DV">
+        <MappingFragment StoreEntitySet="DV">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TEN_DICH_VU" ColumnName="TEN_DICH_VU" />
+          <ScalarProperty Name="MA_DICH_VU" ColumnName="MA_DICH_VU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HHs">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.HH">
+        <MappingFragment StoreEntitySet="HH">
+          <ScalarProperty Name="TK_CHI_PHI" ColumnName="TK_CHI_PHI" />
+          <ScalarProperty Name="TK_DOANH_THU" ColumnName="TK_DOANH_THU" />
+          <ScalarProperty Name="TK_HACH_TOAN_KHO" ColumnName="TK_HACH_TOAN_KHO" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="HINH_ANH" ColumnName="HINH_ANH" />
+          <ScalarProperty Name="MA_CHUYEN_DOI" ColumnName="MA_CHUYEN_DOI" />
+          <ScalarProperty Name="DISCONTINUE" ColumnName="DISCONTINUE" />
+          <ScalarProperty Name="QUY_CACH_DONG_GOI" ColumnName="QUY_CACH_DONG_GOI" />
+          <ScalarProperty Name="THONG_SO_KY_THUAT" ColumnName="THONG_SO_KY_THUAT" />
+          <ScalarProperty Name="BAO_HANH" ColumnName="BAO_HANH" />
+          <ScalarProperty Name="GIA_LIST" ColumnName="GIA_LIST" />
+          <ScalarProperty Name="GIA_NHAP" ColumnName="GIA_NHAP" />
+          <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+          <ScalarProperty Name="KHOI_LUONG" ColumnName="KHOI_LUONG" />
+          <ScalarProperty Name="DON_VI_TINH" ColumnName="DON_VI_TINH" />
+          <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+          <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
+          <ScalarProperty Name="MA_NHAP_HANG" ColumnName="MA_NHAP_HANG" />
+          <ScalarProperty Name="THONG_SO" ColumnName="THONG_SO" />
+          <ScalarProperty Name="MA_CHUAN" ColumnName="MA_CHUAN" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HH_HANG_DUOC_QUAN_TAM">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.HH_HANG_DUOC_QUAN_TAM">
+        <MappingFragment StoreEntitySet="HH_HANG_DUOC_QUAN_TAM">
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HH_NHOM_VTHH">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.HH_NHOM_VTHH">
+        <MappingFragment StoreEntitySet="HH_NHOM_VTHH">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="MA_NHOM_HANG_CHA" ColumnName="MA_NHOM_HANG_CHA" />
+          <ScalarProperty Name="CHUNG_LOAI_HANG" ColumnName="CHUNG_LOAI_HANG" />
+          <ScalarProperty Name="MA_NHOM_HANG_CHI_TIET" ColumnName="MA_NHOM_HANG_CHI_TIET" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HT_LICH_SU_DANG_NHAP">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.HT_LICH_SU_DANG_NHAP">
+        <MappingFragment StoreEntitySet="HT_LICH_SU_DANG_NHAP">
+          <ScalarProperty Name="THOI_GIAN_DANG_XUAT" ColumnName="THOI_GIAN_DANG_XUAT" />
+          <ScalarProperty Name="THOI_GIAN_DANG_NHAP" ColumnName="THOI_GIAN_DANG_NHAP" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HT_NGUOI_DUNG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.HT_NGUOI_DUNG">
+        <MappingFragment StoreEntitySet="HT_NGUOI_DUNG">
+          <ScalarProperty Name="MA_XAC_NHAN" ColumnName="MA_XAC_NHAN" />
+          <ScalarProperty Name="MA_CONG_TY" ColumnName="MA_CONG_TY" />
+          <ScalarProperty Name="ALLOWED" ColumnName="ALLOWED" />
+          <ScalarProperty Name="IS_ADMIN" ColumnName="IS_ADMIN" />
+          <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="HO_VA_TEN" ColumnName="HO_VA_TEN" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHs">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KH">
+        <MappingFragment StoreEntitySet="KH">
+          <ScalarProperty Name="SALES_TAO" ColumnName="SALES_TAO" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
+          <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
+          <ScalarProperty Name="TINH_TRANG_HOAT_DONG" ColumnName="TINH_TRANG_HOAT_DONG" />
+          <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+          <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+          <ScalarProperty Name="MST" ColumnName="MST" />
+          <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+          <ScalarProperty Name="TINH" ColumnName="TINH" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KH_CHUYEN_SALES">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_CHUYEN_SALES">
+        <MappingFragment StoreEntitySet="KH_CHUYEN_SALES">
+          <ScalarProperty Name="SALE_CU_2" ColumnName="SALE_CU_2" />
+          <ScalarProperty Name="SALE_CU" ColumnName="SALE_CU" />
+          <ScalarProperty Name="SALE_SAP_CHUYEN" ColumnName="SALE_SAP_CHUYEN" />
+          <ScalarProperty Name="SALE_HIEN_THOI" ColumnName="SALE_HIEN_THOI" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KH_DC_XUAT_HANG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_DC_XUAT_HANG">
+        <MappingFragment StoreEntitySet="KH_DC_XUAT_HANG">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HANG" ColumnName="DIA_CHI_XUAT_HANG" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KH_LIEN_HE">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_LIEN_HE">
+        <MappingFragment StoreEntitySet="KH_LIEN_HE">
+          <ScalarProperty Name="TINH_TRANG_LAM_VIEC" ColumnName="TINH_TRANG_LAM_VIEC" />
+          <ScalarProperty Name="SDT2" ColumnName="SDT2" />
+          <ScalarProperty Name="SDT1" ColumnName="SDT1" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="FACEBOOK" ColumnName="FACEBOOK" />
+          <ScalarProperty Name="SKYPE" ColumnName="SKYPE" />
+          <ScalarProperty Name="EMAIL_CONG_TY" ColumnName="EMAIL_CONG_TY" />
+          <ScalarProperty Name="EMAIL_CA_NHAN" ColumnName="EMAIL_CA_NHAN" />
+          <ScalarProperty Name="GIOI_TINH" ColumnName="GIOI_TINH" />
+          <ScalarProperty Name="NGAY_SINH" ColumnName="NGAY_SINH" />
+          <ScalarProperty Name="PHONG_BAN" ColumnName="PHONG_BAN" />
+          <ScalarProperty Name="CHUC_VU" ColumnName="CHUC_VU" />
+          <ScalarProperty Name="NGUOI_LIEN_HE" ColumnName="NGUOI_LIEN_HE" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="ID_LIEN_HE" ColumnName="ID_LIEN_HE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KH_LOAI">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_LOAI">
+        <MappingFragment StoreEntitySet="KH_LOAI">
+          <ScalarProperty Name="MA_LOAI_KHACH_CHA" ColumnName="MA_LOAI_KHACH_CHA" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+          <ScalarProperty Name="TEN_LOAI_KHACH" ColumnName="TEN_LOAI_KHACH" />
+          <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KH_PHAN_HOI_KHACH_HANG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_PHAN_HOI_KHACH_HANG">
+        <MappingFragment StoreEntitySet="KH_PHAN_HOI_KHACH_HANG">
+          <ScalarProperty Name="THONG_TIN_PHAN_HOI" ColumnName="THONG_TIN_PHAN_HOI" />
+          <ScalarProperty Name="NGAY_PHAN_HOI" ColumnName="NGAY_PHAN_HOI" />
+          <ScalarProperty Name="NGUOI_PHAN_HOI" ColumnName="NGUOI_PHAN_HOI" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KH_PHAN_LOAI_KHACH">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_PHAN_LOAI_KHACH">
+        <MappingFragment StoreEntitySet="KH_PHAN_LOAI_KHACH">
+          <ScalarProperty Name="NHOM_NGANH" ColumnName="NHOM_NGANH" />
+          <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KH_SALES_PHU_TRACH">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_SALES_PHU_TRACH">
+        <MappingFragment StoreEntitySet="KH_SALES_PHU_TRACH">
+          <ScalarProperty Name="SALES_CU" ColumnName="SALES_CU" />
+          <ScalarProperty Name="SALES_MOI" ColumnName="SALES_MOI" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="NGAY_KET_THUC_PHU_TRACH" ColumnName="NGAY_KET_THUC_PHU_TRACH" />
+          <ScalarProperty Name="NGAY_BAT_DAU_PHU_TRACH" ColumnName="NGAY_BAT_DAU_PHU_TRACH" />
+          <ScalarProperty Name="SALES_PHU_TRACH" ColumnName="SALES_PHU_TRACH" />
+          <ScalarProperty Name="ID_LIEN_HE" ColumnName="ID_LIEN_HE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KH_THONG_KE_MUA_HANG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_THONG_KE_MUA_HANG">
+        <MappingFragment StoreEntitySet="KH_THONG_KE_MUA_HANG">
+          <ScalarProperty Name="NHAN_VIEN_BAN_HANG" ColumnName="NHAN_VIEN_BAN_HANG" />
+          <ScalarProperty Name="NGAY_MUA" ColumnName="NGAY_MUA" />
+          <ScalarProperty Name="DON_GIA_MUA" ColumnName="DON_GIA_MUA" />
+          <ScalarProperty Name="SL_MUA" ColumnName="SL_MUA" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KH_TK_NGAN_HANG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_TK_NGAN_HANG">
+        <MappingFragment StoreEntitySet="KH_TK_NGAN_HANG">
+          <ScalarProperty Name="LOAI_TAI_KHOAN" ColumnName="LOAI_TAI_KHOAN" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TINH_TP" ColumnName="TINH_TP" />
+          <ScalarProperty Name="CHI_NHANH" ColumnName="CHI_NHANH" />
+          <ScalarProperty Name="TEN_NGAN_HANG" ColumnName="TEN_NGAN_HANG" />
+          <ScalarProperty Name="TEN_TAI_KHOAN" ColumnName="TEN_TAI_KHOAN" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="SO_TAI_KHOAN" ColumnName="SO_TAI_KHOAN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHO_CHUYEN_KHO">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CHUYEN_KHO">
+        <MappingFragment StoreEntitySet="KHO_CHUYEN_KHO">
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="NGUOI_LAP_PHIEU" ColumnName="NGUOI_LAP_PHIEU" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHO_CT_CHUYEN_KHO">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CT_CHUYEN_KHO">
+        <MappingFragment StoreEntitySet="KHO_CT_CHUYEN_KHO">
+          <ScalarProperty Name="SO_LUONG" ColumnName="SO_LUONG" />
+          <ScalarProperty Name="DVT" ColumnName="DVT" />
+          <ScalarProperty Name="NHAP_TAI_KHO" ColumnName="NHAP_TAI_KHO" />
+          <ScalarProperty Name="XUAT_TAI_KHO" ColumnName="XUAT_TAI_KHO" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHO_CT_DNXH">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CT_DNXH">
+        <MappingFragment StoreEntitySet="KHO_CT_DNXH">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="PHUONG_THUC_VAN_CHUYEN" ColumnName="PHUONG_THUC_VAN_CHUYEN" />
+          <ScalarProperty Name="SL_CHUA_XUAT" ColumnName="SL_CHUA_XUAT" />
+          <ScalarProperty Name="SL_DA_XUAT" ColumnName="SL_DA_XUAT" />
+          <ScalarProperty Name="SL_CHUA_GIU" ColumnName="SL_CHUA_GIU" />
+          <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+          <ScalarProperty Name="DIA_DIEM_GIAO_HANG" ColumnName="DIA_DIEM_GIAO_HANG" />
+          <ScalarProperty Name="NGAY_XUAT" ColumnName="NGAY_XUAT" />
+          <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
+          <ScalarProperty Name="CHIET_KHAU" ColumnName="CHIET_KHAU" />
+          <ScalarProperty Name="DON_GIA" ColumnName="DON_GIA" />
+          <ScalarProperty Name="SO_LUONG" ColumnName="SO_LUONG" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="SO_DN" ColumnName="SO_DN" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHO_CT_GIU_HANG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CT_GIU_HANG">
+        <MappingFragment StoreEntitySet="KHO_CT_GIU_HANG">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="DA_XUAT" ColumnName="DA_XUAT" />
+          <ScalarProperty Name="NGAY_XUAT" ColumnName="NGAY_XUAT" />
+          <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
+          <ScalarProperty Name="DON_GIA" ColumnName="DON_GIA" />
+          <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+          <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+          <ScalarProperty Name="DVT" ColumnName="DVT" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="MA_GIU_KHO" ColumnName="MA_GIU_KHO" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHO_CT_NHAP_KHO">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CT_NHAP_KHO">
+        <MappingFragment StoreEntitySet="KHO_CT_NHAP_KHO">
+          <ScalarProperty Name="MA_KHO_CON" ColumnName="MA_KHO_CON" />
+          <ScalarProperty Name="TK_KHO" ColumnName="TK_KHO" />
+          <ScalarProperty Name="GIA_TRI_NHAP_KHO" ColumnName="GIA_TRI_NHAP_KHO" />
+          <ScalarProperty Name="NGAY_HOA_DON" ColumnName="NGAY_HOA_DON" />
+          <ScalarProperty Name="SO_HOA_DON" ColumnName="SO_HOA_DON" />
+          <ScalarProperty Name="TK_THUE" ColumnName="TK_THUE" />
+          <ScalarProperty Name="TIEN_THUE" ColumnName="TIEN_THUE" />
+          <ScalarProperty Name="CK_THUE" ColumnName="CK_THUE" />
+          <ScalarProperty Name="DIEN_GIAI_THUE" ColumnName="DIEN_GIAI_THUE" />
+          <ScalarProperty Name="QUY_DOI" ColumnName="QUY_DOI" />
+          <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
+          <ScalarProperty Name="DON_GIA" ColumnName="DON_GIA" />
+          <ScalarProperty Name="SO_LUONG" ColumnName="SO_LUONG" />
+          <ScalarProperty Name="DVT" ColumnName="DVT" />
+          <ScalarProperty Name="TK_CO" ColumnName="TK_CO" />
+          <ScalarProperty Name="TK_NO" ColumnName="TK_NO" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHO_CT_XUAT_KHO">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CT_XUAT_KHO">
+        <MappingFragment StoreEntitySet="KHO_CT_XUAT_KHO">
+          <ScalarProperty Name="MA_KHO_CON" ColumnName="MA_KHO_CON" />
+          <ScalarProperty Name="TK_KHO" ColumnName="TK_KHO" />
+          <ScalarProperty Name="QUY_DOI" ColumnName="QUY_DOI" />
+          <ScalarProperty Name="DON_GIA_VON" ColumnName="DON_GIA_VON" />
+          <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
+          <ScalarProperty Name="DON_GIA_BAN" ColumnName="DON_GIA_BAN" />
+          <ScalarProperty Name="SO_LUONG" ColumnName="SO_LUONG" />
+          <ScalarProperty Name="DVT" ColumnName="DVT" />
+          <ScalarProperty Name="TK_CO" ColumnName="TK_CO" />
+          <ScalarProperty Name="TK_NO" ColumnName="TK_NO" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHO_DNXH">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_DNXH">
+        <MappingFragment StoreEntitySet="KHO_DNXH">
+          <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
+          <ScalarProperty Name="DANG_XUAT_HANG" ColumnName="DANG_XUAT_HANG" />
+          <ScalarProperty Name="CHUA_XUAT_HANG" ColumnName="CHUA_XUAT_HANG" />
+          <ScalarProperty Name="DA_XUAT_HANG" ColumnName="DA_XUAT_HANG" />
+          <ScalarProperty Name="DA_GIU_HANG" ColumnName="DA_GIU_HANG" />
+          <ScalarProperty Name="DANG_XU_LY_GIU_HANG" ColumnName="DANG_XU_LY_GIU_HANG" />
+          <ScalarProperty Name="NGUOI_DUYET" ColumnName="NGUOI_DUYET" />
+          <ScalarProperty Name="NGAY_DUYET" ColumnName="NGAY_DUYET" />
+          <ScalarProperty Name="DA_HUY" ColumnName="DA_HUY" />
+          <ScalarProperty Name="DA_DUYET" ColumnName="DA_DUYET" />
+          <ScalarProperty Name="NGUOI_DN" ColumnName="NGUOI_DN" />
+          <ScalarProperty Name="XUAT_HOA_DON" ColumnName="XUAT_HOA_DON" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="NGAY_THANH_TOAN" ColumnName="NGAY_THANH_TOAN" />
+          <ScalarProperty Name="HINH_THUC_THANH_TOAN" ColumnName="HINH_THUC_THANH_TOAN" />
+          <ScalarProperty Name="MUC_DICH_SU_DUNG" ColumnName="MUC_DICH_SU_DUNG" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="NGAY_DN" ColumnName="NGAY_DN" />
+          <ScalarProperty Name="MA_DU_KIEN" ColumnName="MA_DU_KIEN" />
+          <ScalarProperty Name="SO_DN" ColumnName="SO_DN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHO_GIU_HANG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_GIU_HANG">
+        <MappingFragment StoreEntitySet="KHO_GIU_HANG">
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="DON_DA_HOAN_THANH" ColumnName="DON_DA_HOAN_THANH" />
+          <ScalarProperty Name="DON_DANG_XUAT" ColumnName="DON_DANG_XUAT" />
+          <ScalarProperty Name="GIU_PO" ColumnName="GIU_PO" />
+          <ScalarProperty Name="HUY_DON_GIU" ColumnName="HUY_DON_GIU" />
+          <ScalarProperty Name="NGAY_GIU" ColumnName="NGAY_GIU" />
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="SALES_GIU" ColumnName="SALES_GIU" />
+          <ScalarProperty Name="MA_GIU_KHO" ColumnName="MA_GIU_KHO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHO_NHAP_KHO">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_NHAP_KHO">
+        <MappingFragment StoreEntitySet="KHO_NHAP_KHO">
+          <ScalarProperty Name="NGUOI_LAP_PHIEU" ColumnName="NGUOI_LAP_PHIEU" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
+          <ScalarProperty Name="NHAN_VIEN_MUA_HANG" ColumnName="NHAN_VIEN_MUA_HANG" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+          <ScalarProperty Name="NGUOI_GIAO_HANG" ColumnName="NGUOI_GIAO_HANG" />
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+          <ScalarProperty Name="LOAI_NHAP_KHO" ColumnName="LOAI_NHAP_KHO" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHO_XUAT_KHO">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_XUAT_KHO">
+        <MappingFragment StoreEntitySet="KHO_XUAT_KHO">
+          <ScalarProperty Name="KHACH_HANG" ColumnName="KHACH_HANG" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="NGUOI_LAP_PHIEU" ColumnName="NGUOI_LAP_PHIEU" />
+          <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
+          <ScalarProperty Name="NHAN_VIEN_BAN_HANG" ColumnName="NHAN_VIEN_BAN_HANG" />
+          <ScalarProperty Name="LY_DO_XUAT" ColumnName="LY_DO_XUAT" />
+          <ScalarProperty Name="NGUOI_NHAN" ColumnName="NGUOI_NHAN" />
+          <ScalarProperty Name="LOAI_XUAT_KHO" ColumnName="LOAI_XUAT_KHO" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MENUs">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.MENU">
+        <MappingFragment StoreEntitySet="MENU">
+          <ScalarProperty Name="MUC_TRUC_THUOC" ColumnName="MUC_TRUC_THUOC" />
+          <ScalarProperty Name="MENU_CHA" ColumnName="MENU_CHA" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+          <ScalarProperty Name="TEN_MENU" ColumnName="TEN_MENU" />
+          <ScalarProperty Name="MA_MENU" ColumnName="MA_MENU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MENU_USER">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.MENU_USER">
+        <MappingFragment StoreEntitySet="MENU_USER">
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="MA_MENU" ColumnName="MA_MENU" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="MA_PHONG_BAN" ColumnName="MA_PHONG_BAN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MH_CT_MDV">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.MH_CT_MDV">
+        <MappingFragment StoreEntitySet="MH_CT_MDV">
+          <ScalarProperty Name="NGAY_HOA_DON" ColumnName="NGAY_HOA_DON" />
+          <ScalarProperty Name="SO_HOA_DON" ColumnName="SO_HOA_DON" />
+          <ScalarProperty Name="TK_THUE" ColumnName="TK_THUE" />
+          <ScalarProperty Name="TIEN_THUE" ColumnName="TIEN_THUE" />
+          <ScalarProperty Name="CK_THUE" ColumnName="CK_THUE" />
+          <ScalarProperty Name="DIEN_GIAI_THUE" ColumnName="DIEN_GIAI_THUE" />
+          <ScalarProperty Name="QUY_DOI" ColumnName="QUY_DOI" />
+          <ScalarProperty Name="DON_GIA" ColumnName="DON_GIA" />
+          <ScalarProperty Name="SO_LUONG" ColumnName="SO_LUONG" />
+          <ScalarProperty Name="DVT" ColumnName="DVT" />
+          <ScalarProperty Name="TY_GIA" ColumnName="TY_GIA" />
+          <ScalarProperty Name="LOAI_TIEN" ColumnName="LOAI_TIEN" />
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+          <ScalarProperty Name="TK_CONG_NO" ColumnName="TK_CONG_NO" />
+          <ScalarProperty Name="TK_CHI_PHI" ColumnName="TK_CHI_PHI" />
+          <ScalarProperty Name="MA_DICH_VU" ColumnName="MA_DICH_VU" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MH_MDV">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.MH_MDV">
+        <MappingFragment StoreEntitySet="MH_MDV">
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
+          <ScalarProperty Name="NV_MUA_HANG" ColumnName="NV_MUA_HANG" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NCCs">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NCC">
+        <MappingFragment StoreEntitySet="NCC">
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="DANH_GIA" ColumnName="DANH_GIA" />
+          <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
+          <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
+          <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+          <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="MST" ColumnName="MST" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="PHAN_LOAI_NCC" ColumnName="PHAN_LOAI_NCC" />
+          <ScalarProperty Name="TEN_NHA_CUNG_CAP" ColumnName="TEN_NHA_CUNG_CAP" />
+          <ScalarProperty Name="MA_NHA_CUNG_CAP" ColumnName="MA_NHA_CUNG_CAP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NCC_LIEN_HE">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NCC_LIEN_HE">
+        <MappingFragment StoreEntitySet="NCC_LIEN_HE">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="FACEBOOK" ColumnName="FACEBOOK" />
+          <ScalarProperty Name="SKYPE" ColumnName="SKYPE" />
+          <ScalarProperty Name="EMAIL_CONG_TY" ColumnName="EMAIL_CONG_TY" />
+          <ScalarProperty Name="EMAIL_CA_NHAN" ColumnName="EMAIL_CA_NHAN" />
+          <ScalarProperty Name="SO_DIEN_THOAI_2" ColumnName="SO_DIEN_THOAI_2" />
+          <ScalarProperty Name="SO_DIEN_THOAI_1" ColumnName="SO_DIEN_THOAI_1" />
+          <ScalarProperty Name="GIOI_TINH" ColumnName="GIOI_TINH" />
+          <ScalarProperty Name="NGAY_SINH" ColumnName="NGAY_SINH" />
+          <ScalarProperty Name="PHONG_BAN" ColumnName="PHONG_BAN" />
+          <ScalarProperty Name="CHUC_VU" ColumnName="CHUC_VU" />
+          <ScalarProperty Name="NGUOI_LIEN_HE" ColumnName="NGUOI_LIEN_HE" />
+          <ScalarProperty Name="MA_NHA_CUNG_CAP" ColumnName="MA_NHA_CUNG_CAP" />
+          <ScalarProperty Name="ID_LIEN_HE" ColumnName="ID_LIEN_HE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NCC_LOAI">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NCC_LOAI">
+        <MappingFragment StoreEntitySet="NCC_LOAI">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TEN_LOAI_NCC" ColumnName="TEN_LOAI_NCC" />
+          <ScalarProperty Name="MA_LOAI_NCC" ColumnName="MA_LOAI_NCC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NCC_LOAI_HANG_CUNG_CAP">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NCC_LOAI_HANG_CUNG_CAP">
+        <MappingFragment StoreEntitySet="NCC_LOAI_HANG_CUNG_CAP">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+          <ScalarProperty Name="MA_NHA_CUNG_CAP" ColumnName="MA_NHA_CUNG_CAP" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NCC_PUR_PHU_TRACH">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NCC_PUR_PHU_TRACH">
+        <MappingFragment StoreEntitySet="NCC_PUR_PHU_TRACH">
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="NGAY_KET_THUC_PHU_TRACH" ColumnName="NGAY_KET_THUC_PHU_TRACH" />
+          <ScalarProperty Name="NGAY_BAT_DAU_PHU_TRACH" ColumnName="NGAY_BAT_DAU_PHU_TRACH" />
+          <ScalarProperty Name="PUR_PHU_TRACH" ColumnName="PUR_PHU_TRACH" />
+          <ScalarProperty Name="ID_LIEN_HE" ColumnName="ID_LIEN_HE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NCC_TK_NGAN_HANG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NCC_TK_NGAN_HANG">
+        <MappingFragment StoreEntitySet="NCC_TK_NGAN_HANG">
+          <ScalarProperty Name="LOAI_TAI_KHOAN" ColumnName="LOAI_TAI_KHOAN" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TINH_TP" ColumnName="TINH_TP" />
+          <ScalarProperty Name="CHI_NHANH" ColumnName="CHI_NHANH" />
+          <ScalarProperty Name="TEN_NGAN_HANG" ColumnName="TEN_NGAN_HANG" />
+          <ScalarProperty Name="TEN_TAI_KHOAN" ColumnName="TEN_TAI_KHOAN" />
+          <ScalarProperty Name="MA_NHA_CUNG_CAP" ColumnName="MA_NHA_CUNG_CAP" />
+          <ScalarProperty Name="SO_TAI_KHOAN" ColumnName="SO_TAI_KHOAN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NH_CHUYEN_TIEN_NOI_BO">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NH_CHUYEN_TIEN_NOI_BO">
+        <MappingFragment StoreEntitySet="NH_CHUYEN_TIEN_NOI_BO">
+          <ScalarProperty Name="NGUOI_LAP_PHIEU" ColumnName="NGUOI_LAP_PHIEU" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="QUY_DOI" ColumnName="QUY_DOI" />
+          <ScalarProperty Name="SO_TIEN" ColumnName="SO_TIEN" />
+          <ScalarProperty Name="TK_CO" ColumnName="TK_CO" />
+          <ScalarProperty Name="TK_NO" ColumnName="TK_NO" />
+          <ScalarProperty Name="TY_GIA" ColumnName="TY_GIA" />
+          <ScalarProperty Name="LOAI_TIEN" ColumnName="LOAI_TIEN" />
+          <ScalarProperty Name="LY_DO_CHUYEN" ColumnName="LY_DO_CHUYEN" />
+          <ScalarProperty Name="TAI_KHOAN_DEN" ColumnName="TAI_KHOAN_DEN" />
+          <ScalarProperty Name="TAI_KHOAN_DI" ColumnName="TAI_KHOAN_DI" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NH_CT_NTTK">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NH_CT_NTTK">
+        <MappingFragment StoreEntitySet="NH_CT_NTTK">
+          <ScalarProperty Name="DON_VI" ColumnName="DON_VI" />
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+          <ScalarProperty Name="QUY_DOI" ColumnName="QUY_DOI" />
+          <ScalarProperty Name="SO_TIEN" ColumnName="SO_TIEN" />
+          <ScalarProperty Name="TK_CO" ColumnName="TK_CO" />
+          <ScalarProperty Name="TK_NO" ColumnName="TK_NO" />
+          <ScalarProperty Name="TY_GIA" ColumnName="TY_GIA" />
+          <ScalarProperty Name="LOAI_TIEN" ColumnName="LOAI_TIEN" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NH_CT_UNC">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NH_CT_UNC">
+        <MappingFragment StoreEntitySet="NH_CT_UNC">
+          <ScalarProperty Name="MA_NHA_CUNG_CAP" ColumnName="MA_NHA_CUNG_CAP" />
+          <ScalarProperty Name="KY_HIEU_HD" ColumnName="KY_HIEU_HD" />
+          <ScalarProperty Name="MAU_SO_HD" ColumnName="MAU_SO_HD" />
+          <ScalarProperty Name="SO_HD" ColumnName="SO_HD" />
+          <ScalarProperty Name="NGAY_HD" ColumnName="NGAY_HD" />
+          <ScalarProperty Name="GIA_TRI_HHDV_CHUA_THUE" ColumnName="GIA_TRI_HHDV_CHUA_THUE" />
+          <ScalarProperty Name="CK_THUE_GTGT" ColumnName="CK_THUE_GTGT" />
+          <ScalarProperty Name="TIEN_THUE_GTGT" ColumnName="TIEN_THUE_GTGT" />
+          <ScalarProperty Name="TK_THUE_GTGT" ColumnName="TK_THUE_GTGT" />
+          <ScalarProperty Name="DIEN_GIAI_THUE" ColumnName="DIEN_GIAI_THUE" />
+          <ScalarProperty Name="DON_VI" ColumnName="DON_VI" />
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+          <ScalarProperty Name="QUY_DOI" ColumnName="QUY_DOI" />
+          <ScalarProperty Name="SO_TIEN" ColumnName="SO_TIEN" />
+          <ScalarProperty Name="TK_CO" ColumnName="TK_CO" />
+          <ScalarProperty Name="TK_NO" ColumnName="TK_NO" />
+          <ScalarProperty Name="TY_GIA" ColumnName="TY_GIA" />
+          <ScalarProperty Name="LOAI_TIEN" ColumnName="LOAI_TIEN" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NH_NTTK">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NH_NTTK">
+        <MappingFragment StoreEntitySet="NH_NTTK">
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="NGUOI_LAP_BIEU" ColumnName="NGUOI_LAP_BIEU" />
+          <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
+          <ScalarProperty Name="NHAN_VIEN_THU" ColumnName="NHAN_VIEN_THU" />
+          <ScalarProperty Name="DIEN_GIAI_LY_DO_THU" ColumnName="DIEN_GIAI_LY_DO_THU" />
+          <ScalarProperty Name="LY_DO_THU" ColumnName="LY_DO_THU" />
+          <ScalarProperty Name="NOP_VAO_TAI_KHOAN" ColumnName="NOP_VAO_TAI_KHOAN" />
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NH_UNC">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NH_UNC">
+        <MappingFragment StoreEntitySet="NH_UNC">
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
+          <ScalarProperty Name="NGUOI_LAP_BIEU" ColumnName="NGUOI_LAP_BIEU" />
+          <ScalarProperty Name="NHAN_VIEN_CHUYEN_KHOAN" ColumnName="NHAN_VIEN_CHUYEN_KHOAN" />
+          <ScalarProperty Name="TAI_KHOAN_NHAN" ColumnName="TAI_KHOAN_NHAN" />
+          <ScalarProperty Name="DIEN_GIAI_NOI_DUNG_THANH_TOAN" ColumnName="DIEN_GIAI_NOI_DUNG_THANH_TOAN" />
+          <ScalarProperty Name="NOI_DUNG_THANH_TOAN" ColumnName="NOI_DUNG_THANH_TOAN" />
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+          <ScalarProperty Name="TAI_KHOAN_CHI" ColumnName="TAI_KHOAN_CHI" />
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NV_GIAO_VIEC">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NV_GIAO_VIEC">
+        <MappingFragment StoreEntitySet="NV_GIAO_VIEC">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="HUY_CONG_VIEC" ColumnName="HUY_CONG_VIEC" />
+          <ScalarProperty Name="NHAN_VIEN_THUC_HIEN" ColumnName="NHAN_VIEN_THUC_HIEN" />
+          <ScalarProperty Name="NGUOI_GIAO_VIEC" ColumnName="NGUOI_GIAO_VIEC" />
+          <ScalarProperty Name="THOI_GIAN_HOAN_THANH" ColumnName="THOI_GIAN_HOAN_THANH" />
+          <ScalarProperty Name="NOI_DUNG_CONG_VIEC" ColumnName="NOI_DUNG_CONG_VIEC" />
+          <ScalarProperty Name="NGAY_GIAO_VIEC" ColumnName="NGAY_GIAO_VIEC" />
+          <ScalarProperty Name="TIEU_DE_CONG_VIEC" ColumnName="TIEU_DE_CONG_VIEC" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NV_LICH_LAM_VIEC">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NV_LICH_LAM_VIEC">
+        <MappingFragment StoreEntitySet="NV_LICH_LAM_VIEC">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="HUY_CONG_VIEC" ColumnName="HUY_CONG_VIEC" />
+          <ScalarProperty Name="NHAN_VIEN_THUC_HIEN" ColumnName="NHAN_VIEN_THUC_HIEN" />
+          <ScalarProperty Name="THOI_GIAN_KET_THUC" ColumnName="THOI_GIAN_KET_THUC" />
+          <ScalarProperty Name="THOI_GIAN_BAT_DAU" ColumnName="THOI_GIAN_BAT_DAU" />
+          <ScalarProperty Name="DIA_DIEM_LAM_VIEC" ColumnName="DIA_DIEM_LAM_VIEC" />
+          <ScalarProperty Name="NOI_DUNG_CONG_VIEC" ColumnName="NOI_DUNG_CONG_VIEC" />
+          <ScalarProperty Name="NGAY_THUC_HIEN" ColumnName="NGAY_THUC_HIEN" />
+          <ScalarProperty Name="TIEU_DE_CONG_VIEC" ColumnName="TIEU_DE_CONG_VIEC" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NV_TINH_LUONG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.NV_TINH_LUONG">
+        <MappingFragment StoreEntitySet="NV_TINH_LUONG">
+          <ScalarProperty Name="LUONG_LAO_CONG" ColumnName="LUONG_LAO_CONG" />
+          <ScalarProperty Name="PHU_CAP_TRACH_NHIEM" ColumnName="PHU_CAP_TRACH_NHIEM" />
+          <ScalarProperty Name="PHU_CAP_DI_LAI_DIEN_THOAI" ColumnName="PHU_CAP_DI_LAI_DIEN_THOAI" />
+          <ScalarProperty Name="PHU_CAP_AN_TRUA" ColumnName="PHU_CAP_AN_TRUA" />
+          <ScalarProperty Name="LUONG_BAO_HIEM" ColumnName="LUONG_BAO_HIEM" />
+          <ScalarProperty Name="LUONG_CO_BAN" ColumnName="LUONG_CO_BAN" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="POST_CATEGORIES">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.POST_CATEGORIES">
+        <MappingFragment StoreEntitySet="POST_CATEGORIES">
+          <ScalarProperty Name="MA_BAI_VIET" ColumnName="MA_BAI_VIET" />
+          <ScalarProperty Name="MA_DANH_MUC" ColumnName="MA_DANH_MUC" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="POSTS">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.POST">
+        <MappingFragment StoreEntitySet="POSTS">
+          <ScalarProperty Name="NGUOI_DANG_BAI" ColumnName="NGUOI_DANG_BAI" />
+          <ScalarProperty Name="ANH_BAI_VIET" ColumnName="ANH_BAI_VIET" />
+          <ScalarProperty Name="NOI_DUNG_BAI_VIET" ColumnName="NOI_DUNG_BAI_VIET" />
+          <ScalarProperty Name="NGAY_DANG_BAI" ColumnName="NGAY_DANG_BAI" />
+          <ScalarProperty Name="TIEU_DE_BAI_VIET" ColumnName="TIEU_DE_BAI_VIET" />
+          <ScalarProperty Name="MA_BAI_VIET" ColumnName="MA_BAI_VIET" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QUY_CT_PHIEU_CHI">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.QUY_CT_PHIEU_CHI">
+        <MappingFragment StoreEntitySet="QUY_CT_PHIEU_CHI">
+          <ScalarProperty Name="MA_NHA_CUNG_CAP" ColumnName="MA_NHA_CUNG_CAP" />
+          <ScalarProperty Name="KY_HIEU_HD" ColumnName="KY_HIEU_HD" />
+          <ScalarProperty Name="MAU_SO_HD" ColumnName="MAU_SO_HD" />
+          <ScalarProperty Name="SO_HD" ColumnName="SO_HD" />
+          <ScalarProperty Name="NGAY_HD" ColumnName="NGAY_HD" />
+          <ScalarProperty Name="GIA_TRI_HHDV_CHUA_THUE" ColumnName="GIA_TRI_HHDV_CHUA_THUE" />
+          <ScalarProperty Name="CK_THUE_GTGT" ColumnName="CK_THUE_GTGT" />
+          <ScalarProperty Name="TIEN_THUE_GTGT" ColumnName="TIEN_THUE_GTGT" />
+          <ScalarProperty Name="TK_THUE_GTGT" ColumnName="TK_THUE_GTGT" />
+          <ScalarProperty Name="DIEN_GIAI_THUE" ColumnName="DIEN_GIAI_THUE" />
+          <ScalarProperty Name="TK_NGAN_HANG" ColumnName="TK_NGAN_HANG" />
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+          <ScalarProperty Name="QUY_DOI" ColumnName="QUY_DOI" />
+          <ScalarProperty Name="SO_TIEN" ColumnName="SO_TIEN" />
+          <ScalarProperty Name="TK_CO" ColumnName="TK_CO" />
+          <ScalarProperty Name="TK_NO" ColumnName="TK_NO" />
+          <ScalarProperty Name="TY_GIA" ColumnName="TY_GIA" />
+          <ScalarProperty Name="LOAI_TIEN" ColumnName="LOAI_TIEN" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QUY_CT_PHIEU_THU">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.QUY_CT_PHIEU_THU">
+        <MappingFragment StoreEntitySet="QUY_CT_PHIEU_THU">
+          <ScalarProperty Name="TK_NGAN_HANG" ColumnName="TK_NGAN_HANG" />
+          <ScalarProperty Name="DOI_TUONG" ColumnName="DOI_TUONG" />
+          <ScalarProperty Name="QUY_DOI" ColumnName="QUY_DOI" />
+          <ScalarProperty Name="SO_TIEN" ColumnName="SO_TIEN" />
+          <ScalarProperty Name="TK_CO" ColumnName="TK_CO" />
+          <ScalarProperty Name="TK_NO" ColumnName="TK_NO" />
+          <ScalarProperty Name="TY_GIA" ColumnName="TY_GIA" />
+          <ScalarProperty Name="LOAI_TIEN" ColumnName="LOAI_TIEN" />
+          <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QUY_PHIEU_CHI">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.QUY_PHIEU_CHI">
+        <MappingFragment StoreEntitySet="QUY_PHIEU_CHI">
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="NGUOI_LAP_BIEU" ColumnName="NGUOI_LAP_BIEU" />
+          <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
+          <ScalarProperty Name="NGUOI_NHAN" ColumnName="NGUOI_NHAN" />
+          <ScalarProperty Name="DIEN_GIAI_LY_DO_CHI" ColumnName="DIEN_GIAI_LY_DO_CHI" />
+          <ScalarProperty Name="LY_DO_CHI" ColumnName="LY_DO_CHI" />
+          <ScalarProperty Name="NHAN_VIEN_MUA_HANG" ColumnName="NHAN_VIEN_MUA_HANG" />
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QUY_PHIEU_THU">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.QUY_PHIEU_THU">
+        <MappingFragment StoreEntitySet="QUY_PHIEU_THU">
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="NGUOI_LAP_BIEU" ColumnName="NGUOI_LAP_BIEU" />
+          <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
+          <ScalarProperty Name="NHAN_VIEN_THU" ColumnName="NHAN_VIEN_THU" />
+          <ScalarProperty Name="NGUOI_NOP" ColumnName="NGUOI_NOP" />
+          <ScalarProperty Name="DIEN_GIAI_LY_DO_NOP" ColumnName="DIEN_GIAI_LY_DO_NOP" />
+          <ScalarProperty Name="LY_DO_NOP" ColumnName="LY_DO_NOP" />
+          <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+          <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+          <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+          <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_GIU_HL">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_HL">
+        <MappingFragment StoreEntitySet="TONKHO_GIU_HL">
+          <ScalarProperty Name="SL_GIU_HL" ColumnName="SL_GIU_HL" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_GIU_TADN">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_TADN">
+        <MappingFragment StoreEntitySet="TONKHO_GIU_TADN">
+          <ScalarProperty Name="SL_GIU_TADN" ColumnName="SL_GIU_TADN" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_GIU_TAHCM">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_TAHCM">
+        <MappingFragment StoreEntitySet="TONKHO_GIU_TAHCM">
+          <ScalarProperty Name="SL_GIU_TAHCM" ColumnName="SL_GIU_TAHCM" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_GIU_TAHP">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_TAHP">
+        <MappingFragment StoreEntitySet="TONKHO_GIU_TAHP">
+          <ScalarProperty Name="SL_GIU_TAHP" ColumnName="SL_GIU_TAHP" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_HANG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_HANG">
+        <MappingFragment StoreEntitySet="TONKHO_HANG">
+          <ScalarProperty Name="THOI_GIAN_CAP_HANG" ColumnName="THOI_GIAN_CAP_HANG" />
+          <ScalarProperty Name="SL_HANG" ColumnName="SL_HANG" />
+          <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_HANG_DANG_VE">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_HANG_DANG_VE">
+        <MappingFragment StoreEntitySet="TONKHO_HANG_DANG_VE">
+          <ScalarProperty Name="NGAY_VE_DU_KIEN" ColumnName="NGAY_VE_DU_KIEN" />
+          <ScalarProperty Name="SL_DANG_VE" ColumnName="SL_DANG_VE" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_HOPLONG">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_HOPLONG">
+        <MappingFragment StoreEntitySet="TONKHO_HOPLONG">
+          <ScalarProperty Name="MA_KHO_CON" ColumnName="MA_KHO_CON" />
+          <ScalarProperty Name="SL_HOPLONG" ColumnName="SL_HOPLONG" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_KYGUI_HL">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_HL">
+        <MappingFragment StoreEntitySet="TONKHO_KYGUI_HL">
+          <ScalarProperty Name="SL_HL_KYGUI_DI" ColumnName="SL_HL_KYGUI_DI" />
+          <ScalarProperty Name="SL_KYGUI_DEN_HL" ColumnName="SL_KYGUI_DEN_HL" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_KYGUI_TADN">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_TADN">
+        <MappingFragment StoreEntitySet="TONKHO_KYGUI_TADN">
+          <ScalarProperty Name="SL_TADN_KYGUI_DI" ColumnName="SL_TADN_KYGUI_DI" />
+          <ScalarProperty Name="SL_KYGUI_DEN_TADN" ColumnName="SL_KYGUI_DEN_TADN" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_KYGUI_TAHCM">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_TAHCM">
+        <MappingFragment StoreEntitySet="TONKHO_KYGUI_TAHCM">
+          <ScalarProperty Name="SL_TAHCM_KYGUI_DI" ColumnName="SL_TAHCM_KYGUI_DI" />
+          <ScalarProperty Name="SL_KYGUI_DEN_TAHCM" ColumnName="SL_KYGUI_DEN_TAHCM" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_KYGUI_TAHP">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_TAHP">
+        <MappingFragment StoreEntitySet="TONKHO_KYGUI_TAHP">
+          <ScalarProperty Name="SL_TAHP_KYGUI_DI" ColumnName="SL_TAHP_KYGUI_DI" />
+          <ScalarProperty Name="SL_KYGUI_DEN_TAHP" ColumnName="SL_KYGUI_DEN_TAHP" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_TADN">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_TADN">
+        <MappingFragment StoreEntitySet="TONKHO_TADN">
+          <ScalarProperty Name="SL_TADN" ColumnName="SL_TADN" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_TAHCM">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_TAHCM">
+        <MappingFragment StoreEntitySet="TONKHO_TAHCM">
+          <ScalarProperty Name="SL_TAHCM" ColumnName="SL_TAHCM" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TONKHO_TAHP">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_TAHP">
+        <MappingFragment StoreEntitySet="TONKHO_TAHP">
+          <ScalarProperty Name="SL_TAHP" ColumnName="SL_TAHP" />
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="XL_DANG_KY_PHE_DUYET">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.XL_DANG_KY_PHE_DUYET">
+        <MappingFragment StoreEntitySet="XL_DANG_KY_PHE_DUYET">
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+          <ScalarProperty Name="NGUOI_PHE_DUYET" ColumnName="NGUOI_PHE_DUYET" />
+          <ScalarProperty Name="MA_PHE_DUYET" ColumnName="MA_PHE_DUYET" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="XL_THAM_CHIEU_CHUNG_TU">
+      <EntityTypeMapping TypeName="ERP_DATABASEModel.XL_THAM_CHIEU_CHUNG_TU">
+        <MappingFragment StoreEntitySet="XL_THAM_CHIEU_CHUNG_TU">
+          <ScalarProperty Name="SO_CHUNG_TU_THAM_CHIEU" ColumnName="SO_CHUNG_TU_THAM_CHIEU" />
+          <ScalarProperty Name="SO_CHUNG_TU_GOC" ColumnName="SO_CHUNG_TU_GOC" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="HopLong_PhanTrangKhachHang" FunctionName="ERP_DATABASEModel.Store.HopLong_PhanTrangKhachHang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_PhanTrangKhachHang_Result">
+          <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+          <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+          <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+          <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+          <ScalarProperty Name="MST" ColumnName="MST" />
+          <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+          <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
+          <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
+          <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+          <ScalarProperty Name="TINH" ColumnName="TINH" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+          <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+          <ScalarProperty Name="TINH_TRANG_HOAT_DONG" ColumnName="TINH_TRANG_HOAT_DONG" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="SALES_TAO" ColumnName="SALES_TAO" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="HO_VA_TEN" ColumnName="HO_VA_TEN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="KH_GetThongKeMuaHang" FunctionName="ERP_DATABASEModel.Store.KH_GetThongKeMuaHang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ERP_DATABASEModel.KH_GetThongKeMuaHang_Result">
+          <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+          <ScalarProperty Name="SL_MUA" ColumnName="SL_MUA" />
+          <ScalarProperty Name="DON_GIA_MUA" ColumnName="DON_GIA_MUA" />
+          <ScalarProperty Name="NGAY_MUA" ColumnName="NGAY_MUA" />
+          <ScalarProperty Name="NHAN_VIEN_MUA_HANG" ColumnName="NHAN_VIEN_MUA_HANG" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
