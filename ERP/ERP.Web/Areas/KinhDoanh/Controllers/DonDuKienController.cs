@@ -75,7 +75,7 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NGAY_TAO,MA_KHACH_HANG,THANH_CONG,THAT_BAI,LY_DO_THAT_BAI")] BH_DON_HANG_DU_KIEN bH_DON_HANG_DU_KIEN)
+        public ActionResult Create([Bind(Include = "NGAY_TAO,MA_KHACH_HANG, ID_LIEN_HE, THANH_CONG,THAT_BAI,LY_DO_THAT_BAI")] BH_DON_HANG_DU_KIEN bH_DON_HANG_DU_KIEN)
         {
             if (ModelState.IsValid)
             {
@@ -91,6 +91,7 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
             }
 
             ViewBag.MA_KHACH_HANG = new SelectList(db.KHs, "MA_KHACH_HANG", "TEN_CONG_TY", bH_DON_HANG_DU_KIEN.MA_KHACH_HANG);
+            ViewBag.ID_LIEN_HE = new SelectList(db.KHs, "ID_LIEN_HE", "NGUOI_LIEN_HE", bH_DON_HANG_DU_KIEN.ID_LIEN_HE);
             return View("Index");
         }
 

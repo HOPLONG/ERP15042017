@@ -73,10 +73,6 @@ namespace ERP.Web.Controllers
                                     nhomnganh = workSheet.Cells[rowIterator, 4].Value.ToString();
                                 else
                                     nhomnganh = "";
-                                if (workSheet.Cells[rowIterator, 4].Value != null)
-                                    nhomnganh = workSheet.Cells[rowIterator, 4].Value.ToString();
-                                else
-                                    nhomnganh = "";
                                 if (workSheet.Cells[rowIterator, 5].Value != null)
                                     diachivpgiaodich = workSheet.Cells[rowIterator, 5].Value.ToString();
                                 else
@@ -487,6 +483,94 @@ namespace ERP.Web.Controllers
 
         #endregion
 
+
+        #region "UPDATE KHÁCH HÀNG ĐỊA CHỈ, LOGO"
+
+        public ActionResult Update_KhachHang()
+        {
+
+            return View();
+        }
+
+        
+
+        [HttpPost]
+        public ActionResult Update_KhachHang(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase filetonkho = Request.Files["UploadedFile"];
+                    if ((filetonkho != null) && (filetonkho.ContentLength > 0) && !string.IsNullOrEmpty(filetonkho.FileName))
+                    {
+                        string fileName = filetonkho.FileName;
+                        string fileContentType = filetonkho.ContentType;
+                        byte[] fileBytes = new byte[filetonkho.ContentLength];
+                        var data = filetonkho.InputStream.Read(fileBytes, 0, Convert.ToInt32(filetonkho.ContentLength));
+                        //var usersList = new List<Users>();
+                        using (var package = new ExcelPackage(filetonkho.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                makhach = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 3].Value != null)
+                                    diachixuathoadon = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                else
+                                    diachixuathoadon = "";
+                                if (workSheet.Cells[rowIterator, 4].Value != null)
+                                    diachivpgiaodich = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                else
+                                    diachivpgiaodich = "";
+                                if (workSheet.Cells[rowIterator, 5].Value != null)
+                                    logo = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                else
+                                    logo = "";
+                               
+                                
+
+                                //Thêm khách hàng
+
+                                var query = db.KHs.Where(x => x.MA_KHACH_HANG == makhach).FirstOrDefault();
+                                
+                                if (query != null)
+                                {
+                                    query.DIA_CHI_XUAT_HOA_DON = diachixuathoadon;
+                                    query.VAN_PHONG_GIAO_DICH = diachivpgiaodich;
+                                    query.LOGO = logo;
+                                    db.SaveChanges();
+
+                                }
+
+
+                                so_dong_thanh_cong++;
+                                dong = rowIterator;
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+                ViewBag.Information = "Lỗi tại các dòng: " + dong;
+
+            }
+            finally
+            {
+                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+            }
+
+            return View();
+        }
+
+        #endregion
+
         #region "Tìm Kiếm KHÁCH HÀNG"
 
         public ActionResult TimKiem_KhachHang()
@@ -554,6 +638,7 @@ namespace ERP.Web.Controllers
             }
             return View(kH);
         }
+
 
     }
 }
