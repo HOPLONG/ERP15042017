@@ -166,13 +166,13 @@ namespace ERP.Web.Controllers
 
         public ActionResult Logout()
         {
-            string a = Session["USERNAME"].ToString();
+            //string a = Session["USERNAME"].ToString();
 
 
-            var lichsudangnhap = db.HT_LICH_SU_DANG_NHAP.Where(x => x.USERNAME == a && x.THOI_GIAN_DANG_XUAT == "").ToList();
-            HT_LICH_SU_DANG_NHAP KETQUA = lichsudangnhap.LastOrDefault();
-            KETQUA.THOI_GIAN_DANG_XUAT = DateTime.Now.ToString("dd/MM/yyyy:hh:mm:ss");
-            db.SaveChanges();
+            //var lichsudangnhap = db.HT_LICH_SU_DANG_NHAP.Where(x => x.USERNAME == a && x.THOI_GIAN_DANG_XUAT == "").ToList();
+            //HT_LICH_SU_DANG_NHAP KETQUA = lichsudangnhap.LastOrDefault();
+            //KETQUA.THOI_GIAN_DANG_XUAT = DateTime.Now.ToString("dd/MM/yyyy:hh:mm:ss");
+            //db.SaveChanges();
 
             Session["USERNAME"] = null;
             Session["HO_VA_TEN"] = null;
