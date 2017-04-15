@@ -850,6 +850,45 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     }
     // End Lọc nhân viên
 
+
+    //Lọc khách hàng
+    $scope.arrayKhachHangFinded = [];
+    $scope.arrayKhachHang = [];
+    $scope.showtable_khach_hang = false;
+
+    $http.get(window.location.origin + '/api/Api_KH')
+            .then(function (response) {
+                if (response.data) {
+                    $scope.arrayKhachHang = response.data;
+                    $scope.arrayKhachHangFinded = $scope.arrayKhachHang.map(function (item) {
+                        return item;
+                    });
+                }
+            }, function (error) {
+                console.log(error);
+            });
+
+    $scope.onKhachHangFind = function () {
+        if (!$scope.TEN_CONG_TY) {
+            $scope.arrayKhachHangFinded = $scope.arrayKhachHang.map(function (item) {
+                return item;
+            });
+        }
+        $scope.arrayKhachHangFinded = $scope.arrayKhachHang.filter(function (item) {
+            if (item.TEN_CONG_TY.toLowerCase().indexOf($scope.arraythongtin.TEN_CONG_TY.toLowerCase()) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+    $scope.showInfoKhachHang = function (staff) {
+        $scope.arraythongtin = staff;
+        $scope.showtable_khach_hang = false;
+    }
+    // End Lọc khách hàng
+
     $scope.chuyensale = function (item) {
         $scope.item = item;
         var data = {
@@ -3300,7 +3339,7 @@ app.controller('purphutrachCtrl', function (purphutrachService, $scope) {
 });
 
 // Đơn hàng dự kiến
-app.controller('DonhangdukienCtrl', function (DonhangdukienService, $scope) {
+app.controller('DonhangdukienCtrl', function (DonhangdukienService, $scope,$http) {
     $scope.Donhangdukien = function () {
         var username = $('#username').val();
         DonhangdukienService.get_donhangdukien(username).then(function (a) {
@@ -3311,6 +3350,7 @@ app.controller('DonhangdukienCtrl', function (DonhangdukienService, $scope) {
         });
     };
     $scope.Donhangdukien();
+    var username = $('#username').val();
     $scope.add = function () {
 
         var data_add = {
@@ -3318,7 +3358,9 @@ app.controller('DonhangdukienCtrl', function (DonhangdukienService, $scope) {
             MA_KHACH_HANG: $scope.makhachhang,
             THANH_CONG: $scope.thanhcong,
             THAT_BAI: $scope.thatbai,
+            ID_LIEN_HE : $scope.id_lien_he,
             LY_DO_THAT_BAI: $scope.lydothatbai,
+            SALES_QUAN_LY : username,
             TRUC_THUOC: 'HOPLONG'
         }
 
@@ -3359,7 +3401,80 @@ app.controller('DonhangdukienCtrl', function (DonhangdukienService, $scope) {
             $scope.Donhangdukien();
         });
     };
+    var url = document.location.href;
+    //this removes the anchor at the end, if there is one
+    url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+    //this removes the query after the file name, if there is one
+    url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+    //this removes everything before the last slash in the path
+    url = url.substring(url.lastIndexOf("/") + 1, url.length);
 
+    $scope.load_create_dukien = function () {
+
+        $('#makhachhang').text(url);
+    };
+    $scope.load_create_dukien();
+
+    $scope.arrayLHFinded = [];
+    $scope.arrayLH = [];
+    $scope.showtable_id_lien_he = false;
+
+    $scope.lienhekh = function (url) {
+        //get data liên hệ
+        $http.get(window.location.origin + '/api/Api_LienHeKhachHang/' + url)
+             .then(function (response) {
+                 if (response.data) {
+                     $scope.arrayLH = response.data;
+                     $scope.arrayLHFinded = $scope.arrayLH.map(function (item) {
+                         return item;
+                     });
+                 }
+             }, function (error) {
+                 console.log(error);
+             });
+    }
+    $scope.lienhekh(url)
+
+
+    //hàm tìm kiếm
+    $scope.onLienHeFind = function () {
+        if (!$scope.NGUOI_LIEN_HE) {
+            $scope.arrayLHFinded = $scope.arrayLH.map(function (item) {
+                return item;
+            });
+        }
+        $scope.arrayLHFinded = $scope.arrayLH.filter(function (item) {
+            if (item.NGUOI_LIEN_HE.toLowerCase().indexOf($scope.arrayLienHe.nguoi_lien_he.toLowerCase()) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+    // hiển thị danh sách đổi tượng(LẤY THEO MÃ)
+    $scope.showInfoLH = function (p_dt) {
+        $scope.id_lien_he = p_dt.ID_LIEN_HE;
+        $scope.nguoi_lien_he = p_dt.NGUOI_LIEN_HE;
+        $scope.showtable_id_lien_he = false;
+    }
+
+    $scope.addnew = function () {
+        var makh = $('#makhachhang').text();
+        var data_add = {
+            MA_DU_KIEN: $scope.madukien,
+            MA_KHACH_HANG: makh,
+            THANH_CONG: $scope.thanhcong,
+            THAT_BAI: $scope.thatbai,
+            ID_LIEN_HE: $scope.id_lien_he,
+            LY_DO_THAT_BAI: $scope.lydothatbai,
+            SALES_QUAN_LY: username,
+            TRUC_THUOC: 'HOPLONG'
+        }
+        DonhangdukienService.add(data_add).then(function (response) {
+            $scope.Donhangdukien();
+        });
+    };
 });
 
 app.controller('productdetailsCtrl', function (productdetailsService, $scope) {
