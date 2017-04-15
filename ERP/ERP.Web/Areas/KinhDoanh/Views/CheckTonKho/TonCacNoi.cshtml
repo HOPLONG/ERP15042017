@@ -8,12 +8,14 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/self-writing/css/Donhangdukien.css" rel="stylesheet" />
+<script src="~/Content/self-writing/js/Services/YeuCauHoiGiaService.js"></script>
+<script src="~/Content/self-writing/js/Controllers/YeuCauHoiGiaCtrl.js"></script>
 <script src="~/Content/self-writing/js/Services/TonCacNoiService.js"></script>
 <script src="~/Content/self-writing/js/Controllers/TonCacNoiCtrl.js"></script>
 <div class="panel-heading title">Bạn đang ở mục check tồn kho</div>
 <br />
-<div ng-app="myApp">
-    <div class="content" ng-controller="TonCacNoiCtrl">
+<div ng-app="myApp"  ng-controller="TonCacNoiCtrl" >
+    <div class="content">
 
         <!--Tìm Kiếm Hàng Hóa-->
         <div class="tab-pane fade in" style="border:1px solid #ddd">
@@ -31,7 +33,7 @@
 
 
 
-            <div class="col-md-12 content-group" style="">
+            <div class="col-md-12 content-group" >
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover ">
                         <thead>
@@ -145,7 +147,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <button type="button" class="btn btn-success">Hỏi giá</button>
+                                        <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#myModal" ng-click="edit(item)">Hỏi giá</button>
                                     </div>
                                 </td>
                             </tr>
@@ -159,13 +161,80 @@
 
 
                 </div>
+
+
+
+              
+
+
             </div>
 
         </div>
         <!--End tìm kiếm hàng hóa-->
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Yêu cầu hỏi giá</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12" style="padding-bottom: 20px">
+                        <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
+                        <div class="col-md-5" style="margin-right: 20px;">
+                            <div class="row">
+                                <label style="font-weight:bold; padding-top: 15px;">Mã hàng</label>
+                                <input type="text" class="form-control" ng-model="ton.MA_HANG">
+                            </div>
+                            <div class="row">
+                                <label style="font-weight:bold; padding-top: 15px;">Mã chuẩn</label>
+                                <input type="text" class="form-control" ng-model="ton.MA_CHUAN">
+                            </div>
+                            <div class="row">
+                                <label style="font-weight:bold; padding-top: 15px;">Thông số</label>
+                                <input type="text" class="form-control" ng-model="ton.THONG_SO">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label style="font-weight:bold; padding-top: 15px;">Hãng</label>
+                                <input type="text" class="form-control" ng-model="ton.MA_NHOM_HANG">
+                            </div>
+
+                            <div class="row">
+                                <label style="font-weight:bold; padding-top: 15px;">Số lượng</label>
+                                <input type="text" class="form-control" ng-model="SO_LUONG">
+                            </div>
+                            <div class="row">
+                                <label style="font-weight:bold; padding-top: 15px;">Ghi chú</label>
+                                <input type="text" class="form-control" ng-model="GHI_CHU">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <center>
+                        <button type="button" class="btn btn-default" ng-click="addYeuCau()"> Save</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </center>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+  
 </div>
 
+
 <script src="~/Content/download/angularjs/angular-ui-router.js"></script>
+
+
 
 

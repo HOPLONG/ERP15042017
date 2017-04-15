@@ -32,14 +32,27 @@
     <link href="~/Content/download/bootstrap/css/layout_all.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/Layout-CSS.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/LayoutHL.css" rel="stylesheet" />
+
+
+
     <script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
     <script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
     <script src="~/Content/download/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="~/Content/download/angularjs/angular.min.js"></script>
+    <script src="~/Content/Scripts/angularjs/app.js"></script>
     <script src="~/Content/self-writing/js/app.js"></script>
     <script src="~/Content/self-writing/js/Service.js"></script>
     <script src="~/Content/self-writing/js/Controller.js"></script>
     <script src="~/Content/download/angularjs/dirPagination.js"></script>
+    <script src="~/Content/download/moment.min.js"></script>
+    <script src="~/Content/download/date_directive.js"></script>
+    <script src="~/Content/download/bootstrap-datetimepicker.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="~/Content/download/angular-smart-table/angular-smart-table/dist/smart-table.js"></script>
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     <script>
         $(function () {
             CKEDITOR.config.extraPlugins = 'justify';
@@ -125,12 +138,12 @@
                     <li class="active treeview">
                         <a href="#">
                             <i class="fa fa-envelope-o"></i>
-                            <span>YÊU CẦU MUA HÀNG</span>
+                            <span>YÊU CẦU HỎI HÀNG</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Danh sách đề nghị mua hàng</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Tạo mới đề nghị mua hàng</a></li>
+                            <li><a href="/YeuCauHoiHang/Index"><i class="fa fa-angle-double-right"></i> Danh sách yêu cầu</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Xử lý yêu cầu</a></li>
                         </ul>
                     </li>
 
@@ -213,8 +226,9 @@
     <script src="~/Content/download/plugins/fastclick/fastclick.js"></script>
 
     <script src="~/Content/self-writing/js/nav_hoplong_multilevel.js"></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngMask/3.1.1/ngMask.min.js"></script>
+
     
     <style>
         body input {
@@ -249,14 +263,14 @@
         display: none !important;
     }
     </style>
-    <script>
+    @*<script>
         window.setInterval(function () {
             $.get("/Home/Alive", function (data) {
                 //alert("still alive")
             }, 180000);
         });
 
-    </script>
+    </script>*@
 
 </body>
 </html>
