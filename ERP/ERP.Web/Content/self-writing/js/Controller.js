@@ -411,7 +411,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             $scope.Lien_he_TK.push(lien_he);
         }
 
-
+        //tHÊM KHÁCH MỚI VÀO csdl
         $http({
             method: 'POST',
             data: $scope.Thong_tin_KH,
@@ -432,7 +432,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                     NHOM_NGANH : $scope.nhom_nganh
                 }
                 khachhangService.add_phanloaikh(phanloaikh_add).then(function (response) {
-                    $scope.load_khachhang('A');
+                    phantrangkh(1);
                 });
 
                 var chuyensale_add = {
@@ -440,7 +440,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                     SALE_HIEN_THOI : salestao,
                 }
                 khachhangService.add_saletao(chuyensale_add).then(function (response) {
-                    $scope.load_khachhang('A');
+                    phantrangkh(1);
                 });
 
                 if (!$scope.Thong_tin_KH) {
@@ -490,10 +490,9 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.load_khachhang = function (tukhoa) {
         var salehienthoi = $('#salehienthoi').val();
         khachhangService.get_khachhang(salehienthoi, tukhoa).then(function (a) {
-            $scope.list_kh = a;
+            $scope.filtered = a;
         });
     };
-    $scope.load_khachhang('A');
 
     $scope.load_phanloaikhach = function () {
         khachhangService.get_phanloaikhach().then(function (b) {
@@ -590,7 +589,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             TRUC_THUOC: "HOPLONG"
         }
         khachhangService.save_khachhang(makh, kh_save).then(function (response) {
-            $scope.load_khachhang('A');
+            phantrangkh(1);
             var phanloai_save = {
                 ID: id,
                 MA_KHACH_HANG: makh,
@@ -602,12 +601,12 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             }
             if (id != null) {
                 khachhangService.save_phanloaikh(id, phanloai_save).then(function (response) {
-                    $scope.load_khachhang('A');
+                    phantrangkh(1);
                     $scope.new_ct_khachhang();
                 });
             } else if (id == null && $scope.kh.MA_LOAI_KHACH != null) {
                 khachhangService.add_phanloaikh(phanloai_add).then(function (response) {
-                    $scope.load_khachhang('A');
+                    phantrangkh(1);
                     $scope.new_ct_khachhang();
                 });
             }
@@ -634,7 +633,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             TINH_TRANG_LAM_VIEC: $scope.editlh.TINH_TRANG_LAM_VIEC,
         }
         khachhangService.save_lienhe(idlienhe, data_save).then(function (response) {
-            $scope.load_khachhang();
+            phantrangkh(1);
 
             var data_savesalesphutrach = {
                 SALES_CU: $scope.editlh.SALES_CU,
@@ -645,7 +644,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 TRANG_THAI : $scope.editlh.TRANG_THAI,
             }
             khachhangService.save_salesphutrach($scope.editlh.SALES_PHU_TRACH, idlienhe, data_savesalesphutrach).then(function (response) {
-                $scope.load_khachhang('A');
+                phantrangkh(1);
                 $scope.new_ct_khachhang();
             });
 
@@ -680,7 +679,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             SALES_CU : $scope.sales_cu,
         }
         khachhangService.add_lienhe(data_add).then(function (response) {
-            $scope.load_khachhang('A');
+            phantrangkh(1);
             $scope.new_ct_khachhang();
         });
     };
@@ -697,7 +696,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             LOAI_TAI_KHOAN: $scope.loai_tai_khoan
         }
         khachhangService.add_taikhoan(data_add).then(function (response) {
-            $scope.load_khachhang('A');
+            phantrangkh(1);
             $scope.new_ct_khachhang();
         });
     };
@@ -712,7 +711,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             THONG_TIN_PHAN_HOI: phanhoimoi,
         }
         khachhangService.add_phanhoi(data_add).then(function (response) {
-            $scope.load_khachhang('A');
+            phantrangkh(1);
             $scope.new_ct_khachhang();
         });
     };
@@ -752,7 +751,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         //    $scope.appkeys[$scope.editing] = $scope.newField;
         //    $scope.editing = false;
         //}
-        $scope.load_khachhang('A');
+        phantrangkh(1);
     };
 
     $scope.load_nhanvienkd = function () {
@@ -896,7 +895,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             SALE_HIEN_THOI : $scope.item.USERNAME,
         }
         khachhangService.save_listchuyensale(data).then(function () {
-            $scope.load_khachhang('A');
+            phantrangkh(1);
         });
     };
 
@@ -944,7 +943,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             SALES_CU: $scope.sales_cu,
         }
         khachhangService.add_lienhe(data_add).then(function (response) {
-            $scope.load_khachhang('A');
+            phantrangkh(1);
             $scope.new_ct_khachhang();
         });
     };
@@ -985,7 +984,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             TRUC_THUOC: "HOPLONG"
         }
         khachhangService.save_khachhang(url, kh_save).then(function (response) {
-            $scope.load_khachhang('A');
+            $scope.phantrangkh(1);
             var phanloai_save = {
                 ID: id,
                 MA_KHACH_HANG: url,
@@ -997,12 +996,12 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             }
             if (id != null) {
                 khachhangService.save_phanloaikh(id, phanloai_save).then(function (response) {
-                    $scope.load_khachhang('A');
+                    $scope.phantrangkh(1);
                     $scope.new_ct_khachhang();
                 });
             } else if (id == null && $scope.kh.MA_LOAI_KHACH != null) {
                 khachhangService.add_phanloaikh(phanloai_add).then(function (response) {
-                    $scope.load_khachhang('A');
+                    $scope.phantrangkh(1);
                     $scope.new_ct_khachhang();
                 });
             }

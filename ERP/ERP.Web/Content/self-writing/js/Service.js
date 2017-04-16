@@ -760,7 +760,7 @@ app.service('khachhangService', function ($http) {
             return response.data;
         });
     };
-
+  
 
     this.get_khachhang = function (username, tukhoa) {
         return $http.post('/api/Api_KH/KH_THEO_SALES/'+username+'/'+tukhoa).then(function (response) {

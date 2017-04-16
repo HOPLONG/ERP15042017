@@ -46,6 +46,9 @@ namespace ERP.Web.Models.Database
             this.NV_GIAO_VIEC = new HashSet<NV_GIAO_VIEC>();
             this.NV_GIAO_VIEC1 = new HashSet<NV_GIAO_VIEC>();
             this.NV_LICH_LAM_VIEC = new HashSet<NV_LICH_LAM_VIEC>();
+            this.MH_XL_YEU_CAU_HOI_GIA = new HashSet<MH_XL_YEU_CAU_HOI_GIA>();
+            this.MH_YEU_CAU_HOI_GIA = new HashSet<MH_YEU_CAU_HOI_GIA>();
+            this.MH_YEU_CAU_HOI_GIA1 = new HashSet<MH_YEU_CAU_HOI_GIA>();
         }
     
         public string USERNAME { get; set; }
@@ -120,5 +123,11 @@ namespace ERP.Web.Models.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NV_LICH_LAM_VIEC> NV_LICH_LAM_VIEC { get; set; }
         public virtual NV_TINH_LUONG NV_TINH_LUONG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MH_XL_YEU_CAU_HOI_GIA> MH_XL_YEU_CAU_HOI_GIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MH_YEU_CAU_HOI_GIA> MH_YEU_CAU_HOI_GIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MH_YEU_CAU_HOI_GIA> MH_YEU_CAU_HOI_GIA1 { get; set; }
     }
 }

@@ -27,9 +27,74 @@
     <div class="panel content panel-default col-md-3">
         <div class="panel-heading title">Danh mục</div>
         <div class="panel-body">
-            <ul>
+            @*<ul>
                 <li ng-repeat="list in danhsachdanhmuc" ng-click="transfer(list.MA_DANH_MUC)" style="cursor: pointer;list-style-type: none;color: #097be0; border-bottom: 1px solid #0099FF"><h4>{{list.TEN_DANH_MUC}}</h4></li>
+            </ul>*@
+            <ul>
+                <li class="treeview" ng-click="transfer('01')" style="cursor: pointer;list-style-type: none;color: #097be0; padding-bottom: 10px;">
+                    <a href="#">
+                        <i class="fa fa-flag-checkered"></i>
+                        <span style="font-size:14px;font-weight: bold;padding-left: 6px;">Thông báo nội bộ</span>
+                    </a>
+                </li>
+                <li class="treeview" ng-click="transfer('02')" style="cursor: pointer;list-style-type: none;color: #097be0; padding-bottom: 10px;">
+                    <a href="#">
+                        <i class="fa fa-bell"></i>
+                        <span style="font-size:14px;font-weight: bold;padding-left: 6px;">Thông báo kinh doanh</span>
+                    </a>
+                </li>
+                <li class="treeview" ng-click="transfer('03')" style="cursor: pointer;list-style-type: none;color: #097be0; padding-bottom: 10px;">
+                    <a href="#">
+                        <i class="fa fa-file"></i>
+                        <span style="font-size:14px;font-weight: bold;padding-left: 6px;">Tài liệu đào tạo</span>
+                    </a>
+                </li>
+                <li class="treeview" ng-click="transfer('04')" style="cursor: pointer;list-style-type: none;color: #097be0; padding-bottom: 10px;">
+                    <a href="#">
+                        <i class="fa fa-arrows"></i>
+                        <span style="font-size:14px;font-weight: bold;padding-left: 6px;">Nội quy công ty</span>
+                    </a>
+                </li>
+                <li class="treeview" ng-click="transfer('05')" style="cursor: pointer;list-style-type: none;color: #097be0; padding-bottom: 10px;">
+                    <a href="#">
+                        <i class="fa fa-asterisk"></i>
+                        <span style="font-size:14px;font-weight: bold;padding-left: 6px;">Hoạt động giải trí</span>
+                    </a>
+                </li>
+                <li class="treeview" ng-click="transfer('06')" style="cursor: pointer;list-style-type: none;color: #097be0; padding-bottom: 10px;">
+                    <a href="#">
+                        <i class="fa fa-bookmark"></i>
+                        <span style="font-size:14px;font-weight: bold;padding-left: 6px;">Hoạt động kinh doanh</span>
+                    </a>
+                </li>
+                <li class="treeview" ng-click="transfer('07')" style="cursor: pointer;list-style-type: none;color: #097be0; padding-bottom: 10px;">
+                    <a href="#">
+                        <i class="fa fa-cubes"></i>
+                        <span style="font-size:14px;font-weight: bold;padding-left: 6px;">Dự án triển khai</span>
+                    </a>
+                </li>
+                <li class="treeview" ng-click="transfer('08')" style="cursor: pointer;list-style-type: none;color: #097be0; padding-bottom: 10px;">
+                    <a href="#">
+                        <i class="fa fa-share"></i>
+                        <span style="font-size:14px;font-weight: bold;padding-left: 6px;">Chia sẻ</span>
+                    </a>
+                </li>
+                <li class="treeview" ng-click="transfer('09')" style="cursor: pointer;list-style-type: none;color: #097be0; padding-bottom: 10px;">
+                    <a href="#">
+                        <i class="fa fa-thumbs-up"></i>
+                        <span style="font-size:14px;font-weight: bold;padding-left: 6px;">Chính sách đãi ngộ</span>
+                    </a>
+                </li>
+                <li class="treeview" ng-click="transfer('10')" style="cursor: pointer;list-style-type: none;color: #097be0; padding-bottom: 10px;">
+                    <a href="#">
+                        <i class="fa fa-gift"></i>
+                        <span style="font-size:14px; font-weight: bold;padding-left: 6px;">Khuyến mãi sản phẩm</span>
+                    </a>
+                </li>
             </ul>
+
+
+
         </div>
     </div>
 </div>

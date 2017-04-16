@@ -3,73 +3,159 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href="~/Content/self-writing/css/LichLamViecNhanVien.css" rel="stylesheet" />
+<script src="~/Content/self-writing/js/Controllers/LichLamViecNhanVienCtrl.js"></script>
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TIEU_DE_CONG_VIEC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NGAY_THUC_HIEN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NOI_DUNG_CONG_VIEC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DIA_DIEM_LAM_VIEC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HUY_CONG_VIEC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TRANG_THAI)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GHI_CHU)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CCTC_NHAN_VIEN.GIOI_TINH)
-        </th>
-        <th></th>
-    </tr>
+<div ng-app="myApp" ng-controller="LichLamViecNhanVienCtrl">
+    <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
+    <div class="content">
+        <!--Danh sách lịch làm việc-->
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height: 40px;">
+                <div class="panel-title">
+                    <div style="float: left">Lịch Làm việc của nhân viên</div>
+                    <div style="float: right">@Html.ActionLink("Tạo lịch mới", "Create")</div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TIEU_DE_CONG_VIEC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NGAY_THUC_HIEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NOI_DUNG_CONG_VIEC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DIA_DIEM_LAM_VIEC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HUY_CONG_VIEC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TRANG_THAI)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GHI_CHU)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CCTC_NHAN_VIEN.GIOI_TINH)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
 
-</table>
+                    <!-- Table expand row -->
+                    <div class="collapse-custom">
+                       
+                        <!-- ROW 1 -->
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" data-toggle="collapse" href="#collapseOne">
+                                <ul class="nav navbar-nav" ng-repeat="item in DataPhongBan">
+                                    <li class="one" ng-click="get_datanhanvienphongban(item.MA_PHONG_BAN)"><a>{{item.TEN_PHONG_BAN}}</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- HIDDING CONTANT -->
+                        <div id="collapseOne" class="collapse" data-parent="bs-example-navbar-collapse-1">
+                            <div class="panel-body">
+                                <!-- LISTE-->
+                                <div class="row">
+                                    <div class="col-xs-6 col-xs-offset-3 col-md-3 col-md-offset-3 collapse navbar-collapse" data-toggle="collapse" href="#collapseTwo">
+                                        <ul ng-repeat="item in DataNhanVienPhongBan">
+                                            <li ng-click="get_datalichlamviec(item.USERNAME)"><a>{{item.HO_VA_TEN}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HIDDING CONTANT2 -->
+                        <div id="collapseTwo" class="collapse" data-parent="bs-example-navbar-collapse-1">
+                            <div class="panel-body">
+                                <!-- LISTE-->
+                                <div class="row">
+                                    <div class="col-xs-6 col-xs-offset-3 col-md-3 col-md-offset-3">
+                                        <table class="table">
+                                            <tr>
+                                                <th>
+                                                    Thực hiện
+                                                </th>
+                                                <th>
+                                                    Tiêu đề công việc
+                                                </th>
+                                                <th>
+                                                    Ngày thực hiện
+                                                </th>
+                                                <th>
+                                                    Nội dung công việc
+                                                </th>
+                                                <th>
+                                                    Địa điểm làm việc
+                                                </th>
+                                                <th>
+                                                    Thời gian bắt đầu
+                                                </th>
+                                                <th>
+                                                    Thời gian kết thúc
+                                                </th>
+                                                <th>
+                                                    Trạng thái
+                                                </th>
+                                                <th>
+                                                    Ghi chú
+                                                </th>
+                                                <th>
+                                                    Hủy việc?
+                                                </th>
+                                                <th></th>
+                                            </tr>
+
+                                            <tr ng-repeat="kq in DataLichLamViec">
+                                                <td>
+                                                    {{kq.TEN_NGUOI_THUC_HIEN}}
+                                                </td>
+                                                <td>
+                                                    {{kq.TIEU_DE_CONG_VIEC}}
+                                                </td>
+                                                <td>
+                                                    {{kq.NGAY_THUC_HIEN}}
+                                                </td>
+                                                <td>
+                                                    {{kq.NOI_DUNG_CONG_VIEC}}
+                                                </td>
+                                                <td>
+                                                    {{kq.DIA_DIEM_LAM_VIEC}}
+                                                </td>
+                                                <td>
+                                                    {{kq.THOI_GIAN_BAT_DAU}}
+                                                </td>
+                                                <td>
+                                                    {{kq.THOI_GIAN_KET_THUC}}
+                                                </td>
+                                                <td>
+                                                    {{kq.TRANG_THAI}}
+                                                </td>
+                                                <td>
+                                                    {{kq.GHI_CHU}}
+                                                </td>
+                                                <td>
+                                                    {{kq.HUY_CONG_VIEC}}
+                                                </td>
+                                                <td>
+                                                    <a href="/LichLamViecNhanVien/Edit/{{item.ID}}">Sửa</a>
+                                                    <a href="/LichLamViecNhanVien/Details/{{item.ID}}">Chi tiết</a>
+                                                    <a href="/LichLamViecNhanVien/Delete/{{item.ID}}">Xóa</a>
+                                                </td>
+                                            </tr>
+
+
+                                        </table>
+
+
+
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!--End Table Expand row-->
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+

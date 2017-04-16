@@ -19,9 +19,9 @@ namespace ERP.Web.Api.MuaHang
 
         // GET: api/Api_YeuCauHoiGia
         [Route("api/Api_YeuCauHoiGia/GetMH_YEU_CAU_HOI_GIA")]
-        public List<Prod_MH_YeuCauHoiHang_Result1> GetMH_YEU_CAU_HOI_GIA()
+        public List<Prod_MH_YeuCauHoiHang_Result> GetMH_YEU_CAU_HOI_GIA()
         {
-            var query = db.Database.SqlQuery<Prod_MH_YeuCauHoiHang_Result1>("Prod_MH_YeuCauHoiHang");
+            var query = db.Database.SqlQuery<Prod_MH_YeuCauHoiHang_Result>("Prod_MH_YeuCauHoiHang");
             var data = query.ToList();
             return data;
         }
