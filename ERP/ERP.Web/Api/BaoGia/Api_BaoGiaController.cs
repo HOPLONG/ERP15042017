@@ -75,6 +75,11 @@ namespace ERP.Web.Api.BaoGia
                 baogia.DIEU_KHOAN_THANH_TOAN = bH_BAO_GIA.DIEU_KHOAN_THANH_TOAN;
                 baogia.PHI_VAN_CHUYEN = bH_BAO_GIA.PHI_VAN_CHUYEN;
                 baogia.TONG_TIEN = bH_BAO_GIA.TONG_TIEN;
+                baogia.CHIET_KHAU_CHO_KHACH = bH_BAO_GIA.CHIET_KHAU_CHO_KHACH;
+                baogia.CHI_PHI_XU_LY_HOA_DON = bH_BAO_GIA.CHI_PHI_XU_LY_HOA_DON;
+                baogia.TONG_CHI_PHI_XU_LY_HOA_DON = bH_BAO_GIA.TONG_CHI_PHI_XU_LY_HOA_DON;
+                baogia.THUE_SUAT_GTGT = bH_BAO_GIA.THUE_SUAT_GTGT;
+                baogia.TIEN_THUE_GTGT = bH_BAO_GIA.TIEN_THUE_GTGT;
             }
             
             try
@@ -156,6 +161,12 @@ namespace ERP.Web.Api.BaoGia
             baogia.LY_DO_HUY = bH_BAO_GIA.LY_DO_HUY;
             baogia.SALES_BAO_GIA = bH_BAO_GIA.SALES_BAO_GIA;
             baogia.TRUC_THUOC = bH_BAO_GIA.TRUC_THUOC;
+            baogia.DANG_CHO_PHAN_HOI = bH_BAO_GIA.DANG_CHO_PHAN_HOI;
+            baogia.CHIET_KHAU_CHO_KHACH = bH_BAO_GIA.CHIET_KHAU_CHO_KHACH;
+            baogia.CHI_PHI_XU_LY_HOA_DON = bH_BAO_GIA.CHI_PHI_XU_LY_HOA_DON;
+            baogia.TONG_CHI_PHI_XU_LY_HOA_DON = bH_BAO_GIA.TONG_CHI_PHI_XU_LY_HOA_DON;
+            baogia.THUE_SUAT_GTGT = bH_BAO_GIA.THUE_SUAT_GTGT;
+            baogia.TIEN_THUE_GTGT = bH_BAO_GIA.TIEN_THUE_GTGT;
             db.BH_BAO_GIA.Add(baogia);
 
             try

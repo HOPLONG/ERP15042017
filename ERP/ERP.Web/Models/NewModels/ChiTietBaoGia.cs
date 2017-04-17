@@ -49,5 +49,14 @@ namespace ERP.Web.Models.NewModels
         public decimal DON_GIA_NHAP { set; get; }
         public float HE_SO_LOI_NHUAN { set; get; }
         public decimal DON_GIA_SAU_CHIET_KHAU { set; get; }
+
+        public decimal DON_GIA_GHI_CHENH { set; get; }
+        public decimal THANH_TIEN_GHI_CHENH { set; get; }
+
+        public decimal? CHIET_KHAU_CHO_KHACH { set; get; }
+        public double? CHI_PHI_XU_LY_HOA_DON { set; get; }
+        public double? TONG_CHI_PHI_XU_LY_HOA_DON { set; get; }
+        public double? THUE_SUAT_GTGT { set; get; }
+        public decimal? TIEN_THUE_GTGT { set; get; }
     }
 }

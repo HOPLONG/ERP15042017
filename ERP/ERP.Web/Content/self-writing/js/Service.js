@@ -562,7 +562,7 @@ app.service('DonhangdukienService', function ($http) {
     }
 
     this.add = function (data_add) {
-        return $http.post("/api/Api_Donhangdukien", data_add);
+        return $http.post("/api/Api_Donhangdukien/PostBH_DON_HANG_DU_KIEN", data_add);
     };
 
     this.save = function (id, data_update) {
