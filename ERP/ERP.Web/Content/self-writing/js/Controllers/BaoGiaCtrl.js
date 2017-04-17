@@ -31,54 +31,99 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
     $scope.kiemtra = function (item) {
         $scope.item = item;
-        if ($scope.item.DON_GIA_LIST != null && $scope.item.DON_GIA_LIST != "") {
+        if ($scope.item.DON_GIA_LIST != undefined && $scope.item.DON_GIA_LIST != "") {
             $scope.item.DON_GIA = parseInt($scope.item.DON_GIA_LIST) - parseInt(($scope.item.DON_GIA_LIST * ($scope.item.CHIET_KHAU / 100)));
-        } else if ($scope.item.DON_GIA_NHAP != null && $scope.item.DON_GIA_NHAP != "") {
+        } else if ($scope.item.DON_GIA_NHAP != undefined && $scope.item.DON_GIA_NHAP != "") {
             $scope.item.DON_GIA = parseInt($scope.item.DON_GIA_NHAP) + parseInt(($scope.item.DON_GIA_NHAP * ($scope.item.HE_SO_LOI_NHUAN / 100)));
         }
         $scope.item.THANH_TIEN = $scope.item.DON_GIA * $scope.item.SO_LUONG;
+        $scope.item.THANH_TIEN_GHI_CHENH = $scope.item.SO_LUONG * $scope.item.DON_GIA_GHI_CHENH;
 
+        var phi_van_chuyen = parseFloat($('#phi_van_chuyen').val()) || 0;
+        var chiphixulyhoadon = parseFloat($('#chiphixulyhoadon').val()) || 0;
+        var thuesuatGTGT = parseFloat($('#thuesuatGTGT').val()) || 0;
+        var tong_thanh_tien_edit = 0;
+        var tong_tien_ghi_chenh_edit = 0;
+        var tong_chi_phi_xu_ly_hoa_don_edit = 0;
+        var tong_tien_VAT_edit = 0;
 
-        var tong_thanh_tien = 0;
-        var tong_tien_VAT = 0;
-        var tong_tien_chua_van_chuyen = 0;
-        var tong_tien_da_tinh_van_chuyen = 0;
-            for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
-                tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
-            }
-            $scope.tong_thanh_tien_edit = tong_thanh_tien;
-            $scope.tong_tien_VAT_edit = parseFloat((tong_thanh_tien / 10));
-            var phi_van_chuyen = parseFloat($('#phi_van_chuyen').val()) || 0;
+        for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
+            tong_thanh_tien_edit = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien_edit);
+            tong_tien_ghi_chenh_edit = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN_GHI_CHENH + tong_tien_ghi_chenh_edit);
+        }
 
-            tong_tien_da_tinh_van_chuyen = parseFloat($scope.tong_thanh_tien_edit + phi_van_chuyen + $scope.tong_tien_VAT_edit);
-                $scope.tong_tien = tong_tien_da_tinh_van_chuyen;
+        $scope.tong_gia_tri_don_hang_thuc_te_edit = tong_thanh_tien_edit;
+        $scope.tong_tien_ghi_chenh_edit = tong_tien_ghi_chenh_edit;
+
+        if (thuesuatGTGT != null || thuesuatGTGT != "") {
+            tong_tien_VAT_edit = parseFloat($scope.tong_tien_ghi_chenh_edit * (thuesuatGTGT / 100));
+        } else {
+            tong_tien_VAT_edit = 0;
+        }
+
+        $scope.gia_tri_chenh_lech_edit = $scope.tong_tien_ghi_chenh_edit - $scope.tong_gia_tri_don_hang_thuc_te_edit;
+
+        if (chiphixulyhoadon != null || chiphixulyhoadon != "") {
+            tong_chi_phi_xu_ly_hoa_don_edit = $scope.gia_tri_chenh_lech_edit * (chiphixulyhoadon / 100);
+        } else {
+            tong_chi_phi_xu_ly_hoa_don_edit = 0;
+        }
+
+        $scope.tong_tien_VAT_edit = tong_tien_VAT_edit;
+        $scope.tong_chi_phi_xu_ly_hoa_don_edit = tong_chi_phi_xu_ly_hoa_don_edit;
+        $scope.chiet_khau_cho_khach_hang_edit = $scope.gia_tri_chenh_lech_edit - $scope.tong_chi_phi_xu_ly_hoa_don_edit - phi_van_chuyen;
+
+        $scope.tong_gia_tri_edit = parseFloat($scope.tong_gia_tri_don_hang_thuc_te_edit + $scope.tong_tien_VAT_edit + tong_chi_phi_xu_ly_hoa_don_edit);
     };
 
     $scope.test = function (detail) {
         $scope.detail = detail;
-        
+        var phi_van_chuyen = parseFloat($('#tienvanchuyen').val()) || 0;
+
+
         if ($scope.detail.gia_list != null && $scope.detail.gia_list != "") {
             $scope.detail.don_gia = parseInt($scope.detail.gia_list) - parseInt(($scope.detail.gia_list * ($scope.detail.chiet_khau / 100)));
         } else if ($scope.detail.gia_nhap != null && $scope.detail.gia_nhap != "") {
             $scope.detail.don_gia = parseInt($scope.detail.gia_nhap) + parseInt(($scope.detail.gia_nhap * ($scope.detail.he_so_loi_nhuan / 100)));
         }
         $scope.detail.thanh_tien = $scope.detail.don_gia * $scope.detail.so_luong;
+        $scope.detail.thanh_tien_ghi_chenh = $scope.detail.so_luong * $scope.detail.don_gia_ghi_chenh;
 
 
+        var tong_thanh_tien_new = 0;          
+        var tong_tien_ghi_chenh_new = 0;
+        var tong_chi_phi_xu_ly_hoa_don_new = 0;
+        var tong_tien_VAT = 0;
 
-        var tong_thanh_tien_new = 0;
-         tong_tien_VAT_new = 0;
-        tong_tien_chua_van_chuyen_new = 0;
-         tong_tien_da_tinh_van_chuyen_new = 0;
         for (var i = 0; i < $scope.Detail.ListNew.length; i++) {
             tong_thanh_tien_new = parseFloat($scope.Detail.ListNew[i].thanh_tien + tong_thanh_tien_new);
+            tong_tien_ghi_chenh_new = parseFloat($scope.Detail.ListNew[i].thanh_tien_ghi_chenh + tong_tien_ghi_chenh_new)
         }
-        $scope.tong_thanh_tien = tong_thanh_tien_new;
-        $scope.tong_tien_VAT = parseFloat($scope.tong_thanh_tien / 10);
 
-        var phi_van_chuyen = parseFloat($('#tienvanchuyen').val()) || 0;
-        tong_tien_da_tinh_van_chuyen_new = parseFloat($scope.tong_thanh_tien + phi_van_chuyen + $scope.tong_tien_VAT);
-        $scope.baogia = tong_tien_da_tinh_van_chuyen_new;
+
+        $scope.tong_gia_tri_don_hang_thuc_te_new = tong_thanh_tien_new;
+        $scope.tong_tien_ghi_chenh_new = tong_tien_ghi_chenh_new;
+
+        if ($scope.thue_suat_gtgt != null || $scope.thue_suat_gtgt != "") {
+            tong_tien_VAT = parseFloat($scope.tong_tien_ghi_chenh_new * ($scope.thue_suat_gtgt / 100));
+        } else {
+            tong_tien_VAT = 0;
+        }
+              
+        $scope.gia_tri_chenh_lech_new = $scope.tong_tien_ghi_chenh_new - $scope.tong_gia_tri_don_hang_thuc_te_new;
+        
+        if ($scope.chi_phi_xu_ly_hoa_don != null || $scope.chi_phi_xu_ly_hoa_don != "") {
+            tong_chi_phi_xu_ly_hoa_don_new = $scope.gia_tri_chenh_lech_new * ($scope.chi_phi_xu_ly_hoa_don / 100);
+        } else {
+            tong_chi_phi_xu_ly_hoa_don_new = 0;
+        }
+
+
+        $scope.tong_tien_VAT = tong_tien_VAT;
+        $scope.tong_chi_phi_xu_ly_hoa_don_new = tong_chi_phi_xu_ly_hoa_don_new;
+        $scope.chiet_khau_cho_khach_hang_new = $scope.gia_tri_chenh_lech_new - $scope.tong_chi_phi_xu_ly_hoa_don_new - phi_van_chuyen;
+
+        $scope.tong_gia_tri_new = parseFloat($scope.tong_gia_tri_don_hang_thuc_te_new + $scope.tong_tien_VAT + tong_chi_phi_xu_ly_hoa_don_new);
     };
 
     $scope.load_dondukien = function () {
@@ -177,11 +222,16 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             HIEU_LUC_BAO_GIA: $scope.BangBaoGia[0].HIEU_LUC_BAO_GIA,
             DIEU_KHOAN_THANH_TOAN: $scope.BangBaoGia[0].DIEU_KHOAN_THANH_TOAN,
             PHI_VAN_CHUYEN: $scope.BangBaoGia[0].PHI_VAN_CHUYEN,
-            TONG_TIEN: $scope.tong_tien,
+            TONG_TIEN: $scope.tong_gia_tri_edit,
             DA_DUYET: $scope.BangBaoGia[0].DA_DUYET,
             DA_TRUNG: $scope.BangBaoGia[0].DA_TRUNG,
             DA_HUY: $scope.BangBaoGia[0].DA_HUY,
-            TRUC_THUOC:'HOPLONG'
+            TRUC_THUOC: 'HOPLONG',
+            CHIET_KHAU_CHO_KHACH: $scope.chiet_khau_cho_khach_hang_edit,
+            CHI_PHI_XU_LY_HOA_DON: $scope.BangBaoGia[0].CHI_PHI_XU_LY_HOA_DON,
+            TONG_CHI_PHI_XU_LY_HOA_DON: $scope.tong_chi_phi_xu_ly_hoa_don_edit,
+            THUE_SUAT_GTGT: $scope.BangBaoGia[0].THUE_SUAT_GTGT,
+            TIEN_THUE_GTGT: $scope.tong_tien_VAT_edit,
         };
 
     $scope.arrayChiTietBaoGia = [];
@@ -204,6 +254,8 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             NGAY_GIAO_HANG: $scope.Detail.ListAdd[i].NGAY_GIAO_HANG,
             DIA_DIEM_GIAO_HANG: $scope.Detail.ListAdd[i].DIA_DIEM_GIAO_HANG,
             GHI_CHU: $scope.Detail.ListAdd[i].GHI_CHU,
+            DON_GIA_GHI_CHENH: $scope.Detail.ListAdd[i].DON_GIA_GHI_CHENH,
+            THANH_TIEN_GHI_CHENH : $scope.Detail.ListAdd[i].THANH_TIEN_GHI_CHENH,
         }
         //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
         $scope.arrayChiTietBaoGia.push(ChiTietBaoGia);
@@ -269,11 +321,17 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             HIEU_LUC_BAO_GIA: $scope.hieu_luc_bao_gia,
             DIEU_KHOAN_THANH_TOAN: $scope.dieu_khoan_thanh_toan,
             PHI_VAN_CHUYEN: $scope.phivanchuyen,
-            TONG_TIEN: $scope.baogia,
+            TONG_TIEN: $scope.tong_gia_tri_new,
             DA_DUYET: false,
             DA_TRUNG: false,
             DA_HUY: false,
-            TRUC_THUOC: 'HOPLONG'
+            TRUC_THUOC: 'HOPLONG',
+            DANG_CHO_PHAN_HOI: true,
+            CHIET_KHAU_CHO_KHACH: $scope.chiet_khau_cho_khach_hang_new,
+            CHI_PHI_XU_LY_HOA_DON: $scope.chi_phi_xu_ly_hoa_don,
+            TONG_CHI_PHI_XU_LY_HOA_DON: $scope.tong_chi_phi_xu_ly_hoa_don_new,
+            THUE_SUAT_GTGT: $scope.thue_suat_gtgt,
+            TIEN_THUE_GTGT: $scope.tong_tien_VAT,
         };
 
         $scope.arrayBaoGiaChiTiet = [];
@@ -295,7 +353,9 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                 NGAY_GIAO_HANG: $scope.Detail.ListNew[i].ngay_giao_hang,
                 DON_GIA_SAU_CHIET_KHAU: $scope.Detail.ListNew[i].don_gia_sau_chiet_khau,
                 DIA_DIEM_GIAO_HANG: $scope.Detail.ListNew[i].dia_diem_giao_hang,
-                GHI_CHU: $scope.Detail.ListNew[i].GHI_CHU,
+                GHI_CHU: $scope.Detail.ListNew[i].ghi_chu,
+                DON_GIA_GHI_CHENH: $scope.Detail.ListNew[i].don_gia_ghi_chenh,
+                THANH_TIEN_GHI_CHENH: $scope.Detail.ListNew[i].thanh_tien_ghi_chenh,
             }
             //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
             $scope.arrayBaoGiaChiTiet.push(BaoGiaChiTiet);
@@ -327,6 +387,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                     url: window.location.origin + '/api/Api_ChiTietBaoGia'
                 }).then(function successCallback(response) {
                     alert("Hoàn Thành Lưu");
+                    location.reload();
                 }, function errorCallback(response) {
                     alert('Không lưu được chi tiết giữ kho');
                 });
@@ -590,7 +651,8 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             ngay_giao_hang: '',
             dia_diem_giao_hang: '',
             ghi_chu: '',
-
+            don_gia_ghi_chenh: 0,
+            thanh_tien_ghi_chenh: 0,
         });
         
     }
@@ -620,19 +682,40 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
         baogiaService.get_ct_phieubaogia($scope.baogia.SO_BAO_GIA).then(function (b) {
             $scope.Detail.ListAdd = b;
+            var phi_van_chuyen = parseInt($('.' + $scope.baogia.SO_BAO_GIA + '-phivanchuyen').text()) || 0;;
+            var chiphixuly = parseInt($('.' + $scope.baogia.SO_BAO_GIA + '-chiphixuly').text()) || 0;;
+            var thuesuatgtgt = parseInt($('.' + $scope.baogia.SO_BAO_GIA + '-thuesuatgtgt').text()) || 0;;
             var tong_thanh_tien = 0;
             var tong_tien_VAT = 0;
-            var tong_tien_chua_van_chuyen = 0;
-            var tong_tien_da_tinh_van_chuyen = 0;
+            var tong_tien_ghi_chenh_edit = 0;
+            var tong_chi_phi_xu_ly_hoa_don_edit = 0;
+
             for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
                 tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
+                tong_tien_ghi_chenh_edit = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN_GHI_CHENH + tong_tien_ghi_chenh_edit)
             }
-            $scope.tong_thanh_tien_edit = tong_thanh_tien;
-            $scope.tong_tien_VAT_edit = parseFloat($scope.tong_thanh_tien_edit / 10);
-            var phi_van_chuyen = parseInt($('.' + $scope.baogia.SO_BAO_GIA + '-phivanchuyen').text());
+            $scope.tong_gia_tri_don_hang_thuc_te_edit = tong_thanh_tien;
+            $scope.tong_tien_ghi_chenh_edit = tong_tien_ghi_chenh_edit;
+            
+            $scope.gia_tri_chenh_lech_edit = $scope.tong_tien_ghi_chenh_edit - $scope.tong_gia_tri_don_hang_thuc_te_edit;
+            
+            if (thuesuatgtgt != null || thuesuatgtgt != "") {
+                tong_tien_VAT = parseFloat($scope.tong_tien_ghi_chenh_edit * (thuesuatgtgt / 100));
+            } else {
+                tong_tien_VAT = 0;
+            }
 
-            tong_tien_da_tinh_van_chuyen = parseFloat($scope.tong_thanh_tien_edit + phi_van_chuyen + $scope.tong_tien_VAT_edit);
-            $scope.tong_tien = tong_tien_da_tinh_van_chuyen;
+            if (chiphixuly != null || chiphixuly != "") {
+                tong_chi_phi_xu_ly_hoa_don_edit = $scope.gia_tri_chenh_lech_edit * (chiphixuly / 100);
+            } else {
+                tong_chi_phi_xu_ly_hoa_don_edit = 0;
+            }
+
+            $scope.tong_tien_VAT_edit = tong_tien_VAT;
+            $scope.tong_chi_phi_xu_ly_hoa_don_edit = tong_chi_phi_xu_ly_hoa_don_edit;
+            $scope.chiet_khau_cho_khach_hang_edit = $scope.gia_tri_chenh_lech_edit - $scope.tong_chi_phi_xu_ly_hoa_don_edit- phi_van_chuyen;
+
+            $scope.tong_gia_tri_edit = parseFloat($scope.tong_gia_tri_don_hang_thuc_te_edit + $scope.tong_tien_VAT_edit + tong_chi_phi_xu_ly_hoa_don_edit);
         });
     };
         //End Tìm Kiếm Thông Tin hàng Hóa them
@@ -668,6 +751,8 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             NGAY_GIAO_HANG: '',
             DIA_DIEM_GIAO_HANG: '',
             GHI_CHU: '',
+            THANH_TIEN_GHI_CHENH: 0,
+            DON_GIA_GHI_CHENH : 0,
         });
     }
     // End hang hoa luu

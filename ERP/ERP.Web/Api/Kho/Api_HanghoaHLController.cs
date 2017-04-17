@@ -120,7 +120,34 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
                 return BadRequest();
             }
 
-            db.Entry(Hh).State = EntityState.Modified;
+            var hanghoa = db.HHs.Where(x => x.MA_HANG == id).FirstOrDefault();
+            if (hanghoa != null)
+            {
+                if (Hh.HINH_ANH != "")
+                {
+                    hanghoa.HINH_ANH = Hh.HINH_ANH;
+                }
+
+                hanghoa.TEN_HANG = Hh.TEN_HANG;
+                hanghoa.MA_NHOM_HANG = Hh.MA_NHOM_HANG;
+                hanghoa.MA_CHUAN = Hh.MA_CHUAN;
+                hanghoa.THONG_SO = Hh.THONG_SO;
+                hanghoa.MA_NHAP_HANG = Hh.MA_NHAP_HANG;
+                hanghoa.DON_VI_TINH = Hh.DON_VI_TINH;
+                hanghoa.KHOI_LUONG = Hh.KHOI_LUONG;
+                hanghoa.XUAT_XU = Hh.XUAT_XU;
+                hanghoa.GIA_NHAP = Hh.GIA_NHAP;
+                hanghoa.GIA_LIST = Hh.GIA_LIST;
+                hanghoa.BAO_HANH = Hh.BAO_HANH;
+                hanghoa.THONG_SO_KY_THUAT = Hh.THONG_SO_KY_THUAT;
+                hanghoa.QUY_CACH_DONG_GOI = Hh.QUY_CACH_DONG_GOI;
+                hanghoa.DISCONTINUE = Hh.DISCONTINUE;
+                hanghoa.GHI_CHU = Hh.GHI_CHU;
+                hanghoa.MA_CHUYEN_DOI = Hh.MA_CHUYEN_DOI;
+                hanghoa.TK_CHI_PHI = Hh.TK_CHI_PHI;
+                hanghoa.TK_DOANH_THU = Hh.TK_DOANH_THU;
+                hanghoa.TK_HACH_TOAN_KHO = Hh.TK_HACH_TOAN_KHO;
+            }
 
             try
             {
