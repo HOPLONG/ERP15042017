@@ -5,7 +5,15 @@
 
 <script src="~/Content/self-writing/js/Controllers/BaoGiaCtrl.js"></script>
 <script src="~/Content/self-writing/js/Services/BaoGiaService.js"></script>
-
+<style>
+    #themmoiinput input{
+        font-size: 11px;
+    }
+    #themmoiinput thead tr td{
+        border-right: 1px solid white;
+        vertical-align: middle;
+    }
+</style>
 
 <div ng-app="myApp" ng-controller="baogiaCtrl">
     <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
@@ -72,6 +80,8 @@
                                                             <td>
                                                                 {{baogia.SO_BAO_GIA}}
                                                                 <p class="{{baogia.SO_BAO_GIA}}-phivanchuyen" style="display:none">{{baogia.PHI_VAN_CHUYEN}}</p>
+                                                                <p class="{{baogia.SO_BAO_GIA}}-chiphixuly" style="display:none">{{baogia.CHI_PHI_XU_LY_HOA_DON}}</p>
+                                                                <p class="{{baogia.SO_BAO_GIA}}-thuesuatgtgt" style="display:none">{{baogia.THUE_SUAT_GTGT}}</p>
                                                             </td>
                                                             <td>{{baogia.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
                                                             <td>
@@ -131,14 +141,30 @@
                                                         <div class="col-md-5"><input ng-model="item.DIEU_KHOAN_THANH_TOAN" type="text" class="form-control" /></div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="col-md-12">
                                                         <label class="col-md-3">Hạn thanh toán</label>
                                                         <div class="col-md-5"><input ng-model="item.HAN_THANH_TOAN" type="text" class="form-control" /></div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-6"> 
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Chi phí xử lý hóa đơn (%) </label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="number" class="form-control" ng-model="item.CHI_PHI_XU_LY_HOA_DON" id="chiphixulyhoadon"  ng-change="kiemtra(item)" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Thuế suất GTGT (%) </label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="number" class="form-control" ng-model="item.THUE_SUAT_GTGT" id="thuesuatGTGT" ng-change="kiemtra(item)" />
+                                                        </div>
+                                                    </div>
+                                                </div>                                            
                                                 <div class="form-group">
                                                     <div class="col-md-12">
                                                         <label class="col-md-3">Hiệu lực báo giá</label>
@@ -157,22 +183,24 @@
                                         <!--Chi tiết giữ hàng-->
                                         <div class="col-md-12 content-group" style="padding-left: 5px; padding-right: 5px;">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover ">
+                                                <table class="table">
                                                     <thead>
                                                         <tr class="bg-primary-300" style="background:#64B5F6; color: white">
-                                                            <th style="width:10%" class="text-center">Mã hàng</th>
-                                                            <th style="width:5%" class="text-center">Số lượng</th>
-                                                            <th style="width:8%" class="text-center !important">Giá list</th>
-                                                            <th style="width:8%" class="text-center !important">Giá nhập</th>
-                                                            <th style="width:5%" class="text-center !important">Chiết khấu</th>
-                                                            <th style="width:5%" class="text-center !important">Hệ số lợi nhuận</th>
-                                                            <th style="width:8%" class="text-center">Đơn giá</th>
-                                                            <th style="width:5%" class="text-center">Thành tiền</th>
-                                                            <th style="width:9%" class="text-center !important">Tình trạng hàng</th>
-                                                            <th style="width:10%" class="text-center">Thời gian giao hàng</th>
-                                                            <th style="width:10%" class="text-center !important">Ngày giao hàng</th>
-                                                            <th style="width:10%" class="text-center !important">Địa điểm giao hàng</th>
-                                                            <th style="width:10%" class="text-center">Ghi chú</th>
+                                                            <td class="text-center">Mã hàng</td>
+                                                            <td class="text-center">Số lượng</td>
+                                                            <td class="text-center !important">Giá list</td>
+                                                            <td class="text-center !important">Giá nhập</td>
+                                                            <td class="text-center !important">Chiết khấu</td>
+                                                            <td class="text-center !important">Hệ số lợi nhuận</td>
+                                                            <td class="text-center">Đơn giá</td>
+                                                            <td class="text-center">Thành tiền</td>
+                                                            <td class="text-center !important">Tình trạng hàng</td>
+                                                            <td class="text-center">Thời gian giao hàng</td>
+                                                            <td class="text-center !important">Ngày giao hàng</td>
+                                                            <td class="text-center !important">Địa điểm giao hàng</td>
+                                                            <td class="text-center">Ghi chú</td>
+                                                            <td class="text-center">Đơn giá ghi chênh</td>
+                                                            <td class="text-center">Thành tiền ghi chênh</td>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -198,7 +226,7 @@
                                                                 <input type="number" style="height: 27px;" ng-model="item.HE_SO_LOI_NHUAN" class="form-control" ng-change="kiemtra(item)">
                                                             </td>
                                                             <td class="text-center">
-                                                                {{item.DON_GIA}}
+                                                                {{item.DON_GIA | currency: '':0}}
                                                             </td>
                                                             <td class="text-center">
                                                                 {{item.THANH_TIEN | currency: '':0}}
@@ -220,6 +248,13 @@
                                                             <td class="text-center">
                                                                 <input type="text" style="height: 27px; " ng-model="item.GHI_CHU" class="form-control">
                                                             </td>
+                                                            <td class="text-center">
+                                                                <input type="text" style="height: 27px; " ng-model="item.DON_GIA_GHI_CHENH" class="form-control" ng-change="kiemtra(item)">
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{item.THANH_TIEN_GHI_CHENH | currency: '':0}}
+                                                                <input ng-model="item.THANH_TIEN_GHI_CHENH" class="form-control" type="hidden" ng-disabled="true" />
+                                                            </td>
                                                         </tr>
 
                                                     </tbody>
@@ -227,19 +262,35 @@
                                                         <tr>
                                                             <td colspan="13">
                                                                 <div class="col-md-12">
-                                                                    <label class="col-md-3">Tổng thành tiền: </label>
-                                                                    <p class="col-md-6" style="text-align:left">{{tong_thanh_tien_edit | currency: '':0}} vnd</p>
+                                                                    <label class="col-md-3">Tổng giá trị đơn hàng thực tế: </label>
+                                                                    <p class="col-md-6" style="text-align:left">{{tong_gia_tri_don_hang_thuc_te_edit | currency: '':0}} vnd</p>
                                                                 </div>
                                                                 <div class="col-md-12">
-                                                                    <label class="col-md-3">VAT 10% : </label>
-                                                                    <p class="col-md-6" style="text-align:left">{{tong_tien_VAT_edit | currency: '':0}} vnd</p>
+                                                                    <label class="col-md-3">Tổng giá trị đơn hàng theo phiếu xuất/hợp đồng : </label>
+                                                                    <p class="col-md-6" style="text-align:left"><span ng-model="tong_tien_ghi_chenh_edit">{{tong_tien_ghi_chenh_edit | currency: '':0}}</span> vnd</p>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label class="col-md-3">Giá trị chênh lệch: </label>
+                                                                    <p class="col-md-6" style="text-align:left"><span ng-model="gia_tri_chenh_lech_edit">{{gia_tri_chenh_lech_edit | currency: '':0}}</span> vnd</p>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label class="col-md-3">Chi phí hóa đơn: </label>
+                                                                    <p class="col-md-6" style="text-align:left"><span ng-model="tong_chi_phi_xu_ly_hoa_don_edit">{{tong_chi_phi_xu_ly_hoa_don_edit | currency: '':0}}</span> vnd</p>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label class="col-md-3">Thuế VAT : </label>
+                                                                    <p class="col-md-6" style="text-align:left" ng-model="tong_tien_VAT_edit">{{tong_tien_VAT_edit | currency: '':0}} vnd</p>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label class="col-md-3">Chiết khấu cho khách hàng: </label>
+                                                                    <p class="col-md-6" style="text-align:left" ng-model="chiet_khau_cho_khach_hang_edit">{{chiet_khau_cho_khach_hang_edit | currency: '':0}} vnd</p>
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <hr />
                                                                 </div>
                                                                 <div class="col-md-12">
-                                                                    <label class="col-md-3">Tổng tiền(đã tính phí vận chuyển): </label>
-                                                                    <p class="col-md-6" style="text-align:left"><span  id="tong_tien" ng-model="tong_tien">{{tong_tien | currency: '':0}}</span> vnd</p>
+                                                                    <label class="col-md-3">Tổng giá trị </label>
+                                                                    <p class="col-md-6" style="text-align:left"><span id="tongtienbaogia" ng-model="tong_gia_tri_edit">{{tong_gia_tri_edit | currency: '':0}}</span> vnd</p>
                                                                 </div>
                                                             </td>
                                                             <td colspan="9"></td>
@@ -254,77 +305,98 @@
 
                                     <div class="thongtinchungthemmoi" style="display:none">
                                         <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="col-md-6">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Phương thức thanh toán </label>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Phương thức thanh toán </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <select class="form-control" ng-model="phuong_thuc_thanh_toan" id="adddieukhoanthanhtoan"
+                                                                    data-ng-options="item as item for item in phuongthucttnew"></select>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-8">
-                                                        <select class="form-control" ng-model="phuong_thuc_thanh_toan" id="adddieukhoanthanhtoan"
-                                                                data-ng-options="item as item for item in phuongthucttnew"></select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Hạn thanh toán </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" ng-model="han_thanh_toan" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Điều khoản thanh toán </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <select class="form-control" ng-model="dieu_khoan_thanh_toan" id="adddieukhoanthanhtoan"
+                                                                    data-ng-options="item as item for item in dieukhoanttnew"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Chi phí xử lý hóa đơn (%) </label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="number" class="form-control" ng-model="chi_phi_xu_ly_hoa_don" ng-init="chi_phi_xu_ly_hoa_don=0.00"  ng-change="test(detail)" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Thuế suất GTGT (%) </label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="number" class="form-control" ng-model="thue_suat_gtgt" ng-init="thue_suat_gtgt=0.00" ng-change="test(detail)" />
+                                                        </div>
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group">
+                                                    <!--Mã khách-->
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Hiệu lực báo giá </label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="number" class="form-control" ng-model="hieu_luc_bao_gia" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Phí vận chuyển </label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="number" class="form-control" ng-model="phivanchuyen" id="tienvanchuyen" ng-init="phivanchuyen=0.00" ng-change="test(detail)" />
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                             </div>
-                                            <div class="form-group">
-                                                <div class="col-md-6">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Hạn thanh toán </label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" class="form-control" ng-model="han_thanh_toan" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-6">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Điều khoản thanh toán </label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <select class="form-control" ng-model="dieu_khoan_thanh_toan" id="adddieukhoanthanhtoan"
-                                                                data-ng-options="item as item for item in dieukhoanttnew"></select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <!--Mã khách-->
-                                                <div class="col-md-6">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Hiệu lực báo giá </label>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="number" class="form-control" ng-model="hieu_luc_bao_gia" />
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Phí vận chuyển </label>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="number" class="form-control" ng-model="phivanchuyen" id="tienvanchuyen" value="0" ng-change="test(detail)" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
+                                        </div>                                       
                                         <div class="col-md-12 content-group" style="">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover ">
+                                                <table class="table" id="themmoiinput">
                                                     <thead>
                                                         <tr class="bg-primary-300" style="background:#64B5F6; color: white">
-                                                            <th style="width:10%" class="text-center">Mã hàng</th>
-                                                            <th style="width:5%" class="text-center">Số lượng</th>
-                                                            <th style="width:8%" class="text-center !important">Giá list</th>
-                                                            <th style="width:8%" class="text-center !important">Giá nhập</th>
-                                                            <th style="width:5%" class="text-center !important">Chiết khấu</th>
-                                                            <th style="width:5%" class="text-center !important">Hệ số lợi nhuận</th>
-                                                            <th style="width:8%" class="text-center">Đơn giá</th>
-                                                            <th style="width:5%" class="text-center">Thành tiền</th>
-                                                            <th style="width:9%" class="text-center !important">Tình trạng hàng</th>
-                                                            <th style="width:10%" class="text-center">Thời gian giao hàng</th>
-                                                            <th style="width:10%" class="text-center !important">Ngày giao hàng</th>
-                                                            <th style="width:10%" class="text-center !important">Địa điểm giao hàng</th>
-                                                            <th style="width:10%" class="text-center">Ghi chú</th>
+                                                            <td  class="text-center">Mã hàng</td>
+                                                            <td  class="text-center">Số lượng</td>
+                                                            <td  class="text-center !important">Giá list</td>
+                                                            <td  class="text-center !important">Giá nhập</td>
+                                                            <td  class="text-center !important">Chiết khấu</td>
+                                                            <td  class="text-center !important">Hệ số lợi nhuận</td>
+                                                            <td  class="text-center">Đơn giá</td>
+                                                            <td  class="text-center">Thành tiền</td>
+                                                            <td  class="text-center !important">Tình trạng hàng</td>
+                                                            <td  class="text-center">Thời gian giao hàng</td>
+                                                            <td  class="text-center !important">Ngày giao hàng</td>
+                                                            <td  class="text-center !important">Địa điểm giao hàng</td>
+                                                            <td class="text-center">Ghi chú</td>
+                                                            <td class="text-center">Đơn giá ghi chênh</td>
+                                                            <td class="text-center">Thành tiền ghi chênh</td>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -372,25 +444,48 @@
                                                             <td class="text-center">
                                                                 <input type="text" ng-model="detail.ghi_chu" class="form-control">
                                                             </td>
+                                                            <td class="text-center">
+                                                                <input type="number" ng-model="detail.don_gia_ghi_chenh" class="form-control" ng-change="test(detail)">
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{detail.thanh_tien_ghi_chenh | currency: '':0}}
+                                                                <input ng-model="detail.thanh_tien_ghi_chenh" class="form-control" type="hidden" ng-disabled="true" />
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
                                                             <td colspan="13">
                                                                 <div class="col-md-12">
-                                                                    <label class="col-md-3">Tổng thành tiền: </label>
-                                                                    <p class="col-md-6" style="text-align:left">{{tong_thanh_tien | currency: '':0}} vnd</p>
+                                                                    <label class="col-md-3">Tổng giá trị đơn hàng thực tế: </label>
+                                                                    <p class="col-md-6" style="text-align:left">{{tong_gia_tri_don_hang_thuc_te_new | currency: '':0}} vnd</p>
                                                                 </div>
                                                                 <div class="col-md-12">
-                                                                    <label class="col-md-3">VAT 10% : </label>
-                                                                    <p class="col-md-6" style="text-align:left">{{tong_tien_VAT | currency: '':0}} vnd</p>
+                                                                    <label class="col-md-3">Tổng giá trị đơn hàng theo phiếu xuất/hợp đồng : </label>
+                                                                    <p class="col-md-6" style="text-align:left"><span ng-model="tong_tien_ghi_chenh_new">{{tong_tien_ghi_chenh_new | currency: '':0}}</span> vnd</p>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label class="col-md-3">Giá trị chênh lệch: </label>
+                                                                    <p class="col-md-6" style="text-align:left"><span ng-model="gia_tri_chenh_lech_new">{{gia_tri_chenh_lech_new | currency: '':0}}</span> vnd</p>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label class="col-md-3">Chi phí hóa đơn: </label>
+                                                                    <p class="col-md-6" style="text-align:left" ><span ng-model="tong_chi_phi_xu_ly_hoa_don_new">{{tong_chi_phi_xu_ly_hoa_don_new | currency: '':0}}</span> vnd</p>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label class="col-md-3">Thuế VAT : </label>
+                                                                    <p class="col-md-6" style="text-align:left" ng-model="tong_tien_VAT">{{tong_tien_VAT | currency: '':0}} vnd</p>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label class="col-md-3">Chiết khấu cho khách hàng: </label>
+                                                                    <p class="col-md-6" style="text-align:left" ng-model="chiet_khau_cho_khach_hang_new">{{chiet_khau_cho_khach_hang_new | currency: '':0}} vnd</p>
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <hr />
                                                                 </div>
                                                                 <div class="col-md-12">
-                                                                    <label class="col-md-3">Tổng tiền(đã tính phí vận chuyển): </label>
-                                                                    <p class="col-md-6" style="text-align:left"><span  id="tongtienbaogia" ng-model="baogia">{{baogia | currency: '':0}}</span>vnd</p> 
+                                                                    <label class="col-md-3">Tổng giá trị </label>
+                                                                    <p class="col-md-6" style="text-align:left"><span id="tongtienbaogia" ng-model="tong_gia_tri_new">{{tong_gia_tri_new | currency: '':0}}</span> vnd</p>
                                                                 </div>
                                                             </td>
                                                             <td colspan="9"></td>

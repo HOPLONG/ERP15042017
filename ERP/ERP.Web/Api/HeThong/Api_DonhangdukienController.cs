@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace ERP.Web.Api.HeThong
 {
@@ -55,18 +56,65 @@ namespace ERP.Web.Api.HeThong
                 db.SaveChanges();
             }
         }
+
+        public string AutoMA_DU_KIEN()
+        {
+            Regex digitsOnly = new Regex(@"[^\d]");
+            string year = DateTime.Now.Year.ToString().Substring(2, 2);
+            string month = DateTime.Now.Month.ToString();
+            string day = DateTime.Now.Day.ToString();
+            if (month.Length == 1)
+            {
+                month = "0" + month;
+            }
+            if (day.Length == 1)
+            {
+                day = "0" + day;
+            }
+            string prefixNumber = "YC" + year.ToString() + month.ToString() + day.ToString();
+            string SoChungTu = (from nhapkho in db.BH_DON_HANG_DU_KIEN where nhapkho.MA_DU_KIEN.Contains(prefixNumber) select nhapkho.MA_DU_KIEN).Max();
            
+           
+            if (SoChungTu == null)
+            {
+                return "YC" + year + month + day + "0001";
+            }
+            SoChungTu = SoChungTu.Substring(8, SoChungTu.Length - 8);
+            string number = (Convert.ToInt32(digitsOnly.Replace(SoChungTu, "")) + 1).ToString();
+            string result = number.ToString();
+            int count = 4 - number.ToString().Length;
+            for (int i = 0; i < count; i++)
+            {
+                result = "0" + result;
+            }
+            return "YC" + year + month + day + result;
+        }
 
         // POST: api/Api_Donhangdukien
-        [ResponseType(typeof(BH_DON_HANG_DU_KIEN))]
+        [HttpPost]
+        [Route("api/Api_Donhangdukien/PostBH_DON_HANG_DU_KIEN")]
         public IHttpActionResult PostBH_DON_HANG_DU_KIEN(BH_DON_HANG_DU_KIEN bH_DON_HANG_DU_KIEN)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.BH_DON_HANG_DU_KIEN.Add(bH_DON_HANG_DU_KIEN);
+            BH_DON_HANG_DU_KIEN dondukien = new BH_DON_HANG_DU_KIEN();
+            dondukien.MA_DU_KIEN = AutoMA_DU_KIEN();
+            dondukien.NGAY_TAO = DateTime.Today.Date;
+            dondukien.TRUC_THUOC = "HOPLONG";
+            dondukien.SALES_QUAN_LY = bH_DON_HANG_DU_KIEN.SALES_QUAN_LY;
+            dondukien.MA_KHACH_HANG = bH_DON_HANG_DU_KIEN.MA_KHACH_HANG;
+            dondukien.THANH_CONG = bH_DON_HANG_DU_KIEN.THANH_CONG;
+            dondukien.THAT_BAI = bH_DON_HANG_DU_KIEN.THAT_BAI;
+            dondukien.LY_DO_THAT_BAI = bH_DON_HANG_DU_KIEN.LY_DO_THAT_BAI;
+            dondukien.ID_LIEN_HE = bH_DON_HANG_DU_KIEN.ID_LIEN_HE;
+                db.BH_DON_HANG_DU_KIEN.Add(dondukien);
+                db.SaveChanges();
+
+
 
             try
             {

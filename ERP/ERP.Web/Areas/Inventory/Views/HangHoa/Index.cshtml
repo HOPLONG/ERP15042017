@@ -569,7 +569,7 @@
         <!--cHI TIẾT HÀNG HÓA-->
         <div class="modal fade" id="chitiethanghoa" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-lg" style="width:80%;">
-                <div class="modal-content" style="height: 600px;">
+                <div class="modal-content" style="height: 100%;">
 
                     <div class="modal-body">
                         <div class="col-md-3">
@@ -578,7 +578,7 @@
                         <div class="col-md-9">
                             <div style="margin-bottom: 5%;" class="col-md-12">
                                 <h1>{{item.TEN_HANG | uppercase}}</h1>
-                                <div class="col-md-3 detail">Mã hàng: {{item.MA_HANG}} {{(item.THONG_SO)}}</div>
+                                <div class="col-md-3 detail">Mã hàng: {{item.MA_HANG}}</div>
                                 <div class="col-md-2 detail">Hãng: {{item.MA_NHOM_HANG}}</div>
                                 <div class="col-md-2 detail">Xuất xứ: {{item.XUAT_XU}}</div>
                             </div>
@@ -607,7 +607,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Giá bán:</td>
-                                                        <td>{{item.GIA_LIST}}</td>
+                                                        <td>{{item.GIA_LIST | currency: '': 0}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Giá nhập</td>
@@ -616,6 +616,10 @@
                                                     <tr>
                                                         <td>Đơn vị tính</td>
                                                         <td>{{item.DON_VI_TINH}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Thông số</td>
+                                                        <td>{{(item.THONG_SO)}}</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -640,7 +644,11 @@
                                                     <tr>
                                                         <td>Ghi chú</td>
                                                         <td>{{item.GHI_CHU}}</td>
-                                                    </tr>                                            
+                                                    </tr>  
+                                                    <tr>
+                                                        <td>Khối lượng</td>
+                                                        <td>{{(item.KHOI_LUONG)}} g</td>
+                                                    </tr>                                          
                                                 </table>
                                             </div>
                                         </div>
@@ -648,12 +656,17 @@
                                     </div>
 
                                     <div id="thongsokythuat" class="tab-pane fade" style="box-shadow: 3px 3px 3px #ddd; padding-bottom:20px;">
-                                        <div ng-bind-html="item.THONG_SO_KY_THUAT | unsafe"></div>                                       
+                                        <div class="col-md-12">
+                                            <div ng-bind-html="item.THONG_SO_KY_THUAT | unsafe"></div>      
+                                        </div>                                                                       
                                     </div>
                                 </div>
                             </div>
 
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
                     </div>
                 </div>
 
@@ -803,7 +816,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -861,7 +874,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -917,7 +930,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -973,7 +986,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1030,7 +1043,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1086,7 +1099,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1142,7 +1155,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1198,7 +1211,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1254,7 +1267,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1310,7 +1323,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1366,7 +1379,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1422,7 +1435,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1478,7 +1491,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1534,7 +1547,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1590,7 +1603,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1646,7 +1659,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1702,7 +1715,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1758,7 +1771,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
@@ -1823,7 +1836,7 @@
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
