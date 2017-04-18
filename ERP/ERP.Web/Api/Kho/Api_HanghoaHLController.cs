@@ -116,14 +116,8 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
             {
                 return BadRequest(ModelState);
             }
-
-
-            if (id != Hh.MA_HANG)
-            {
-                return BadRequest();
-            }
-
-            var hanghoa = db.HHs.Where(x => x.MA_HANG == id).FirstOrDefault();
+            
+            var hanghoa = db.HHs.Where(x => x.MA_HANG == Hh.MA_HANG).FirstOrDefault();
             if (hanghoa != null)
             {
                 if (Hh.HINH_ANH != "")
