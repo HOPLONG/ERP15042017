@@ -1384,7 +1384,15 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
 app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
     $scope.timkiemhanghoa = function (ma_chuan) {
         hanghoaService.find_hanghoa(ma_chuan).then(function (d) {
-            $scope.danhsachtimkiem = d;
+            if (d.length >0)
+            {
+                $scope.danhsachtimkiem = d;
+            }
+            else
+            {
+                $scope.danhsachtimkiem = ["Không tìm thấy dữ liệu phù hợp"];
+            }
+            
         });
     }
     $scope.loadHangHoa = function (MA_NHOM_HANG) {
@@ -1440,8 +1448,10 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
             TK_CHI_PHI: $scope.tkchiphi
         }
         hanghoaService.add(data_add).then(function (response) {
-            alert('Thêm mới thành công');
-            $scope.loadHangHoa('AUTONICS');
+
+            alert("Bạn đã thêm mới 1 hàng hóa!")
+            $scope.loadHangHoa();
+
             $('#imgInp').val() = '';
         });
     }
@@ -1462,7 +1472,7 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
         var a = $('#imgEdit').val();
         var name_without_ext = (a.split('\\').pop().split('/').pop().split())[0];
         var data_update = {
-            MA_HANG: $scope.item.MA_HANG,
+            MA_HANG: mahang,
             MA_CHUAN: $scope.item.MA_CHUAN,
             THONG_SO: $scope.item.THONG_SO,
             MA_NHAP_HANG: $scope.item.MA_NHAP_HANG,
@@ -1484,11 +1494,13 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
             TK_DOANH_THU: $scope.item.TK_DOANH_THU,
             TK_CHI_PHI: $scope.item.TK_CHI_PHI
         }
+
         hanghoaService.save(mahang, data_update).then(function (response) {
             alert('Sửa thành công');
             reload();
         }, function errorCallback(response) {
             alert('Không lưu được chi tiết giữ kho');
+
         });
     }
 
@@ -1496,9 +1508,11 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
         var data_delete = {
             MA_HANG: mahang
         }
+
         hanghoaService.delete(mahang, data_delete).then(function (response) {
             alert('Xóa thành công');
             reload();
+
         });
     };
     //$scope.get_tonkho = function (id) {
