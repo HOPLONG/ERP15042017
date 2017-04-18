@@ -2,6 +2,34 @@
 app.controller('DonDuKienCtrl', function ($scope, $http) {
 
     var salehienthoi = $('#salehienthoi').val();
+    var phongban = $('#maphongban').val();
+    var isadmin = $('#isadmin').val();
+
+    //Get Danh sách dự kiến theo sale
+    $scope.getDanhSachDuKien = function () {
+        var datas = {
+            macongty: 'HOPLONG',
+            ma: salehienthoi,
+            isadmin: isadmin,
+            maphongban: phongban,
+        }
+
+        $http.post('http://27.72.144.148:8003/api/DonHangDuKien/GetDonDuKienTheoSale', datas)
+            .then(function (response) {
+                $scope.danhsachdukien = response.data;
+            }, function (error) {
+                ErrorSystem("Không lấy được dữ liệu khách hàng")
+            });
+    }
+    $scope.getDanhSachDuKien();
+    //-------------------------------
+
+
+
+
+
+
+
     //Show thông tin khách hàng---------------------------------------------------------------------------------------------------------------
     $scope.arrayKhachHang = {
         ma_khach_hang: '',

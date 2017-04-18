@@ -5,11 +5,13 @@
 }
 
 <link href="~/Content/self-writing/css/KhachHang.css" rel="stylesheet" />
+
+<script src="~/Content/download/pnotify.custom.min.js"></script>
 @*<script src="~/Content/self-writing/js/Services/KhachHangServices.js"></script>
 @*<script src="~/Content/self-writing/js/Controllers/KhachHangCtrl.js"></script>*@
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="~/Content/self-writing/pagination.js"></script>
-
+<link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
 
 <style>
     #myModal .col-md-12 {
@@ -34,6 +36,8 @@
 
     <div class="content">
         <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
+        <input type="hidden" id="maphongban" name="maphongban" value="@Session["MA_PHONG_BAN"]" />
+        <input type="hidden" id="isadmin" name="isadmin" value="@Session["IS_AMIN"]" />
 
         <!--Form tìm kiếm-->
         <div id="quick-access">

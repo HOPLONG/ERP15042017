@@ -3,6 +3,8 @@
     ViewBag.Title = "TaoDuKienMoi";
     Layout = "~/Areas/KinhDoanh/Views/Shared/_Layout.cshtml";
 }
+<script src="~/Content/download/pnotify.custom.min.js"></script>
+<link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
 <div ng-app="myApp" ng-controller="DonhangdukienCtrl">
     <input type="hidden" value="@Session["USERNAME"]" id="username"/>
     <form class="form-horizontal" name="mainForm" novalidate>

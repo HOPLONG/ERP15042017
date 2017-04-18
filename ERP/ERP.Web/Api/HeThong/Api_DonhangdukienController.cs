@@ -132,7 +132,7 @@ namespace ERP.Web.Api.HeThong
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = bH_DON_HANG_DU_KIEN.MA_DU_KIEN }, bH_DON_HANG_DU_KIEN);
+            return Ok(dondukien.MA_DU_KIEN);
         }
 
         // DELETE: api/Api_Donhangdukien/5
