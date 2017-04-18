@@ -139,10 +139,11 @@ namespace ERP.Web.Controllers
                 Session["MA_PHONG_BAN"] = user.CCTC_NHAN_VIEN.MA_PHONG_BAN;
                 Session["HO_VA_TEN"] = user.HO_VA_TEN;
                 Session["ALLOWED"] = user.ALLOWED;
-                Session["IS_AMIN"] = user.IS_ADMIN;
+                Session["IS_AMIN"] = user.IS_ADMIN.ToString();
                 Session["AVATAR"] = user.AVATAR;
                 Session["MA_CONG_TY"] = user.MA_CONG_TY;
                 Session["LOAI_USER"] = user.CCTC_CONG_TY.CAP_TO_CHUC;
+
                 //HT_LICH_SU_DANG_NHAP lsdn = new HT_LICH_SU_DANG_NHAP();
                 //lsdn.USERNAME = user.USERNAME;
                 //lsdn.THOI_GIAN_DANG_NHAP = DateTime.Now.ToString("dd/MM/yyyy:hh:mm:ss");
@@ -176,10 +177,12 @@ namespace ERP.Web.Controllers
 
             Session["USERNAME"] = null;
             Session["HO_VA_TEN"] = null;
+            Session["ALLOWED"] = null;
             Session["IS_AMIN"] = null;
             Session["AVATAR"] = null;
-            Session["MA_CONG_TY"] = null;
             Session["LOAI_USER"] = null;
+            Session["MA_CONG_TY"] = null;
+            Session["MA_PHONG_BAN"] = null;
             return RedirectToAction("Login");
         }
         #endregion

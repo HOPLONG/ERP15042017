@@ -224,12 +224,7 @@ namespace ERP.Web.Api.HeThong
                 khach.TRUC_THUOC = kH.TRUC_THUOC;
                 khach.SALES_TAO = kH.SALES_TAO;
                 db.KHs.Add(khach);
-
-
             
-
-            
-
             try
             {
                 db.SaveChanges();
