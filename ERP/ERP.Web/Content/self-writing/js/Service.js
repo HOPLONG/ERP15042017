@@ -26,12 +26,12 @@ app.service('hanghoaService', function ($http) {
         return $http.post("/api/Api_HanghoaHL", data_add);
     };
 
-    this.save = function (mahang, data_update) {
-        return $http.put("/api/Api_HanghoaHL/" + mahang, data_update);
+    this.save = function (data_update) {
+        return $http.put("/api/Api_HanghoaHL/PutDM_HANG_HOA", data_update);
     }
 
-    this.delete = function (mahang, data_delete) {
-        return $http.delete("/api/Api_HanghoaHL/" + mahang, data_delete);
+    this.delete = function (data_delete) {
+        return $http.delete("/api/Api_HanghoaHL/DeleteDM_HANG_HOA", data_delete);
     }
     //this.get_hangtonkho = function (id) {
     //    return $http.get("/api/Api_Checktonkho/" + id).then(function (response) {

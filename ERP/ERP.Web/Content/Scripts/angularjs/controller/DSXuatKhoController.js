@@ -1,5 +1,10 @@
 ﻿app.controller('DSPhieuXuatKhoController', function ($rootScope, $scope, $http, config) {
     $rootScope.title = "Xuất kho";
+    $rootScope.PageSetting = {
+        PageCount: 0,
+        NumberPerPage: 10,
+        CurrentPage: 1
+    }
     $rootScope.dashboard = false;
     $scope.StoreType = 1;
     $scope.DSXuatKho = {
@@ -7,8 +12,11 @@
         To: null,
         ListResult: [],
     };
-
-    $scope.phieuxuatkho = ['Bán hàng','Sản xuất'];
+    $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+    $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+    $scope.DonHangnumPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+    $scope.DonHangcurrentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+    $scope.phieuxuatkho = ['Bán hàng', 'Sản xuất'];
 
     $scope.GiaTriThamChieu = [];
     $scope.LoaiChungTu = null;
@@ -53,46 +61,39 @@
         //ListKho: []
     }
     $scope.Detail.ListAdd.push({
-            MaHang: null,
-            TenHang: null,
-            TKKho: null,
-            DonGia: null,
-            SoLuong: null,
-            DVT: null,
-            TKNo: null,
-            TKCo: null,
-            DonGiaVon: null
-        });
-
-    function Init() {
+        MaHang: null,
+        TenHang: null,
+        TKKho: null,
+        DonGia: null,
+        SoLuong: null,
+        DVT: null,
+        TKNo: null,
+        TKCo: null,
+        DonGiaVon: null
+    });
 
 
-        $http({
-            method: 'GET',
-            url: '/api/Api_XuatKho/GetDSPhieuXuatKho'
-        }).then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.DSPhieuXuatKho = response.data;
+    $scope.SearchPhieuXuatKho = function (tn, dn) {
+        if (tn != null && dn != null) {
+            if (tn == "" && dn == "") {
+                tn = "";
+                dn = "";
             }
             else {
-                ErrorSystem();
+                tn = tn.format('DD/MM/YYYY');
+                dn = dn.format('DD/MM/YYYY');
             }
-        }, function (error) {
-            ConnectFail();
-        });
- 
-        
 
-    }
-    Init();
-
-    $scope.SearchPhieuXuatKho = function () {
-
-        var data = {
-            tungay: $scope.DSXuatKho.From.format('DD/MM/YYYY'),
-            denngay: $scope.DSXuatKho.To.format('DD/MM/YYYY')
         }
-        $http.post('/api/Api_XuatNhapKho/GetAllDSPhieuXuatKho', data)
+        else {
+            tn = "";
+            dn = "";
+        }
+        var data = {
+            tungay: tn,
+            denngay: dn
+        }
+        $http.post('/api/Api_XuatNhapKho/GetAllDSPhieuXuatKho/' + 1, data)
             .then(function (response) {
                 console.log(response);
                 if (typeof (response.data) == "object") {
@@ -107,13 +108,13 @@
             }, function (error) {
                 ConnectFail();
             });
-        
-    };
 
- 
+    };
+    //$scope.SearchPhieuXuatKho();
+
     $scope.transfer = function (transfer) {
         $scope.item = transfer;
-        $http.get('/api/Api_KHO_CT_XUAT_KHO/GetCTPhieuXuatKho/' + $scope.item.SO_CHUNG_TU)
+        $http.get('http://27.72.144.148:8003/api/XuatKhoHL/GetCTPhieuXuatKho/' + $scope.item.SO_CHUNG_TU+'/'+'HOPLONG')
             .then(function (response) {
                 if (typeof (response.data) == "object") {
                     $scope.Detail.ListAdd = response.data;
@@ -133,14 +134,14 @@
                 $scope.listct = response.data;
                 $scope.ThamChieu.ListSelect = [];
                 for (i = 0; i < $scope.listct.length; i++) {
-                    
+
                     $scope.ThamChieu.ListSelect.push({
                         SO_CHUNG_TU: $scope.listct[i].SO_CHUNG_TU_THAM_CHIEU,
                     })
                 }
                 if (typeof (response.data) == "object") {
-                    $scope.DSXuatKho.ListResult = response.data;
-                    
+                    $scope.ThamChieu.ListResult = response.data;
+
                 }
                 else {
                     ErrorSystem();
@@ -413,13 +414,13 @@
     var a = $('#username').val();
     var b = $('#macongty').val();
     $scope.SaveXuatKho = function () {
-      
+
         var loaixuatkho = "";
         if ($scope.item.LOAI_XUAT_KHO == "Bán hàng") {
             loaixuatkho = "Bán hàng";
         } else {
             loaixuatkho = "Sản xuất";
-      
+
         }
         $http({
             method: 'PUT',
@@ -451,15 +452,91 @@
             }
             else {
                 $(function () {
-                   new PNotify({
-                       title: 'Thành công',
-                       text: 'Chứng từ ' + response.data + ' đã được sửa',
-                       addclass: 'bg-primary'
-                     });
+                    new PNotify({
+                        title: 'Thành công',
+                        text: 'Chứng từ ' + response.data + ' đã được sửa',
+                        addclass: 'bg-primary'
+                    });
                 });
             }
         }, function (error) {
             ConnectFail();
         });
     }
+
+    //Phan trang DS Phiếu XK
+    function pageClick2(pageNumber) {
+        if ($scope.DSXuatKho.From != null && $scope.DSXuatKho.To != null) {
+            if ($scope.DSXuatKho.From == "" && $scope.DSXuatKho.To == "") {
+                $scope.DSXuatKho.From = "";
+                $scope.DSXuatKho.To = "";
+            }
+            else {
+                $scope.DSXuatKho.From = $scope.DSXuatKho.From.format('DD/MM/YYYY');
+                $scope.DSXuatKho.To = $scope.DSXuatKho.To.format('DD/MM/YYYY');
+            }
+
+        }
+        else {
+            $scope.DSXuatKho.From = "";
+            $scope.DSXuatKho.To = "";
+        }
+        $("#page-number-2").text(pageNumber);
+        var data = {
+            tungay: $scope.DSXuatKho.From,
+            denngay: $scope.DSXuatKho.To
+        }
+        $http.post('/api/Api_XuatNhapKho/GetAllDSPhieuXuatKho/' + pageNumber, data)
+            .then(function (response) {
+                console.log(response);
+                if (typeof (response.data) == "object") {
+                    $scope.DSXuatKho.ListResult = response.data;
+                    if ($scope.DSXuatKho.ListResult.length == 0) {
+                        Norecord();
+                    }
+                }
+                else {
+                    ErrorSystem();
+                }
+            }, function (error) {
+                ConnectFail();
+            });
+    }
+    var itemsCount = 2000;
+    var itemsOnPage = 10;
+
+
+    var pagination2 = new Pagination({
+        container: $("#pagination-2"),
+        pageClickCallback: pageClick2,
+        maxVisibleElements: 16,
+        showInput: true,
+        inputTitle: "Go to page"
+    });
+    pagination2.make(itemsCount, itemsOnPage);
+    //End phan trang DS Phiếu XK
+
+
+    function Loadtranglucdau() {
+        var data = {
+            tungay: "",
+            denngay: "",
+        }
+        $http.post('/api/Api_XuatNhapKho/GetAllDSPhieuXuatKho/' + 1, data)
+                .then(function (response) {
+                    console.log(response);
+                    if (typeof (response.data) == "object") {
+                        $scope.DSXuatKho.ListResult = response.data;
+                        if ($scope.DSXuatKho.ListResult.length == 0) {
+                            Norecord();
+                        }
+                    }
+                    else {
+                        ErrorSystem();
+                    }
+                }, function (error) {
+                    ConnectFail();
+                });
+    };
+    Loadtranglucdau();
 });
