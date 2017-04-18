@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href="~/Content/assets/css/core.css" rel="stylesheet" />
+<link href="~/Content/assets/css/colors.css" rel="stylesheet" />
 <link href="~/Content/self-writing/css/LichLamViecNhanVien.css" rel="stylesheet" />
 <script src="~/Content/self-writing/js/Controllers/LichLamViecNhanVienCtrl.js"></script>
 
@@ -38,104 +40,91 @@
                             <div class="panel-body">
                                 <!-- LISTE-->
                                 <div class="row">
-                                    <div class="col-xs-6 col-xs-offset-3 col-md-3 col-md-offset-3 collapse navbar-collapse" data-toggle="collapse" href="#collapseTwo">
+                                    <div class="col-md-3 collapse navbar-collapse" data-toggle="collapse" href="#collapseTwo" style="box-shadow: 3px 3px 3px #ddd;margin-right: 30px;padding-right: 67px;margin-left: 26px; padding-bottom:20px">
                                         <ul ng-repeat="item in DataNhanVienPhongBan">
                                             <li ng-click="get_datalichlamviec(item.USERNAME)"><a>{{item.HO_VA_TEN}}</a></li>
                                         </ul>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- HIDDING CONTANT2 -->
-                        <div id="collapseTwo" class="collapse" data-parent="bs-example-navbar-collapse-1">
-                            <div class="panel-body">
-                                <!-- LISTE-->
-                                <div class="row">
-                                    <div class="col-xs-6 col-xs-offset-3 col-md-3 col-md-offset-3">
-                                        <table class="table">
-                                            <tr>
-                                                <th>
-                                                    Thực hiện
-                                                </th>
-                                                <th>
-                                                    Tiêu đề công việc
-                                                </th>
-                                                <th>
-                                                    Ngày thực hiện
-                                                </th>
-                                                <th>
-                                                    Nội dung công việc
-                                                </th>
-                                                <th>
-                                                    Địa điểm làm việc
-                                                </th>
-                                                <th>
-                                                    Thời gian bắt đầu
-                                                </th>
-                                                <th>
-                                                    Thời gian kết thúc
-                                                </th>
-                                                <th>
-                                                    Trạng thái
-                                                </th>
-                                                <th>
-                                                    Ghi chú
-                                                </th>
-                                                <th>
-                                                    Hủy việc?
-                                                </th>
-                                                <th></th>
-                                            </tr>
-
-                                            <tr ng-repeat="kq in DataLichLamViec">
-                                                <td>
-                                                    {{kq.TEN_NGUOI_THUC_HIEN}}
-                                                </td>
-                                                <td>
-                                                    {{kq.TIEU_DE_CONG_VIEC}}
-                                                </td>
-                                                <td>
-                                                    {{kq.NGAY_THUC_HIEN}}
-                                                </td>
-                                                <td>
-                                                    {{kq.NOI_DUNG_CONG_VIEC}}
-                                                </td>
-                                                <td>
-                                                    {{kq.DIA_DIEM_LAM_VIEC}}
-                                                </td>
-                                                <td>
-                                                    {{kq.THOI_GIAN_BAT_DAU}}
-                                                </td>
-                                                <td>
-                                                    {{kq.THOI_GIAN_KET_THUC}}
-                                                </td>
-                                                <td>
-                                                    {{kq.TRANG_THAI}}
-                                                </td>
-                                                <td>
-                                                    {{kq.GHI_CHU}}
-                                                </td>
-                                                <td>
-                                                    {{kq.HUY_CONG_VIEC}}
-                                                </td>
-                                                <td>
-                                                    <a href="/LichLamViecNhanVien/Edit/{{item.ID}}">Sửa</a>
-                                                    <a href="/LichLamViecNhanVien/Details/{{item.ID}}">Chi tiết</a>
-                                                    <a href="/LichLamViecNhanVien/Delete/{{item.ID}}">Xóa</a>
-                                                </td>
-                                            </tr>
-
-
-                                        </table>
-
-
-
-                                        
+                                    <div class="col-md-9 collapse navbar-collapse table-responsive content-group" data-toggle="collapse" id="collapseTwo">
+                                        <!-- HIDDING CONTANT2 -->
+                                                        <table style="border-color: #ddd" border="1" class="table table-bordered table-striped table-hover">
+                                                            <thead class="bg-primary-300">
+                                                                <tr>
+                                                                    <th>
+                                                                        Thực hiện
+                                                                    </th>
+                                                                    <th>
+                                                                        Tiêu đề công việc
+                                                                    </th>
+                                                                    <th>
+                                                                        Nội dung công việc
+                                                                    </th>
+                                                                    <th>
+                                                                        Địa điểm làm việc
+                                                                    </th>
+                                                                    <th>
+                                                                        Thời gian bắt đầu
+                                                                    </th>
+                                                                    <th>
+                                                                        Thời gian kết thúc
+                                                                    </th>
+                                                                    <th>
+                                                                        Trạng thái
+                                                                    </th>
+                                                                    <th>
+                                                                        Ghi chú
+                                                                    </th>
+                                                                    <th>
+                                                                        Hủy việc?
+                                                                    </th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="kq in DataLichLamViec">
+                                                                    <td>
+                                                                        {{kq.TEN_NGUOI_THUC_HIEN}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{kq.TIEU_DE_CONG_VIEC}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{kq.NOI_DUNG_CONG_VIEC}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{kq.DIA_DIEM_LAM_VIEC}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{kq.THOI_GIAN_BAT_DAU}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{kq.THOI_GIAN_KET_THUC}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{kq.TRANG_THAI}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{kq.GHI_CHU}}
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="checkbox" ng-checked="{{kq.HUY_CONG_VIEC}}">
+                                                                        
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="/LichLamViecNhanVien/Edit/{{item.ID}}">Sửa</a>
+                                                                        <a href="/LichLamViecNhanVien/Details/{{item.ID}}">Chi tiết</a>
+                                                                        <a href="/LichLamViecNhanVien/Delete/{{item.ID}}">Xóa</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>    
+                                                    </table>
+                                            
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        
 
 
                     </div>
@@ -145,6 +134,17 @@
             </div>
         </div>
 
+
+        <!--Danh sách Công việc được giao-->
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height: 40px;">
+                <div class="panel-title">
+                    <div style="float: left">Công việc được giao</div>
+                </div>
+            </div>
+            <div class="panel-body">
+            </div>
+        </div>
     </div>
 </div>
 

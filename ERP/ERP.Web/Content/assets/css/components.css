@@ -612,7 +612,7 @@ a.badge,
   width: 280px;
 }
 .sidebar-fixed-expanded .content-wrapper {
-  
+  padding-left: 76px;
 }
 @media (min-width: 769px) {
   .sidebar-separate .sidebar-content {
@@ -1002,7 +1002,7 @@ a.badge,
 *  Latest update: May 25, 2015
 *
 * ---------------------------------------------------------------------------- */
-.page-container {
+/*.page-container {
   position: relative;
   padding: 20px 20px;
   padding-bottom: 60px;
@@ -1041,7 +1041,7 @@ a.badge,
     display: table-cell;
     vertical-align: top;
   }
-}
+}*/
 /* ------------------------------------------------------------------------------
 *
 *  # Boxed layout

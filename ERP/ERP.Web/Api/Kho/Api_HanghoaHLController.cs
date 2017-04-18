@@ -92,8 +92,9 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
             return result;
         }
 
-       
+
         // GET: api/Api_HanghoaHL/5
+        
         [ResponseType(typeof(HH))]
         public IHttpActionResult GetHH(string id)
         {
@@ -107,13 +108,15 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
         }
 
         // PUT: api/Api_HanghoaHL/5
+        [Route("api/Api_HanghoaHL/PutDM_HANG_HOA")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutDM_HANG_HOA(string id, HH Hh)
+        public IHttpActionResult PutDM_HANG_HOA(HH Hh)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
 
             if (id != Hh.MA_HANG)
             {
@@ -149,20 +152,15 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
                 hanghoa.TK_HACH_TOAN_KHO = Hh.TK_HACH_TOAN_KHO;
             }
 
+
             try
             {
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DM_HANG_HOAExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
+                
                     throw;
-                }
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -199,6 +197,7 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
         }
 
         // DELETE: api/Api_HanghoaHL/5
+        [Route("api/Api_HanghoaHL/DeleteDM_HANG_HOA")]
         [ResponseType(typeof(HH))]
         public IHttpActionResult DeleteDM_HANG_HOA(string id)
         {
