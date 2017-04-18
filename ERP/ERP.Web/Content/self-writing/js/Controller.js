@@ -116,6 +116,10 @@ app.controller('khogiuhangCtrl', function (khogiuhangService, $scope, $location,
 
     };
 
+    $scope.chitiet = function (entry) {
+        $scope.item = entry;
+    };
+
     $scope.get_chitietgiuhang = function (entry) {
         $scope.entry = entry;
         var magiukho = $scope.entry.MA_GIU_KHO;
@@ -1444,8 +1448,10 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
             TK_CHI_PHI: $scope.tkchiphi
         }
         hanghoaService.add(data_add).then(function (response) {
+
             alert("Bạn đã thêm mới 1 hàng hóa!")
             $scope.loadHangHoa();
+
             $('#imgInp').val() = '';
         });
     }
@@ -1488,9 +1494,13 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
             TK_DOANH_THU: $scope.item.TK_DOANH_THU,
             TK_CHI_PHI: $scope.item.TK_CHI_PHI
         }
-        hanghoaService.save(data_update).then(function (response) {
-            alert("Bạn đã sửa 1 hàng hóa!")
-            $scope.loadHangHoa();
+
+        hanghoaService.save(mahang, data_update).then(function (response) {
+            alert('Sửa thành công');
+            reload();
+        }, function errorCallback(response) {
+            alert('Không lưu được chi tiết giữ kho');
+
         });
     }
 
@@ -1498,8 +1508,11 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
         var data_delete = {
             MA_HANG: mahang
         }
-        hanghoaService.delete(data_delete).then(function (response) {
-            $scope.loadHangHoa();
+
+        hanghoaService.delete(mahang, data_delete).then(function (response) {
+            alert('Xóa thành công');
+            reload();
+
         });
     };
     //$scope.get_tonkho = function (id) {

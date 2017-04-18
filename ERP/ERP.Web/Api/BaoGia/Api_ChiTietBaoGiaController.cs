@@ -74,6 +74,8 @@ namespace ERP.Web.Api.BaoGia
                         baogia.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
                     baogia.DIA_DIEM_GIAO_HANG = item.DIA_DIEM_GIAO_HANG;
                     baogia.GHI_CHU = item.GHI_CHU;
+                    baogia.DON_GIA_GHI_CHENH = item.DON_GIA_GHI_CHENH;
+                    baogia.THANH_TIEN_GHI_CHENH = item.THANH_TIEN_GHI_CHENH;
                 }
                 else if (baogia == null)
 
@@ -94,6 +96,8 @@ namespace ERP.Web.Api.BaoGia
                         newbaogia.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
                     newbaogia.DIA_DIEM_GIAO_HANG = item.DIA_DIEM_GIAO_HANG;
                     newbaogia.GHI_CHU = item.GHI_CHU;
+                    newbaogia.DON_GIA_GHI_CHENH = item.DON_GIA_GHI_CHENH;
+                    newbaogia.THANH_TIEN_GHI_CHENH = item.THANH_TIEN_GHI_CHENH;
                     db.BH_CT_BAO_GIA.Add(newbaogia);
                 }
 
@@ -138,6 +142,8 @@ namespace ERP.Web.Api.BaoGia
                     lienhe.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
                 lienhe.DIA_DIEM_GIAO_HANG = item.DIA_DIEM_GIAO_HANG;
                 lienhe.GHI_CHU = item.GHI_CHU;
+                lienhe.DON_GIA_GHI_CHENH = item.DON_GIA_GHI_CHENH;
+                lienhe.THANH_TIEN_GHI_CHENH = item.THANH_TIEN_GHI_CHENH;
                 db.BH_CT_BAO_GIA.Add(lienhe);
                 db.SaveChanges();             
             }
