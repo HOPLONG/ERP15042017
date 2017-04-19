@@ -636,10 +636,13 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
 
     //button add check
-    $scope.check = function (mahang, tenhang, dvt, xuatxu, dongia) {
+    $scope.check = function (mahang, tenhang, dvt, xuatxu, hang, dongia) {
         $scope.Detail.ListNew.push({
             ma_hang: mahang,
+            ten_hang: tenhang,
             so_luong: 0,
+            dvt: dvt,
+            hang: hang,
             gia_list: dongia,
             gia_nhap: 0,
             don_gia: '',
