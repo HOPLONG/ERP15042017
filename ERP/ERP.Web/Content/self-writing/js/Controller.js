@@ -3639,7 +3639,7 @@ app.controller('DonhangdukienCtrl', function (DonhangdukienService, $scope,$http
         }
         DonhangdukienService.add(data_add).then(function (response) {
             SuccessSystem("Bạn đã thêm thành công đơn dự kiến "+ response.data);
-            window.location = "/KinhDoanh/Dondukien/Index";
+            window.location = "/Baogia/Index/" + response.data;
             //$scope.Donhangdukien();
         });
     };
