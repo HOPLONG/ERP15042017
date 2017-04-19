@@ -861,6 +861,19 @@ app.service('khachhangService', function ($http) {
             return response.data;
         });
     };
+
+    this.get_kh_policy = function (makh) {
+        return $http.post('/api/Api_KhachHangPolicy/' + makh).then(function (response) {
+            return response.data;
+        });
+    };
+    this.save_kh_policy = function (id,data_save) {
+        return $http.put("/api/Api_KhachHangPolicy/PutKH_POLICY/" + id, data_save);
+    };
+
+    this.add_kh_policy = function (data_add) {
+        return $http.post("/api/Api_KhachHangPolicy", data_add);
+    };
 });
 //end khach hang
 
