@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using System.Data.SqlClient;
 using ERP.Web.Models.BusinessModel;
+using System.Text.RegularExpressions;
 
 namespace ERP.Web.Api.BaoGia
 {
@@ -75,9 +76,6 @@ namespace ERP.Web.Api.BaoGia
                 baogia.DIEU_KHOAN_THANH_TOAN = bH_BAO_GIA.DIEU_KHOAN_THANH_TOAN;
                 baogia.PHI_VAN_CHUYEN = bH_BAO_GIA.PHI_VAN_CHUYEN;
                 baogia.TONG_TIEN = bH_BAO_GIA.TONG_TIEN;
-                baogia.CHIET_KHAU_CHO_KHACH = bH_BAO_GIA.CHIET_KHAU_CHO_KHACH;
-                baogia.CHI_PHI_XU_LY_HOA_DON = bH_BAO_GIA.CHI_PHI_XU_LY_HOA_DON;
-                baogia.TONG_CHI_PHI_XU_LY_HOA_DON = bH_BAO_GIA.TONG_CHI_PHI_XU_LY_HOA_DON;
                 baogia.THUE_SUAT_GTGT = bH_BAO_GIA.THUE_SUAT_GTGT;
                 baogia.TIEN_THUE_GTGT = bH_BAO_GIA.TIEN_THUE_GTGT;
             }
@@ -101,51 +99,57 @@ namespace ERP.Web.Api.BaoGia
             return Ok(bH_BAO_GIA);
         }
 
+
+        public string GenerateSoBaoGia()
+        {
+            Regex digitsOnly = new Regex(@"[^\d]");
+            string year = DateTime.Now.Year.ToString().Substring(2, 2);
+            string month = DateTime.Now.Month.ToString();
+            string day = DateTime.Now.Day.ToString();
+            if (month.Length == 1)
+            {
+                month = "0" + month;
+            }
+            if (day.Length == 1)
+            {
+                day = "0" + day;
+            }
+            string prefixNumber = "BG" + year.ToString() + month.ToString() + day.ToString();
+            string SoChungTu = (from nhapkho in db.BH_BAO_GIA where nhapkho.SO_BAO_GIA.Contains(prefixNumber) select nhapkho.SO_BAO_GIA).Max();
+
+
+            if (SoChungTu == null)
+            {
+                return "BG" + year + month + day + "0001";
+            }
+            SoChungTu = SoChungTu.Substring(8, SoChungTu.Length - 8);
+            string number = (Convert.ToInt32(digitsOnly.Replace(SoChungTu, "")) + 1).ToString();
+            string result = number.ToString();
+            int count = 4 - number.ToString().Length;
+            for (int i = 0; i < count; i++)
+            {
+                result = "0" + result;
+            }
+            return "BG" + year + month + day + result;
+        }
+
         // POST: api/Api_BaoGia
         [ResponseType(typeof(BH_BAO_GIA))]
+        [Route("api/Api_BaoGia/PostBH_BAO_GIA")]
         public IHttpActionResult PostBH_BAO_GIA(BH_BAO_GIA bH_BAO_GIA)
         {
-            string sobaogia;
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            String nam = DateTime.Today.Year.ToString();
-            String nam2so = nam.Substring(2);
-            var query = db.Database.SqlQuery<string>("XL_LayBaoGiaMoiNhat");
-
-
-            if (query.Count() > 0)
-            {
-                string prefixID = "BG" + nam2so;
-                var data = query.FirstOrDefault();
-                string LastID = data;
-
-                int nextID = int.Parse(LastID.Remove(0, prefixID.Length)) + 1;
-                int lengthNumerID = LastID.Length - prefixID.Length;
-                string zeroNumber = "";
-                for (int i = 1; i <= lengthNumerID; i++)
-                {
-                    if (nextID < Math.Pow(10, i))
-                    {
-                        for (int j = 1; j <= lengthNumerID - i; i++)
-                        {
-                            zeroNumber += "0";
-                        }
-                    }
-                }
-                // int ma = Convert.ToInt32(makhach.Substring(4));
-                sobaogia = prefixID + zeroNumber + nextID.ToString();
-            }
-            else
-                sobaogia = "BG" + nam2so + "0001";
-
+         
 
             BH_BAO_GIA baogia = new BH_BAO_GIA();
-            baogia.SO_BAO_GIA = sobaogia;
-            baogia.MA_KHACH_HANG = bH_BAO_GIA.MA_KHACH_HANG;
-            baogia.MA_DU_KIEN = bH_BAO_GIA.MA_DU_KIEN;
+            baogia.SO_BAO_GIA = GenerateSoBaoGia();
             baogia.NGAY_BAO_GIA = DateTime.Today.Date;
+            baogia.MA_DU_KIEN = bH_BAO_GIA.MA_DU_KIEN;
+            baogia.MA_KHACH_HANG = bH_BAO_GIA.MA_KHACH_HANG;
             baogia.LIEN_HE_KHACH_HANG = bH_BAO_GIA.LIEN_HE_KHACH_HANG;
             baogia.PHUONG_THUC_THANH_TOAN = bH_BAO_GIA.PHUONG_THUC_THANH_TOAN;
             baogia.HAN_THANH_TOAN = bH_BAO_GIA.HAN_THANH_TOAN;
@@ -153,8 +157,12 @@ namespace ERP.Web.Api.BaoGia
             baogia.DIEU_KHOAN_THANH_TOAN = bH_BAO_GIA.DIEU_KHOAN_THANH_TOAN;
             baogia.PHI_VAN_CHUYEN = bH_BAO_GIA.PHI_VAN_CHUYEN;
             baogia.TONG_TIEN = bH_BAO_GIA.TONG_TIEN;
+            baogia.TONG_GIA_TRI_DON_HANG_THUC_TE = bH_BAO_GIA.TONG_GIA_TRI_DON_HANG_THUC_TE;
+            baogia.GIA_TRI_THUC_THU_TU_KHACH = bH_BAO_GIA.GIA_TRI_THUC_THU_TU_KHACH;
+            baogia.TONG_GIA_TRI_CHENH_LECH = bH_BAO_GIA.TONG_GIA_TRI_CHENH_LECH;
+            baogia.TONG_CHI_PHI_HOA_DON = bH_BAO_GIA.TONG_CHI_PHI_HOA_DON;
+            baogia.THUC_NHAN_CUA_KHACH = bH_BAO_GIA.THUC_NHAN_CUA_KHACH;
             baogia.DA_DUYET = bH_BAO_GIA.DA_DUYET;
-            baogia.DIEU_KHOAN_THANH_TOAN = bH_BAO_GIA.DIEU_KHOAN_THANH_TOAN;
             baogia.NGUOI_DUYET = bH_BAO_GIA.NGUOI_DUYET;
             baogia.DA_TRUNG = bH_BAO_GIA.DA_TRUNG;
             baogia.DA_HUY = bH_BAO_GIA.DA_HUY;
@@ -162,9 +170,6 @@ namespace ERP.Web.Api.BaoGia
             baogia.SALES_BAO_GIA = bH_BAO_GIA.SALES_BAO_GIA;
             baogia.TRUC_THUOC = bH_BAO_GIA.TRUC_THUOC;
             baogia.DANG_CHO_PHAN_HOI = bH_BAO_GIA.DANG_CHO_PHAN_HOI;
-            baogia.CHIET_KHAU_CHO_KHACH = bH_BAO_GIA.CHIET_KHAU_CHO_KHACH;
-            baogia.CHI_PHI_XU_LY_HOA_DON = bH_BAO_GIA.CHI_PHI_XU_LY_HOA_DON;
-            baogia.TONG_CHI_PHI_XU_LY_HOA_DON = bH_BAO_GIA.TONG_CHI_PHI_XU_LY_HOA_DON;
             baogia.THUE_SUAT_GTGT = bH_BAO_GIA.THUE_SUAT_GTGT;
             baogia.TIEN_THUE_GTGT = bH_BAO_GIA.TIEN_THUE_GTGT;
             db.BH_BAO_GIA.Add(baogia);
