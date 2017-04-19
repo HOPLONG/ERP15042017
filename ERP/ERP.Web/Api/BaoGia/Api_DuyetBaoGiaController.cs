@@ -31,7 +31,7 @@ namespace ERP.Web.Api.BaoGia
                          {
                              t1.SO_BAO_GIA,t1.NGAY_BAO_GIA,t1.MA_DU_KIEN,t1.MA_KHACH_HANG,t1.LIEN_HE_KHACH_HANG,t1.PHUONG_THUC_THANH_TOAN,t1.HAN_THANH_TOAN,t1.HIEU_LUC_BAO_GIA,t1.DIEU_KHOAN_THANH_TOAN,t4.NGAY_TAO,
                              t1.PHI_VAN_CHUYEN,t1.TONG_TIEN,t1.DA_DUYET,t1.NGUOI_DUYET,t1.DA_TRUNG,t1.DA_HUY,t1.LY_DO_HUY,t1.SALES_BAO_GIA,t1.TRUC_THUOC,t6.NGUOI_LIEN_HE,t5.HO_VA_TEN,t3.TEN_CONG_TY,t3.DIA_CHI_XUAT_HOA_DON,t3.VAN_PHONG_GIAO_DICH,
-                             t1.CHIET_KHAU_CHO_KHACH,t1.CHI_PHI_XU_LY_HOA_DON,t1.TONG_CHI_PHI_XU_LY_HOA_DON,t1.THUE_SUAT_GTGT,t1.TIEN_THUE_GTGT,
+                             t1.THUE_SUAT_GTGT,t1.TIEN_THUE_GTGT,t1.TONG_GIA_TRI_DON_HANG_THUC_TE,t1.GIA_TRI_THUC_THU_TU_KHACH,t1.TONG_GIA_TRI_CHENH_LECH,t1.TONG_CHI_PHI_HOA_DON,t1.THUC_NHAN_CUA_KHACH
                          });
             var result = vData.ToList().Select(x => new ChiTietBaoGia()
             {
@@ -46,6 +46,8 @@ namespace ERP.Web.Api.BaoGia
                 DIEU_KHOAN_THANH_TOAN = x.DIEU_KHOAN_THANH_TOAN,
                 PHI_VAN_CHUYEN = x.PHI_VAN_CHUYEN,
                 TONG_TIEN = x.TONG_TIEN,
+                TONG_GIA_TRI_DON_HANG_THUC_TE = x.TONG_GIA_TRI_DON_HANG_THUC_TE,
+                GIA_TRI_THUC_THU_TU_KHACH = x.GIA_TRI_THUC_THU_TU_KHACH,
                 DA_DUYET = x.DA_DUYET,
                 NGUOI_DUYET = x.NGUOI_DUYET,
                 DA_TRUNG = x.DA_TRUNG,
@@ -59,11 +61,11 @@ namespace ERP.Web.Api.BaoGia
                 DIA_CHI_XUAT_HOA_DON = x.DIA_CHI_XUAT_HOA_DON,
                 VAN_PHONG_GIAO_DICH = x.VAN_PHONG_GIAO_DICH,
                 NGAY_TAO = x.NGAY_TAO,
-                CHIET_KHAU_CHO_KHACH = x.CHIET_KHAU_CHO_KHACH,
-                CHI_PHI_XU_LY_HOA_DON = x.CHI_PHI_XU_LY_HOA_DON,
-                TONG_CHI_PHI_XU_LY_HOA_DON = x.TONG_CHI_PHI_XU_LY_HOA_DON,
                 THUE_SUAT_GTGT = x.THUE_SUAT_GTGT,
                 TIEN_THUE_GTGT = x.TIEN_THUE_GTGT,
+                TONG_GIA_TRI_CHENH_LECH = x.TONG_GIA_TRI_CHENH_LECH,
+                TONG_CHI_PHI_HOA_DON = x.TONG_CHI_PHI_HOA_DON,
+                THUC_NHAN_CUA_KHACH = x.THUC_NHAN_CUA_KHACH,
             }).ToList();
             return result;
         }

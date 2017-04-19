@@ -839,11 +839,11 @@
                                             <tr ng-repeat="policy in list_policy">
                                                 <td>{{policy.MA_NHOM_HANG}}</td>
                                                 <td>
-                                                    <p ng-hide="editMode">{{policy.GIA_BAN | currency: '' : 0}}</p>
+                                                    <p ng-hide="editMode">{{policy.GIA_BAN}} %</p>
                                                     <input type="number" ng-model="policy.GIA_BAN" ng-show="editMode" />
                                                 </td>
                                                 <td>
-                                                    <p ng-hide="editMode">{{policy.CHIET_KHAU_CM}}</p>
+                                                    <p ng-hide="editMode">{{policy.CHIET_KHAU_CM}} %</p>
                                                     <input type="number" ng-model="policy.CHIET_KHAU_CM" ng-show="editMode" />
                                                 </td>
                                                 <td>
