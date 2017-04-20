@@ -5,7 +5,7 @@
 <div class="" ng-app="app" ng-controller="StoreInsertController">
     <!-- Dashboard content -->
     <div class="row">
-        <div class="col-lg-10" style="margin-left: 270px;">
+        <div class="col-lg-12">
             <div class="panel panel-white">
                 <div class="panel-heading color-heading">
                     <h6 class="panel-title">Nhập kho</h6>
@@ -75,18 +75,16 @@
                                                         <tr>
                                                             <th style="width:20%">Mã khách hàng</th>
                                                             <th style="width:20%">Tên khách hàng</th>
-                                                            <th style="width:20%">Địa chỉ</th>
                                                             <th style="width:20%">Mã số thuế</th>
                                                             <th style="width:20%">Điện thoại</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="item in KhachHang.DoiTuong" ng-click="SelectKhachHang(item)">
-                                                            <td>{{item.MA_DOI_TUONG}}</td>
-                                                            <td>{{item.TEN_DOI_TUONG}}</td>
-                                                            <td>{{item.DIA_CHI}}</td>
-                                                            <td>{{item.MA_SO_THUE}}</td>
-                                                            <td>{{item.DIEN_THOAI}}</td>
+                                                        <tr ng-repeat="item in KhachHang.KhachHang" ng-click="SelectKhachHang(item)">
+                                                            <td>{{item.MA_KHACH_HANG}}</td>
+                                                            <td>{{item.TEN_CONG_TY}}</td>
+                                                            <td>{{item.MST}}</td>
+                                                            <td>{{item.HOTLINE}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -208,7 +206,8 @@
                                     <tr class="bg-primary-300">
                                         <th style="width:15%" class="text-center">Mã hàng</th>
                                         <th style="width:15%" class="text-center">Tên hàng</th>
-                                        <th style="width:10%" class="text-center">TK nợ</th>
+                                        <th style="width:15%" class="text-center">Tên Kho</th>
+                                        <th style="width:10%" class="text-center">TK kho</th>
                                         <th style="width:10%" class="text-center">TK nợ</th>
                                         <th style="width:10%" class="text-center">TK có</th>
                                         <th style="width:10%" class="text-center">ĐVT</th>
@@ -219,16 +218,36 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="(index,item) in Detail.ListAdd">
-                                        <td ng-if="LoadHangTra==false">
-                                            <div class="has-feedback" ng-click="ShowHangHoa(index)">
-                                                <input type="text" ng-model="item.MA_HANG" class="form-control showtableselect">                          
-                                            </div>
-                                        </td>
-                                        <td ng-if="LoadHangTra==true">
-                                            {{item.MA_HANG}}
+                                        <td>
+                                            <input type="text" ng-model="item.MA_HANG" class="form-control showtableselect">
                                         </td>
                                         <td>
                                             {{item.TEN_HANG}}
+                                        </td>
+                                        <td>
+                                            <div class="has-feedback" ng-click="ShowKho(index)">
+                                                <input type="text" ng-model="item.MA_KHO" class="form-control showtableselect">
+                                                <div class="form-control-feedback">
+                                                    <i class="icon-arrow-down5"></i>
+                                                </div>
+                                            </div>
+                                            <div class="tableselect" id="DataKho{{index}}" style="display:none;max-width: 200px;top:90px;">
+                                                <table class="table-hover ">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width:50%">Mã kho</th>
+                                                            <th style="width:50%">Tên kho</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="(hindex,itemKho) in Detail.ListKho| filter:item.Kho" ng-click="SelectKho(index,item,itemKho)">
+                                                            <td>{{itemKho.MA_KHO}}</td>
+                                                            <td>{{itemKho.TEN_KHO}}</td>
+                                                            <td>{{itemKho.DIA_CHI}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </td>
                                         <td ng-if="LoadHangTra==false">
                                             <div class="has-feedback" ng-click="ShowTaiKhoanKho(index)">
