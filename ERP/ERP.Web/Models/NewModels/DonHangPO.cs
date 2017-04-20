@@ -20,5 +20,7 @@ namespace ERP.Web.Models.NewModels
         public string NHAN_VIEN_QUAN_LY { get; set; }
         public Nullable<bool> DA_XUAT_KHO { get; set; }
         public string MA_SO_XUAT_KHO { get; set; }
+        public string NGAY_GIAO_HANG { set; get; }
+        public string DIA_DIEM_GIAO_HANG { set; get; }
     }
 }

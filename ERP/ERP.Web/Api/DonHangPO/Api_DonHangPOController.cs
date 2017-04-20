@@ -64,6 +64,9 @@ namespace ERP.Web.Api.DonHangPO
                 edit.TIEN_THUE_GTGT = bH_DON_HANG_PO.TIEN_THUE_GTGT;
                 edit.TONG_TIEN_THANH_TOAN = bH_DON_HANG_PO.TONG_TIEN_THANH_TOAN;
                 edit.SO_TIEN_VIET_BANG_CHU = bH_DON_HANG_PO.SO_TIEN_VIET_BANG_CHU;
+                if(bH_DON_HANG_PO.NGAY_GIAO_HANG != null)
+                edit.NGAY_GIAO_HANG = xlnt.Xulydatetime(bH_DON_HANG_PO.NGAY_GIAO_HANG.ToString());
+                edit.DIA_DIEM_GIAO_HANG = bH_DON_HANG_PO.DIA_DIEM_GIAO_HANG;
             }
 
             try
@@ -94,7 +97,20 @@ namespace ERP.Web.Api.DonHangPO
                 return BadRequest(ModelState);
             }
 
-            db.BH_DON_HANG_PO.Add(bH_DON_HANG_PO);
+            BH_DON_HANG_PO edit = new BH_DON_HANG_PO();
+            if (bH_DON_HANG_PO.NGAY_LEN_PO != null)
+                edit.NGAY_LEN_PO = xlnt.Xulydatetime(bH_DON_HANG_PO.NGAY_LEN_PO.ToString());
+            edit.MA_KHACH_HANG = bH_DON_HANG_PO.MA_KHACH_HANG;
+            edit.TEN_LIEN_HE = bH_DON_HANG_PO.TEN_LIEN_HE;
+            edit.HINH_THUC_THANH_TOAN = bH_DON_HANG_PO.HINH_THUC_THANH_TOAN;
+            edit.THUE_SUAT_GTGT = bH_DON_HANG_PO.THUE_SUAT_GTGT;
+            edit.TIEN_THUE_GTGT = bH_DON_HANG_PO.TIEN_THUE_GTGT;
+            edit.TONG_TIEN_THANH_TOAN = bH_DON_HANG_PO.TONG_TIEN_THANH_TOAN;
+            edit.SO_TIEN_VIET_BANG_CHU = bH_DON_HANG_PO.SO_TIEN_VIET_BANG_CHU;
+            if (bH_DON_HANG_PO.NGAY_GIAO_HANG != null)
+                edit.NGAY_GIAO_HANG = xlnt.Xulydatetime(bH_DON_HANG_PO.NGAY_GIAO_HANG.ToString());
+            edit.DIA_DIEM_GIAO_HANG = bH_DON_HANG_PO.DIA_DIEM_GIAO_HANG;
+            db.BH_DON_HANG_PO.Add(edit);
 
             try
             {

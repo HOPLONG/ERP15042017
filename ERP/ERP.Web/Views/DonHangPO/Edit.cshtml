@@ -15,7 +15,7 @@
         <div class="col-md-12"  ng-repeat="item in thongtinchung">
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <div class="form-group">
+                    <div class="form-group col-md-12">
                         <label class="col-md-4">Khách hàng</label>
                         <div class="col-md-8">
                             <md-input-container>
@@ -28,11 +28,17 @@
                             </md-input-container>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" date='dd-MM-yyyy' datepicker placeholder="Ngày lên PO" class="form-control datepicker" ng-model="item.NGAY_LEN_PO" />
+                    <div class="col-md-12 form-group">
+                        <div class="form-group">
+                            <label class="col-md-4">Ngày lên PO</label>
+                            <div class="col-md-4"><input type="text" date='dd-MM-yyyy' datepicker placeholder="Ngày lên PO" class="form-control datepicker" ng-model="item.NGAY_LEN_PO" /></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="Tên liên hệ" class="form-control" ng-model="item.TEN_LIEN_HE" />
+                    <div class="col-md-12 form-group">
+                        <div class="form-group">
+                            <label class="col-md-4">Người liên hệ</label>
+                            <div class="col-md-8"><input type="text"  placeholder="Tên liên hệ" class="form-control" ng-model="item.TEN_LIEN_HE" /></div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -47,12 +53,26 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 form-group">
                         <div class="form-group">
                             <label class="col-md-4">Phương thức thanh toán </label>
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="item.HINH_THUC_THANH_TOAN" id="hinhthuctt"
                                         data-ng-options="item as item for item in hinhthuctt"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <div class="form-group">
+                            <label class="col-md-4">Ngày giao hàng</label>
+                            <div class="col-md-4"><input type="text" date='dd-MM-yyyy' datepicker placeholder="Ngày giao hàng" class="form-control datepicker" ng-model="item.NGAY_GIAO_HANG" /></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <div class="form-group">
+                            <label class="col-md-4">Địa điểm giao hàng </label>
+                            <div class="col-md-8">
+                                <input class="form-control" ng-model="item.DIA_DIEM_GIAO_HANG" type="text"/>
                             </div>
                         </div>
                     </div>
