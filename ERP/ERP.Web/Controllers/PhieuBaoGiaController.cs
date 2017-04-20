@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ERP.Web.Models.Database;
+using System.Data.SqlClient;
 
 namespace ERP.Web.Controllers
 {
@@ -15,11 +16,45 @@ namespace ERP.Web.Controllers
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: PhieuBaoGia
+
+
+
+        public ActionResult DownloadActionAsPDF()
+        {
+            try
+            {
+                //will take ActionMethod and generate the pdf
+                return new Rotativa.ActionAsPdf("chitiet", new { id = "BG170009" } ) { FileName = "SecondPdf.pdf" };
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
         public ActionResult Index()
         {
             var bH_BAO_GIA = db.BH_BAO_GIA.Include(b => b.KH_LIEN_HE).Include(b => b.BH_DON_HANG_DU_KIEN).Include(b => b.KH).Include(b => b.CCTC_NHAN_VIEN);
             return View(bH_BAO_GIA.ToList());
         }
+
+
+        public ActionResult chitiet(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var query = db.Database.SqlQuery<GetAll_ThongTinBaoGia_Result>("GetAll_ThongTinBaoGia  @so_bao_gia, @ma_cong_ty", new SqlParameter("so_bao_gia", id), new SqlParameter("ma_cong_ty", "HOPLONG"));
+            var result = query.FirstOrDefault();
+            BH_BAO_GIA bg = new BH_BAO_GIA();
+            bg.SO_BAO_GIA = result.SO_BAO_GIA;
+            bg.NGAY_BAO_GIA = result.NGAY_BAO_GIA;
+            bg.MA_KHACH_HANG = result.MA_KHACH_HANG;
+            return View(bg);
+        }
+
 
         // GET: PhieuBaoGia/Details/5
         public ActionResult Details(string id)

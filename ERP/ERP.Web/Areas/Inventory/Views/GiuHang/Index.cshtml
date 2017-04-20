@@ -19,12 +19,15 @@
     .md-pane-open {
         z-index: 9999;
     }
+    #thongtin td{
+        border: 1px solid black;
+    }
 </style>
 
 <div ng-app="myApp" ng-controller="khogiuhangCtrl">
     <div class="content">
 
-        <div class="container">
+        <div class="content">
             <table class="table">
                 <thead>
                     <tr>
@@ -39,7 +42,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-ng-repeat="entry in list_khogiuhang" ng-click="get_chitietgiuhang(entry)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                    <tr data-ng-repeat="entry in list_khogiuhang" ng-click="get_chitietgiuhang(entry);chitiet(entry)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
                         <td data-toggle="modal" data-target="#chitiethanghoa">{{entry.MA_GIU_KHO}}</td>
                         <td data-toggle="modal" data-target="#chitiethanghoa">{{entry.HO_VA_TEN}}</td>
                         <td data-toggle="modal" data-target="#chitiethanghoa">{{entry.TEN_CONG_TY}}</td>
@@ -69,7 +72,24 @@
         <div class="modal fade" id="chitiethanghoa" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-lg" style="width: 90%">
                 <div class="modal-content" style="width: 100%">
-
+                    <div class="modal-header">
+                        <table class="table" id="thongtin">
+                            <tr>
+                                <td>
+                                    Mã giữ kho : {{item.MA_GIU_KHO}}
+                                </td>
+                                <td>
+                                    Người giữ : {{item.HO_VA_TEN}}
+                                </td>
+                                <td>
+                                    Khách hàng : {{item.TEN_CONG_TY}}
+                                </td>
+                                <td>
+                                    Ngày giữ : {{item.NGAY_GIU | stringToDate: 'dd/MM/yyyy'}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                     <div class="modal-body">
                         <table class="table">
                             <thead>
@@ -92,7 +112,7 @@
                                         <p style="display:none">{{item.ID}}</p>
                                         <p style="display:none">{{item.MA_GIU_KHO}}</p>
                                         <p data-ng-hide="editMode" ng-model="item.MA_HANG">{{item.MA_HANG}}</p>
-                                        <input type="text" data-ng-show="editMode" data-ng-model="item.MA_HANG" data-ng-required />
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.MA_HANG" data-ng-required readonly/>
                                     </td>
                                     <td class="text-left">
                                         <p data-ng-hide="editMode" ng-model="item.DVT">{{item.DVT}}</p>
@@ -111,8 +131,8 @@
                                         <input type="text" data-ng-show="editMode" data-ng-model="item.DON_GIA" data-ng-required />
                                     </td>
                                     <td class="text-left">
-                                        <p data-ng-hide="editMode" ng-model="item.THANH_TIEN">{{item.THANH_TIEN}}</p>
-                                        <p type="text" data-ng-show="editMode">{{item.DON_GIA * item.SL_GIU}}</p>
+                                        <p data-ng-hide="editMode" ng-model="item.THANH_TIEN">{{item.THANH_TIEN | currency:'':0}}</p>
+                                        <p type="text" data-ng-show="editMode">{{(item.DON_GIA * item.SL_GIU) | currency:'':0}}</p>
                                     </td>
                                     <td>
                                         <p data-ng-hide="editMode" ng-model="item.NGAY_XUAT">{{item.NGAY_XUAT}}</p>

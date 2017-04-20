@@ -3,9 +3,14 @@
 @{
     ViewBag.Title = "Index";
 }
+<script src="~/Content/download/pnotify.custom.min.js"></script>
+<link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
+<script src="~/Content/self-writing/js/Controllers/DonDuKienCtrl.js"></script>
 
-<div>
+<div ng-app="myApp" ng-controller="DonDuKienCtrl">
     <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
+    <input type="hidden" id="maphongban" name="maphongban" value="@Session["MA_PHONG_BAN"]" />
+    <input type="hidden" id="isadmin" name="isadmin" value="@Session["IS_AMIN"]" />
     <div class="content">
         <div class="panel panel-default">
             <div class="panel-heading" style="height: 40px;">
@@ -43,40 +48,47 @@
                                 Lý do thất bại
                             </th>
                             <th></th>
+                            <th></th>
                         </tr>
 
-                        @foreach (var item in Model)
-                        {
-                            <tr>
+                        @*@foreach (var item in Model)
+                        {*@
+                            <tr ng-repeat="item in danhsachdukien">
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.MA_DU_KIEN)
+                                    {{item.MA_DU_KIEN}}
                                 </td>
                                 <td>
-                                    @item.NGAY_TAO.ToString("dd/MM/yyyy")
+                                    {{item.NGAY_TAO| date:"dd/MM/yyyy"}}
+                                </td>
+                                <td>                                   
+                                    {{item.TEN_KHACH_HANG}}
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.KH.TEN_CONG_TY)
+                                    {{item.NGUOI_LIEN_HE}}
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.KH_LIEN_HE.NGUOI_LIEN_HE)
+                                    <input type="checkbox" ng-checked="{{item.THANH_CONG}}" ng-hide="editMode" ng-disabled="true"/>
+                                    <input type="checkbox" ng-model="item.THANH_CONG" ng-show="editMode"/>
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.THANH_CONG)
+                                    <input type="checkbox" ng-checked="{{item.THAT_BAI}}" ng-hide="editMode" ng-disabled="true"/>
+                                    <input type="checkbox" ng-model="item.THAT_BAI" ng-show="editMode" />
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.THAT_BAI)
+                                    <p ng-hide="editMode">{{item.LY_DO_THAT_BAI}}</p>
+                                    <input type="text" ng-model="item.LY_DO_THAT_BAI" ng-show="editMode" />
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.LY_DO_THAT_BAI)
+                                    <button type="submit" ng-hide="editMode" ng-click="editMode = true; editAppKey(item)" class="btn btn-default">Sửa nhanh</button>
+                                    <button type="submit" ng-show="editMode" ng-click="editMode = false; save_inline(item)" class="btn btn-default">Save</button>
+                                    <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
                                 </td>
                                 <td>
-                                    <a href="/Baogia/Index/@item.MA_DU_KIEN">Sinh báo giá</a>|
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.MA_DU_KIEN }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.MA_DU_KIEN }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.MA_DU_KIEN })
+                                    <a href="/Baogia/Index/{{item.MA_DU_KIEN}}">Sinh báo giá</a> | 
+                                    <a href="KinhDoanh/DonDuKien/Delete/{{item.MA_DU_KIEN}}">Xóa</a>
                                 </td>
                             </tr>
-                        }
+                        @*}*@
 
                     </table>
                 </div>

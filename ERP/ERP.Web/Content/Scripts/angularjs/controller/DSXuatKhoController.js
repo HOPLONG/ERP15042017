@@ -16,7 +16,9 @@
     $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
     $scope.DonHangnumPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
     $scope.DonHangcurrentPage = angular.copy($rootScope.PageSetting.CurrentPage);
-    $scope.phieuxuatkho = ['Bán hàng','Sản xuất'];
+
+    $scope.phieuxuatkho = ['Bán hàng', 'Sản xuất'];
+
 
     $scope.GiaTriThamChieu = [];
     $scope.LoaiChungTu = null;
@@ -61,16 +63,18 @@
         //ListKho: []
     }
     $scope.Detail.ListAdd.push({
-            MaHang: null,
-            TenHang: null,
-            TKKho: null,
-            DonGia: null,
-            SoLuong: null,
-            DVT: null,
-            TKNo: null,
-            TKCo: null,
-            DonGiaVon: null
-        });
+
+        MaHang: null,
+        TenHang: null,
+        TKKho: null,
+        DonGia: null,
+        SoLuong: null,
+        DVT: null,
+        TKNo: null,
+        TKCo: null,
+        DonGiaVon: null
+    });
+
 
 
     $scope.SearchPhieuXuatKho = function (tn, dn) {
@@ -108,13 +112,13 @@
             }, function (error) {
                 ConnectFail();
             });
-        
+
     };
     //$scope.SearchPhieuXuatKho();
- 
+
     $scope.transfer = function (transfer) {
         $scope.item = transfer;
-        $http.get('/api/Api_KHO_CT_XUAT_KHO/GetCTPhieuXuatKho/' + $scope.item.SO_CHUNG_TU)
+        $http.get('http://27.72.144.148:8003/api/XuatKhoHL/GetCTPhieuXuatKho/' + $scope.item.SO_CHUNG_TU+'/'+'HOPLONG')
             .then(function (response) {
                 if (typeof (response.data) == "object") {
                     $scope.Detail.ListAdd = response.data;
@@ -134,14 +138,14 @@
                 $scope.listct = response.data;
                 $scope.ThamChieu.ListSelect = [];
                 for (i = 0; i < $scope.listct.length; i++) {
-                    
+
                     $scope.ThamChieu.ListSelect.push({
                         SO_CHUNG_TU: $scope.listct[i].SO_CHUNG_TU_THAM_CHIEU,
                     })
                 }
                 if (typeof (response.data) == "object") {
                     $scope.ThamChieu.ListResult = response.data;
-                    
+
                 }
                 else {
                     ErrorSystem();
@@ -414,13 +418,13 @@
     var a = $('#username').val();
     var b = $('#macongty').val();
     $scope.SaveXuatKho = function () {
-      
+
         var loaixuatkho = "";
         if ($scope.item.LOAI_XUAT_KHO == "Bán hàng") {
             loaixuatkho = "Bán hàng";
         } else {
             loaixuatkho = "Sản xuất";
-      
+
         }
         $http({
             method: 'PUT',
@@ -452,11 +456,11 @@
             }
             else {
                 $(function () {
-                   new PNotify({
-                       title: 'Thành công',
-                       text: 'Chứng từ ' + response.data + ' đã được sửa',
-                       addclass: 'bg-primary'
-                     });
+                    new PNotify({
+                        title: 'Thành công',
+                        text: 'Chứng từ ' + response.data + ' đã được sửa',
+                        addclass: 'bg-primary'
+                    });
                 });
             }
         }, function (error) {
@@ -482,6 +486,7 @@
             $scope.DSXuatKho.To = "";
         }
         $("#page-number-2").text(pageNumber);
+
             var data = {
                 tungay: $scope.DSXuatKho.From,
                 denngay: $scope.DSXuatKho.To
@@ -501,6 +506,7 @@
                 }, function (error) {
                     ConnectFail();
                 });
+
     }
     var itemsCount = 2000;
     var itemsOnPage = 10;

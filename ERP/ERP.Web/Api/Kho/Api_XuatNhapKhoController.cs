@@ -117,7 +117,9 @@ namespace ERP.Web.Api.Kho
         #region "Get All Danh Sach Phieu Xuat Kho"
         [HttpPost]
         [Route("api/Api_XuatNhapKho/GetAllDSPhieuXuatKho/{sotrang}")]
-        public List<GetAll_DS_PhieuXuatKho_NoDate_Result> GetAllDSPhieuXuatKho(int sotrang,DataDSXuatKho data)
+
+        public List<GetAll_DS_PhieuXuatKho_NoDate_Result> GetAllDSPhieuXuatKho(int sotrang, DataDSXuatKho data)
+
         {
             if (data.tungay == "" && data.denngay == "")
             {
@@ -190,7 +192,7 @@ namespace ERP.Web.Api.Kho
                 return resultDSNhap;
             }
             return resultDSNhap;
-               
+
         }
         #endregion
     }

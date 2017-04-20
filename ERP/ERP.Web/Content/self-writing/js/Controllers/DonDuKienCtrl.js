@@ -2,6 +2,34 @@
 app.controller('DonDuKienCtrl', function ($scope, $http) {
 
     var salehienthoi = $('#salehienthoi').val();
+    var phongban = $('#maphongban').val();
+    var isadmin = $('#isadmin').val();
+
+    //Get Danh sách dự kiến theo sale
+    $scope.getDanhSachDuKien = function () {
+        var datas = {
+            macongty: 'HOPLONG',
+            ma: salehienthoi,
+            isadmin: isadmin,
+            maphongban: phongban,
+        }
+
+        $http.post('http://27.72.144.148:8003/api/DonHangDuKien/GetDonDuKienTheoSale', datas)
+            .then(function (response) {
+                $scope.danhsachdukien = response.data;
+            }, function (error) {
+                ErrorSystem("Không lấy được dữ liệu khách hàng")
+            });
+    }
+    $scope.getDanhSachDuKien();
+    //-------------------------------
+
+
+
+
+
+
+
     //Show thông tin khách hàng---------------------------------------------------------------------------------------------------------------
     $scope.arrayKhachHang = {
         ma_khach_hang: '',
@@ -116,6 +144,43 @@ app.controller('DonDuKienCtrl', function ($scope, $http) {
 
 
 
+    var tmpDate = new Date();
 
+    $scope.newField = {};
+
+    $scope.editing = false;
+
+    $scope.editAppKey = function (field) {
+
+        $scope.entry = field;
+        if ($scope.entry.SALE_HIEN_THOI != null || $scope.entry.SALE_SAP_CHUYEN != null || $scope.entry.SALE_CU != null || $scope.entry.SALE_CU_2 != null) {
+            $scope.check1 = 'editMode';
+        } else {
+            $scope.check2 = 'editMode';
+        }
+    }
+
+    $scope.save_inline = function (item) {
+        $scope.item = item;
+
+        var data_save = {
+            MA_DU_KIEN : $scope.item.MA_DU_KIEN,
+            THANH_CONG: $scope.item.THANH_CONG,
+            THAT_BAI: $scope.item.THAT_BAI,
+            LY_DO_THAT_BAI: $scope.item.LY_DO_THAT_BAI,
+        }
+        $http.put("/api/Api_BaoGia_DonHangDuKien/PutBH_DON_HANG_DU_KIEN/" + $scope.item.MA_DU_KIEN, data_save).then(function (response) {
+            alert('Sửa thành công');
+            $scope.getDanhSachDuKien();
+        });
+    };
+
+    $scope.cancel = function (index) {
+        //if ($scope.editing !== false) {
+        //    $scope.appkeys[$scope.editing] = $scope.newField;
+        //    $scope.editing = false;
+        //}
+        $scope.getDanhSachDuKien();
+    };
 
 });

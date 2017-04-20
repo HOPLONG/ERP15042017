@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>HOPLONG | Trang chủ</title>
+    <title>KHO | HOPLONG</title>
     <link rel="shortcut icon" type="image/ico" href="~/logo_hoplong.png">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -26,20 +26,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link href="~/Content/download/dist/css/AdminLTE.min.css" rel="stylesheet" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    
+    @*<link href="~/Content/assets/css/components.css" rel="stylesheet" />
+        <link href="~/Content/assets/css/colors.css" rel="stylesheet" />*@
+
+
+    <link href="~/Content/download/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
 
     <link href="~/Content/download/bootstrap/css/layout_all.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/Layout-CSS.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/LayoutHL.css" rel="stylesheet" />
+
+
+
     <script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
     <script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
-    <script src="~/Content/download/plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+    <script src="~/Content/download/plugins/jQuery/jquery.min.js"></script>
     <script src="~/Content/download/angularjs/angular.min.js"></script>
     <script src="~/Content/self-writing/js/app.js"></script>
     <script src="~/Content/self-writing/js/Service.js"></script>
     <script src="~/Content/self-writing/js/Controller.js"></script>
     <script src="~/Content/download/angularjs/dirPagination.js"></script>
+    <script src="~/Content/download/moment.min.js"></script>
+    <script src="~/Content/download/date_directive.js"></script>
+    <script src="~/Content/download/bootstrap-datetimepicker.js"></script>
+
+    <script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
+
+
+
+    <script src="~/Content/download/angular-ui/build/angular-ui.min.js"></script>
+    <script src="~/Content/download/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="~/Content/download/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="~/Content/download/angular-smart-table/angular-smart-table/dist/smart-table.js"></script>
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+
+
+
     <script>
         $(function () {
             CKEDITOR.config.extraPlugins = 'justify';
@@ -194,8 +228,9 @@
                                 <ul class="treeview-menu">
                                     <li><a href="#"><i class="fa fa-angle-double-right"></i> Danh sách chứng từ chi</a></li>
                                     <li><a href="#"><i class="fa fa-angle-double-right"></i> Thu tiền khách hàng</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right"></i> Thu vay nợ</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right"></i> Thu khác</a></li>
+                                    <li><a href="/Accounting/PhieuThuNganHang/VayNo"><i class="fa fa-angle-double-right"></i> Thu vay nợ</a></li>
+                                    <li><a href="/Accounting/PhieuThuNganHang/ThuKhac"><i class="fa fa-angle-double-right"></i> Thu khác</a></li>
+                                    <li><a href="/Accounting/PhieuThuNganHang/ThuLai"><i class="fa fa-angle-double-right"></i> Thu lãi</a></li>
                                 </ul>
 
                             </li>
@@ -208,9 +243,9 @@
                                 <ul class="treeview-menu">
                                     <li><a href="#"><i class="fa fa-angle-double-right"></i> Danh sách chứng từ thu</a></li>
                                     <li><a href="#"><i class="fa fa-angle-double-right"></i> Trả tiền nhà cung cấp</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right"></i> Tạm ứng nhân viên</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right"></i> Trả các khoản vay</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right"></i> Chi khác</a></li>
+                                    <li><a href="/Accounting/PhieuChiNganHang/TamUngNhanVien"><i class="fa fa-angle-double-right"></i> Tạm ứng nhân viên</a></li>
+                                    <li><a href="/Accounting/PhieuChiNganHang/TraCacKhoanVay"><i class="fa fa-angle-double-right"></i> Trả các khoản vay</a></li>
+                                    <li><a href="/Accounting/PhieuChiNganHang/ChiKhac"><i class="fa fa-angle-double-right"></i> Chi khác</a></li>
                                 </ul>
 
                             </li>
@@ -346,14 +381,14 @@
             display: none !important;
         }
     </style>
-    <script>
+    @*<script>
         window.setInterval(function () {
             $.get("/Home/Alive", function (data) {
                 //alert("still alive")
             }, 180000);
         });
 
-    </script>
+    </script>*@
 
 </body>
 </html>

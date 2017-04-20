@@ -126,6 +126,11 @@ namespace ERP.Web.Api.HeThong
                 khach.GHI_CHU = kH.GHI_CHU;
                 khach.TRUC_THUOC = kH.TRUC_THUOC;
                 khach.SALES_TAO = kH.SALES_TAO;
+                khach.KHACH_DO_MARKETING_TIM_KIEM = kH.KHACH_DO_MARKETING_TIM_KIEM;
+                khach.THONG_TIN_DA_DAY_DU = kH.THONG_TIN_DA_DAY_DU;
+                khach.KHACH_MUA_SO_LUONG_NHIEU = kH.KHACH_MUA_SO_LUONG_NHIEU;
+                khach.KHACH_MUA_DOANH_SO_CAO = kH.KHACH_MUA_DOANH_SO_CAO;
+                khach.KHACH_DAC_BIET = kH.KHACH_DAC_BIET;
             }
             //db.Entry(kH).State = EntityState.Modified;
 
@@ -205,31 +210,31 @@ namespace ERP.Web.Api.HeThong
 
             KH khach = new KH();
             khach.MA_KHACH_HANG = makhachhang;
-                khach.TEN_CONG_TY = kH.TEN_CONG_TY;
-                khach.VAN_PHONG_GIAO_DICH = kH.VAN_PHONG_GIAO_DICH;
-                khach.DIA_CHI_XUAT_HOA_DON = kH.DIA_CHI_XUAT_HOA_DON;
-                khach.TINH = kH.TINH;
-                khach.QUOC_GIA = kH.QUOC_GIA;
-                khach.MST = kH.MST;
-                khach.HOTLINE = kH.HOTLINE;
-                khach.EMAIL = kH.EMAIL;
-                khach.FAX = kH.FAX;
-                khach.LOGO = kH.LOGO;
-                khach.WEBSITE = kH.WEBSITE;
-                khach.DIEU_KHOAN_THANH_TOAN = kH.DIEU_KHOAN_THANH_TOAN;
-                khach.SO_NGAY_DUOC_NO = kH.SO_NGAY_DUOC_NO;
-                khach.SO_NO_TOI_DA = kH.SO_NO_TOI_DA;
-                khach.TINH_TRANG_HOAT_DONG = kH.TINH_TRANG_HOAT_DONG;
-                khach.GHI_CHU = kH.GHI_CHU;
-                khach.TRUC_THUOC = kH.TRUC_THUOC;
-                khach.SALES_TAO = kH.SALES_TAO;
-                db.KHs.Add(khach);
-
-
+            khach.TEN_CONG_TY = kH.TEN_CONG_TY;
+            khach.VAN_PHONG_GIAO_DICH = kH.VAN_PHONG_GIAO_DICH;
+            khach.DIA_CHI_XUAT_HOA_DON = kH.DIA_CHI_XUAT_HOA_DON;
+            khach.TINH = kH.TINH;
+            khach.QUOC_GIA = kH.QUOC_GIA;
+            khach.MST = kH.MST;
+            khach.HOTLINE = kH.HOTLINE;
+            khach.EMAIL = kH.EMAIL;
+            khach.FAX = kH.FAX;
+            khach.LOGO = kH.LOGO;
+            khach.WEBSITE = kH.WEBSITE;
+            khach.DIEU_KHOAN_THANH_TOAN = kH.DIEU_KHOAN_THANH_TOAN;
+            khach.SO_NGAY_DUOC_NO = kH.SO_NGAY_DUOC_NO;
+            khach.SO_NO_TOI_DA = kH.SO_NO_TOI_DA;
+            khach.TINH_TRANG_HOAT_DONG = kH.TINH_TRANG_HOAT_DONG;
+            khach.GHI_CHU = kH.GHI_CHU;
+            khach.TRUC_THUOC = kH.TRUC_THUOC;
+            khach.SALES_TAO = kH.SALES_TAO;
+            khach.KHACH_DO_MARKETING_TIM_KIEM = kH.KHACH_DO_MARKETING_TIM_KIEM;
+            khach.THONG_TIN_DA_DAY_DU = kH.THONG_TIN_DA_DAY_DU;
+            khach.KHACH_MUA_SO_LUONG_NHIEU = kH.KHACH_MUA_SO_LUONG_NHIEU;
+            khach.KHACH_MUA_DOANH_SO_CAO = kH.KHACH_MUA_DOANH_SO_CAO;
+            khach.KHACH_DAC_BIET = kH.KHACH_DAC_BIET;
+            db.KHs.Add(khach);
             
-
-            
-
             try
             {
                 db.SaveChanges();

@@ -23,14 +23,7 @@ namespace ERP.Web.Api.Kho
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
-        // GET: api/Api_XuatKho
-        [Route("api/Api_XuatKho/GetDSPhieuXuatKho")]
-        public List<GetAll_DS_PhieuXuatKho_NoDate_Result> GetDSPhieuXuatKho()
-        {
-            var query = db.Database.SqlQuery<GetAll_DS_PhieuXuatKho_NoDate_Result>("GetAll_DS_PhieuXuatKho_NoDate @macongty", new SqlParameter("macongty", "HOPLONG"));
-            return query.ToList();
-        }
-
+      
         // GET: api/Api_XuatKho/5
         [ResponseType(typeof(KHO_XUAT_KHO))]
         public IHttpActionResult GetKHO_XUAT_KHO(string id)

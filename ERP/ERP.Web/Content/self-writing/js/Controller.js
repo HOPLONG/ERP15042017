@@ -1,4 +1,23 @@
-﻿app.controller('giamdocCtrl', function (giamdocService, $scope) {
+﻿function ErrorSystem(errorString) {
+    new PNotify({
+        title: 'Thất bại',
+        text: errorString,
+        addclass: 'bg-danger'
+    });
+}
+
+function SuccessSystem(errorString) {
+    new PNotify({
+        title: 'Thành Công',
+        text: errorString,
+        addclass: 'bg-danger'
+    });
+}
+
+
+
+
+app.controller('giamdocCtrl', function (giamdocService, $scope) {
     $scope.push = function (username) {
         giamdocService.get_giamdoc(username).then(function (a) {
             $scope.listgiamdoc = a;
@@ -114,6 +133,10 @@ app.controller('khogiuhangCtrl', function (khogiuhangService, $scope, $location,
         });
 
 
+    };
+
+    $scope.chitiet = function (entry) {
+        $scope.item = entry;
     };
 
     $scope.get_chitietgiuhang = function (entry) {
@@ -263,15 +286,33 @@ app.controller('khogiuhangCtrl', function (khogiuhangService, $scope, $location,
 app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $location) {
     //Phan trang kh
     function pageClick2(pageNumber) {
-        var salestao = $('#salehienthoi').val();
         $("#page-number-2").text(pageNumber);
-        $http({
-            method: 'POST',
-            data: $scope.filtered,
-            url: window.location.origin + '/api/Api_KH/PhantrangKH/' + pageNumber + '/' + salestao
-        }).then(function successCallback(response) {
-            $scope.filtered = response.data;
-        });
+
+        var salestao = $('#salehienthoi').val();
+        var phongban = $('#maphongban').val();
+        var isadmin = $('#isadmin').val();
+
+        var datas = {
+            macongty: 'HOPLONG',
+            sotrang: pageNumber,
+            ma: salestao,
+            isadmin: isadmin,
+            maphongban: phongban,
+        }
+        $http.post("http://27.72.144.148:8003/api/KhachHang/PhantrangkhachHang", datas)
+            .then(function successCallback(response) {
+                $scope.filtered = response.data;
+            });
+
+
+
+        //$http({
+        //    method: 'POST',
+        //    data: $scope.filtered,
+        //    url: window.location.origin + '/api/Api_KH/PhantrangKH/' + pageNumber + '/' + salestao
+        //}).then(function successCallback(response) {
+        //    $scope.filtered = response.data;
+        //});
     }
         var itemsCount = 2000;
         var itemsOnPage = 10;
@@ -316,7 +357,22 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
 
         function phantrangkh(pageNumber) {
-        var salestao = $('#salehienthoi').val();
+            var salestao = $('#salehienthoi').val();
+            //var phongban = $('#maphongban').val();
+            //var isadmin = $('#isadmin').val();
+           
+            //var datas = {
+            //    macongty:'HOPLONG',
+            //    sotrang :pageNumber,
+            //    ma:salestao,
+            //    isadmin:isadmin,
+            //    maphongban: phongban,
+            //    }
+            //$http.post("http://27.72.144.148:8003/api/KhachHang/PhantrangkhachHang", datas)
+            //    .then(function successCallback(response) {
+            //        $scope.filtered = response.data;
+            //    });
+
         $http({
             method: 'POST',
             data: $scope.filtered,
@@ -369,6 +425,11 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             QUOC_GIA: $scope.arraythongtin.quoc_gia,
             TRUC_THUOC: 'HOPLONG',
             SALES_TAO: salestao,
+            KHACH_DO_MARKETING_TIM_KIEM: $scope.arraythongtin.khach_do_marketing_tim_kiem,
+            THONG_TIN_DA_DAY_DU: $scope.arraythongtin.thong_tin_da_day_du,
+            KHACH_MUA_SO_LUONG_NHIEU: $scope.arraythongtin.khach_mua_so_luong_nhieu,
+            KHACH_MUA_DOANH_SO_CAO: $scope.arraythongtin.khach_mua_doanh_so_cao,
+            KHACH_DAC_BIET : $scope.arraythongtin.khach_dac_biet,
         }
 
 
@@ -424,8 +485,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 data: $scope.lastmakh,
                 url: window.location.origin + '/api/Api_KH/GetIdKH'
             }).then(function successCallback(response) {
+                SuccessSystem('Thêm thông tin chung khách hàng thành công');
                 $scope.lastmakh = response.data;
-
                 var phanloaikh_add = {
                     MA_KHACH_HANG: $scope.lastmakh,
                     MA_LOAI_KHACH: $scope.ma_loai_khach,
@@ -462,9 +523,10 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                         data: $scope.Lien_he_TK,
                         url: window.location.origin + '/api/Api_ArrayLienHeKH'
                     }).then(function successCallback(zzz) {
-
+                        SuccessSystem('Thêm liên hệ khách hàng thành công');
                     }, function errorCallback(zzz) {
-                        alert('Liên hệ Khách hàng lỗi');
+                        ErrorSystem("Chưa thêm được liên hệ khách hàng");
+                        //alert('Chưa thêm được liên hệ khách hàng');
                     });
 
                 }
@@ -475,9 +537,10 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                         data: $scope.Tai_khoan_KH,
                         url: window.location.origin + '/api/Api_TaiKhoanKH/' + $scope.lastmakh
                     }).then(function successCallback(response1) {
-
+                        SuccessSystem("Thêm tài khoản khách hàng thành công");
                     }, function errorCallback(response1) {
-                        alert('Tài khoản khách hàng lỗi');
+                        ErrorSystem("Chưa thêm được tài khoản khách hàng");
+                        //alert('Chưa thêm được tài khoản khách hàng');
                     });
                 }                
             });
@@ -586,7 +649,12 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             SO_NGAY_DUOC_NO: $scope.kh.SO_NGAY_DUOC_NO,
             SO_NO_TOI_DA: $scope.kh.SO_NO_TOI_DA,
             GHI_CHU: editghichu,
-            TRUC_THUOC: "HOPLONG"
+            TRUC_THUOC: "HOPLONG",
+            KHACH_DO_MARKETING_TIM_KIEM: $scope.kh.KHACH_DO_MARKETING_TIM_KIEM,
+            THONG_TIN_DA_DAY_DU: $scope.kh.THONG_TIN_DA_DAY_DU,
+            KHACH_MUA_SO_LUONG_NHIEU: $scope.kh.KHACH_MUA_SO_LUONG_NHIEU,
+            KHACH_MUA_DOANH_SO_CAO: $scope.kh.KHACH_MUA_DOANH_SO_CAO,
+            KHACH_DAC_BIET : $scope.kh.KHACH_DAC_BIET,
         }
         khachhangService.save_khachhang(makh, kh_save).then(function (response) {
             phantrangkh(1);
@@ -719,6 +787,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.dieukhoantt = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
     $scope.tinhtranghoatdong = ['Cầm chừng', 'Bình thường', 'Sắp phá sản', 'Đã phá sản'];
     $scope.tinh_trang = ['Còn công tác', 'Đã luân chuyển', 'Đã nghỉ việc', 'Chuyển công ty khác'];
+    $scope.thoi_gian_ap_dung = ['Hiện tại', 'Trước kia', 'Sau này'];
+
     $scope.range = function (min, max, step) {
         step = step || 1;
         var input = [];
@@ -779,6 +849,11 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         tinh_trang_hoat_dong: '',
         quoc_gia: '',
         truc_thuoc: 'HOPLONG',
+        khach_do_marketing_tim_kiem: '',
+        thong_tin_da_day_du: '',
+        khach_mua_so_luong_nhieu: '',
+        khach_mua_doanh_so_cao: '',
+        khach_dac_biet: '',
     };
 
 
@@ -1009,9 +1084,98 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         });
     };
 
-
+    $scope.get_policy = function (makh) {
+        khachhangService.get_kh_policy(makh).then(function (policy) {
+            $scope.list_policy = policy;
+        });
+    };
    
+    $scope.editpolicy = function (field) {
 
+        $scope.item = field;
+
+    }
+
+    $scope.save_policy = function (policy) {
+        $scope.policy = policy;
+        var data_save = {
+            ID: $scope.policy.ID,
+            MA_KHACH_HANG: $scope.policy.MA_KHACH_HANG,
+            MA_NHOM_HANG: $scope.policy.MA_NHOM_HANG,
+            GIA_BAN: $scope.policy.GIA_BAN,
+            CHIET_KHAU_CM: $scope.policy.CHIET_KHAU_CM,
+            THOI_GIAN_AP_DUNG: $scope.policy.THOI_GIAN_AP_DUNG,
+            GHI_CHU : $scope.policy.GHI_CHU,
+        }
+        khachhangService.save_kh_policy($scope.policy.ID, data_save).then(function (response) {
+            alert('Sửa thành công');
+            $scope.get_policy($scope.policy.MA_KHACH_HANG);
+        }, function errorCallback(response) {
+            alert('Sửa thất bại');
+        });
+    };
+
+    $scope.cancelpolicy = function (policy) {
+        $scope.policy = policy;
+        $scope.get_policy($scope.policy.MA_KHACH_HANG);
+    };
+
+    $scope.addnew_policy = function (makh) {
+        var data_add = {
+            MA_KHACH_HANG: makh,
+            MA_NHOM_HANG: $scope.ma_nhom_hang_policy,
+            GIA_BAN: $scope.gia_ban_policy,
+            CHIET_KHAU_CM: $scope.chiet_khau_cm_policy,
+            THOI_GIAN_AP_DUNG: $scope.thoi_gian_ap_dung_policy,
+            GHI_CHU : $scope.ghi_chu_policy,
+        }
+        khachhangService.add_kh_policy(data_add).then(function () {
+            alert('Thêm thành công');
+            $scope.get_policy(makh);
+        }, function errorCallback(response) {
+            alert('Thêm thất bại');
+        });
+    };
+
+    //Lọc nhóm vật tư hh
+    $scope.arrayVTHHFinded = [];
+    $scope.arrayVTHH = [];
+    $scope.showtable_VTHH = false;
+
+
+    $http.get(window.location.origin + '/api/Api_NhomVTHHHL')
+            .then(function (response) {
+                if (response.data) {
+                    $scope.arrayVTHH = response.data;
+                    $scope.arrayVTHHFinded = $scope.arrayVTHH.map(function (item) {
+                        return item;
+                    });
+                }
+            }, function (error) {
+                console.log(error);
+            });
+
+    $scope.onVTHHFind = function () {
+        if (!$scope.CHUNG_LOAI_HANG) {
+            $scope.arrayVTHHFinded = $scope.arrayVTHH.map(function (item) {
+                return item;
+            });
+        }
+        $scope.arrayVTHHFinded = $scope.arrayVTHH.filter(function (item) {
+            if (item.CHUNG_LOAI_HANG.toLowerCase().indexOf($scope.chung_loai_hang.toLowerCase()) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+    $scope.showInfoStaff = function (staff) {
+        $scope.ma_nhom_hang_policy = staff.MA_NHOM_HANG_CHI_TIET;
+        $scope.chung_loai_hang = staff.CHUNG_LOAI_HANG;
+        $scope.showtable_VTHH = false;
+    }
+    // End Lọc nhóm vật tư hh
 });
 
 // End khach hang
@@ -1380,7 +1544,15 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
 app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
     $scope.timkiemhanghoa = function (ma_chuan) {
         hanghoaService.find_hanghoa(ma_chuan).then(function (d) {
-            $scope.danhsachtimkiem = d;
+            if (d.length >0)
+            {
+                $scope.danhsachtimkiem = d;
+            }
+            else
+            {
+                $scope.danhsachtimkiem = ["Không tìm thấy dữ liệu phù hợp"];
+            }
+            
         });
     }
     $scope.loadHangHoa = function (MA_NHOM_HANG) {
@@ -1436,7 +1608,10 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
             TK_CHI_PHI: $scope.tkchiphi
         }
         hanghoaService.add(data_add).then(function (response) {
+
+            alert("Bạn đã thêm mới 1 hàng hóa!")
             $scope.loadHangHoa();
+
             $('#imgInp').val() = '';
         });
     }
@@ -1457,7 +1632,7 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
         var a = $('#imgEdit').val();
         var name_without_ext = (a.split('\\').pop().split('/').pop().split())[0];
         var data_update = {
-            MA_HANG: $scope.item.MA_HANG,
+            MA_HANG: mahang,
             MA_CHUAN: $scope.item.MA_CHUAN,
             THONG_SO: $scope.item.THONG_SO,
             MA_NHAP_HANG: $scope.item.MA_NHAP_HANG,
@@ -1479,8 +1654,13 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
             TK_DOANH_THU: $scope.item.TK_DOANH_THU,
             TK_CHI_PHI: $scope.item.TK_CHI_PHI
         }
-        hanghoaService.save(mahang, data_update).then(function (response) {
-            $scope.loadHangHoa();
+
+        hanghoaService.save(data_update).then(function (response) {
+            alert('Sửa thành công');
+            reload();
+        }, function errorCallback(response) {
+            alert('Không lưu được chi tiết hàng hóa');
+
         });
     }
 
@@ -1488,8 +1668,11 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
         var data_delete = {
             MA_HANG: mahang
         }
+
         hanghoaService.delete(mahang, data_delete).then(function (response) {
-            $scope.loadHangHoa();
+            alert('Xóa thành công');
+            reload();
+
         });
     };
     //$scope.get_tonkho = function (id) {
@@ -3471,7 +3654,9 @@ app.controller('DonhangdukienCtrl', function (DonhangdukienService, $scope,$http
             TRUC_THUOC: 'HOPLONG'
         }
         DonhangdukienService.add(data_add).then(function (response) {
-            $scope.Donhangdukien();
+            SuccessSystem("Bạn đã thêm thành công đơn dự kiến "+ response.data);
+            window.location = "/Baogia/Index/" + response.data;
+            //$scope.Donhangdukien();
         });
     };
 });

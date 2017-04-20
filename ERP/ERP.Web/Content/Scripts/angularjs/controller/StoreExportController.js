@@ -75,11 +75,9 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
 
     //Init all data
     function Init() {
-
-        $http({
-            method: 'GET',
-            url: '/api/Api_NhanvienHL/GetListNhanvien'
-        }).then(function (response) {
+        //Lấy dữ liệu nhân viên hợp long
+        $http.get("http://27.72.144.148:8003/api/NhanVien/GetAllNhanVien/HOPLONG")
+            .then(function (response) {
             if (typeof (response.data) == "object") {
                 $scope.NhanVien = response.data;
             }
@@ -89,12 +87,12 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         }, function (error) {
             ConnectFail();
         });
+       //-------------------------------
+        
 
-
-        $http({
-            method: 'GET',
-            url: '/api/Api_KH'
-        }).then(function (response) {
+        //Lấy dữ liệu khách hàng hợp long
+        $http.get("http://27.72.144.148:8003/api/KhachHang/GetKhachHang/HOPLONG")
+            .then(function (response) {
             if (typeof (response.data) == "object") {
                 $scope.KhachHang.KhachHang = response.data;
             }
@@ -104,25 +102,12 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         }, function (error) {
             ConnectFail();
         });
+        //-------------------------------------
 
-        //$http({
-        //    method: 'GET',
-        //    url: '/HangHoa/GetAllWithTon'
-        //}).then(function (response) {
-        //    if (typeof (response.data) == "object") {
-        //        $scope.Detail.ListHangHoa = response.data;
-        //    }
-        //    else {
-        //        ErrorSystem();
-        //    }
-        //}, function (error) {
-        //    ConnectFail();
-        //});
 
-        $http({
-            method: 'GET',
-            url: '/api/Api_KhoHL'
-        }).then(function (response) {
+        //Lấy dữ liệu kho hợp long
+        $http.get("http://27.72.144.148:8003/api/DanhSachKho/GetAllKho/HOPLONG")
+            .then(function (response) {
             if (typeof (response.data) == "object") {
                 $scope.Detail.ListKho = response.data;
             }
@@ -132,11 +117,11 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         }, function (error) {
             ConnectFail();
         });
+        //----------------------------------
 
-        $http({
-            method: 'GET',
-            url: '/api/Api_TaiKhoanHachToan'
-        }).then(function (response) {
+        //Lấy dữ liệu tài khoản hạch toán
+        $http.get("http://27.72.144.148:8003/api/TaiKhoanHachToan/GetAllTaiKhoanHachToan")
+        .then(function (response) {
             if (typeof (response.data) == "object") {
                 $scope.Detail.ListTaiKhoan = response.data;
             }
@@ -148,23 +133,8 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         });
 
 
-        //$http({
-        //    method: 'GET',
-        //    url: '/DoiTuong/GetAllCongTy'
-        //}).then(function (response) {
-        //    if (typeof (response.data) == "object") {
-        //        $scope.KhachHang.DoiTuong = response.data;
-        //        console.log($scope.KhachHang.DoiTuong);
-        //    }
-        //    else {
-        //        ErrorSystem();
-        //    }
-        //}, function (error) {
-        //    ConnectFail();
-        //});
 
-
-    }
+    }//end init
 
     Init();
     //End Init all data
@@ -248,10 +218,8 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
             $("#Input_DataGiaTriChungTu").css({ "display": "block" });
             $("#Input_MaChungTu").css({ "display": "none" });
             $("#DataGiaTriChungTu").css({ "display": "block" });
-            $http({
-                method: 'GET',
-                url: '/api/Api_XuatNhapKho/GetAllDoiTuong'
-            }).then(function (response) {
+            $http.get("http://27.72.144.148:8003/api/XuatNhapKho/GetAllDoiTuong", "HOPLONG")
+                .then(function (response) {
                 if (typeof (response.data) == "object") {
                     var data = response.data.DoiTuong;
                     var colength = 5;
@@ -482,7 +450,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         $scope.GeneralInfo.NhanVienBanHang = item.HO_VA_TEN;
         $(".tableselect").css({ "display": "none" });
     }
-    
+
     $scope.AddNew = function () {
         $scope.Detail.ListAdd.push({
             MA_HANG: null,
@@ -647,28 +615,26 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
             loaixuatkho = "Sản xuất";
             $scope.GeneralInfo.KhachHang = null;
         }
-        $http({
-            method: 'POST',
-            url: '/api/Api_XuatKho/PostKHO_XUAT_KHO',
-            data: {
-                SO_CHUNG_TU: $scope.GeneralInfo.SoChungTu,
-                NGAY_CHUNG_TU: $scope.GeneralInfo.NgayChungTu,
-                NGAY_HACH_TOAN: $scope.GeneralInfo.NgayHachToan,
-                ChiTiet: $scope.Detail.ListAdd,
-                ThamChieu: $scope.ThamChieu.ListSelect,
-                NGUOI_GIAO_HANG: $scope.GeneralInfo.NguoiGiaoHang,
-                LOAI_XUAT_KHO: loaixuatkho,
-                KHACH_HANG: $scope.GeneralInfo.KhachHang,
-                NHAN_VIEN_BAN_HANG: $scope.GeneralInfo.NhanVienBanHang,
-                LY_DO_XUAT: $scope.GeneralInfo.DienGiai,
-                NGUOi_NHAN: $scope.GeneralInfo.NguoiNhan,
-                NGUOi_LAP_PHIEU: a,
-                TRUC_THUOC: b,
+        var data = {
+            SO_CHUNG_TU: $scope.GeneralInfo.SoChungTu,
+            NGAY_CHUNG_TU: $scope.GeneralInfo.NgayChungTu,
+            NGAY_HACH_TOAN: $scope.GeneralInfo.NgayHachToan,
+            ChiTiet: $scope.Detail.ListAdd,
+            ThamChieu: $scope.ThamChieu.ListSelect,
+            NGUOI_GIAO_HANG: $scope.GeneralInfo.NguoiGiaoHang,
+            LOAI_XUAT_KHO: loaixuatkho,
+            KHACH_HANG: $scope.GeneralInfo.KhachHang,
+            NHAN_VIEN_BAN_HANG: $scope.GeneralInfo.NhanVienBanHang,
+            LY_DO_XUAT: $scope.GeneralInfo.DienGiai,
+            NGUOi_NHAN: $scope.GeneralInfo.NguoiNhan,
+            NGUOi_LAP_PHIEU: a,
+            TRUC_THUOC: b,
+        }
 
-
-            }
-        }).then(function (response) {
-            response.data = jQuery.parseJSON(response.data);
+        $http.post("/api/Api_XuatKho/PostKHO_XUAT_KHO", data).then(function (response) {
+            //console.log(response);
+            $scope.datareturn = response.data;
+            //response.data = jQuery.parseJSON(response.data);
             if (response.data == config.INPUT_ERROR) {
                 InputFail();
             }
@@ -679,7 +645,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
                 ResetAfterSave();
                 new PNotify({
                     title: 'Thành công',
-                    text: 'Chứng từ ' + response.data + ' đã được tạo',
+                    text: 'Chứng từ ' + $scope.datareturn + ' đã được tạo',
                     addclass: 'bg-primary'
                 });
             }
