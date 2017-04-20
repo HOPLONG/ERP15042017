@@ -31,7 +31,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
     $scope.kiemtra = function (item) {
         $scope.item = item;
-        var thue_suat_gtgt = $('#thue_suat_gtgt').val()
+        var thue_suat_gtgt = $('#thue_suat_gtgt').val() || 0;
         var tong_gia_tri_thuc_te_edit = 0;
         var tong_gia_tri_theo_hop_dong_edit = 0;
         var tong_chi_phi_hoa_don_edit = 0;
@@ -43,7 +43,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             $scope.item.DON_GIA_BAO_DI_NET = parseFloat($scope.item.DON_GIA_NHAP) + parseFloat(($scope.item.DON_GIA_NHAP * ($scope.item.HE_SO_LOI_NHUAN / 100)));
         };
 
-        if ($scope.item.CM != null || $scope.item.CM != undefined | $scope.item.CM != 0) {
+        if ($scope.item.CM != null && $scope.item.CM != undefined && $scope.item.CM != 0) {
             $scope.item.KHACH_NHAN_DUOC = parseFloat($scope.item.DON_GIA_BAO_DI_NET * ($scope.item.CM / 100));
 
             $scope.bien_trung_gian = parseFloat(($scope.item.KHACH_NHAN_DUOC * 100) / 80);
@@ -92,7 +92,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             $scope.detail.gia_bao_di_net = parseFloat($scope.detail.gia_nhap) + parseFloat(($scope.detail.gia_nhap * ($scope.detail.he_so_loi_nhuan / 100)));
         };
 
-        if ($scope.detail.hoa_hong != null || $scope.detail.hoa_hong != undefined || $scope.detail.hoa_hong != 0) {
+        if ($scope.detail.hoa_hong != null && $scope.detail.hoa_hong != undefined && $scope.detail.hoa_hong != 0) {
             $scope.detail.khach_nhan =parseFloat( $scope.detail.gia_bao_di_net * ($scope.detail.hoa_hong / 100));
 
             $scope.bien_trung_gian =parseFloat (($scope.detail.khach_nhan * 100) / 80);
@@ -120,7 +120,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
         $scope.gia_tri_chenh_lech_new = parseFloat($scope.tong_gia_tri_theo_hop_dong_new - $scope.tong_gia_tri_thuc_te_new);
         
-        $scope.thue_vat_new = parseFloat($scope.tong_gia_tri_theo_hop_dong_new * 0.1);
+        $scope.thue_vat_new = parseFloat($scope.tong_gia_tri_theo_hop_dong_new * ($scope.thue_suat_gtgt / 100));
        
 
         $scope.tong_gia_tri_thu_cua_khach_new =parseFloat( $scope.tong_gia_tri_thuc_te_new + $scope.tong_chi_phi_hoa_don_new + $scope.thue_vat_new);
@@ -226,7 +226,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                 return;
             }
 
-            if (!$scope.Detail.ListAdd[i].DON_GIA) {
+            if (!$scope.Detail.ListAdd[i].DON_GIA_MOI) {
                 alert('Thiếu thông tin đơn giá - tại dòng ' + (i + 1));
                 return;
             }
@@ -275,22 +275,27 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
            
 
         var ChiTietBaoGia = {
-            ID : $scope.Detail.ListAdd[i].ID,
+            ID: $scope.Detail.ListAdd[i].ID,
+            TEN_HANG: $scope.Detail.ListAdd[i].TEN_HANG,
             MA_HANG: $scope.Detail.ListAdd[i].MA_HANG,
+            MA_DIEU_CHINH: $scope.Detail.ListAdd[i].MA_DIEU_CHINH,
+            HANG_SP: $scope.Detail.ListAdd[i].HANG_SP,
+            DVT: $scope.Detail.ListAdd[i].DVT,
             SO_LUONG: $scope.Detail.ListAdd[i].SO_LUONG,
-            DON_GIA: $scope.Detail.ListAdd[i].DON_GIA,
+            DON_GIA: $scope.Detail.ListAdd[i].DON_GIA_MOI,
             CHIET_KHAU: $scope.Detail.ListAdd[i].CHIET_KHAU,
-            DON_GIA_LIST: $scope.Detail.ListAdd[i].DON_GIA_LIST,
+            GIA_LIST: $scope.Detail.ListAdd[i].GIA_LIST,
             DON_GIA_NHAP: $scope.Detail.ListAdd[i].DON_GIA_NHAP,
             HE_SO_LOI_NHUAN: $scope.Detail.ListAdd[i].HE_SO_LOI_NHUAN,
+            DON_GIA_BAO_DI_NET: $scope.Detail.ListAdd[i].DON_GIA_BAO_DI_NET,
+            CM: $scope.Detail.ListAdd[i].CM,
+            DON_GIA_MOI: $scope.Detail.ListAdd[i].DON_GIA_MOI,
+            THUE_TNDN: $scope.Detail.ListAdd[i].THUE_TNDN,
+            TIEN_THUE_TNDN: $scope.Detail.ListAdd[i].TIEN_THUE_TNDN,
+            KHACH_NHAN_DUOC: $scope.Detail.ListAdd[i].KHACH_NHAN_DUOC,
             THANH_TIEN: $scope.Detail.ListAdd[i].THANH_TIEN,
-            TINH_TRANG_HANG: $scope.Detail.ListAdd[i].TINH_TRANG_HANG,
             THOI_GIAN_GIAO_HANG: $scope.Detail.ListAdd[i].THOI_GIAN_GIAO_HANG,
-            NGAY_GIAO_HANG: $scope.Detail.ListAdd[i].NGAY_GIAO_HANG,
-            DIA_DIEM_GIAO_HANG: $scope.Detail.ListAdd[i].DIA_DIEM_GIAO_HANG,
             GHI_CHU: $scope.Detail.ListAdd[i].GHI_CHU,
-            DON_GIA_GHI_CHENH: $scope.Detail.ListAdd[i].DON_GIA_GHI_CHENH,
-            THANH_TIEN_GHI_CHENH : $scope.Detail.ListAdd[i].THANH_TIEN_GHI_CHENH,
         }
         //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
         $scope.arrayChiTietBaoGia.push(ChiTietBaoGia);
@@ -670,28 +675,43 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
 
     //button add check
-    $scope.check = function (mahang, tenhang, dvt, xuatxu, hang, dongia) {
-        $scope.Detail.ListNew.push({
-            ma_hang: mahang,
-            ten_hang: tenhang,
-            so_luong: 0,
-            dvt: dvt,
-            hang: hang,
-            gia_list: dongia,
-            gia_nhap: 0,
-            don_gia: '',
-            he_so_loi_nhuan: 0,
-            chiet_khau: 0,
-            thanh_tien: 0,
-            tinh_trang_hang: '',
-            thoi_gian_giao_hang: '',
-            ngay_giao_hang: '',
-            dia_diem_giao_hang: '',
-            ghi_chu: '',
-            don_gia_ghi_chenh: 0,
-            thanh_tien_ghi_chenh: 0,
-        });
-        
+    $scope.check = function (mahang, tenhang, dvt, xuatxu, hang, dongia, ton_hl) {
+        if (ton_hl != 0) {
+            $scope.Detail.ListNew.push({
+                ma_hang: mahang,
+                ten_hang: tenhang,
+                so_luong: 0,
+                ma_dieu_chinh: mahang,
+                dvt: dvt,
+                hang: hang,
+                gia_list: dongia,
+                gia_nhap: 0,
+                don_gia: '',
+                he_so_loi_nhuan: 0,
+                chiet_khau: 0,
+                thanh_tien: 0,
+                thoi_gian_giao_hang: 'Có sẵn',
+                ghi_chu: '',
+            });
+        } else {
+            $scope.Detail.ListNew.push({
+                ma_hang: mahang,
+                ten_hang: tenhang,
+                so_luong: 0,
+                ma_dieu_chinh: mahang,
+                dvt: dvt,
+                hang: hang,
+                gia_list: dongia,
+                gia_nhap: 0,
+                don_gia: '',
+                he_so_loi_nhuan: 0,
+                chiet_khau: 0,
+                thanh_tien: 0,
+                thoi_gian_giao_hang: '',
+                ghi_chu: '',
+            });
+        }
+       
     }
 
         $scope.FindProduct = function (machuan) {
@@ -766,24 +786,43 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
 
     //button add check
-    $scope.newsave = function (mahang, tenhang, dvt, xuatxu, dongia) {
-        $scope.Detail.ListAdd.push({
-            MA_HANG: mahang,
-            SO_LUONG: 0,
-            DON_GIA_LIST: dongia,
-            DON_GIA_NHAP: 0,
-            DON_GIA: 0,
-            HE_SO_LOI_NHUAN: 0,
-            CHIET_KHAU: 0,
-            THANH_TIEN: 0,
-            TINH_TRANG_HANG: '',
-            THOI_GIAN_GIAO_HANG: '',
-            NGAY_GIAO_HANG: '',
-            DIA_DIEM_GIAO_HANG: '',
-            GHI_CHU: '',
-            THANH_TIEN_GHI_CHENH: 0,
-            DON_GIA_GHI_CHENH : 0,
-        });
+    $scope.newsave = function (mahang, tenhang, dvt, xuatxu, hang, dongia, tonhl) {
+        if (tonhl != 0) {
+            $scope.Detail.ListAdd.push({
+                MA_HANG: mahang,
+                TEN_HANG: tenhang,
+                HANG_SP: hang,
+                MA_DIEU_CHINH: mahang,
+                DVT: dvt,
+                SO_LUONG: 0,
+                GIA_LIST: dongia,
+                DON_GIA_NHAP: 0,
+                DON_GIA: 0,
+                HE_SO_LOI_NHUAN: 0,
+                CHIET_KHAU: 0,
+                THANH_TIEN: 0,
+                THOI_GIAN_GIAO_HANG: 'Có sẵn',
+                GHI_CHU: '',
+            });
+        } else {
+            $scope.Detail.ListAdd.push({
+                MA_HANG: mahang,
+                TEN_HANG: tenhang,
+                HANG_SP: hang,
+                MA_DIEU_CHINH: mahang,
+                DVT: dvt,
+                SO_LUONG: 0,
+                GIA_LIST: dongia,
+                DON_GIA_NHAP: 0,
+                DON_GIA: 0,
+                HE_SO_LOI_NHUAN: 0,
+                CHIET_KHAU: 0,
+                THANH_TIEN: 0,
+                THOI_GIAN_GIAO_HANG: '',
+                GHI_CHU: '',
+            });
+        }
+
     }
     // End hang hoa luu
 
