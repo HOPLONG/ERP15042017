@@ -245,7 +245,7 @@
                         <div class="col-md-6">
                             <div class="text-right">
                                 <form class="form-inline">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">
                                         <label class="marginR15">Tỷ giá</label>
                                         <input type="number" class="form-control" ng-model="arraydiengiai[indexcurrent].TY_GIA" ng-init="arraydiengiai[indexcurrent].TY_GIA=0.00"> 
                                     </div>

@@ -327,17 +327,7 @@
                 </div>
             </div>
             <br>
-            <div class="marginTA50">
-                <div class="clearfix">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
-                        <li role="presentation" ng-click="activeTab('Hạch toán')" class="active"><a href="#" aria-controls="home" role="tab" data-toggle="tab">Hạch toán</a></li>
-                    </ul>
-                </div>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div role="tabpanel" ng-class="{active: !ui.activeTabThue}" class="tab-pane padding10 border borderTopNone" id="home">
-                        <div class="table-responsive">
+            <div class="table-responsive">
                             <table class="table table-striped table-hover table-bordered" st-table="listHachToanCollection" st-safe-src="listHachToan">
                                 <thead class="bg-blue text-white">
                                     <tr>
@@ -439,8 +429,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
                 <br>
                 <div class="text-center">
                     <button class="btn btn-primary" ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span> Lưu</button>

@@ -105,24 +105,24 @@
 
 
         $scope.arraydiengiai = [{
-            loai_tien: '',
-            ty_gia: '',
-            tk_no: '',
-            tk_co: '',
-            so_tien: '',
-            quy_doi: '',
-            diengiai: '',
-            tk_ngan_hang: '',
-            dien_giai_thue: '',
-            tk_thue: '',
-            tien_thue: '',
-            phan_tram_thue: '',
-            gia_tri_chua_thue: '',
-            ngay_hoa_don: '',
-            so_hoa_don:'',
-            mau_so_hoa_don: '',
-            ky_hieu_hoa_don: '',
-            ma_ncc: ''
+            LOAI_TIEN: '',
+            TY_GIA: '',
+            TK_NO: '',
+            TK_CO: '',
+            SO_TIEN: '',
+            QUY_DOI: '',
+            DIEN_GIAI: '',
+            TK_NGAN_HANG: '',
+            DIEN_GIAI_THUE: '',
+            TK_THUE_GTGT: '',
+            TIEN_THUE_GTGT: '',
+            CK_THUE_GTGT: '',
+            GIA_TRI_HHDV_CHUA_THUE: '',
+            NGAY_HD: '',
+            SO_HD:'',
+            MAU_SO_HD: '',
+            KY_HIEU_HD: '',
+            MA_NHA_CUNG_CAP: ''
         }];
 
         $scope.arrayCTTC = [];
@@ -164,6 +164,36 @@
 
         //nhà cung cấp
         $scope.arrayNCC = [];
+        // reset value
+
+        function ResetAfterSave() {
+            $scope.GiaTriThamChieu = [];
+            $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+            $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+            $scope.GiaTriChungTu.Search = null,
+            $scope.GiaTriChungTu.Date = null;
+            $scope.arrayTongHop.ngay_hach_toan = null;
+            $scope.arrayTongHop.ngay_chung_tu = null;
+            $scope.arrayTongHop.SoChungTu = null;
+            $scope.arrayTongHop.dien_giai_ly_do_chi = null;
+            $scope.arrayTongHop.ma_doi_tuong = null;
+            $scope.arrayTongHop.ten_doi_tuong = null;
+            $scope.arrayTongHop.dia_chi = null;
+            $scope.arrayTongHop.nguoi_nhan = null;
+            $scope.reasonmoney = null;
+            $scope.arrayTongHop.ho_va_ten = null;
+            $scope.arrayTongHop.nhan_vien_thu = null;
+            $scope.arraydiengiai = [];
+            $scope.Validate.ToDateThamChieu = true;
+            $scope.Validate.ToDateThamChieuLess = true;
+            $scope.Validate.LoaiChungTu = true;
+            $scope.Validate.GiaTriChungTu = true;
+            $scope.ThamChieu.From = null;
+            $scope.ThamChieu.To = null;
+            $scope.ThamChieu.ListResult = [];
+            $scope.ThamChieu.ListSelect = [];
+
+        }
 
         /*
         * get Đối Tượng
@@ -377,7 +407,7 @@
                 TIEN_THUE_GTGT: '',
                 CK_THUE_GTGT: '',
                 GIA_TRI_HHDV_CHUA_THUE: '',
-                NGAY_HD: '',
+                NGAY_HD: null,
                 SO_HD: '',
                 MAU_SO_HD: '',
                 KY_HIEU_HD: '',
@@ -390,8 +420,13 @@
             $scope.indexcurrent = p_index;
         }
 
-
+        
         $scope.onSave = function () {
+            var ncc = $scope.arrayTongHop.ma_doi_tuong.substring(0, 3);
+            if (ncc != 'NCC') {
+                alert('Đối tượng không phải là NCC nên bạn không thể sử dụng Tab "THUẾ"');
+                return;
+            }
             if (!$scope.arrayTongHop.ma_doi_tuong) {
                 alert('Thiếu thông tin Mã Đối Tượng');
                 return;
@@ -402,10 +437,7 @@
                 return;
             }
 
-            if (!$scope.arrayTongHop.nguoi_lap_bieu) {
-                alert('Thiếu thông tin Người Lập Biểu');
-                return;
-            }
+            
 
             if (!$scope.arrayTongHop.ngay_hach_toan) {
                 alert('Thiếu thông tin Ngày Hạch Toán');
@@ -476,7 +508,7 @@
                     ThamChieu: $scope.ThamChieu.ListSelect,
                     LY_DO_CHI: 'Rút tiền gửi về nộp quỹ',
                     NGUOI_NHAN: $scope.arrayTongHop.nguoi_nhan,
-                    DIEN_GIAI_LY_DO_CHI: $scope.arrayTongHop.dien_giai_ly_do_CHI,
+                    DIEN_GIAI_LY_DO_CHI: $scope.arrayTongHop.dien_giai_ly_do_chi,
                     NHAN_VIEN_MUA_HANG: $scope.arrayTongHop.nhan_vien_thu,
                     TONG_TIEN: $scope.arrayTongHop.tong_tien,
                     NGUOI_LAP_BIEU: a,
