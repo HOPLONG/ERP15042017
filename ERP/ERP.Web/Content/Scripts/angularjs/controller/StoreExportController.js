@@ -69,7 +69,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         ListTaiKhoan: [],
         ListAdd: [],
         SearchHang: [],
-        //ListKho: []
+        ListKho: []
     }
 
 
@@ -119,19 +119,19 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         //    ConnectFail();
         //});
 
-        //$http({
-        //    method: 'GET',
-        //    url: '/Kho/GetAll'
-        //}).then(function (response) {
-        //    if (typeof (response.data) == "object") {
-        //        $scope.Detail.ListKho = response.data;
-        //    }
-        //    else {
-        //        ErrorSystem();
-        //    }
-        //}, function (error) {
-        //    ConnectFail();
-        //});
+        $http({
+            method: 'GET',
+            url: '/api/Api_KhoHL'
+        }).then(function (response) {
+            if (typeof (response.data) == "object") {
+                $scope.Detail.ListKho = response.data;
+            }
+            else {
+                ErrorSystem();
+            }
+        }, function (error) {
+            ConnectFail();
+        });
 
         $http({
             method: 'GET',
@@ -308,12 +308,12 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         if (CheckSearchThamChieu() == false) {
             return;
         }
+
         if ($scope.LoaiChungTu == 1) {
             var data = {
                 GiaTriChungTu: $scope.GiaTriLoaiChungTu,
                 FromTime: $scope.ThamChieu.From,
                 ToTime: $scope.ThamChieu.To
-
 
             }
 
@@ -332,6 +332,8 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
             }, function (error) {
                 ConnectFail();
             });
+
+
 
 
 
@@ -485,6 +487,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         $scope.Detail.ListAdd.push({
             MA_HANG: null,
             TEN_HANG: null,
+            MA_KHO: null,
             TK_KHO: null,
             DON_GIA: null,
             SO_LUONG: null,
@@ -519,6 +522,10 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         else {
             $(".tableselect").css({ "display": "none" });
         }
+    };
+    $scope.SelectKho = function (index, item, kho) {
+        item.MA_KHO = kho.MA_KHO;
+        $(".tableselect").css({ "display": "none" });
     };
 
     $scope.ShowTaiKhoanCo = function (index) {
@@ -563,8 +570,8 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
     };
     function ResetAfterSave() {
         $scope.GiaTriThamChieu = [];
-        //$scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
-        //$scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+        $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+        $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
         $scope.GiaTriChungTu.Search = null,
         $scope.GiaTriChungTu.Date = null;
         $scope.GeneralInfo.NgayChungTu = null;
