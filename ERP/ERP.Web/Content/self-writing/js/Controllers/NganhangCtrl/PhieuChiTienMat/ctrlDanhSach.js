@@ -30,7 +30,7 @@
 
             function success(response) {
                 var data = response.data;
-                $scope.listPhieuChiCollection = data.data;
+                $scope.listPhieuChiCollection = data;
                 pagination.numberOfPages = data.max_page;
                 //$timeout(function () {
                 //    // We must reevaluate the value in case it was changed by a subsequent

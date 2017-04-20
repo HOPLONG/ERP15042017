@@ -207,16 +207,16 @@ function ctrChiKhac($rootScope, $scope, $location, $http, $uibModal) {
         };
 
         // Lấy list đối tượng
-        //$http.get(window.location.origin + '/api/Api_XuatNhapKho/GetAllDoiTuong')
-        // .then(function (response) {
-        //    if (response.data) {
-        //        $scope.listDoiTuong = response.data;
+        $http.get(window.location.origin + '/api/Api_XuatNhapKho/GetAllDoiTuong')
+         .then(function (response) {
+            if (response.data) {
+                $scope.listDoiTuong = response.data;
              
            
-        //     }
-        //}, function (error) {
-        // console.log(error);
-        //});
+             }
+        }, function (error) {
+         console.log(error);
+        });
 
  
         // Chọn đối tượng

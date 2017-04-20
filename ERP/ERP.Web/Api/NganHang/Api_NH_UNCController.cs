@@ -13,67 +13,17 @@ using System.Text.RegularExpressions;
 using ERP.Web.Models.NewModels.NganHang;
 using ERP.Web.Common;
 using ERP.Web.Models.NewModels.All;
-using System.Dynamic;
 
 namespace ERP.Web.Api.NganHang
 {
     public class Api_NH_UNCController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
-        [HttpGet]
+
         // GET: api/Api_NH_UNC
-        public ExpandoObject GetNH_UNC(DateTime? from_day = null, DateTime? to_day = null, string so_tai_khoan = null, int current_page = 1, int page_size = 10)
+        public IQueryable<NH_UNC> GetNH_UNC()
         {
-            
-            IEnumerable<NH_UNC> value = db.NH_UNC;
-       
-            if (so_tai_khoan != null)
-            {
-                value = value.Where(c => c.TAI_KHOAN_CHI == so_tai_khoan);
-            }
-
-            if (to_day != null)
-            {
-                value = value.Where(c => c.NGAY_CHUNG_TU <= to_day);
-            }
-
-            if (from_day != null)
-            {
-                value = value.Where(c => c.NGAY_CHUNG_TU >= from_day);
-            }
-
-            int count = value.Count();
-            value = value.Skip(page_size * (current_page - 1)).Take(page_size);
-            int max_page = (count + page_size - 1) / page_size;
-
-            if (max_page < current_page)
-            {
-                current_page = max_page;
-            }
-
-            // List<NH_NTTK> Listtest = value.ToList();
-            var result = value.ToList().Select(x => new NH_UNC()
-            {
-                SO_CHUNG_TU = x.SO_CHUNG_TU,
-                NGAY_HACH_TOAN = x.NGAY_HACH_TOAN,
-                NGAY_CHUNG_TU = x.NGAY_CHUNG_TU,
-                MA_DOI_TUONG = x.MA_DOI_TUONG,
-                TAI_KHOAN_CHI = x.TAI_KHOAN_CHI,
-                DIEN_GIAI_NOI_DUNG_THANH_TOAN = x.DIEN_GIAI_NOI_DUNG_THANH_TOAN,
-                NOI_DUNG_THANH_TOAN = x.NOI_DUNG_THANH_TOAN,
-                NHAN_VIEN_CHUYEN_KHOAN = x.NHAN_VIEN_CHUYEN_KHOAN,
-                TONG_TIEN = x.TONG_TIEN,
-                NGUOI_LAP_BIEU = x.NGUOI_LAP_BIEU,
-                TRUC_THUOC = x.TRUC_THUOC
-
-            }).ToList();
-
-            dynamic res_data = new ExpandoObject();
-            res_data.current_page = current_page;
-            res_data.page_size = page_size;
-            res_data.max_page = max_page;
-            res_data.data = result;
-            return res_data;
+            return db.NH_UNC;
         }
 
         // GET: api/Api_NH_UNC/5

@@ -251,7 +251,7 @@
                         <div class="col-md-6">
                             <div class="text-right">
                                 <form class="form-inline">
-                                    <div class="form-group" ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">
+                                    <div class="form-group">
                                         <label class="marginR15">Tỷ giá</label>
                                         <input type="number" class="form-control" ng-model="arraydiengiai[indexcurrent].TY_GIA" ng-init="arraydiengiai[indexcurrent].TY_GIA = 0.00">
                                     </div>
@@ -534,7 +534,7 @@
                                         <td><input type="text" class="form-control" ng-model="arraydiengiai[$index].SO_HD" ng-disabled="indexcurrent != $index"></td>
                                         <td><input type="text" class="form-control" ng-model="arraydiengiai[$index].MAU_SO_HD" ng-disabled="indexcurrent != $index"></td>
                                         <td><input type="text" class="form-control" ng-model="arraydiengiai[$index].KY_HIEU_HD" ng-disabled="indexcurrent != $index"></td>
-                                        <td>{{arrayTongHop.ma_doi_tuong}}</td>
+                                        <td>{{}arrayTongHop.ma_doi_tuong}}</td>
                                         @*<td><input type="text" class="form-control" ng-model="arraydiengiai[$index].ma_ncc" ng-disabled="indexcurrent != $index"></td>*@
                                         @*<td>
                                             <div class="input-group maxWidth150">

@@ -20,7 +20,6 @@
     <!-- Bootstrap 3.3.6 -->
     <link href="~/Content/download/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/nav_hoplong_multilevel.css" rel="stylesheet" />
-    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -33,29 +32,14 @@
     <link href="~/Content/download/bootstrap/css/layout_all.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/Layout-CSS.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/LayoutHL.css" rel="stylesheet" />
-    <link href="~/Content/self-writing/css/Nganhang/common.css" rel="stylesheet" />
-    <link href="~/Content/self-writing/css/Nganhang/style.css" rel="stylesheet" />
-
-    <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
-
-   
-    <script src="~/Content/download/plugins/jQuery/jquery.js"></script>
-    <script src="~/Content/download/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/Content/download/moment/min/moment.min.js"></script>
-    <script src="~/Content/download/bootstrap-datetimepicker.js"></script>
+    <script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
+    <script src="~/Content/download/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="~/Content/download/angularjs/angular.min.js"></script>
-    <script src="~/Content/download/angular-ui/build/angular-ui.min.js"></script>
-    <script src="~/Content/download/angular-ui-router/release/angular-ui-router.min.js"></script>
-  
-    <script src="~/Content/download/angular-smart-table/angular-smart-table/dist/smart-table.min.js"></script>
-    <script src="~/Content/download/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="~/Content/self-writing/js/app.js"></script>
     <script src="~/Content/self-writing/js/Service.js"></script>
     <script src="~/Content/self-writing/js/Controller.js"></script>
     <script src="~/Content/download/angularjs/dirPagination.js"></script>
-    <script src="~/Content/self-writing/js/BusinessServices/AjaxServices.js"></script>
-    <script src="~/Content/self-writing/js/BusinessServices/DataServices.js"></script>
-    <script src="~/Content/download/pnotify.custom.min.js"></script>
     <script>
         $(function () {
             CKEDITOR.config.extraPlugins = 'justify';
@@ -317,20 +301,21 @@
         <strong>Bản quyền &copy; thuộc về <a href="https://hoplongtech.com">hoplongtech.com</a>.</strong>
     </footer>
     <!-- jQuery 2.2.3 -->
-
+    <script src="~/Content/download/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
-
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="~/Content/download/dist/js/app.min.js"></script>
+    <script src="~/Content/download/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Content/download/plugins/fastclick/fastclick.js"></script>
+
     <script src="~/Content/self-writing/js/nav_hoplong_multilevel.js"></script>
-    <script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
-    <script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngMask/3.1.1/ngMask.min.js"></script>
 
     <style>
         body input {
             border: 1px solid #00BFFF !important;
-            border-radius: 3px !important;
+            border-radius: 5px !important;
         }
 
         body select {
@@ -346,7 +331,7 @@
         body button {
             background: #00BFFF !important;
             color: white !important;
-            border: 1px solid #00BFFF !important;
+            border: none !important;
         }
 
         body {
@@ -361,14 +346,14 @@
             display: none !important;
         }
     </style>
-    @*<script>
+    <script>
         window.setInterval(function () {
             $.get("/Home/Alive", function (data) {
                 //alert("still alive")
             }, 180000);
         });
 
-    </script>*@
+    </script>
 
 </body>
 </html>
