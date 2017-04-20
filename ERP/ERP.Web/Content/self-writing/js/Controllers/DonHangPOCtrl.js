@@ -94,6 +94,8 @@
             TIEN_THUE_GTGT: $scope.tong_tien_VAT,
             TONG_TIEN_THANH_TOAN: $scope.tong_tien_thuc_te,
             SO_TIEN_VIET_BANG_CHU: $scope.so_tien_viet_bang_chu,
+            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG.format('DD/MM/YYYY'),
+            DIA_DIEM_GIAO_HANG: $scope.thongtinchung[0].DIA_DIEM_GIAO_HANG,
         }
 
         $scope.arrayChiTietPO = [];

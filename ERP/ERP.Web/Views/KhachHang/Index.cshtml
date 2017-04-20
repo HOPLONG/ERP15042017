@@ -8,7 +8,7 @@
 
 <script src="~/Content/download/pnotify.custom.min.js"></script>
 @*<script src="~/Content/self-writing/js/Services/KhachHangServices.js"></script>
-@*<script src="~/Content/self-writing/js/Controllers/KhachHangCtrl.js"></script>*@
+    @*<script src="~/Content/self-writing/js/Controllers/KhachHangCtrl.js"></script>*@
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="~/Content/self-writing/pagination.js"></script>
 <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
@@ -17,17 +17,21 @@
     #myModal .col-md-12 {
         margin: 10px 0px;
     }
-    #taikhoan td{
+
+    #taikhoan td {
         padding: 0px !important;
     }
-    #lienhe td{
+
+    #lienhe td {
         padding: 0px !important;
         padding-bottom: 10px !important;
     }
-    .thongtinchung input{
+
+    .thongtinchung input {
         font-size: 12px;
     }
-    #phanhoikhachhang .table>tbody>tr>td{
+
+    #phanhoikhachhang .table > tbody > tr > td {
         border-top: none !important;
         border-bottom: 1px solid #ddd;
     }
@@ -54,9 +58,9 @@
         <input type="button" class="btn btn-info" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
         <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
         <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/KhachChuaGiaoDich';" value="Danh sách khách chưa có giao dịch" />
-     
+
         <!-- Modal Add New khách hàng -->
-        <div class="modal fade" id="myModal" role="dialog" tabindex="-1" style="overflow:scroll">
+        <div class="modal fade" id="myModal" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-lg" style="width: 90%">
                 <div class="modal-content" style="height: 100%">
 
@@ -65,7 +69,7 @@
 
                             <p style="font-size: x-large; color: blue; font-weight: 700">Thông tin chung</p>
                             <div class="col-md-6 thongtinchung">
-                                <div class="col-md-12">                                  
+                                <div class="col-md-12">
                                     <div ng-controller="imgCtrl" class="col-md-8">
                                         <div class="col-md-6">
                                             @Html.AntiForgeryToken()
@@ -89,26 +93,23 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="col-sm-12">
-                                        <input type="text"  placeholder="Địa chỉ xuất hóa đơn" id="adddiachixuathoadon" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.dia_chi_xuat_hoa_don">
+                                        <input type="text" placeholder="Địa chỉ xuất hóa đơn" id="adddiachixuathoadon" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.dia_chi_xuat_hoa_don">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="col-sm-4">
-                                        <input type="text"  placeholder="Mã số thuế" id="addmasothue" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.ma_so_thue">
+                                        <input type="text" placeholder="Mã số thuế" id="addmasothue" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.ma_so_thue">
                                     </div>
                                     <div class="col-sm-4">
                                         <input type="text" placeholder="Website" id="addwebsite" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.website">
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="tel"  placeholder="Số điện thoại" id="addsomayban" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.hotline">
+                                        <input type="tel" placeholder="Số điện thoại" id="addsomayban" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.hotline">
                                     </div>
                                 </div>
                             </div>
 
-
-
-
-                            <div class="col-md-6 thongtinchung">                               
+                            <div class="col-md-6 thongtinchung">
                                 <div class="col-md-12">
                                     <label class="col-sm-3 control-label">Phân loại khách hàng</label>
                                     <div class="col-sm-6" style="padding-top: 5px">
@@ -131,13 +132,13 @@
                                 <div class="col-md-12">
 
                                     <div class="col-sm-3">
-                                        <input type="text"  placeholder="Fax" id="addfax" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.fax">
+                                        <input type="text" placeholder="Fax" id="addfax" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.fax">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="text"  placeholder="Tỉnh" id="addfax" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.tinh">
+                                        <input type="text" placeholder="Tỉnh" id="addfax" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.tinh">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="text"  placeholder="Quốc gia" id="addfax" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.quoc_gia">
+                                        <input type="text" placeholder="Quốc gia" id="addfax" style="width: 100%;height: 27px;padding-left: 5px;" ng-model="arraythongtin.quoc_gia">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -149,14 +150,31 @@
                                 <div class="col-md-12">
 
                                     <div class="col-sm-3">
-                                        <input type="number"  placeholder="Số ngày được nợ" id="addsongayduocno" ng-model="arraythongtin.so_ngay_duoc_no" style="height: 27px;padding-left: 5px;">
+                                        <input type="number" placeholder="Số ngày được nợ" id="addsongayduocno" ng-model="arraythongtin.so_ngay_duoc_no" style="height: 27px;padding-left: 5px;">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="number"  placeholder="Số nợ tối đa" id="addsonotoida" ng-model="arraythongtin.so_no_toi_da" style="height: 27px;padding-left: 5px;">
+                                        <input type="number" placeholder="Số nợ tối đa" id="addsonotoida" ng-model="arraythongtin.so_no_toi_da" style="height: 27px;padding-left: 5px;">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="text"  placeholder="Email" id="addemail" ng-model="arraythongtin.email" style="height: 27px;padding-left: 5px;">
+                                        <input type="text" placeholder="Email" id="addemail" ng-model="arraythongtin.email" style="height: 27px;padding-left: 5px;">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <input type="checkbox" ng-model="arraythongtin.khach_do_marketing_tim_kiem" class="col-md-1" /> Khách do marketing tìm kiếm
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="checkbox" ng-model="arraythongtin.khach_mua_so_luong_nhieu" class="col-md-1" /> Khách mua số lượng nhiều
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="checkbox" ng-model="arraythongtin.khach_do_marketing_tim_kiem" class="col-md-1" /> Khách mua doanh số cáo
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="checkbox" ng-model="arraythongtin.khach_dac_biet" class="col-md-1" /> Khách đặc biệt
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="checkbox" ng-model="arraythongtin.thong_tin_da_day_du" class="col-md-1" /> Thông tin đã đầy đủ
                                 </div>
                             </div>
                             <div>
@@ -181,16 +199,10 @@
 
 
 
-
-
-
-
-
-
                             <p class="col-md-3" style="font-size: 20px; color: blue; font-weight: 700">Tài khoản khách hàng</p>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <table  id="taikhoan">
+                                    <table id="taikhoan">
                                         <thead class="table-header-popup" style="background-color: #d7f1f9">
                                             <tr>
                                                 <th style="text-align: center; height: 27px;padding-left: 5px;">Số tài khoản</th>
@@ -204,10 +216,10 @@
                                         <tbody>
                                             <tr ng-repeat="i in range(0,2)">
                                                 <td><input type="text" class="form-control" style="height: 27px;padding-left: 5px;" ng-model="arraytaikhoan[$index].so_tai_khoan"></td>
-                                                <td><input type="text" class="form-control" style="height: 27px;padding-left: 5px;"  ng-model="arraytaikhoan[$index].ten_tai_khoan"></td>
-                                                <td><input type="text" class="form-control" style="height: 27px;padding-left: 5px;"  ng-model="arraytaikhoan[$index].ten_ngan_hang"></td>
-                                                <td><input type="text" class="form-control" style="height: 27px;padding-left: 5px;"  ng-model="arraytaikhoan[$index].chi_nhanh"></td>
-                                                <td><input type="text" class="form-control" style="height: 27px;padding-left: 5px;"  ng-model="arraytaikhoan[$index].tinh_tp"></td>
+                                                <td><input type="text" class="form-control" style="height: 27px;padding-left: 5px;" ng-model="arraytaikhoan[$index].ten_tai_khoan"></td>
+                                                <td><input type="text" class="form-control" style="height: 27px;padding-left: 5px;" ng-model="arraytaikhoan[$index].ten_ngan_hang"></td>
+                                                <td><input type="text" class="form-control" style="height: 27px;padding-left: 5px;" ng-model="arraytaikhoan[$index].chi_nhanh"></td>
+                                                <td><input type="text" class="form-control" style="height: 27px;padding-left: 5px;" ng-model="arraytaikhoan[$index].tinh_tp"></td>
                                                 <td>
                                                     <select ng-model="arraytaikhoan[$index].loai_tai_khoan" class="form-control input-md" style="height: 27px;padding-left: 5px;">
                                                         <option ng-repeat="loaitaikhoan in list_loaitaikhoan" value="{{loaitaikhoan.MA_LOAI}}">{{loaitaikhoan.TEN_LOAI}}</option>
@@ -225,7 +237,7 @@
 
 
 
-                        
+
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <table id="lienhe">
@@ -246,25 +258,25 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="i in range(0,2)">
-                                                <td><input  type="text" class="form-control" ng-model="arraylienhe[$index].nguoi_lien_he"></td>
+                                                <td><input type="text" class="form-control" ng-model="arraylienhe[$index].nguoi_lien_he"></td>
                                                 <td><input type="text" class="form-control" ng-model="arraylienhe[$index].chuc_vu"></td>
-                                                <td><input   type="text" class="form-control" ng-model="arraylienhe[$index].phong_ban"></td>
+                                                <td><input type="text" class="form-control" ng-model="arraylienhe[$index].phong_ban"></td>
                                                 <td>
-                                                    <input  type="text" class="form-control" ng-model="arraylienhe[$index].ngay_sinh">
+                                                    <input type="text" class="form-control" ng-model="arraylienhe[$index].ngay_sinh">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" ng-model="arraylienhe[$index].gioi_tinh">
                                                 </td>
                                                 <td>
-                                                    <input type="tel"  ng-model="arraylienhe[$index].so_dien_thoai1"  placeholder="Số điện thoại 1">
-                                                    <input type="tel"  ng-model="arraylienhe[$index].so_dien_thoai2"  placeholder="Số điện thoại 2">
+                                                    <input type="tel" ng-model="arraylienhe[$index].so_dien_thoai1" placeholder="Số điện thoại 1">
+                                                    <input type="tel" ng-model="arraylienhe[$index].so_dien_thoai2" placeholder="Số điện thoại 2">
                                                 </td>
                                                 <td>
-                                                    <input type="text"  ng-model="arraylienhe[$index].email_ca_nhan"  placeholder="Email cá nhân">
-                                                    <input type="text"  ng-model="arraylienhe[$index].email_cong_ty" placeholder="Email công ty">
+                                                    <input type="text" ng-model="arraylienhe[$index].email_ca_nhan" placeholder="Email cá nhân">
+                                                    <input type="text" ng-model="arraylienhe[$index].email_cong_ty" placeholder="Email công ty">
                                                 </td>
-                                                <td><input  type="text" class="form-control" ng-model="arraylienhe[$index].skype"></td>
-                                                <td><input  type="text" class="form-control" ng-model="arraylienhe[$index].facebook"></td>
+                                                <td><input type="text" class="form-control" ng-model="arraylienhe[$index].skype"></td>
+                                                <td><input type="text" class="form-control" ng-model="arraylienhe[$index].facebook"></td>
                                                 <td>
                                                     <md-input-container>
                                                         <md-select ng-model="arraylienhe[$index].sales_phu_trach">
@@ -291,14 +303,14 @@
                             <button id="save" name="save" class="btn" data-dismiss="modal" ng-click="createnew()">Add New</button>
                             <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
         <!--end modal-->
         <!-- Modal Update khách hàng-->
-        <div class="modal fade" id="myEdit" role="dialog" tabindex="-1" style="overflow:scroll">
+        <div class="modal fade" id="myEdit" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-lg" style="width: 90%">
                 <div class="modal-content" style="height: 100%">
 
@@ -403,6 +415,25 @@
                                     <label for="addemail" class="col-sm-1 control-label">Email</label>
                                     <div class="col-sm-1">
                                         <input type="text" class="form-control" id="addemail" ng-model="kh.EMAIL">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-2">
+                                        <input type="checkbox" ng-model="kh.KHACH_DO_MARKETING_TIM_KIEM" class="col-md-1" /> Khách do marketing tìm kiếm
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="checkbox" ng-model="kh.KHACH_MUA_SO_LUONG_NHIEU" class="col-md-1" /> Khách mua số lượng nhiều
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="checkbox" ng-model="kh.KHACH_MUA_DOANH_SO_CAO" class="col-md-1" /> Khách mua doanh số cáo
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="checkbox" ng-model="kh.KHACH_DAC_BIET" class="col-md-1" /> Khách đặc biệt
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="checkbox" ng-model="kh.THONG_TIN_DA_DAY_DU" class="col-md-1" /> Thông tin đã đầy đủ
                                     </div>
                                 </div>
                             </div>
@@ -599,7 +630,7 @@
                             <div class="col-md-4">
                                 <select ng-model="editlh.TINH_TRANG_LAM_VIEC" style="height: 27px;padding-left: 5px;width:100%" data-ng-options="item as item for item in tinh_trang"></select>
                             </div>
-                           
+
 
                             <label class="col-sm-1 control-label">Sale còn phụ trách? </label>
 
@@ -744,10 +775,10 @@
                                                         <td>
                                                             <button type="button" ng-click="trasnfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newlienhe">Thêm mới</button>
                                                         </td>
-                                                    </tr>                                                   
+                                                    </tr>
                                                 </tfoot>
-                                            </table>                                           
-                                        </div>                                     
+                                            </table>
+                                        </div>
                                     </div>
                                     <div id="taikhoankhachhang" class="tab-pane fade">
                                         <table class="table">
@@ -783,10 +814,10 @@
                                                 <th style="border: 1px solid #ddd !important">Người phản hồi</th>
                                                 <th style="border: 1px solid #ddd !important">Thông tin phản hồi</th>
                                             </tr>
-                                            <tr  ng-repeat="khachphanhoi in list_phanhoi">
+                                            <tr ng-repeat="khachphanhoi in list_phanhoi">
                                                 <td style="width: 10%;">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
                                                 <td style="width: 20%;">{{khachphanhoi.HO_VA_TEN}}</td>
-                                                <td  ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 69%;"></td>
+                                                <td ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 69%;"></td>
                                             </tr>
                                         </table>
                                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newphanhoi">Thêm mới</button>
@@ -839,11 +870,13 @@
                                             <tr ng-repeat="policy in list_policy">
                                                 <td>{{policy.MA_NHOM_HANG}}</td>
                                                 <td>
+
                                                     <p ng-hide="editMode">{{policy.GIA_BAN}} %</p>
                                                     <input type="number" ng-model="policy.GIA_BAN" ng-show="editMode" />
                                                 </td>
                                                 <td>
                                                     <p ng-hide="editMode">{{policy.CHIET_KHAU_CM}} %</p>
+
                                                     <input type="number" ng-model="policy.CHIET_KHAU_CM" ng-show="editMode" />
                                                 </td>
                                                 <td>
@@ -1054,24 +1087,23 @@
             </div>
         </div>
         <!--end modal-->
-
         <!-- Modal thêm mới phản hồi -->
         <div class="modal fade" id="newphanhoi" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
                     <div class="modal-body">
-                                <div class="col-md-12">
-                                    <label class="col-md-2">Phản hồi mới</label>
-                                    <div class="col-sm-10">
-                                        <textarea id="phanhoimoi" name="phanhoimoi" class="form-control input-md"></textarea>
-                                    </div>
-                                </div>
-                                <script>
+                        <div class="col-md-12">
+                            <label class="col-md-2">Phản hồi mới</label>
+                            <div class="col-sm-10">
+                                <textarea id="phanhoimoi" name="phanhoimoi" class="form-control input-md"></textarea>
+                            </div>
+                        </div>
+                        <script>
                                         CKEDITOR.replace('phanhoimoi', {
                                         height: 150
                                     });
-                                </script>
+                        </script>
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
@@ -1086,6 +1118,88 @@
             </div>
         </div>
         <!--end modal-->
+        <!-- Modal thêm mới policy -->
+        <div class="modal fade" id="new_policy" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <form class="form-horizontal" name="myForm" novalidate>
+                            <fieldset>
+                                <!-- Form Name -->
+                                <legend>Add New Policy</legend>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4">Nhóm hàng</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="chung_loai_hang" value="{{chung_loai_hang}}" ng-change="onVTHHFind()" ng-focus="showtable_VTHH = true">
+                                                <input type="hidden" class="form-control" ng-model="ma_nhom_hang_policy" ng-focus="showtable_VTHH = true">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_VTHH = !showtable_VTHH" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_VTHH">
+                                                        <div class="table-responsive" style="max-height: 280px">
+                                                            <table class="table table-striped table-hover" st-pagination-scroll st-table="VTHHCollection" st-safe-src="arrayVTHHFinded">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>Mã nhóm hàng</td>
+                                                                        <td>Chủng loại hàng</td>
+                                                                    </tr>
+                                                                    <tr ng-repeat="vthh in VTHHCollection" style="cursor:pointer" ng-click="showInfoStaff(vthh)">
+                                                                        <td>{{vthh.MA_NHOM_HANG_CHI_TIET}}</td>
+                                                                        <td>{{vthh.CHUNG_LOAI_HANG}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4">Thời gian áp dụng</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" ng-model="thoi_gian_ap_dung_policy" data-ng-options="item as item for item in thoi_gian_ap_dung"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-4">Giá bán</label>
+                                        <div class="col-md-8">
+                                            <input type="number" class="form-control" ng-model="gia_ban_policy" ng-init="gia_ban_policy=0.00" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-4">Chiết khấu CM</label>
+                                        <div class="col-md-8">
+                                            <input type="number" class="form-control" ng-model="chiet_khau_cm_policy" ng-init="chiet_khau_cm_policy=0.00" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <textarea placeholder="Ghi chú" ng-model="ghi_chu_policy" class="form-control"></textarea>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="anmelden"></label>
+                            <div class="col-md-8 addnew">
+                                <button id="addnew" name="addnew" class="btn" ng-click="addnew_policy(item.MA_KHACH_HANG)" data-dismiss="modal" data-toggle="modal" data-target="#chitietkhachhang">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End modal thêm mới policy -->
+
 
         <!-- Modal thêm mới policy -->
         <div class="modal fade" id="new_policy" role="dialog" tabindex="-1">

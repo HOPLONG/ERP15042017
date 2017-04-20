@@ -22,6 +22,8 @@
                     <th>Tổng tiền thanh toán</th>
                     <th>Số tiền viết bằng chữ</th>
                     <th>Nhân viên quản lý</th>
+                    <th>Ngày giao hàng</th>
+                    <th>Địa điểm giao hàng</th>
                     <th>Sửa</th>
                 </tr>
             </thead>
@@ -37,6 +39,8 @@
                     <td>{{entry.TONG_TIEN_THANH_TOAN | currency : '' : 0}}</td>
                     <td>{{entry.SO_TIEN_VIET_BANG_CHU}}</td>
                     <td>{{entry.HO_VA_TEN}}</td>
+                    <td>{{entry.NGAY_GIAO_HANG | date : 'dd/MM/yyyy'}}</td>
+                    <td>{{entry.DIA_DIEM_GIAO_HANG}}</td>
                     <td><a href="/DonHangPO/Edit/{{entry.MA_SO_PO}}">Sửa đơn PO</a></td>
                 </tr>
             </tbody>
