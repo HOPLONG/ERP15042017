@@ -129,43 +129,47 @@ namespace ERP.Web.Api.KhachHang
             {
                 return BadRequest(ModelState);
             }
-            KH_LIEN_HE lienhe = new KH_LIEN_HE();
-            lienhe.MA_KHACH_HANG = lh.MA_KHACH_HANG;
-            lienhe.NGUOI_LIEN_HE = lh.NGUOI_LIEN_HE;
-            lienhe.CHUC_VU = lh.CHUC_VU;
-            lienhe.PHONG_BAN = lh.PHONG_BAN;
-            if (lh.NGAY_SINH != null)
-                lienhe.NGAY_SINH = xlnt.Xulydatetime(lh.NGAY_SINH);
-            lienhe.GIOI_TINH = lh.GIOI_TINH;
-            lienhe.EMAIL_CA_NHAN = lh.EMAIL_CA_NHAN;
-            lienhe.EMAIL_CONG_TY = lh.EMAIL_CONG_TY;
-            lienhe.SKYPE = lh.SKYPE;
-            lienhe.FACEBOOK = lh.FACEBOOK;
-            lienhe.GHI_CHU = lh.GHI_CHU;
-            lienhe.SDT1 = lh.SDT1;
-            lienhe.SDT2 = lh.SDT2;
-            lienhe.TINH_TRANG_LAM_VIEC = lh.TINH_TRANG_LAM_VIEC;
-            db.KH_LIEN_HE.Add(lienhe);
-            db.SaveChanges();
-            var query = db.KH_LIEN_HE.Where(x => x.SDT1 == lh.SDT1).ToList();
-            var data = query.LastOrDefault();
-            KH_SALES_PHU_TRACH salept = new KH_SALES_PHU_TRACH();
-            salept.ID_LIEN_HE = data.ID_LIEN_HE;
-            salept.SALES_PHU_TRACH = lh.SALES_PHU_TRACH;
-            salept.NGAY_BAT_DAU_PHU_TRACH = DateTime.Today.Date;
-            salept.TRANG_THAI = true;
-            if (lh.SALES_CU == false && lh.SALES_MOI == false)
+            if(lh.NGUOI_LIEN_HE != "")
             {
-                salept.SALES_MOI = true;
-                salept.SALES_CU = false;
+                KH_LIEN_HE lienhe = new KH_LIEN_HE();
+                lienhe.MA_KHACH_HANG = lh.MA_KHACH_HANG;
+                lienhe.NGUOI_LIEN_HE = lh.NGUOI_LIEN_HE;
+                lienhe.CHUC_VU = lh.CHUC_VU;
+                lienhe.PHONG_BAN = lh.PHONG_BAN;
+                if (lh.NGAY_SINH != null)
+                    lienhe.NGAY_SINH = xlnt.Xulydatetime(lh.NGAY_SINH);
+                lienhe.GIOI_TINH = lh.GIOI_TINH;
+                lienhe.EMAIL_CA_NHAN = lh.EMAIL_CA_NHAN;
+                lienhe.EMAIL_CONG_TY = lh.EMAIL_CONG_TY;
+                lienhe.SKYPE = lh.SKYPE;
+                lienhe.FACEBOOK = lh.FACEBOOK;
+                lienhe.GHI_CHU = lh.GHI_CHU;
+                lienhe.SDT1 = lh.SDT1;
+                lienhe.SDT2 = lh.SDT2;
+                lienhe.TINH_TRANG_LAM_VIEC = lh.TINH_TRANG_LAM_VIEC;
+                db.KH_LIEN_HE.Add(lienhe);
+                db.SaveChanges();
+                var query = db.KH_LIEN_HE.Where(x => x.SDT1 == lh.SDT1).ToList();
+                var data = query.LastOrDefault();
+                KH_SALES_PHU_TRACH salept = new KH_SALES_PHU_TRACH();
+                salept.ID_LIEN_HE = data.ID_LIEN_HE;
+                salept.SALES_PHU_TRACH = lh.SALES_PHU_TRACH;
+                salept.NGAY_BAT_DAU_PHU_TRACH = DateTime.Today.Date;
+                salept.TRANG_THAI = true;
+                if (lh.SALES_CU == false && lh.SALES_MOI == false)
+                {
+                    salept.SALES_MOI = true;
+                    salept.SALES_CU = false;
+                }
+                else
+                {
+                    salept.SALES_CU = lh.SALES_CU;
+                    salept.SALES_MOI = lh.SALES_MOI;
+                }
+                db.KH_SALES_PHU_TRACH.Add(salept);
+                db.SaveChanges();
             }
-            else
-            {
-                salept.SALES_CU = lh.SALES_CU;
-                salept.SALES_MOI = lh.SALES_MOI;
-            }
-            db.KH_SALES_PHU_TRACH.Add(salept);
-            db.SaveChanges();
+           
 
             return CreatedAtRoute("DefaultApi", new { id = lh.ID_LIEN_HE }, lh);
         }

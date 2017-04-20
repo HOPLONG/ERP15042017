@@ -26,12 +26,12 @@ app.service('hanghoaService', function ($http) {
         return $http.post("/api/Api_HanghoaHL", data_add);
     };
 
-    this.save = function (mahang, data_update) {
-        return $http.put("/api/Api_HanghoaHL/" + mahang, data_update);
+    this.save = function (data_update) {
+        return $http.put("/api/Api_HanghoaHL/PutDM_HANG_HOA", data_update);
     }
 
-    this.delete = function (mahang, data_delete) {
-        return $http.delete("/api/Api_HanghoaHL/" + mahang, data_delete);
+    this.delete = function (data_delete) {
+        return $http.delete("/api/Api_HanghoaHL/DeleteDM_HANG_HOA", data_delete);
     }
     //this.get_hangtonkho = function (id) {
     //    return $http.get("/api/Api_Checktonkho/" + id).then(function (response) {
@@ -562,7 +562,7 @@ app.service('DonhangdukienService', function ($http) {
     }
 
     this.add = function (data_add) {
-        return $http.post("/api/Api_Donhangdukien", data_add);
+        return $http.post("/api/Api_Donhangdukien/PostBH_DON_HANG_DU_KIEN", data_add);
     };
 
     this.save = function (id, data_update) {
@@ -860,6 +860,19 @@ app.service('khachhangService', function ($http) {
         return $http.get('/api/Api_KH/GetCT_KH/' + makh).then(function (response) {
             return response.data;
         });
+    };
+
+    this.get_kh_policy = function (makh) {
+        return $http.post('/api/Api_KhachHangPolicy/' + makh).then(function (response) {
+            return response.data;
+        });
+    };
+    this.save_kh_policy = function (id,data_save) {
+        return $http.put("/api/Api_KhachHangPolicy/PutKH_POLICY/" + id, data_save);
+    };
+
+    this.add_kh_policy = function (data_add) {
+        return $http.post("/api/Api_KhachHangPolicy", data_add);
     };
 });
 //end khach hang

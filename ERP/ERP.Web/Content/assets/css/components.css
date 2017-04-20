@@ -612,7 +612,7 @@ a.badge,
   width: 280px;
 }
 .sidebar-fixed-expanded .content-wrapper {
-  
+  padding-left: 76px;
 }
 @media (min-width: 769px) {
   .sidebar-separate .sidebar-content {
@@ -1048,6 +1048,7 @@ a.badge,
     width: 100%;
 }
 }
+
 /* ------------------------------------------------------------------------------
 *
 *  # Boxed layout

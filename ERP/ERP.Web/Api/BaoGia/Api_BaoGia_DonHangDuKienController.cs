@@ -63,7 +63,7 @@ namespace ERP.Web.Api.BaoGia
         //}
 
         // PUT: api/Api_BaoGia_DonHangDuKien/5
-        [ResponseType(typeof(void))]
+        [Route("api/Api_BaoGia_DonHangDuKien/PutBH_DON_HANG_DU_KIEN/{id}")]
         public IHttpActionResult PutBH_DON_HANG_DU_KIEN(string id, BH_DON_HANG_DU_KIEN bH_DON_HANG_DU_KIEN)
         {
             if (!ModelState.IsValid)
@@ -76,7 +76,13 @@ namespace ERP.Web.Api.BaoGia
                 return BadRequest();
             }
 
-            db.Entry(bH_DON_HANG_DU_KIEN).State = EntityState.Modified;
+            var baogia = db.BH_DON_HANG_DU_KIEN.Where(x => x.MA_DU_KIEN == id).FirstOrDefault();
+            if (baogia != null)
+            {
+                baogia.THANH_CONG = bH_DON_HANG_DU_KIEN.THANH_CONG;
+                baogia.THAT_BAI = bH_DON_HANG_DU_KIEN.THAT_BAI;
+                baogia.LY_DO_THAT_BAI = bH_DON_HANG_DU_KIEN.LY_DO_THAT_BAI;
+            }
 
             try
             {

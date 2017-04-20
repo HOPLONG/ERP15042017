@@ -95,6 +95,7 @@ namespace ERP.Web.Api.MuaHang
             YCHG.SO_LUONG = yeucau.SO_LUONG;
             YCHG.NGAY_HOI_GIA = DateTime.Today.Date ;
             YCHG.GHI_CHU = yeucau.GHI_CHU;
+            YCHG.TRANG_THAI = false;
 
             db.MH_YEU_CAU_HOI_GIA.Add(YCHG);
             db.SaveChanges();

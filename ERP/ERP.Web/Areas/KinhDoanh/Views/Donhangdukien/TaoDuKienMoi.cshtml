@@ -3,19 +3,14 @@
     ViewBag.Title = "TaoDuKienMoi";
     Layout = "~/Areas/KinhDoanh/Views/Shared/_Layout.cshtml";
 }
+<script src="~/Content/download/pnotify.custom.min.js"></script>
+<link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
 <div ng-app="myApp" ng-controller="DonhangdukienCtrl">
     <input type="hidden" value="@Session["USERNAME"]" id="username"/>
     <form class="form-horizontal" name="mainForm" novalidate>
         <fieldset>
             <!-- Form Name -->
             <legend>Add New</legend>
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="name">Mã dự kiến: </label>
-                <div class="col-md-4">
-                    <input type="text" placeholder="Mã dự kiến" class="form-control input-md" ng-model="madukien">
-                </div>
-            </div>
             <!-- Text input-->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="name">Mã khách hàng: </label>
