@@ -146,13 +146,14 @@
                                                             <td>
                                                                 <input type="text" ng-model="item.TEN_HANG" class="col-md-12 style-inline" style="margin-bottom: 8px;">
                                                                 <input type="text" ng-model="item.MA_HANG" class="col-md-7 style-inline"  style="margin-right: 5px;">
-                                                                <input type="text" ng-model="item.HANG" class="col-md-4 style-inline" >
+                                                                <input type="text" ng-model="item.HANG_SP" class="col-md-4 style-inline" >
+                                                                <input type="text" ng-model="item.MA_DIEU_CHINH" class="col-md-4 style-inline">
                                                             </td>
                                                             <td>
                                                                 <input type="number" ng-model="item.SO_LUONG" class="style-inline" ng-change="kiemtra(item)">
                                                             </td>
                                                             <td class="text-center">
-                                                                {{item.DVT}}
+                                                                <input type="text" ng-model="item.DVT"  class="style-inline"/>
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" ng-model="item.DON_GIA_MOI" class="style-inline" ng-change="kiemtra(item)">
@@ -281,7 +282,7 @@
                                                                                     <label class="control-label">Thuế suất GTGT (%) </label>
                                                                                 </div>
                                                                                 <div class="col-md-3">
-                                                                                    <input type="number" class="form-control" ng-model="item.THUE_SUAT_GTGT" id="thue_suat_gtgt" ng-init="item.THUE_SUAT_GTGT=0.00" ng-change="kiemtra(item)" />
+                                                                                    <input type="number" class="form-control" ng-model="item.THUE_SUAT_GTGT" id="thue_suat_gtgt"  ng-change="kiemtra(item)" />
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -519,7 +520,7 @@
                                                                 <input type="text" ng-model="detail.ten_hang" class="col-md-12 style-inline"  style="margin-bottom: 8px;">
                                                                 <input type="text" ng-model="detail.ma_hang" class="col-md-7 style-inline" style="margin-right: 5px;">
                                                                 <input type="text" ng-model="detail.hang" class="col-md-4 style-inline">
-                                                                <input type="text" ng-model="detail.ma_dieu_chinh" ng-init="detail.ma_hang" class="col-md-12 style-inline"">
+                                                                <input type="text" ng-model="detail.ma_dieu_chinh" class="col-md-12 style-inline"">
                                                             </td>
                                                             <td>
                                                                 <input type="number" ng-model="detail.so_luong" class="style-inline" ng-change="test(detail)">
@@ -788,7 +789,7 @@
                                             <div>
                                                 <input type="checkbox" ng-model="checkhanghoa">
                                                 <div ng-if="checkhanghoa">
-                                                    <label ng-init="check(hanghoa.MA_HANG, hanghoa.TEN_HANG, hanghoa.DVT, hanghoa.XUAT_XU, hanghoa.MA_NHOM_HANG, hanghoa.GIA_LIST)"></label>
+                                                    <label ng-init="check(hanghoa.MA_HANG, hanghoa.TEN_HANG, hanghoa.DVT, hanghoa.XUAT_XU, hanghoa.MA_NHOM_HANG, hanghoa.GIA_LIST,hanghoa.TON_HOPLONG)"></label>
                                                 </div>
                                             </div>
 
@@ -925,11 +926,11 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="hanghoa in danhsachhanghoaluu">
-                                        <td>
+                                          <td>
                                             <div>
                                                 <input type="checkbox" ng-model="addtosave">
                                                 <div ng-if="addtosave">
-                                                    <label ng-init="newsave(hanghoa.MA_HANG, hanghoa.TEN_HANG, hanghoa.DVT, hanghoa.XUAT_XU,hanghoa.GIA_LIST)"></label>
+                                                    <label ng-init="newsave(hanghoa.MA_HANG, hanghoa.TEN_HANG, hanghoa.DVT, hanghoa.XUAT_XU, hanghoa.MA_NHOM_HANG, hanghoa.GIA_LIST,hanghoa.TON_HOPLONG)"></label>
                                                 </div>
                                             </div>
 
@@ -949,7 +950,7 @@
                                             <input type="text" ng-model="hanghoa.THONG_SO" class="form-control">
                                         </td>
                                         <td class="text-center">
-                                            <input type="text" ng-model="hanghoa.HANG" class="form-control">
+                                            <input type="text" ng-model="hanghoa.MA_NHOM_HANG" class="form-control">
                                         </td>
                                         <td>
                                             <div>
