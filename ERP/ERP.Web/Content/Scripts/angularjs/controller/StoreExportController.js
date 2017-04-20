@@ -105,7 +105,6 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         //-------------------------------------
 
 
-
         //Lấy dữ liệu kho hợp long
         $http.get("http://27.72.144.148:8003/api/DanhSachKho/GetAllKho/HOPLONG")
             .then(function (response) {
