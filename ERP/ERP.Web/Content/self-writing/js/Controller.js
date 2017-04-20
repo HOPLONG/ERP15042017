@@ -1142,6 +1142,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.arrayVTHH = [];
     $scope.showtable_VTHH = false;
 
+
     $http.get(window.location.origin + '/api/Api_NhomVTHHHL')
             .then(function (response) {
                 if (response.data) {
