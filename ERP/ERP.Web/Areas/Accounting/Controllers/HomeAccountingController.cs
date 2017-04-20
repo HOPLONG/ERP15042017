@@ -13,5 +13,6 @@ namespace ERP.Web.Areas.Accounting.Controllers
         {
             return View();
         }
+       
     }
 }
