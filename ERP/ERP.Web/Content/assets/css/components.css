@@ -1002,7 +1002,7 @@ a.badge,
 *  Latest update: May 25, 2015
 *
 * ---------------------------------------------------------------------------- */
-.page-container {
+/*.page-container {
   position: relative;
   padding: 20px 20px;
   padding-bottom: 60px;
@@ -1041,6 +1041,12 @@ a.badge,
     display: table-cell;
     vertical-align: top;
   }
+}*/
+
+@media (min-width: 1200px){
+.container {
+    width: 100%;
+}
 }
 /* ------------------------------------------------------------------------------
 *
@@ -1931,7 +1937,7 @@ body[class*=navbar-bottom] .footer:not(.navbar) {
   top: -2px;
   left: -2px;
   z-index: 2;
-  opacity: 0;
+  /*opacity: 0;*/
   filter: alpha(opacity=0);
 }
 .checkbox .checker,
@@ -4627,7 +4633,7 @@ legend.alpaca-container-label {
   filter: alpha(opacity=100);
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:after {
-  content: '\ed6a';
+  content: "x";
   font-family: 'icomoon';
   display: block;
   font-size: 11px;
