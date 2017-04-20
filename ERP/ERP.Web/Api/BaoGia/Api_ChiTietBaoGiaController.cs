@@ -63,19 +63,13 @@ namespace ERP.Web.Api.BaoGia
                     baogia.MA_HANG = item.MA_HANG;
                     baogia.SO_LUONG = item.SO_LUONG;
                     baogia.DON_GIA = item.DON_GIA;
-                    baogia.DON_GIA_LIST = item.DON_GIA_LIST;
+                    baogia.GIA_LIST = item.GIA_LIST;
                     baogia.DON_GIA_NHAP = item.DON_GIA_NHAP;
                     baogia.HE_SO_LOI_NHUAN = item.HE_SO_LOI_NHUAN;
                     baogia.CHIET_KHAU = item.CHIET_KHAU;
                     baogia.THANH_TIEN = item.THANH_TIEN;
-                    baogia.TINH_TRANG_HANG = item.TINH_TRANG_HANG;
                     baogia.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
-                    if (item.NGAY_GIAO_HANG != null)
-                        baogia.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
-                    baogia.DIA_DIEM_GIAO_HANG = item.DIA_DIEM_GIAO_HANG;
                     baogia.GHI_CHU = item.GHI_CHU;
-                    baogia.DON_GIA_GHI_CHENH = item.DON_GIA_GHI_CHENH;
-                    baogia.THANH_TIEN_GHI_CHENH = item.THANH_TIEN_GHI_CHENH;
                 }
                 else if (baogia == null)
 
@@ -87,17 +81,11 @@ namespace ERP.Web.Api.BaoGia
                     newbaogia.DON_GIA = item.DON_GIA;
                     newbaogia.CHIET_KHAU = item.CHIET_KHAU;
                     newbaogia.THANH_TIEN = item.THANH_TIEN;
-                    newbaogia.DON_GIA_LIST = item.DON_GIA_LIST;
+                    newbaogia.GIA_LIST = item.GIA_LIST;
                     newbaogia.DON_GIA_NHAP = item.DON_GIA_NHAP;
                     newbaogia.HE_SO_LOI_NHUAN = item.HE_SO_LOI_NHUAN;
-                    newbaogia.TINH_TRANG_HANG = item.TINH_TRANG_HANG;
                     newbaogia.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
-                    if (item.NGAY_GIAO_HANG != null && item.NGAY_GIAO_HANG != "")
-                        newbaogia.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
-                    newbaogia.DIA_DIEM_GIAO_HANG = item.DIA_DIEM_GIAO_HANG;
                     newbaogia.GHI_CHU = item.GHI_CHU;
-                    newbaogia.DON_GIA_GHI_CHENH = item.DON_GIA_GHI_CHENH;
-                    newbaogia.THANH_TIEN_GHI_CHENH = item.THANH_TIEN_GHI_CHENH;
                     db.BH_CT_BAO_GIA.Add(newbaogia);
                 }
 
@@ -118,7 +106,8 @@ namespace ERP.Web.Api.BaoGia
 
         // POST: api/Api_ChiTietBaoGia
         [ResponseType(typeof(BH_CT_BAO_GIA))]
-        public void PostKH_LIEN_HE(List<ChiTietBaoGia> lh)
+        [Route("api/ApiChiTietBaoGia/PostKH_LIEN_HE")]
+        public IHttpActionResult PostKH_LIEN_HE(List<ChiTietBaoGia> lh)
         {
             if (!ModelState.IsValid)
             {
@@ -129,25 +118,46 @@ namespace ERP.Web.Api.BaoGia
                 BH_CT_BAO_GIA lienhe = new BH_CT_BAO_GIA();
                 lienhe.SO_BAO_GIA = item.SO_BAO_GIA;
                 lienhe.MA_HANG = item.MA_HANG;
+                lienhe.MA_DIEU_CHINH = item.MA_DIEU_CHINH;
+                lienhe.TEN_HANG = item.TEN_HANG;
+                lienhe.HANG_SP = item.HANG_SP;
+                lienhe.ITEM_CODE = item.ITEM_CODE;
+
                 lienhe.SO_LUONG = item.SO_LUONG;
+                lienhe.DVT = item.DVT;
+
                 lienhe.DON_GIA = item.DON_GIA;
-                lienhe.CHIET_KHAU = item.CHIET_KHAU;
                 lienhe.THANH_TIEN = item.THANH_TIEN;
-                lienhe.DON_GIA_LIST = item.DON_GIA_LIST;
+
+                lienhe.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
+                lienhe.CHIET_KHAU = item.CHIET_KHAU;
+                lienhe.GIA_LIST = item.GIA_LIST;
                 lienhe.DON_GIA_NHAP = item.DON_GIA_NHAP;
                 lienhe.HE_SO_LOI_NHUAN = item.HE_SO_LOI_NHUAN;
-                lienhe.TINH_TRANG_HANG = item.TINH_TRANG_HANG;
-                lienhe.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
-                if(item.NGAY_GIAO_HANG != "")
-                    lienhe.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
-                lienhe.DIA_DIEM_GIAO_HANG = item.DIA_DIEM_GIAO_HANG;
+                lienhe.DON_GIA_BAO_DI_NET = item.DON_GIA_BAO_DI_NET;
+                lienhe.CM = item.CM;
+                lienhe.DON_GIA_MOI = item.DON_GIA_MOI;
+                lienhe.THUE_TNDN = item.THUE_TNDN;
+                lienhe.TIEN_THUE_TNDN = item.TIEN_THUE_TNDN;
+                lienhe.KHACH_NHAN_DUOC = item.KHACH_NHAN_DUOC;
                 lienhe.GHI_CHU = item.GHI_CHU;
-                lienhe.DON_GIA_GHI_CHENH = item.DON_GIA_GHI_CHENH;
-                lienhe.THANH_TIEN_GHI_CHENH = item.THANH_TIEN_GHI_CHENH;
                 db.BH_CT_BAO_GIA.Add(lienhe);
-                db.SaveChanges();             
+              
+                        
             }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+               
+                    throw;
+            }
+
+            return Ok("Thành công");
         }
+    
 
         // DELETE: api/Api_ChiTietBaoGia/5
         [ResponseType(typeof(BH_CT_BAO_GIA))]
