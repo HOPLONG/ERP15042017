@@ -358,28 +358,28 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
         function phantrangkh(pageNumber) {
             var salestao = $('#salehienthoi').val();
-            var phongban = $('#maphongban').val();
-            var isadmin = $('#isadmin').val();
+            //var phongban = $('#maphongban').val();
+            //var isadmin = $('#isadmin').val();
            
-            var datas = {
-                macongty:'HOPLONG',
-                sotrang :pageNumber,
-                ma:salestao,
-                isadmin:isadmin,
-                maphongban: phongban,
-                }
-            $http.post("http://27.72.144.148:8003/api/KhachHang/PhantrangkhachHang", datas)
-                .then(function successCallback(response) {
-                    $scope.filtered = response.data;
-                });
+            //var datas = {
+            //    macongty:'HOPLONG',
+            //    sotrang :pageNumber,
+            //    ma:salestao,
+            //    isadmin:isadmin,
+            //    maphongban: phongban,
+            //    }
+            //$http.post("http://27.72.144.148:8003/api/KhachHang/PhantrangkhachHang", datas)
+            //    .then(function successCallback(response) {
+            //        $scope.filtered = response.data;
+            //    });
 
-        //$http({
-        //    method: 'POST',
-        //    data: $scope.filtered,
-        //    url: window.location.origin + '/api/Api_KH/PhantrangKH/' + pageNumber + '/' + salestao
-        //}).then(function successCallback(response) {
-        //    $scope.filtered = response.data;
-        //});
+        $http({
+            method: 'POST',
+            data: $scope.filtered,
+            url: window.location.origin + '/api/Api_KH/PhantrangKH/' + pageNumber + '/' + salestao
+        }).then(function successCallback(response) {
+            $scope.filtered = response.data;
+        });
     };
         phantrangkh(1);
 
@@ -425,6 +425,11 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             QUOC_GIA: $scope.arraythongtin.quoc_gia,
             TRUC_THUOC: 'HOPLONG',
             SALES_TAO: salestao,
+            KHACH_DO_MARKETING_TIM_KIEM: $scope.arraythongtin.khach_do_marketing_tim_kiem,
+            THONG_TIN_DA_DAY_DU: $scope.arraythongtin.thong_tin_da_day_du,
+            KHACH_MUA_SO_LUONG_NHIEU: $scope.arraythongtin.khach_mua_so_luong_nhieu,
+            KHACH_MUA_DOANH_SO_CAO: $scope.arraythongtin.khach_mua_doanh_so_cao,
+            KHACH_DAC_BIET : $scope.arraythongtin.khach_dac_biet,
         }
 
 
@@ -480,8 +485,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 data: $scope.lastmakh,
                 url: window.location.origin + '/api/Api_KH/GetIdKH'
             }).then(function successCallback(response) {
+                SuccessSystem('Thêm thông tin chung khách hàng thành công');
                 $scope.lastmakh = response.data;
-
                 var phanloaikh_add = {
                     MA_KHACH_HANG: $scope.lastmakh,
                     MA_LOAI_KHACH: $scope.ma_loai_khach,
@@ -518,7 +523,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                         data: $scope.Lien_he_TK,
                         url: window.location.origin + '/api/Api_ArrayLienHeKH'
                     }).then(function successCallback(zzz) {
-
+                        SuccessSystem('Thêm liên hệ khách hàng thành công');
                     }, function errorCallback(zzz) {
                         ErrorSystem("Chưa thêm được liên hệ khách hàng");
                         //alert('Chưa thêm được liên hệ khách hàng');
@@ -532,7 +537,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                         data: $scope.Tai_khoan_KH,
                         url: window.location.origin + '/api/Api_TaiKhoanKH/' + $scope.lastmakh
                     }).then(function successCallback(response1) {
-
+                        SuccessSystem("Thêm tài khoản khách hàng thành công");
                     }, function errorCallback(response1) {
                         ErrorSystem("Chưa thêm được tài khoản khách hàng");
                         //alert('Chưa thêm được tài khoản khách hàng');
@@ -644,7 +649,12 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             SO_NGAY_DUOC_NO: $scope.kh.SO_NGAY_DUOC_NO,
             SO_NO_TOI_DA: $scope.kh.SO_NO_TOI_DA,
             GHI_CHU: editghichu,
-            TRUC_THUOC: "HOPLONG"
+            TRUC_THUOC: "HOPLONG",
+            KHACH_DO_MARKETING_TIM_KIEM: $scope.kh.KHACH_DO_MARKETING_TIM_KIEM,
+            THONG_TIN_DA_DAY_DU: $scope.kh.THONG_TIN_DA_DAY_DU,
+            KHACH_MUA_SO_LUONG_NHIEU: $scope.kh.KHACH_MUA_SO_LUONG_NHIEU,
+            KHACH_MUA_DOANH_SO_CAO: $scope.kh.KHACH_MUA_DOANH_SO_CAO,
+            KHACH_DAC_BIET : $scope.kh.KHACH_DAC_BIET,
         }
         khachhangService.save_khachhang(makh, kh_save).then(function (response) {
             phantrangkh(1);
@@ -839,6 +849,11 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         tinh_trang_hoat_dong: '',
         quoc_gia: '',
         truc_thuoc: 'HOPLONG',
+        khach_do_marketing_tim_kiem: '',
+        thong_tin_da_day_du: '',
+        khach_mua_so_luong_nhieu: '',
+        khach_mua_doanh_so_cao: '',
+        khach_dac_biet: '',
     };
 
 
@@ -1126,6 +1141,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.arrayVTHHFinded = [];
     $scope.arrayVTHH = [];
     $scope.showtable_VTHH = false;
+
 
     $http.get(window.location.origin + '/api/Api_NhomVTHHHL')
             .then(function (response) {
