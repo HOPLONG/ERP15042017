@@ -1,4 +1,4 @@
-﻿app.controller('XuLyHoiGiaCtrl', function ($scope, $http, $timeout) {
+﻿app.controller('XuLyHoiGiaCtrl', function ($scope, $http, $timeout, XuLyHoiGiaService, YeuCauHoiGiaService) {
     var purhienthoi = $('#purhienthoi').val();
     $scope.get_yeucau = function () {
         YeuCauHoiGiaService.get_yeucau().then(function (responseData) {
@@ -30,4 +30,7 @@
             alert('Sự cố hệ thống, Bạn vui lòng kiểm tra kết nối Internet hoặc liên hệ với admin để được hỗ trợ ');
         });
     }
+
+
+
 });

@@ -4,104 +4,116 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>BH_DON_HANG_PO</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.MA_SO_PO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MA_SO_PO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MA_SO_PO, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NGAY_LEN_PO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NGAY_LEN_PO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NGAY_LEN_PO, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<link rel="stylesheet" type="text/css" href="/Content/font-awesome/css/font-awesome.min.css" />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MA_KHACH_HANG, "MA_KHACH_HANG", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MA_KHACH_HANG", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MA_KHACH_HANG, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="container" ng-app="myApp" ng-controller="nhacungcapCtrl">
+    <button id="exportButton" class="btn btn-lg btn-danger clearfix"><span class="fa fa-file-pdf-o"></span> Export to PDF</button>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TEN_LIEN_HE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TEN_LIEN_HE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TEN_LIEN_HE, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HINH_THUC_THANH_TOAN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HINH_THUC_THANH_TOAN, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HINH_THUC_THANH_TOAN, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.THUE_SUAT_GTGT, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.THUE_SUAT_GTGT, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.THUE_SUAT_GTGT, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <table id="exportTable" class="table table-hover" cellspacing="0" >
+        <thead>
+            <tr>
+                <th>Mã</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>SDT</th>
+                <th>Fax</th>
+                <th>Loại</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr dir-paginate="item in filtered = (list_nhacungcap | filter: {TEN_NHA_CUNG_CAP:search_text}) | itemsPerPage:15 | orderBy: 'item.TEN_NHA_CUNG_CAP'" ng-click="transfer(item);get_lienhencc(item.MA_NHA_CUNG_CAP);get_taikhoanncc(item.MA_NHA_CUNG_CAP);loai_hang_cung_cap(item.MA_NHA_CUNG_CAP)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.MA_NHA_CUNG_CAP}}</td>
+                <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_NHA_CUNG_CAP}}</td>
+                <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.EMAIL}}</td>
+                <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{ item.SDT}}</td>
+                <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.FAX}}</td>
+                <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_LOAI_NCC}}</td>
+            </tr>
+            <!--Detail row-->
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TIEN_THUE_GTGT, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TIEN_THUE_GTGT, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TIEN_THUE_GTGT, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TONG_TIEN_THANH_TOAN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TONG_TIEN_THANH_TOAN, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TONG_TIEN_THANH_TOAN, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SO_TIEN_VIET_BANG_CHU, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SO_TIEN_VIET_BANG_CHU, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SO_TIEN_VIET_BANG_CHU, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NHAN_VIEN_QUAN_LY, "NHAN_VIEN_QUAN_LY", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("NHAN_VIEN_QUAN_LY", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.NHAN_VIEN_QUAN_LY, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="9" style="border: none !important">
+                    <dir-pagination-controls max-size="12" style="float:right;"
+                                             direction-links="true"
+                                             boundary-links="true">
+                    </dir-pagination-controls>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </div>
+
+<!-- you need to include the shieldui css and js assets in order for the components to work -->
+<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/jszip.min.js"></script>
+
+<script type="text/javascript">
+    jQuery(function ($) {
+        $("#exportButton").click(function () {
+            // parse the HTML table element having an id=exportTable
+            var dataSource = shield.DataSource.create({
+                data: "#exportTable",
+                schema: {
+                    type: "table",
+                    fields: {
+                        Mã: { type: String },
+                        Tên: { type: String },
+                        Email: { type: String },
+                        SDT: { type: Number },
+                        Fax: { type: Number },
+                        Loại: {type: String}
+
+                    }
+                }
+            });
+
+            // when parsing is done, export the data to PDF
+            dataSource.read().then(function (data) {
+                var pdf = new shield.exp.PDFDocument({
+                    author: "PrepBootstrap",
+                    created: new Date()
+                });
+
+                pdf.addPage("a4", "portrait");
+
+                pdf.table(
+                    50,
+                    50,
+                    data,
+
+                    [
+                        { field: "Mã", title: "Mã", width: 50 },
+                        { field: "Tên", title: "Tên", width: 50 },
+                        { field: "Email", title: "Email Address", width: 50 },
+                        { field: "SDT", title: "Số điện thoại", width: 50 },
+                        { field: "Fax", title: "Fax", width: 50 },
+                        { field: "Loại", title: "Loại nhà cung cấp  ", width: 50 }
+                    ],
+                    {
+                        margins: {
+                            top: 50,
+                            left: 50
+                        }
+                    }
+                );
+
+                pdf.saveAs({
+                    fileName: "PrepBootstrapPDF"
+                });
+            });
+        });
+    });
+</script>
+
+<style>
+    #exportButton {
+        border-radius: 0;
+    }
+</style>
