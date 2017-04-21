@@ -1609,10 +1609,12 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
         }
         hanghoaService.add(data_add).then(function (response) {
 
-            alert("Bạn đã thêm mới 1 hàng hóa!")
-            $scope.loadHangHoa();
+            alert("Bạn đã thêm mới 1 hàng hóa!" + response.data);
+            $scope.loadHangHoa('AUTONICS');
 
             $('#imgInp').val() = '';
+        }, function errorCallback(response) {
+            alert('Thêm không thành công');
         });
     }
 
