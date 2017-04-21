@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ERP.Web.Models.NewModels
 {
-    public class ChiTietBaoGia
+    public class CopyBaoGia
     {
         public int ID { set; get; }
         public string SO_BAO_GIA { set; get; }
@@ -70,7 +70,5 @@ namespace ERP.Web.Models.NewModels
         public decimal? THUC_NHAN_CUA_KHACH { set; get; }
         public decimal? KHACH_NHAN_DUOC { set; get; }
         public bool DANG_CHO_PHAN_HOI { set; get; }
-
-        public List<CopyBaoGia> Chitiet { set; get; }
     }
 }

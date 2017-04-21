@@ -23,7 +23,7 @@ app.service('hanghoaService', function ($http) {
         });
     }
     this.add = function (data_add) {
-        return $http.post("/api/Api_HanghoaHL", data_add);
+        return $http.post("/api/Api_HanghoaHL/PostHH", data_add);
     };
 
     this.save = function (data_update) {
