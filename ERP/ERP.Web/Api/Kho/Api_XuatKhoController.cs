@@ -183,6 +183,8 @@ namespace ERP.Web.Api.Kho
             xk.SO_CHUNG_TU = GeneralChungTu();
             xk.NGUOI_NHAN = kho_xuatkho.NGUOI_NHAN;
             xk.KHACH_HANG = kho_xuatkho.KHACH_HANG;
+            xk.LY_DO_XUAT = kho_xuatkho.LY_DO_XUAT;
+            xk.NHAN_VIEN_BAN_HANG = kho_xuatkho.NHAN_VIEN_BAN_HANG;
             xk.NGUOI_LAP_PHIEU = kho_xuatkho.NGUOI_LAP_PHIEU;
             xk.TRUC_THUOC = "HOPLONG";
             xk.LOAI_XUAT_KHO = kho_xuatkho.LOAI_XUAT_KHO;
@@ -210,6 +212,7 @@ namespace ERP.Web.Api.Kho
                     KHO_CT_XUAT_KHO newItem = new KHO_CT_XUAT_KHO();
                     newItem.SO_CHUNG_TU = xk.SO_CHUNG_TU;
                     newItem.MA_HANG = item.MA_HANG;
+                    newItem.MA_DIEU_CHINH = item.MA_DIEU_CHINH;
                     newItem.MA_KHO_CON = item.MA_KHO;
                     newItem.TK_CO = item.TK_CO;
                     newItem.TK_NO = item.TK_NO;

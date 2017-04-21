@@ -454,6 +454,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
     $scope.AddNew = function () {
         $scope.Detail.ListAdd.push({
             MA_HANG: null,
+            MA_DIEU_CHINH: null,
             TEN_HANG: null,
             MA_KHO: null,
             TK_KHO: null,
@@ -505,8 +506,8 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
             $(".tableselect").css({ "display": "none" });
         }
     };
-    $scope.SelectTKCo = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TK_CO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+    $scope.SelectTKCo = function (index, item, tkco) {
+        item.TK_CO = tkco.SO_TK;
         $(".tableselect").css({ "display": "none" });
     };
     $scope.ShowTaiKhoanNo = function (index) {
@@ -518,8 +519,8 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
             $(".tableselect").css({ "display": "none" });
         }
     };
-    $scope.SelectTKNo = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TK_NO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+    $scope.SelectTKNo = function (index, item, tkno) {
+        item.TK_NO = tkno.SO_TK;
         $("#DataTaiKhoanNo" + index).css({ "display": "none" });
     };
 
@@ -532,8 +533,8 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
             $(".tableselect").css({ "display": "none" });
         }
     };
-    $scope.SelectTKKho = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TK_KHO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+    $scope.SelectTKKho = function (index, item, tkkho) {
+        item.TK_KHO = tkkho.SO_TK;
         $(".tableselect").css({ "display": "none" });
     };
     function ResetAfterSave() {
