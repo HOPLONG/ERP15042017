@@ -1,5 +1,5 @@
 ﻿
-app.controller('StoreInsertController', function ($rootScope, $scope, $http,config) {
+app.controller('StoreInsertController', function ($rootScope, $scope, $http, config) {
     $rootScope.PageSetting = {
         PageCount: 0,
         NumberPerPage: 10,
@@ -28,13 +28,11 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         DienGia: null,
         KemTheo: null,
         ChiTiet: null,
-        TenDoiTuong:null
+        TenDoiTuong: null
 
     };
-    $scope.ChangeType=function()
-    {
-        if($scope.StoreType!=2)
-        {
+    $scope.ChangeType = function () {
+        if ($scope.StoreType != 2) {
             ResetAfterSave();
             $scope.LoadHangTra = false;
         }
@@ -58,7 +56,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         To: null,
         ListResult: [],
         ListSelect: [],
-        TraHang:null
+        TraHang: null
     };
     $scope.ChungTu = {
         ListThamChieu: []
@@ -80,7 +78,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         NgayBatDau: null,
         NgayKetThuc: null,
         ListResult: [],
-        DonHangSelect:null
+        DonHangSelect: null
     };
 
     $scope.ValidateSearchDonHangTra = {
@@ -90,8 +88,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         $scope.StoreType = 1;
         $scope.LoaiChungTu = null;
         $scope.GiaTriThamChieu = [];
-        //$scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
-        //$scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+        $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+        $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
         $scope.GiaTriChungTu.Search = null,
         $scope.GiaTriChungTu.Date = null;
         $scope.GeneralInfo.NgayChungTu = null;
@@ -129,8 +127,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
     }
     function ResetAfterSave() {
         $scope.GiaTriThamChieu = [];
-        //$scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
-        //$scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+        $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+        $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
         $scope.GiaTriChungTu.Search = null,
         $scope.GiaTriChungTu.Date = null;
         $scope.GeneralInfo.NgayChungTu = null;
@@ -190,7 +188,19 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             ConnectFail();
         });
 
-
+        $http({
+            method: 'GET',
+            url: '/api/Api_KhoHL'
+        }).then(function (response) {
+            if (typeof (response.data) == "object") {
+                $scope.Detail.ListKho = response.data;
+            }
+            else {
+                ErrorSystem();
+            }
+        }, function (error) {
+            ConnectFail();
+        });
 
         $http({
             method: 'GET',
@@ -485,8 +495,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         return check;
     };
     $scope.SelectThamChieu = function (item, index) {
-        if (item.Action == true)
-        {
+        if (item.Action == true) {
             item.Action = false;
         }
         else {
@@ -516,16 +525,14 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         $("#modal_theme_primary").modal("toggle");
         ResetThamChieu();
     };
-    function ResetThamChieu()
-    {
+    function ResetThamChieu() {
         $("#ThamChieuFrom").val("");
         $("#ThamChieuTo").val("");
         $scope.ThamChieu.ListResult = [];
     }
     $scope.RemoveThamChieu = function (index) {
         $scope.ThamChieu.ListSelect.splice(index, 1);
-        if ($scope.LoadHangTra == true)
-        {
+        if ($scope.LoadHangTra == true) {
             ResetAfterSave();
         }
     }
@@ -533,8 +540,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         $scope.Detail.ListAdd.push({
             MA_HANG: null,
             TEN_HANG: null,
-            Kho: null,
-            TK_KHO:null,
+            MA_KHO: null,
+            TK_KHO: null,
             DON_GIA: null,
             SO_LUONG: null,
             DVT: null,
@@ -611,8 +618,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         }
     }
     $scope.SelectKhachHang = function (item) {
-        $scope.GeneralInfo.DoiTuong = item.MA_DOI_TUONG;
-        $scope.GeneralInfo.TenDoiTuong = item.TEN_DOI_TUONG;
+        $scope.GeneralInfo.DoiTuong = item.MA_KHACH_HANG;
+        $scope.GeneralInfo.TenDoiTuong = item.TEN_CONG_TY;
         $(".tableselect").css({ "display": "none" });
     }
     //Kho hàng
@@ -626,7 +633,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         }
     };
     $scope.SelectKho = function (index, item, kho) {
-        item.Kho = kho.MA_KHO;
+        item.MA_KHO = kho.MA_KHO;
         $(".tableselect").css({ "display": "none" });
     };
     //Lưu nhập kho
@@ -634,8 +641,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         var check = true;
         $scope.GeneralInfo.NgayChungTu = $("#GeneralInfo_NgayChungTu").val();
         $scope.GeneralInfo.NgayHachToan = $("#GeneralInfo_NgayHachToan").val();
-        if ($scope.NguoiGiaoHang.NguoiGiaoHang == null)
-        {
+        if ($scope.NguoiGiaoHang.NguoiGiaoHang == null) {
             $scope.ValidateGeneral.NguoiGiaoHang = false;
             check = false;
         } else {
@@ -697,6 +703,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
                 ChiTiet: $scope.Detail.ListAdd,
                 ThamChieu: $scope.ThamChieu.ListSelect,
                 NGUOI_GIAO_HANG: $scope.GeneralInfo.NguoiGiaoHang,
+                MA_DOI_TUONG: $scope.GeneralInfo.DoiTuong,
+                DIEN_GIAI: $scope.GeneralInfo.DienGiai,
                 LOAI_NHAP_KHO: loainhapkho,
                 NGUOI_LAP_PHIEU: a,
                 TRUC_THUOC: b,
@@ -721,12 +729,11 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             ConnectFail();
         });
     }
-    function CheckSearchDonHangTra()
-    {
+    function CheckSearchDonHangTra() {
         var check = true;
         $scope.SearchDonHangTra.NgayBatDau = $("#SearchDonHangTra_NgayBatDau").val();
         $scope.SearchDonHangTra.NgayKetThuc = $("#SearchDonHangTra_NgayKetThuc").val();
-        if ($scope.SearchDonHangTra.NgayBatDau != null &&$scope.SearchDonHangTra.NgayBatDau!="" && $scope.SearchDonHangTra.NgayKetThuc!=null && $scope.SearchDonHangTra.NgayKetThuc!="" && ConvertToDate($scope.SearchDonHangTra.NgayBatDau) > ConvertToDate($scope.SearchDonHangTra.NgayKetThuc)) {
+        if ($scope.SearchDonHangTra.NgayBatDau != null && $scope.SearchDonHangTra.NgayBatDau != "" && $scope.SearchDonHangTra.NgayKetThuc != null && $scope.SearchDonHangTra.NgayKetThuc != "" && ConvertToDate($scope.SearchDonHangTra.NgayBatDau) > ConvertToDate($scope.SearchDonHangTra.NgayKetThuc)) {
             $scope.ValidateSearchDonHangTra.NgayKetThucLess = false;
             check = false;
         }
@@ -735,10 +742,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         }
         return check;
     }
-    $scope.SearchDonHangTraSubmit=function()
-    {
-        if (CheckSearchDonHangTra() == false)
-        {
+    $scope.SearchDonHangTraSubmit = function () {
+        if (CheckSearchDonHangTra() == false) {
             return;
         }
 
@@ -764,14 +769,12 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
              ConnectFail();
          });
     }
-    $scope.SelectSearchDonHang = function (item,index)
-    {
+    $scope.SelectSearchDonHang = function (item, index) {
         $scope.SearchDonHangTra.DonHangSelect = angular.copy(item);
         $(".SelectSearchDonHang").css({ "background-color": "white" });
-        $("#SelectSearchDonHang"+index).css({ "background-color": "rgba(0, 255, 220, 0.31)" });
+        $("#SelectSearchDonHang" + index).css({ "background-color": "rgba(0, 255, 220, 0.31)" });
     }
-    $scope.SetSearchDonHangTra = function()
-    {
+    $scope.SetSearchDonHangTra = function () {
         $scope.ThamChieu.ListSelect = [];
         $scope.ThamChieu.ListSelect.push($scope.SearchDonHangTra.DonHangSelect);
         $http({
@@ -794,10 +797,9 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             ConnectFail();
         });
     }
-    $scope.SelectDonTraHang=function(item)
-    {
+    $scope.SelectDonTraHang = function (item) {
         $scope.ThamChieu.ListSelect = [];
-        $scope.ThamChieu.ListSelect.push({SO_CHUNG_TU:item.SO_CHUNG_TU});
+        $scope.ThamChieu.ListSelect.push({ SO_CHUNG_TU: item.SO_CHUNG_TU });
         $scope.ThamChieu.TraHang = item.SO_CHUNG_TU;
         $(".tableselect").css({ "display": "none" });
         $http({
@@ -819,10 +821,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             ConnectFail();
         });
     }
-    $scope.ShowDonHangTra=function()
-    {
-        if ($("#DonTraHang").css("display") == "none")
-        {
+    $scope.ShowDonHangTra = function () {
+        if ($("#DonTraHang").css("display") == "none") {
             $(".tableselect").css({ "display": "none" });
             $("#DonTraHang").css({ "display": "block" });
         }

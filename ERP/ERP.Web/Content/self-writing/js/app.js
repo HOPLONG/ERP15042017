@@ -1,1 +1,3 @@
-﻿var app = angular.module('myApp', ['angularUtils.directives.dirPagination', 'smart-table', 'ngMask', 'ngMaterial']);
+﻿
+
+var app = angular.module('myApp', ['angularUtils.directives.dirPagination', 'ngMask', 'ngRoute', 'smart-table', 'ngAnimate', 'ui.bootstrap', 'ui.bootstrap.modal']);

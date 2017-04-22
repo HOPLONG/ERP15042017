@@ -16,7 +16,9 @@
     $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
     $scope.DonHangnumPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
     $scope.DonHangcurrentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+
     $scope.phieuxuatkho = ['Bán hàng', 'Sản xuất'];
+
 
     $scope.GiaTriThamChieu = [];
     $scope.LoaiChungTu = null;
@@ -61,6 +63,7 @@
         //ListKho: []
     }
     $scope.Detail.ListAdd.push({
+
         MaHang: null,
         TenHang: null,
         TKKho: null,
@@ -71,6 +74,7 @@
         TKCo: null,
         DonGiaVon: null
     });
+
 
 
     $scope.SearchPhieuXuatKho = function (tn, dn) {
@@ -482,25 +486,27 @@
             $scope.DSXuatKho.To = "";
         }
         $("#page-number-2").text(pageNumber);
-        var data = {
-            tungay: $scope.DSXuatKho.From,
-            denngay: $scope.DSXuatKho.To
-        }
-        $http.post('/api/Api_XuatNhapKho/GetAllDSPhieuXuatKho/' + pageNumber, data)
-            .then(function (response) {
-                console.log(response);
-                if (typeof (response.data) == "object") {
-                    $scope.DSXuatKho.ListResult = response.data;
-                    if ($scope.DSXuatKho.ListResult.length == 0) {
-                        Norecord();
+
+            var data = {
+                tungay: $scope.DSXuatKho.From,
+                denngay: $scope.DSXuatKho.To
+            }
+            $http.post('/api/Api_XuatNhapKho/GetAllDSPhieuXuatKho/' + pageNumber, data)
+                .then(function (response) {
+                    console.log(response);
+                    if (typeof (response.data) == "object") {
+                        $scope.DSXuatKho.ListResult = response.data;
+                        if ($scope.DSXuatKho.ListResult.length == 0) {
+                            Norecord();
+                        }
                     }
-                }
-                else {
-                    ErrorSystem();
-                }
-            }, function (error) {
-                ConnectFail();
-            });
+                    else {
+                        ErrorSystem();
+                    }
+                }, function (error) {
+                    ConnectFail();
+                });
+
     }
     var itemsCount = 2000;
     var itemsOnPage = 10;
