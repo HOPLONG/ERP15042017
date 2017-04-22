@@ -412,6 +412,22 @@ namespace ERP.Web.Api.BaoGia
             return Ok(baogia.SO_BAO_GIA);
         }
 
+
+        // Xóa 1 chi tiết báo giá
+        [Route("api/Api_ChiTietBaoGia/XoaCT_BAO_GIA/{id}")]
+        public IHttpActionResult DeleteBH_CT_BAO_GIA(int id)
+        {
+            BH_CT_BAO_GIA chitietbg = db.BH_CT_BAO_GIA.Find(id);
+            if (chitietbg == null)
+            {
+                return NotFound();
+            }
+
+            db.BH_CT_BAO_GIA.Remove(chitietbg);
+            db.SaveChanges();
+
+            return Ok(chitietbg);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
