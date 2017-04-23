@@ -240,7 +240,7 @@
                                                             </td>
                                                             <td>
                                                                 <div class="text-center">
-                                                                    <center><i class="fa fa-minus-circle" style="color:red;" ng-click="Remove($index)" aria-hidden="true"></i></center>
+                                                                    <center><i class="fa fa-minus-circle" style="color:red;" ng-click="Remove($index,item)" aria-hidden="true"></i></center>
                                                                 </div>
                                                             </td>
 
@@ -976,11 +976,21 @@
             </div>
         </div>
     </div>
-    <script>
-        function myFunction() {
-            document.getElementById("myForm").reset();
-        }
-    </script>
-    <!-- /dashboard content -->
+    
+    <div class="col-md-12" style="margin-top: 50px;">
+        <div class="col-md-6">
+            <label class="col-md-4">Báo giá 1</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" placeholder="Báo giá 1" ng-model="baogia1"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="col-md-4">Báo giá 2</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" placeholder="Báo giá 2" ng-model="baogia2" />
+            </div>
+        </div>
+        <button type="button" ng-click="GopBaoGia()" class="btn btn-default">Gộp báo giá</button>
+    </div>
 
 </div>
