@@ -245,6 +245,7 @@
                                 <thead>
                                     <tr class="bg-primary-300">
                                         <th>Mã hàng</th>
+                                        <th>Mã điều chỉnh</th>
                                         <th>Tên hàng</th>
                                         <th>Tên kho</th>
                                         <th>TK Kho</th>
@@ -261,6 +262,9 @@
                                     <tr ng-repeat="(index,item) in Detail.ListAdd">
                                         <td>
                                             <input type="text" ng-model="item.MA_HANG" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" ng-model="item.MA_DIEU_CHINH" class="form-control">
                                         </td>
                                         <td>
                                             <input type="text" ng-model="item.TEN_HANG" class="form-control">
@@ -281,10 +285,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="(hindex,itemKho) in Detail.ListKho| filter:item.Kho" ng-click="SelectKho(index,item,itemKho)">
+                                                        <tr ng-repeat="(hindex,itemKho) in Detail.ListKho| filter:item.MA_KHO" ng-click="SelectKho(index,item,itemKho)">
                                                             <td>{{itemKho.MA_KHO}}</td>
                                                             <td>{{itemKho.TEN_KHO}}</td>
-                                                            <td>{{itemKho.DIA_CHI}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -306,7 +309,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="(tkindex,itemTK) in Detail.ListTaiKhoan| filter:item.TK_KHO" ng-click="SelectTKKho(index,tkindex)">
+                                                        <tr ng-repeat="(tkindex,itemTK) in Detail.ListTaiKhoan| filter:item.TK_KHO" ng-click="SelectTKKho(index,item,itemTK )">
                                                             <td>{{itemTK.SO_TK}}</td>
                                                             <td>{{itemTK.TEN_TK}}</td>
                                                         </tr>
@@ -330,7 +333,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="(tkindex,itemTK) in Detail.ListTaiKhoan| filter:item.TK_NO" ng-click="SelectTKNo(index,tkindex)">
+                                                        <tr ng-repeat="(tkindex,itemTK) in Detail.ListTaiKhoan| filter:item.TK_NO" ng-click="SelectTKNo(index,item,itemTK)">
                                                             <td>{{itemTK.SO_TK}}</td>
                                                             <td>{{itemTK.TEN_TK}}</td>
                                                         </tr>
@@ -354,7 +357,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="(tkindex,itemTK) in Detail.ListTaiKhoan| filter:item.TK_CO" ng-click="SelectTKCo(index,tkindex)">
+                                                        <tr ng-repeat="(tkindex,itemTK) in Detail.ListTaiKhoan| filter:item.TK_CO" ng-click="SelectTKCo(index,item,itemTK)">
                                                             <td>{{itemTK.SO_TK}}</td>
                                                             <td>{{itemTK.TEN_TK}}</td>
                                                         </tr>

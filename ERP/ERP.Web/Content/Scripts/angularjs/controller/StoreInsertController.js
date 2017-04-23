@@ -576,8 +576,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
             $(".tableselect").css({ "display": "none" });
         }
     };
-    $scope.SelectTK_CO = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TK_CO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+    $scope.SelectTK_CO = function (index, item, tkco) {
+        item.TK_CO = tkco.SO_TK;
         $(".tableselect").css({ "display": "none" });
     };
     $scope.ShowTaiKhoanNo = function (index) {
@@ -589,8 +589,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
             $(".tableselect").css({ "display": "none" });
         }
     };
-    $scope.SelectTK_NO = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TK_NO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+    $scope.SelectTK_NO = function (index, item, tkno) {
+        item.TK_NO = tkno.SO_TK;
         $("#DataTaiKhoanNo" + index).css({ "display": "none" });
     };
 
@@ -603,8 +603,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
             $(".tableselect").css({ "display": "none" });
         }
     };
-    $scope.SelectTK_KHO = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TK_KHO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+    $scope.SelectTK_KHO = function (index, item, tkkho) {
+        item.TK_KHO = tkkho.SO_TK;
         $(".tableselect").css({ "display": "none" });
     };
     //Khách hàng
