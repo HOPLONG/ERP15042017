@@ -53,7 +53,8 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
                 GHI_CHU = x.GHI_CHU,
                 TK_HACH_TOAN_KHO = x.TK_HACH_TOAN_KHO,
                 TK_DOANH_THU = x.TK_DOANH_THU,
-                TK_CHI_PHI = x.TK_CHI_PHI
+                TK_CHI_PHI = x.TK_CHI_PHI,
+                SERIES = x.SERIES
             }).ToList();
             return result;
         }
@@ -86,8 +87,9 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
                     GHI_CHU = x.GHI_CHU,
                     TK_HACH_TOAN_KHO = x.TK_HACH_TOAN_KHO,
                     TK_DOANH_THU = x.TK_DOANH_THU,
-                    TK_CHI_PHI = x.TK_CHI_PHI
-                }).ToList();
+                    TK_CHI_PHI = x.TK_CHI_PHI,
+                    SERIES = x.SERIES
+            }).ToList();
             
             
             return result;
@@ -145,6 +147,7 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
                 hanghoa.TK_CHI_PHI = Hh.TK_CHI_PHI;
                 hanghoa.TK_DOANH_THU = Hh.TK_DOANH_THU;
                 hanghoa.TK_HACH_TOAN_KHO = Hh.TK_HACH_TOAN_KHO;
+                hanghoa.SERIES = Hh.SERIES;
             }
 
 
@@ -217,6 +220,7 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
             hanghoa.TK_CHI_PHI = Hh.TK_CHI_PHI;
             hanghoa.TK_DOANH_THU = Hh.TK_DOANH_THU;
             hanghoa.TK_HACH_TOAN_KHO = Hh.TK_HACH_TOAN_KHO;
+            hanghoa.SERIES = Hh.SERIES;
             db.HHs.Add(hanghoa);
 
             try

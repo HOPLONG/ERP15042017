@@ -777,6 +777,74 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         });
     };
 
+    $scope.CreatePO = function () {
+
+        for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
+            if (!$scope.Detail.ListAdd[i].MA_HANG) {
+                alert('Thiếu thông tin Mã hàng - tại dòng ' + (i + 1));
+                return;
+            }
+
+            if (!$scope.Detail.ListAdd[i].SO_LUONG) {
+                alert('Thiếu thông tin số lượng giữ - tại dòng ' + (i + 1));
+                return;
+            }
+
+            if (!$scope.Detail.ListAdd[i].DON_GIA_MOI) {
+                alert('Thiếu thông tin đơn giá - tại dòng ' + (i + 1));
+                return;
+            }
+
+        }
+
+        var so_tien_viet_bang_chu = docso($scope.tong_gia_tri_theo_hop_dong_edit);
+
+        $scope.arrayChiTietBaoGia = [];
+
+        for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
+
+
+            var ChiTietBaoGia = {
+                MA_HANG: $scope.Detail.ListAdd[i].MA_HANG,
+                MA_DIEU_CHINH: $scope.Detail.ListAdd[i].MA_DIEU_CHINH,
+                DVT: $scope.Detail.ListAdd[i].DVT,
+                SO_LUONG: $scope.Detail.ListAdd[i].SO_LUONG,
+                DON_GIA: $scope.Detail.ListAdd[i].DON_GIA_MOI,
+                THANH_TIEN_HANG: $scope.Detail.ListAdd[i].THANH_TIEN,
+            }
+            //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
+            $scope.arrayChiTietBaoGia.push(ChiTietBaoGia);
+        }
+        $scope.Bao_Gia = {
+            MA_KHACH_HANG: $scope.BangBaoGia[0].MA_KHACH_HANG,
+            TEN_LIEN_HE: $scope.BangBaoGia[0].NGUOI_LIEN_HE,
+            HINH_THUC_THANH_TOAN: $scope.BangBaoGia[0].PHUONG_THUC_THANH_TOAN,
+            TONG_TIEN_THANH_TOAN: $scope.tong_gia_tri_theo_hop_dong_edit,
+            TONG_TIEN_HANG: $scope.tong_gia_tri_thuc_te_edit,
+            TONG_TIEN_THUE_GTGT: $scope.thue_vat_edit,
+            SO_TIEN_VIET_BANG_CHU: so_tien_viet_bang_chu,
+            THUE_SUAT_GTGT: $scope.BangBaoGia[0].THUE_SUAT_GTGT,
+            TRUC_THUOC: 'HOPLONG',
+            DA_BAN_HANG: false,
+            NHAN_VIEN_QUAN_LY: salehienthoi,
+            NGAY_GIAO_HANG: $scope.ngay_giao_hang,
+            DIA_DIEM_GIAO_HANG: $scope.dia_diem_giao_hang,
+            ChiTietPO: $scope.arrayChiTietBaoGia,
+        };
+        //Lưu vào CSDL
+
+        $http({
+            method: 'POST',
+            data: $scope.Bao_Gia,
+            url: window.location.origin + '/api/Api_DonHangPO/PostDon_Hang_PO'
+        }).then(function successCallback(response) {
+            alert('Bạn đã tạo thành công 1 đơn PO có mã là ' + response.data)
+        }, function errorCallback(response) {
+            console.log(response);
+            alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+        });
+    };
+
     //Show thông tin khách hàng---------------------------------------------------------------------------------------------------------------
     $scope.arrayKhachHang = {
         ma_khach_hang: '',
@@ -1189,6 +1257,79 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
     $scope.phuongthucttnew = ["Chuyển khoản", "Tiền mặt", "Trả tiền sau khi nhận hàng"];
     $scope.cachtinhthanhtiennew = ['Giá nhập', 'Giá list'];
     $scope.dieukhoanttnew = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
-    $scope.ck_vat_new = [0,5,10];
+    $scope.ck_vat_new = [0, 5, 10];
+
+
+    var mangso = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
+    function dochangchuc(so, daydu) {
+        var chuoi = "";
+        chuc = Math.floor(so / 10);
+        donvi = so % 10;
+        if (chuc > 1) {
+            chuoi = " " + mangso[chuc] + " mươi";
+            if (donvi == 1) {
+                chuoi += " mốt";
+            }
+        } else if (chuc == 1) {
+            chuoi = " mười";
+            if (donvi == 1) {
+                chuoi += " một";
+            }
+        } else if (daydu && donvi > 0) {
+            chuoi = " lẻ";
+        }
+        if (donvi == 5 && chuc >= 1) {
+            chuoi += " lăm";
+        } else if (donvi > 1 || (donvi == 1 && chuc == 0)) {
+            chuoi += " " + mangso[donvi];
+        }
+        return chuoi;
+    }
+    function docblock(so, daydu) {
+        var chuoi = "";
+        tram = Math.floor(so / 100);
+        so = so % 100;
+        if (daydu || tram > 0) {
+            chuoi = " " + mangso[tram] + " trăm";
+            chuoi += dochangchuc(so, true);
+        } else {
+            chuoi = dochangchuc(so, false);
+        }
+        return chuoi;
+    }
+    function dochangtrieu(so, daydu) {
+        var chuoi = "";
+        trieu = Math.floor(so / 1000000);
+        so = so % 1000000;
+        if (trieu > 0) {
+            chuoi = docblock(trieu, daydu) + " triệu";
+            daydu = true;
+        }
+        nghin = Math.floor(so / 1000);
+        so = so % 1000;
+        if (nghin > 0) {
+            chuoi += docblock(nghin, daydu) + " nghìn";
+            daydu = true;
+        }
+        if (so > 0) {
+            chuoi += docblock(so, daydu);
+        }
+        return chuoi;
+    }
+    function docso(so) {
+        if (so == 0) return mangso[0];
+        var chuoi = "", hauto = "";
+        do {
+            ty = so % 1000000000;
+            so = Math.floor(so / 1000000000);
+            if (so > 0) {
+                chuoi = dochangtrieu(ty, true) + hauto + chuoi;
+            } else {
+                chuoi = dochangtrieu(ty, false) + hauto + chuoi;
+            }
+            hauto = " tỷ";
+        } while (so > 0);
+        return chuoi;
+    }
 });
 

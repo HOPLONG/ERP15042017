@@ -21,6 +21,7 @@
         $scope.YeuCau = {
             MA_HANG: $scope.ton.MA_HANG,
             MA_CHUAN: $scope.ton.MA_CHUAN,
+            MA_KHACH_ORDER: $scope.ton.MA_KHACH_ORDER,
             THONG_SO: $scope.ton.THONG_SO,
             HANG: $scope.ton.MA_NHOM_HANG,
             SALES_YEU_CAU: salehienthoi,

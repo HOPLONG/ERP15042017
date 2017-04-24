@@ -56,10 +56,11 @@ namespace ERP.Web.Api.MuaHang
             //{
             foreach (var item in bH_CT_BAO_GIA)
             {
-                var baogia = db.MH_XL_YEU_CAU_HOI_GIA.Where(x => x.ID_YEU_CAU_HOI_GIA == item.ID_YEU_CAU_HOI_GIA).FirstOrDefault();
+                var baogia = db.MH_XL_YEU_CAU_HOI_GIA.Where(x => x.ID == item.ID).FirstOrDefault();
                 if (baogia != null)
                 {
                     baogia.MA_HANG = item.MA_HANG;
+                    baogia.MA_KHACH_ORDER = item.MA_KHACH_ORDER;
                     baogia.SO_LUONG = item.SO_LUONG;
                     baogia.MA_NCC = item.MA_NCC;
                     baogia.GIA = item.GIA;
@@ -69,6 +70,7 @@ namespace ERP.Web.Api.MuaHang
                     baogia.TRUC_THUOC = item.TRUC_THUOC;
                     baogia.PUR_XU_LY = item.PUR_XU_LY;
                     baogia.GHI_CHU = item.GHI_CHU;
+                    db.SaveChanges();
                 }
                 else if (baogia == null)
 
@@ -76,6 +78,7 @@ namespace ERP.Web.Api.MuaHang
                     MH_XL_YEU_CAU_HOI_GIA newxuly = new MH_XL_YEU_CAU_HOI_GIA();
                     newxuly.ID_YEU_CAU_HOI_GIA = id;
                     newxuly.MA_HANG = item.MA_HANG;
+                    newxuly.MA_KHACH_ORDER = item.MA_KHACH_ORDER;
                     newxuly.SO_LUONG = item.SO_LUONG;
                     newxuly.MA_NCC = item.MA_NCC;
                     newxuly.GIA = item.GIA;
