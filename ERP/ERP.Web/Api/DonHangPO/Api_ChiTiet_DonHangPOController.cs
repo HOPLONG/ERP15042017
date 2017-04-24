@@ -57,7 +57,10 @@ namespace ERP.Web.Api.DonHangPO
                     donhangPO.DON_GIA = item.DON_GIA;
                     donhangPO.MA_DIEU_CHINH = item.MA_DIEU_CHINH;
                     donhangPO.DVT = item.DVT;
-                    donhangPO.THANH_TIEN = item.THANH_TIEN;
+                    donhangPO.THANH_TIEN_HANG = item.THANH_TIEN_HANG;
+                    donhangPO.THUE_GTGT = item.THUE_GTGT;
+                    donhangPO.TIEN_THUE_GTGT = item.TIEN_THUE_GTGT;
+                    donhangPO.TIEN_THANH_TOAN = item.TIEN_THANH_TOAN;
                 }
             }
             try

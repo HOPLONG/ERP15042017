@@ -1605,7 +1605,8 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
             GHI_CHU: $scope.ghichu,
             TK_HACH_TOAN_KHO: $scope.tkhachtoankho,
             TK_DOANH_THU: $scope.tkdoanhthu,
-            TK_CHI_PHI: $scope.tkchiphi
+            TK_CHI_PHI: $scope.tkchiphi,
+            SERIES : $scope.series,
         }
         hanghoaService.add(data_add).then(function (response) {
 
@@ -1654,7 +1655,8 @@ app.controller('hanghoaCtrl', function (hanghoaService, $scope) {
             GHI_CHU: $scope.item.GHI_CHU,
             TK_HACH_TOAN_KHO: $scope.item.TK_HACH_TOAN_KHO,
             TK_DOANH_THU: $scope.item.TK_DOANH_THU,
-            TK_CHI_PHI: $scope.item.TK_CHI_PHI
+            TK_CHI_PHI: $scope.item.TK_CHI_PHI,
+            SERIES : $scope.item.SERIES,
         }
 
         hanghoaService.save(data_update).then(function (response) {
