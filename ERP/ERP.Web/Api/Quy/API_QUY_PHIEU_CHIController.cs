@@ -13,17 +13,62 @@ using System.Text.RegularExpressions;
 using ERP.Web.Models.NewModels.Quy;
 using ERP.Web.Common;
 using ERP.Web.Models.NewModels.All;
+using System.Dynamic;
 
 namespace ERP.Web.Api.Quy
 {
     public class API_QUY_PHIEU_CHIController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
-
+        [HttpGet]
         // GET: api/API_QUY_PHIEU_CHI
-        public IQueryable<QUY_PHIEU_CHI> GetQUY_PHIEU_CHI()
+        public ExpandoObject GetQUY_PHIEU_CHI(DateTime? from_day = null, DateTime? to_day = null, int current_page = 1, int page_size = 10)
         {
-            return db.QUY_PHIEU_CHI;
+
+            IEnumerable<QUY_PHIEU_CHI> value = db.QUY_PHIEU_CHI;
+
+
+
+            if (to_day != null)
+            {
+                value = value.Where(c => c.NGAY_CHUNG_TU <= to_day);
+            }
+
+            if (from_day != null)
+            {
+                value = value.Where(c => c.NGAY_CHUNG_TU >= from_day);
+            }
+
+            int count = value.Count();
+            value = value.Skip(page_size * (current_page - 1)).Take(page_size);
+            int max_page = (count + page_size - 1) / page_size;
+
+            if (max_page < current_page)
+            {
+                current_page = max_page;
+            }
+
+            var result = value.ToList().Select(x => new QUY_PHIEU_CHI()
+            {
+                SO_CHUNG_TU = x.SO_CHUNG_TU,
+                NGAY_HACH_TOAN = x.NGAY_HACH_TOAN,
+                NGAY_CHUNG_TU = x.NGAY_CHUNG_TU,
+                MA_DOI_TUONG = x.MA_DOI_TUONG,
+                DIEN_GIAI_LY_DO_CHI = x.DIEN_GIAI_LY_DO_CHI,
+                LY_DO_CHI = x.LY_DO_CHI,
+                NGUOI_NHAN = x.NGUOI_NHAN,
+                TONG_TIEN = x.TONG_TIEN,
+                NGUOI_LAP_BIEU = x.NGUOI_LAP_BIEU,
+                TRUC_THUOC = x.TRUC_THUOC
+
+            }).ToList();
+
+            dynamic res_data = new ExpandoObject();
+            res_data.current_page = current_page;
+            res_data.page_size = page_size;
+            res_data.max_page = max_page;
+            res_data.data = result;
+            return res_data;
         }
 
         // GET: api/API_QUY_PHIEU_CHI/5
@@ -172,7 +217,13 @@ namespace ERP.Web.Api.Quy
                     newItem.SO_HD = item.SO_HD;
                     newItem.MAU_SO_HD = item.MAU_SO_HD;
                     newItem.KY_HIEU_HD = item.KY_HIEU_HD;
-                    newItem.MA_NHA_CUNG_CAP = qpc.MA_DOI_TUONG;
+                    if (qpc.MA_DOI_TUONG.Substring(0, 3) == "NCC")
+                    {
+                        newItem.MA_NHA_CUNG_CAP = qpc.MA_DOI_TUONG;
+                    }
+                    else
+                        newItem.MA_NHA_CUNG_CAP = null;
+
                     db.QUY_CT_PHIEU_CHI.Add(newItem);
 
 
