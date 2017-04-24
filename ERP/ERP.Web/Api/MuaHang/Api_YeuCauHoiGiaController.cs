@@ -89,6 +89,7 @@ namespace ERP.Web.Api.MuaHang
             MH_YEU_CAU_HOI_GIA YCHG = new MH_YEU_CAU_HOI_GIA();
             YCHG.MA_HANG = yeucau.MA_HANG;
             YCHG.MA_CHUAN = yeucau.MA_CHUAN;
+            YCHG.MA_KHACH_ORDER = yeucau.MA_KHACH_ORDER;
             YCHG.THONG_SO = yeucau.THONG_SO;
             YCHG.HANG = yeucau.HANG;
             YCHG.SALES_YEU_CAU = yeucau.SALES_YEU_CAU;

@@ -7,6 +7,7 @@ namespace ERP.Web.Models.NewModels
 {
     public class XuLyHoiHang
     {
+        public int ID { set; get; }
         public string USERNAME { set; get; }
         public bool IS_ADMIN { set; get; }
 
@@ -21,5 +22,6 @@ namespace ERP.Web.Models.NewModels
         public string GHI_CHU { set; get; }
         public string PUR_XU_LY { set; get; }
         public string TRUC_THUOC { set; get; }
+        public string MA_KHACH_ORDER { set; get; }
     }
 }

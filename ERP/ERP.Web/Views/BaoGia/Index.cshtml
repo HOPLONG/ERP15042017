@@ -139,6 +139,7 @@
                                         <!--Chi tiết báo giá của sửa-->
                                         <div class="col-md-12 content-group" style="padding-left: 5px; padding-right: 5px;">
                                             <div class="table-responsive">
+
                                                 <table border='1'>
                                                     <thead>
                                                         <tr class="bg-primary-300" style="background:#64B5F6; color: white">
@@ -163,8 +164,9 @@
                                                                     <input type="checkbox" ng-model="tachbg">
                                                                     <div ng-if="tachbg">
                                                                         <label ng-init="tachbaogia(item)"></label>
+
                                                                     </div>
-                                                                </div>
+
 
                                                             </td>
                                                             <td>
@@ -310,12 +312,9 @@
                                                                 </table>
 
 
-                                                            </td>
-                                                            <td>
-                                                                <div class="text-center">
-                                                                    <center><i class="fa fa-minus-circle" style="color:red;" ng-click="Remove($index)" aria-hidden="true"></i></center>
-                                                                </div>
-                                                            </td>
+
+                                                                    </div>
+
 
                                                         </tr>
                                                     </tbody>
@@ -392,6 +391,7 @@
                                                 </table>
                                             </div>
                                         </div>
+
                                     </div>
                                     <!--End Thông tin - sửa -->
 
@@ -425,7 +425,7 @@
                                                                 <input type="text" ng-model="detail.ten_hang" class="col-md-12 style-inline"  style="margin-bottom: 8px;">
                                                                 <input type="text" ng-model="detail.ma_hang" class="col-md-7 style-inline" style="margin-right: 5px;">
                                                                 <input type="text" ng-model="detail.hang" class="col-md-4 style-inline">
-                                                                <input type="text" ng-model="detail.ma_dieu_chinh" class="col-md-12 style-inline"">
+                                                                <input type="text" ng-model="detail.ma_dieu_chinh" class="col-md-12 style-inline">
                                                             </td>
                                                             <td>
                                                                 <input type="number" ng-model="detail.so_luong" class="style-inline" ng-change="test(detail)">
@@ -646,6 +646,7 @@
                             <a href="/" class="btn bg-orange-400" style="background: lightgreen; color: white;"><i class="icon-blocked"></i> Bỏ qua</a>
                             <button type="button" class="btn btn-primary savethongtin" style="display:none;" ng-click="Split()"><i class="icon-floppy-disk"></i>Tách báo giá</button>
                             <button type="button" class="btn btn-primary savethongtin" style="display:none;" ng-click="Copy()"><i class="icon-floppy-disk"></i>Tạo báo giá mới từ báo giá hiện tại</button>
+                            <button type="button" class="btn btn-primary savethongtin" style="display:none;" data-toggle="modal" data-target="#thongtinPO"><i class="icon-floppy-disk"></i>Tạo đơn PO</button>
                         </div>
                     </form>                   
                 </div>
@@ -930,14 +931,59 @@
 
                 </div>
                 <!--End tìm kiếm hàng hóa-->
+
+                <div class="modal fade" id="thongtinPO" role="dialog" tabindex="-1">
+                    <div class="modal-dialog modal-lg" style="width:50%">
+                        <div class="modal-content" style="border-radius: 15px">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title" id="myModalLabel">Thông tin PO</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-md-12 form-group">
+                                    <label class="col-md-2">Ngày giao hàng</label>
+                                    <div class="col-md-2">
+                                        <input type="text" ng-model="ngay_giao_hang" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label class="col-md-2">Địa chỉ giao hàng</label>
+                                    <div class="col-md-10">
+                                        <input type="text" ng-model="dia_diem_giao_hang" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="anmelden"></label>
+                                    <div class="col-md-2 edit">
+                                        <button class="btn btn-default" ng-click="CreatePO()">Lên PO</button>
+                                        <button class="btn" data-dismiss="modal">Exit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <script>
-        function myFunction() {
-            document.getElementById("myForm").reset();
-        }
-    </script>
-    <!-- /dashboard content -->
+    
+    <div class="col-md-12" style="margin-top: 50px;">
+        <div class="col-md-6">
+            <label class="col-md-4">Báo giá 1</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" placeholder="Báo giá 1" ng-model="baogia1"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="col-md-4">Báo giá 2</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" placeholder="Báo giá 2" ng-model="baogia2" />
+            </div>
+        </div>
+        <button type="button" ng-click="GopBaoGia()" class="btn btn-default">Gộp báo giá</button>
+    </div>
 
 </div>
