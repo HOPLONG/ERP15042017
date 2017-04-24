@@ -21,4 +21,8 @@
             return response.data;
         });
     };
+
+    this.copynewbg = function (thongtinchung) {
+        return $http.post('/api/Api_ChiTietBaoGia/CopyNewBaoGia', thongtinchung);
+    };
 });

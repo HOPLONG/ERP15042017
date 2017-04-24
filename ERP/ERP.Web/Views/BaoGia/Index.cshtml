@@ -129,6 +129,7 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr class="bg-primary-300" style="background:#64B5F6; color: white">
+                                                            <td></td>
                                                             <td class="text-center" width="15%">Descriptions</td>
                                                             <td class="text-center" width="4%">Qty</td>
                                                             <td class="text-center" width="4%">Uom</td>
@@ -139,10 +140,20 @@
                                                             <td class="text-left" width="10%">Đơn giá tính theo Giá Nhập</td>
                                                             <td class="text-left" width="9%">Giá báo đi net</td>
                                                             <td class="text-left" width="20%">Tính CM cho khách</td>
+                                                            <td>Xóa</td>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr ng-repeat="item in Detail.ListAdd">
+                                                            <td>
+                                                                <div>
+                                                                    <input type="checkbox" ng-model="tachbg">
+                                                                    <div ng-if="tachbg">
+                                                                        <label ng-init="tachbaogia(item)"></label>
+                                                                    </div>
+                                                                </div>
+
+                                                            </td>
                                                             <td>
                                                                 <input type="text" ng-model="item.TEN_HANG" class="col-md-12 style-inline" style="margin-bottom: 8px;">
                                                                 <input type="text" ng-model="item.MA_HANG" class="col-md-7 style-inline"  style="margin-right: 5px;">
@@ -226,6 +237,11 @@
 
                                                                 </div>
 
+                                                            </td>
+                                                            <td>
+                                                                <div class="text-center">
+                                                                    <center><i class="fa fa-minus-circle" style="color:red;" ng-click="Remove($index,item)" aria-hidden="true"></i></center>
+                                                                </div>
                                                             </td>
 
                                                         </tr>
@@ -349,74 +365,6 @@
                                                             </td>
                                                         </tr>
                                                     </tfoot>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                    @*<tbody>
-                                                        <tr ng-repeat="item in Detail.ListAdd">
-                                                            <td>
-                                                                <div>
-                                                                    <input type="text" style="height: 27px;" ng-model="item.MA_HANG" class="form-control">
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <input type="number" style="height: 27px;" ng-model="item.SO_LUONG" class="form-control" ng-change="kiemtra(item)">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input ng-model="item.DON_GIA_LIST" style="height: 27px;" class="form-control" type="number" ng-change="kiemtra(item)"/>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input ng-model="item.DON_GIA_NHAP" style="height: 27px;" class="form-control" type="number" ng-change="kiemtra(item)"/>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input type="number" style="height: 27px;" ng-model="item.CHIET_KHAU" class="form-control" ng-change="kiemtra(item)">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input type="number" style="height: 27px;" ng-model="item.HE_SO_LOI_NHUAN" class="form-control" ng-change="kiemtra(item)">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                {{item.DON_GIA | currency: '':0}}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                {{item.THANH_TIEN | currency: '':0}}
-                                                                <input ng-model="item.THANH_TIEN" style="height: 27px;" class="form-control" type="hidden" ng-disabled="true" />
-                                                            </td>
-
-                                                            <td class="text-center">
-                                                                <input type="text" style="height: 27px;" ng-model="item.TINH_TRANG_HANG" class="form-control">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input type="text" style="height: 27px;" ng-model="item.THOI_GIAN_GIAO_HANG" class="form-control">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input type="text" style="height: 27px;" mask="39/39/9999" ng-model="item.NGAY_GIAO_HANG" class="form-control">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input type="text" style="height: 27px;" ng-model="item.DIA_DIEM_GIAO_HANG" class="form-control">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input type="text" style="height: 27px; " ng-model="item.GHI_CHU" class="form-control">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input type="text" style="height: 27px; " ng-model="item.DON_GIA_GHI_CHENH" class="form-control" ng-change="kiemtra(item)">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                {{item.THANH_TIEN_GHI_CHENH | currency: '':0}}
-                                                                <input ng-model="item.THANH_TIEN_GHI_CHENH" class="form-control" type="hidden" ng-disabled="true" />
-                                                            </td>
-                                                        </tr>
-
-                                                    </tbody>*@
                                                 </table>
                                             </div>
                                         </div>
@@ -739,6 +687,8 @@
                             <button type="button" class="btn btn-primary thongtinchungthemmoi" ng-click="AddNew()" style="display:none;"><i class="icon-floppy-disk"></i>Thêm mới</button>
                             <button type="button" class="btn btn-primary savethongtin" style="display:none;" ng-click="onSave()"><i class="icon-floppy-disk"></i>Lưu</button>
                             <a href="/" class="btn bg-orange-400" style="background: lightgreen; color: white;"><i class="icon-blocked"></i> Bỏ qua</a>
+                            <button type="button" class="btn btn-primary savethongtin" style="display:none;" ng-click="Split()"><i class="icon-floppy-disk"></i>Tách báo giá</button>
+                            <button type="button" class="btn btn-primary savethongtin" style="display:none;" ng-click="Copy()"><i class="icon-floppy-disk"></i>Tạo báo giá mới từ báo giá hiện tại</button>
                         </div>
                     </form>                   
                 </div>
@@ -1026,11 +976,21 @@
             </div>
         </div>
     </div>
-    <script>
-        function myFunction() {
-            document.getElementById("myForm").reset();
-        }
-    </script>
-    <!-- /dashboard content -->
+    
+    <div class="col-md-12" style="margin-top: 50px;">
+        <div class="col-md-6">
+            <label class="col-md-4">Báo giá 1</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" placeholder="Báo giá 1" ng-model="baogia1"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="col-md-4">Báo giá 2</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" placeholder="Báo giá 2" ng-model="baogia2" />
+            </div>
+        </div>
+        <button type="button" ng-click="GopBaoGia()" class="btn btn-default">Gộp báo giá</button>
+    </div>
 
 </div>
