@@ -104,14 +104,14 @@
 
 
         $scope.arraydiengiai = [{
-            loai_tien: '',
-            ty_gia: 0,
-            tk_no: '',
-            tk_co: '',
-            so_tien: 0,
-            quy_doi: 0,
-            diengiai: '',
-            tk_ngan_hang: ''
+            LOAI_TIEN: 'VND',
+            TY_GIA: 1,
+            TK_NO: 1111,
+            TK_CO: '',
+            SO_TIEN: 0,
+            QUY_DOI: 0,
+            DIEN_GIAI: 'Thu Khác',
+            TK_NGAN_HANG: ''
         }];
 
         $scope.arrayCTTC = [];
@@ -119,7 +119,8 @@
         $scope.indexcurrent = 0;
 
         //method change type reason.
-        $scope.reasonmoney = 'ThuKhac';
+        $scope.reasonmoney = 'Thu Khác';
+        $scope.arrayTongHop.dien_giai_ly_do_nop = $scope.reasonmoney;
 
 
         //mảng đối tượng
@@ -185,6 +186,13 @@
             $scope.ThamChieu.ListSelect = [];
 
         }
+        // ngày hiện tại 
+        function ngaybatdau() {
+            var m = moment().format("DD/MM/YYYY");
+            $scope.arrayTongHop.ngay_hach_toan = m;
+            $scope.arrayTongHop.ngay_chung_tu = m;
+        }
+        ngaybatdau();
 
         /**
         *Tìm Tài khoản tự động
@@ -362,6 +370,7 @@
        * Thêm mới code
        */
         $scope.addTongHop = function () {
+            $scope.sotk_no = 1111;
             $scope.arraydiengiai.push({
                 LOAI_TIEN: '',
                 TY_GIA: '',
@@ -369,7 +378,7 @@
                 TK_CO: $scope.sotk_co,
                 SO_TIEN: '',
                 QUY_DOI: '',
-                DIEN_GIAI: '',
+                DIEN_GIAI: 'Thu Khác',
                 TK_NGAN_HANG: ''
             });
             $scope.indexcurrent = $scope.arraydiengiai.length - 1;
@@ -431,7 +440,7 @@
                 }
 
                 if ($scope.arraydiengiai[i].LOAI_TIEN == 'VND') {
-                    $scope.arraydiengiai[i].ty_gia = 1;
+                    $scope.arraydiengiai[i].TY_GIA = 1;
                 }
 
                 if (!$scope.arraydiengiai[i].TY_GIA) {
