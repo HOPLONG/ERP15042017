@@ -12,6 +12,7 @@ using ERP.Web.Models.Database;
 using System.Data.SqlClient;
 using ERP.Web.Models.BusinessModel;
 using ERP.Web.Models.NewModels;
+using System.Text.RegularExpressions;
 
 namespace ERP.Web.Api.DonHangPO
 {
@@ -23,7 +24,7 @@ namespace ERP.Web.Api.DonHangPO
         [Route("api/Api_DonHangPO/GetBH_DON_HANG_PO")]
         public List<GetAll_DonHangPO_Result> GetBH_DON_HANG_PO()
         {
-            var query = db.Database.SqlQuery<GetAll_DonHangPO_Result>("GetAll_DonHangPO");
+            var query = db.Database.SqlQuery<GetAll_DonHangPO_Result>("GetAll_DonHangPO @macongty", new SqlParameter("macongty", "HOPLONG"));
             var result = query.ToList();
             return result;
         }
@@ -60,13 +61,13 @@ namespace ERP.Web.Api.DonHangPO
                 edit.MA_KHACH_HANG = bH_DON_HANG_PO.MA_KHACH_HANG;
                 edit.TEN_LIEN_HE = bH_DON_HANG_PO.TEN_LIEN_HE;
                 edit.HINH_THUC_THANH_TOAN = bH_DON_HANG_PO.HINH_THUC_THANH_TOAN;
-                edit.THUE_SUAT_GTGT = bH_DON_HANG_PO.THUE_SUAT_GTGT;
-                edit.TIEN_THUE_GTGT = bH_DON_HANG_PO.TIEN_THUE_GTGT;
-                edit.TONG_TIEN_THANH_TOAN = bH_DON_HANG_PO.TONG_TIEN_THANH_TOAN;
+                edit.TONG_TIEN_HANG = bH_DON_HANG_PO.TONG_TIEN_HANG;
                 edit.SO_TIEN_VIET_BANG_CHU = bH_DON_HANG_PO.SO_TIEN_VIET_BANG_CHU;
                 if(bH_DON_HANG_PO.NGAY_GIAO_HANG != null)
                 edit.NGAY_GIAO_HANG = xlnt.Xulydatetime(bH_DON_HANG_PO.NGAY_GIAO_HANG.ToString());
                 edit.DIA_DIEM_GIAO_HANG = bH_DON_HANG_PO.DIA_DIEM_GIAO_HANG;
+                edit.TONG_TIEN_THANH_TOAN = bH_DON_HANG_PO.TONG_TIEN_THANH_TOAN;
+                edit.TONG_TIEN_THUE_GTGT = bH_DON_HANG_PO.TONG_TIEN_THUE_GTGT;
             }
 
             try
@@ -88,6 +89,39 @@ namespace ERP.Web.Api.DonHangPO
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        public string GenerateMaSoPO()
+        {
+            Regex digitsOnly = new Regex(@"[^\d]");
+            string year = DateTime.Now.Year.ToString().Substring(2, 2);
+            string month = DateTime.Now.Month.ToString();
+            string day = DateTime.Now.Day.ToString();
+            if (month.Length == 1)
+            {
+                month = "0" + month;
+            }
+            if (day.Length == 1)
+            {
+                day = "0" + day;
+            }
+            string prefixNumber = "PO" + year.ToString() + month.ToString() + day.ToString();
+            string SoChungTu = (from nhapkho in db.BH_BAO_GIA where nhapkho.SO_BAO_GIA.Contains(prefixNumber) select nhapkho.SO_BAO_GIA).Max();
+
+
+            if (SoChungTu == null)
+            {
+                return "PO" + year + month + day + "0001";
+            }
+            SoChungTu = SoChungTu.Substring(8, SoChungTu.Length - 8);
+            string number = (Convert.ToInt32(digitsOnly.Replace(SoChungTu, "")) + 1).ToString();
+            string result = number.ToString();
+            int count = 4 - number.ToString().Length;
+            for (int i = 0; i < count; i++)
+            {
+                result = "0" + result;
+            }
+            return "PO" + year + month + day + result;
+        }
+
         // POST: api/Api_DonHangPO
         [ResponseType(typeof(BH_DON_HANG_PO))]
         public IHttpActionResult PostBH_DON_HANG_PO(BH_DON_HANG_PO bH_DON_HANG_PO)
@@ -98,20 +132,22 @@ namespace ERP.Web.Api.DonHangPO
             }
 
             BH_DON_HANG_PO edit = new BH_DON_HANG_PO();
-            if (bH_DON_HANG_PO.NGAY_LEN_PO != null)
-                edit.NGAY_LEN_PO = xlnt.Xulydatetime(bH_DON_HANG_PO.NGAY_LEN_PO.ToString());
+            edit.MA_SO_PO = GenerateMaSoPO();
+            edit.NGAY_LEN_PO = DateTime.Today.Date;
             edit.MA_KHACH_HANG = bH_DON_HANG_PO.MA_KHACH_HANG;
             edit.TEN_LIEN_HE = bH_DON_HANG_PO.TEN_LIEN_HE;
             edit.HINH_THUC_THANH_TOAN = bH_DON_HANG_PO.HINH_THUC_THANH_TOAN;
-            edit.THUE_SUAT_GTGT = bH_DON_HANG_PO.THUE_SUAT_GTGT;
-            edit.TIEN_THUE_GTGT = bH_DON_HANG_PO.TIEN_THUE_GTGT;
             edit.TONG_TIEN_THANH_TOAN = bH_DON_HANG_PO.TONG_TIEN_THANH_TOAN;
             edit.SO_TIEN_VIET_BANG_CHU = bH_DON_HANG_PO.SO_TIEN_VIET_BANG_CHU;
             if (bH_DON_HANG_PO.NGAY_GIAO_HANG != null)
                 edit.NGAY_GIAO_HANG = xlnt.Xulydatetime(bH_DON_HANG_PO.NGAY_GIAO_HANG.ToString());
             edit.DIA_DIEM_GIAO_HANG = bH_DON_HANG_PO.DIA_DIEM_GIAO_HANG;
+            edit.TONG_TIEN_THANH_TOAN = bH_DON_HANG_PO.TONG_TIEN_THANH_TOAN;
+            edit.TONG_TIEN_THUE_GTGT = bH_DON_HANG_PO.TONG_TIEN_THUE_GTGT;
+            edit.NHAN_VIEN_QUAN_LY = bH_DON_HANG_PO.NHAN_VIEN_QUAN_LY;
+            edit.TRUC_THUOC = bH_DON_HANG_PO.TRUC_THUOC;
+            edit.DA_BAN_HANG = bH_DON_HANG_PO.DA_BAN_HANG;
             db.BH_DON_HANG_PO.Add(edit);
-
             try
             {
                 db.SaveChanges();
@@ -156,6 +192,64 @@ namespace ERP.Web.Api.DonHangPO
             return Ok(bH_DON_HANG_PO);
         }
 
+
+        //Add new PO
+        [HttpPost]
+        [Route("api/Api_DonHangPO/PostDon_Hang_PO")]
+        public IHttpActionResult PostDon_Hang_PO(ThongTinDonPO thongtinPO)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            BH_DON_HANG_PO baogia = new BH_DON_HANG_PO();
+            baogia.MA_SO_PO = GenerateMaSoPO();
+            baogia.NGAY_LEN_PO = DateTime.Today.Date;
+            baogia.MA_KHACH_HANG = thongtinPO.MA_KHACH_HANG;
+            baogia.TEN_LIEN_HE = thongtinPO.TEN_LIEN_HE;
+            baogia.HINH_THUC_THANH_TOAN = thongtinPO.HINH_THUC_THANH_TOAN;
+            baogia.TONG_TIEN_THANH_TOAN = thongtinPO.TONG_TIEN_THANH_TOAN;
+            baogia.TONG_TIEN_HANG = thongtinPO.TONG_TIEN_HANG;
+            baogia.TONG_TIEN_THUE_GTGT = thongtinPO.TONG_TIEN_THUE_GTGT;
+            baogia.SO_TIEN_VIET_BANG_CHU = thongtinPO.SO_TIEN_VIET_BANG_CHU;
+            baogia.TRUC_THUOC = thongtinPO.TRUC_THUOC;
+            baogia.DA_BAN_HANG = thongtinPO.DA_BAN_HANG;
+            baogia.NHAN_VIEN_QUAN_LY = thongtinPO.NHAN_VIEN_QUAN_LY;
+            if(thongtinPO.NGAY_GIAO_HANG != null)
+            baogia.NGAY_GIAO_HANG =xlnt.Xulydatetime(thongtinPO.NGAY_GIAO_HANG.ToString());
+            baogia.DIA_DIEM_GIAO_HANG = thongtinPO.DIA_DIEM_GIAO_HANG;
+            db.BH_DON_HANG_PO.Add(baogia);
+            db.SaveChanges();
+
+            foreach (var item in thongtinPO.ChiTietPO)
+            {
+                BH_CT_DON_HANG_PO lienhe = new BH_CT_DON_HANG_PO();
+                lienhe.MA_SO_PO = baogia.MA_SO_PO;
+                lienhe.MA_HANG = item.MA_HANG;
+                lienhe.MA_DIEU_CHINH = item.MA_DIEU_CHINH;
+                lienhe.SO_LUONG = item.SO_LUONG;
+                lienhe.DVT = item.DVT;
+                lienhe.DON_GIA = item.DON_GIA;
+                lienhe.THANH_TIEN_HANG = item.THANH_TIEN_HANG;
+                lienhe.THUE_GTGT = thongtinPO.THUE_SUAT_GTGT;
+                lienhe.TIEN_THUE_GTGT =( (Convert.ToDouble(item.THANH_TIEN_HANG) * (thongtinPO.THUE_SUAT_GTGT / 100) ));
+                lienhe.TIEN_THANH_TOAN = lienhe.TIEN_THUE_GTGT + lienhe.TIEN_THUE_GTGT;
+                db.BH_CT_DON_HANG_PO.Add(lienhe);
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+
+            return Ok(baogia.MA_SO_PO);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
