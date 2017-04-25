@@ -61,9 +61,22 @@
                                         <!-- Text input-->
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <select ng-model="manhomhang" class="form-control input-md">
-                                                    <option ng-selected="selectedValue == abc.MA_NHOM_HANG_CHI_TIET" ng-repeat="abc in danhsachnhomhang" value="{{abc.MA_NHOM_HANG_CHI_TIET}}">{{abc.CHUNG_LOAI_HANG}}</option>
-                                                </select>
+                                                <label class="col-md-2">Hãng</label>
+                                                <div class="col-md-10">
+                                                    <select ng-model="manhomhang" class="form-control input-md">
+                                                        <option ng-selected="selectedValue == abc.MA_NHOM_HANG_CHI_TIET" ng-repeat="abc in danhsachnhomhang" value="{{abc.MA_NHOM_HANG_CHI_TIET}}">{{abc.CHUNG_LOAI_HANG}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <label class="col-md-2">Series</label>
+                                                <div class="col-md-10">
+                                                    <select ng-model="series" class="form-control input-md">
+                                                        <option ng-repeat="series in danhsachnhomhang" value="{{series.MA_NHOM_HANG_CHI_TIET}}">{{series.CHUNG_LOAI_HANG}}</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- Text input-->
@@ -324,6 +337,14 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="name">Series: </label>
+                                            <div class="col-md-9">
+                                                <select ng-model="item.SERIES" class="form-control input-md">
+                                                    <option ng-repeat="series in danhsachnhomhang" value="{{series.MA_NHOM_HANG_CHI_TIET}}">{{series.CHUNG_LOAI_HANG}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <!-- Text input-->
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="name">Trọng lượng(g): </label>
@@ -580,6 +601,7 @@
                                 <h1>{{item.TEN_HANG | uppercase}}</h1>
                                 <div class="col-md-3 detail">Mã hàng: {{item.MA_HANG}}</div>
                                 <div class="col-md-2 detail">Hãng: {{item.MA_NHOM_HANG}}</div>
+                                <div class="col-md-2 detail">Series: {{item.SERIES}}</div>
                                 <div class="col-md-2 detail">Xuất xứ: {{item.XUAT_XU}}</div>
                             </div>
                             <div>
