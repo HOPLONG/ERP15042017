@@ -235,7 +235,7 @@ namespace ERP.Web.Api.DonHangPO
                 lienhe.THANH_TIEN_HANG = item.THANH_TIEN_HANG;
                 lienhe.THUE_GTGT = thongtinPO.THUE_SUAT_GTGT;
                 lienhe.TIEN_THUE_GTGT =( (Convert.ToDouble(item.THANH_TIEN_HANG) * (thongtinPO.THUE_SUAT_GTGT / 100) ));
-                lienhe.TIEN_THANH_TOAN = lienhe.TIEN_THUE_GTGT + lienhe.TIEN_THUE_GTGT;
+                lienhe.TIEN_THANH_TOAN = Convert.ToDouble(lienhe.THANH_TIEN_HANG) + lienhe.TIEN_THUE_GTGT;
                 db.BH_CT_DON_HANG_PO.Add(lienhe);
             }
 
