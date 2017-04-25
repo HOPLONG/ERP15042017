@@ -107,11 +107,11 @@ function ctrChiKhac($rootScope, $scope, $location, $http, $uibModal) {
         $scope.dinh_khoan_tu_dong = null;
         
         // Danh sách các nội dung thanh toán
-        $scope.noi_dung_thanh_toan = 'ChiKhac';
-        function initValue() {
-            $scope.$submitted = false;
+        $scope.noi_dung_thanh_toan = 'Chi Khác';
+        $scope.info.dien_giai_noi_dung_thanh_toan = $scope.noi_dung_thanh_toan;
+     
 
-            $scope.info = {
+        $scope.info = {
                 noi_dung_thanh_toan: '',
                 dien_giai_noi_dung_thanh_toan:'',
                 ngay_hach_toan: '',
@@ -139,17 +139,14 @@ function ctrChiKhac($rootScope, $scope, $location, $http, $uibModal) {
             $scope.itemHachToanSelect = -1;
 
             $scope.arrayBlank = [{},{},{},{},{},{}];
-        };
-
-        initValue();
         $scope.listHachToan = [{
-            DIEN_GIAI: '',
+            DIEN_GIAI: 'Chi Khác',
             TK_NO: '',
-            TK_CO: '',
+            TK_CO: 1121,
             SO_TIEN: '',
             QUY_DOI: '',
-            LOAI_TIEN: '', // loại tiền
-            TY_GIA: ''
+            LOAI_TIEN: 'VND', // loại tiền
+            TY_GIA: 1
         }];
 
         function ResetAfterSave() {
@@ -207,16 +204,16 @@ function ctrChiKhac($rootScope, $scope, $location, $http, $uibModal) {
         };
 
         // Lấy list đối tượng
-        $http.get(window.location.origin + '/api/Api_XuatNhapKho/GetAllDoiTuong')
-         .then(function (response) {
-            if (response.data) {
-                $scope.listDoiTuong = response.data;
+        //$http.get(window.location.origin + '/api/Api_XuatNhapKho/GetAllDoiTuong')
+        // .then(function (response) {
+        //    if (response.data) {
+        //        $scope.listDoiTuong = response.data;
              
            
-             }
-        }, function (error) {
-         console.log(error);
-        });
+        //     }
+        //}, function (error) {
+        // console.log(error);
+        //});
 
  
         // Chọn đối tượng
@@ -308,12 +305,12 @@ function ctrChiKhac($rootScope, $scope, $location, $http, $uibModal) {
 
        
         $scope.addHachToan = function() {
-            var dk = $scope.dinh_khoan_tu_dong;
-
+           
+        
             $scope.listHachToan.push({
                 DIEN_GIAI: null,
-                TK_NO: dk ? dk.TK_NO : null,
-                TK_CO: dk ? dk.TK_CO : null,
+                TK_NO: '',
+                TK_CO: 1121,
                 SO_TIEN: 0,
                 QUY_DOI: 0,
                 LOAI_TIEN: null, // loại tiền

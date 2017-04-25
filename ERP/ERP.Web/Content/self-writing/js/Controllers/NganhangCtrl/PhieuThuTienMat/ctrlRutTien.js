@@ -104,14 +104,14 @@ function ctrlRutTien($rootScope, $scope, $location, $http, $uibModal) {
 
 
     $scope.arraydiengiai = [{
-        loai_tien: '',
-        ty_gia: 0,
-        tk_no: '',
-        tk_co: '',
-        so_tien: 0,
-        quy_doi: 0,
-        diengiai: '',
-        tk_ngan_hang: ''
+        LOAI_TIEN: 'VND',
+        TY_GIA: 1,
+        TK_NO: 1111,
+        TK_CO: 1121,
+        SO_TIEN: 0,
+        QUY_DOI: 0,
+        DIEN_GIAI: 'Rút tiền gửi về nộp quỹ',
+        TK_NGAN_HANG: ''
     }];
 
     $scope.arrayCTTC = [];
@@ -119,8 +119,8 @@ function ctrlRutTien($rootScope, $scope, $location, $http, $uibModal) {
     $scope.indexcurrent = 0;
 
     //method change type reason.
-    $scope.reasonmoney = 'RutTien';
-
+    $scope.reasonmoney = 'Rút tiền gửi về nộp quỹ';
+    $scope.arrayTongHop.dien_giai_ly_do_nop = $scope.reasonmoney;
 
     //mảng đối tượng
     $scope.arrayDTFinded = [];
@@ -185,6 +185,13 @@ function ctrlRutTien($rootScope, $scope, $location, $http, $uibModal) {
         $scope.ThamChieu.ListSelect = [];
 
     }
+    // ngày hiện tại 
+    function ngaybatdau() {
+        var m = moment().format("DD/MM/YYYY");
+        $scope.arrayTongHop.ngay_hach_toan = m;
+        $scope.arrayTongHop.ngay_chung_tu = m;
+    }
+    ngaybatdau();
 
     /**
     *Tìm Tài khoản tự động
@@ -362,6 +369,8 @@ function ctrlRutTien($rootScope, $scope, $location, $http, $uibModal) {
    * Thêm mới code
    */
     $scope.addTongHop = function () {
+        $scope.sotk_no = 1111;
+        $scope.sotk_co = 1121;
         $scope.arraydiengiai.push({
             LOAI_TIEN: '',
             TY_GIA: '',
@@ -431,7 +440,7 @@ function ctrlRutTien($rootScope, $scope, $location, $http, $uibModal) {
             }
 
             if ($scope.arraydiengiai[i].LOAI_TIEN == 'VND') {
-                $scope.arraydiengiai[i].ty_gia = 1;
+                $scope.arraydiengiai[i].TY_GIA = 1;
             }
 
             if (!$scope.arraydiengiai[i].TY_GIA) {
