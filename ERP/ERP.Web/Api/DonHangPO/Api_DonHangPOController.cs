@@ -104,7 +104,7 @@ namespace ERP.Web.Api.DonHangPO
                 day = "0" + day;
             }
             string prefixNumber = "PO" + year.ToString() + month.ToString() + day.ToString();
-            string SoChungTu = (from nhapkho in db.BH_BAO_GIA where nhapkho.SO_BAO_GIA.Contains(prefixNumber) select nhapkho.SO_BAO_GIA).Max();
+            string SoChungTu = (from nhapkho in db.BH_DON_HANG_PO where nhapkho.MA_SO_PO.Contains(prefixNumber) select nhapkho.MA_SO_PO).Max();
 
 
             if (SoChungTu == null)
