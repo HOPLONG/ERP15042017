@@ -1,4 +1,4 @@
-﻿app.controller("DonHangPOCtrl", function ($http, $scope, DonHangPOService) {
+﻿app.controller('BanHangCtrl', function ($http, $scope, BanHangService) {
     $scope.Detail = {
         ListAdd: [],
         ListNew: []
@@ -7,14 +7,16 @@
 
     }];
 
-    $scope.load_danhsachPO = function () {
-        DonHangPOService.get_danhsachPO().then(function (a) {
-            $scope.list_donhangPO = a;
+    var salehienthoi = $('#username').val();
+
+    $scope.load_donbanhang = function () {
+        BanHangService.get_donbanhang().then(function (a) {
+            $scope.list_donbanhang = a;
         });
     };
-    $scope.load_danhsachPO();
+    $scope.load_donbanhang();
 
-    $scope.load_thongtinchungPO = function () {
+    $scope.load_thongtinchung_banhang = function () {
         //this gets the full url
         var url = document.location.href;
         //this removes the anchor at the end, if there is one
@@ -24,16 +26,16 @@
         //this removes everything before the last slash in the path
         url = url.substring(url.lastIndexOf("/") + 1, url.length);
         //
-        DonHangPOService.get_thongtinchungPO(url).then(function (abc) {
+        BanHangService.get_thongtinchung_donbanhang(url).then(function (abc) {
             $scope.thongtinchung = abc;
-                       
-            DonHangPOService.get_thongtinchitietPO(url).then(function (b) {
+
+            BanHangService.get_thongtinchitiet_donbanhang(url).then(function (b) {
                 $scope.Detail.ListAdd = b;
 
                 var tong_tien_hang = 0;
                 var tong_tien_thue_GTGT = 0;
                 var tong_tien_thanh_toan = 0;
-                
+
                 for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
                     tong_tien_hang = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN_HANG + tong_tien_hang);
                     tong_tien_thue_GTGT = parseFloat($scope.Detail.ListAdd[i].TIEN_THUE_GTGT + tong_tien_thue_GTGT);
@@ -47,8 +49,6 @@
         });
     };
 
-    $scope.load_thongtinchungPO();
-
     $scope.kiemtra = function (item) {
         $scope.item = item;
 
@@ -56,7 +56,7 @@
         var tong_tien_thue_GTGT = 0;
         var tong_tien_thanh_toan = 0;
 
-        $scope.item.THANH_TIEN_HANG =parseFloat( $scope.item.DON_GIA * $scope.item.SO_LUONG );
+        $scope.item.THANH_TIEN_HANG = parseFloat($scope.item.DON_GIA * $scope.item.SO_LUONG);
         $scope.item.TIEN_THUE_GTGT = parseFloat($scope.item.THANH_TIEN_HANG * ($scope.item.THUE_GTGT / 100));
         $scope.item.TIEN_THANH_TOAN = $scope.item.THANH_TIEN_HANG + $scope.item.TIEN_THUE_GTGT;
 
@@ -72,9 +72,7 @@
     };
 
 
-    var salehienthoi = $('#username').val();
-
-    $scope.savePO = function () {
+    $scope.saveBH = function () {
         //this gets the full url
         var url = document.location.href;
         //this removes the anchor at the end, if there is one
@@ -84,10 +82,10 @@
         //this removes everything before the last slash in the path
         url = url.substring(url.lastIndexOf("/") + 1, url.length);
         //
- 
+
         var data_save = {
-            MA_SO_PO: url,
-            NGAY_LEN_PO: $scope.thongtinchung[0].NGAY_LEN_PO.format('DD/MM/YYYY'),
+            MA_SO_BH: url,
+            NGAY_BH: $scope.thongtinchung[0].NGAY_BH.format('DD/MM/YYYY'),
             MA_KHACH_HANG: $scope.thongtinchung[0].MA_KHACH_HANG,
             TEN_LIEN_HE: $scope.thongtinchung[0].TEN_LIEN_HE,
             HINH_THUC_THANH_TOAN: $scope.thongtinchung[0].HINH_THUC_THANH_TOAN,
@@ -101,12 +99,12 @@
             DA_LAP_HOA_DON: $scope.thongtinchung[0].DA_LAP_HOA_DON,
         }
 
-        $scope.arrayChiTietPO = [];
+        $scope.arrayChiTietBH= [];
 
         for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
 
 
-            var ChiTietPO = {
+            var ChiTietBH = {
                 ID: $scope.Detail.ListAdd[i].ID,
                 MA_HANG: $scope.Detail.ListAdd[i].MA_HANG,
                 MA_DIEU_CHINH: $scope.Detail.ListAdd[i].MA_DIEU_CHINH,
@@ -123,26 +121,26 @@
                 TK_THUE: $scope.Detail.ListAdd[i].TK_THUE,
             }
             //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
-            $scope.arrayChiTietPO.push(ChiTietPO);
+            $scope.arrayChiTietBH.push(ChiTietBH);
         }
 
-        DonHangPOService.save_thongtinchungPO(url,data_save).then(function successCallback(response) {
-            alert('Thêm thông tin chung thành công');
+        BanHangService.save_thongtinchungBH(url,data_save).then(function successCallback(response) {
+            alert('Sửa thông tin chung thành công');
 
-            for (var i = 0; i < $scope.arrayChiTietPO.length; i++) {
-                $scope.arrayChiTietPO[i].MA_SO_PO = url;
+            for (var i = 0; i < $scope.arrayChiTietBH.length; i++) {
+                $scope.arrayChiTietBH[i].MA_SO_BH = url;
             }
 
 
-            if ($scope.arrayChiTietPO.length > 0) {
+            if ($scope.arrayChiTietBH.length > 0) {
                 $http({
                     method: 'PUT',
-                    data: $scope.arrayChiTietPO,
-                    url: window.location.origin + '/api/Api_ChiTiet_DonHangPO/PutBH_CT_DON_HANG_PO'
+                    data: $scope.arrayChiTietBH,
+                    url: window.location.origin + '/api/Api_ChiTietBanHang/PUTBH_CT_BAN_HANG'
                 }).then(function successCallback(response) {
                     alert("Hoàn Thành Lưu");
                 }, function errorCallback(response) {
-                    alert('Không lưu được chi tiết giữ kho');
+                    alert('Không lưu được chi tiết đơn bán hàng');
                 });
                 return;
             }
@@ -153,47 +151,20 @@
         });
     };
 
-    $scope.deletePO = function () {
-        //this gets the full url
-        var url = document.location.href;
-        //this removes the anchor at the end, if there is one
-        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
-        //this removes the query after the file name, if there is one
-        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
-        //this removes everything before the last slash in the path
-        url = url.substring(url.lastIndexOf("/") + 1, url.length);
-        //
-
-        DonHangPOService.delete_thongtinchungPO(url).then(function (response) {
-            alert('Bạn đã xóa thành công');
-            window.location.href = "/DonHangPO/Index";
+    $scope.CreateNhatKy = function (item) {
+        $scope.item = item;
+        $scope.Detail.ListNew.push({
+            MA_HANG: $scope.item.MA_HANG,
+            TIEN_THANH_TOAN: $scope.item.TIEN_THANH_TOAN,
+            TK_CO: $scope.item.TK_CO,
+            TK_NO: $scope.item.TK_NO,
+            TK_THUE: $scope.item.TK_THUE,
+            TIEN_THUE_GTGT: $scope.item.TIEN_THUE_GTGT,
+            DIEN_GIAI_THUE: $scope.item.DIEN_GIAI_THUE,
         });
     };
 
-    $scope.CreateBH = function (item) {
-        $scope.item = item;
-        $scope.Detail.ListNew.push({
-            ID : $scope.item.ID,
-            MA_SO_PO: $scope.item.MA_SO_PO,
-            MA_HANG: $scope.item.MA_HANG,
-            MA_DIEU_CHINH: $scope.item.MA_DIEU_CHINH,
-            TK_NO: '131',
-            TK_CO: '51111',
-            DVT: $scope.item.DVT,
-            SO_LUONG: $scope.item.SO_LUONG,
-            DON_GIA: $scope.item.DON_GIA,
-            THANH_TIEN_HANG: $scope.item.THANH_TIEN_HANG,
-            DIEN_GIAI_THUE: 'Thuế GTGT đầu ra',
-            THUE_GTGT: $scope.item.THUE_GTGT,
-            TIEN_THUE_GTGT : $scope.item.TIEN_THUE_GTGT,
-            TK_THUE: '33311',
-            TIEN_THANH_TOAN: $scope.item.TIEN_THANH_TOAN,
-            DA_BAN : false,
-        })
-    };
-
-    $scope.AddNew_PhieuBanHang = function () {
-        //this gets the full url
+    $scope.AddNew_NhatKy = function () {
         var url = document.location.href;
         //this removes the anchor at the end, if there is one
         url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
@@ -202,68 +173,53 @@
         //this removes everything before the last slash in the path
         url = url.substring(url.lastIndexOf("/") + 1, url.length);
         //
-        var username = $('#username').val();
-        $scope.arrayChiTietPO = [];
+
+        $scope.arrayChiTietBH = [];
 
         for (var i = 0; i < $scope.Detail.ListNew.length; i++) {
-            var ChiTietPO = {
+            var ChiTietBH = {
                 ID: $scope.Detail.ListNew[i].ID,
-                MA_SO_PO: $scope.Detail.ListNew[i].MA_SO_PO,
                 MA_HANG: $scope.Detail.ListNew[i].MA_HANG,
-                MA_DIEU_CHINH: $scope.Detail.ListNew[i].MA_DIEU_CHINH,
-                SO_LUONG: $scope.Detail.ListNew[i].SO_LUONG,
-                DON_GIA: $scope.Detail.ListNew[i].DON_GIA,
-                THANH_TIEN_HANG: $scope.Detail.ListNew[i].THANH_TIEN_HANG,
-                DVT: $scope.Detail.ListNew[i].DVT,
-                DIEN_GIAI_THUE: $scope.Detail.ListNew[i].DIEN_GIAI_THUE,
-                THUE_GTGT: $scope.Detail.ListNew[i].THUE_GTGT,
-                TIEN_THUE_GTGT: $scope.Detail.ListNew[i].TIEN_THUE_GTGT,
                 TIEN_THANH_TOAN: $scope.Detail.ListNew[i].TIEN_THANH_TOAN,
                 TK_NO: $scope.Detail.ListNew[i].TK_NO,
                 TK_CO: $scope.Detail.ListNew[i].TK_CO,
                 TK_THUE: $scope.Detail.ListNew[i].TK_THUE,
-                DA_BAN: $scope.Detail.ListNew[i].DA_BAN,
+                TIEN_THUE_GTGT: $scope.Detail.ListNew[i].TIEN_THUE_GTGT,
+                DIEN_GIAI_THUE: $scope.Detail.ListNew[i].DIEN_GIAI_THUE,
             }
             //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
-            $scope.arrayChiTietPO.push(ChiTietPO);
+            $scope.arrayChiTietBH.push(ChiTietBH);
         }
 
-        $scope.ThongTinBanHang = {
+        $scope.SoNhatKy = {
+            MA_SO_BH: url,
+            NGAY_BH: $scope.thongtinchung[0].NGAY_BH.format('DD/MM/YYYY'),
             MA_KHACH_HANG: $scope.thongtinchung[0].MA_KHACH_HANG,
-            TEN_LIEN_HE: $scope.thongtinchung[0].TEN_LIEN_HE,
-            HINH_THUC_THANH_TOAN: $scope.thongtinchung[0].HINH_THUC_THANH_TOAN,
-            TONG_TIEN_HANG: $scope.tong_tien_hang,
-            TONG_TIEN_THUE_GTGT: $scope.tong_tien_thue_GTGT,
-            TONG_TIEN_THANH_TOAN: $scope.tong_tien_thanh_toan,
-            SO_TIEN_VIET_BANG_CHU: $scope.so_tien_viet_bang_chu,
-            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG.format('DD/MM/YYYY'),
-            DIA_DIEM_GIAO_HANG: $scope.thongtinchung[0].DIA_DIEM_GIAO_HANG,
-            DA_XUAT_KHO: false,
-            DA_LAP_HOA_DON: false,
             TRUC_THUOC: 'HOPLONG',
-            NHAN_VIEN_QUAN_LY: username,
-            ChiTietPO: $scope.arrayChiTietPO,
-        };
+            DIEN_GIAI_CHUNG: 'Bán hàng',
+            ChiTietBH: $scope.arrayChiTietBH,
+        }
 
         $http({
             method: 'POST',
-            data: $scope.ThongTinBanHang,
-            url: window.location.origin + '/api/Api_BanHang/PostThemPhieuBanHang'
+            data: $scope.SoNhatKy,
+            url: window.location.origin + '/api/Api_SoNhatKyChung/PostKT_SO_NHAT_KY_CHUNG'
         }).then(function successCallback(response) {
-            alert('Bạn đã tạo thành công 1 đơn bán hàng có mã là ' + response.data)
+            alert("Lên sổ nhật ký chung thành công");
         }, function errorCallback(response) {
-            console.log(response);
-            alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            alert('Lên sổ nhật ký chung thất bại');
         });
+        return;       
     };
 
+    $scope.load_thongtinchung_banhang();
     $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi)
 
-         .then(function (response) {
-             $scope.list_khachhang = response.data;
-         }, function (error) {
-             console.log(error);
-         });
+        .then(function (response) {
+            $scope.list_khachhang = response.data;
+        }, function (error) {
+            console.log(error);
+        });
 
     //get data nguoi giu
     $http.get(window.location.origin + '/api/Api_KH/GetAllSale')
@@ -362,7 +318,7 @@ app.directive('date', function (dateFilter) {
             });
         }
     };
-})
+});
 
 app.directive("datepicker", function () {
     return {
@@ -389,68 +345,3 @@ app.directive("datepicker", function () {
         }
     }
 });
-////app.filter('words', function () {
-////    function isInteger(x) {
-////        return x % 1 === 0;
-////    }
-
-
-////    return function (value) {
-////        if (value && isInteger(value))
-////            return toWords(value);
-
-////        return value;
-////    };
-
-////});
-
-
-////var th = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ'];
-////var dg = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
-////var tn = ['mười', 'mười một', 'mười 2', 'mười ba', 'mười bốn', 'mười lăm', 'mười sáu', 'mười bảy', 'mười tám', 'mười chín'];
-////var tw = ['hai muơi', 'ba mươi', 'bốn mươi', 'năm mươi', 'sáu mươi', 'bảy mươi', 'tám mươi', 'chín mươi'];
-
-
-////function toWords(s) {
-////    s = s.toString();
-////    s = s.replace(/[\, ]/g, '');
-////    if (s != parseFloat(s)) return 'Không phải là 1 số';
-////    var x = s.indexOf('.');
-////    if (x == -1) x = s.length;
-////    if (x > 15) return 'Số quá lớn';
-////    var n = s.split('');
-////    var str = '';
-////    var sk = 0;
-////    for (var i = 0; i < x; i++) {
-////        if ((x - i) % 3 == 2) {
-////            if (n[i] == '1') {
-////                str += tn[Number(n[i + 1])] + ' ';
-////                i++;
-////                sk = 1;
-////            }
-////            else if (n[i] != 0) {
-////                str += tw[n[i] - 2] + ' ';
-////                sk = 1;
-////            }
-////        }
-////        else if (n[i] != 0) {
-////            str += dg[n[i]] + ' ';
-////            if ((x - i) % 3 == 0) str += 'trăm ';
-////            sk = 1;
-////        }
-
-
-////        if ((x - i) % 3 == 1) {
-////            if (sk) str += th[(x - i - 1) / 3] + ' ';
-////            sk = 0;
-////        }
-////    }
-////    if (x != s.length) {
-////        var y = s.length;
-////        str += 'point ';
-////        for (var i = x + 1; i < y; i++) str += dg[n[i]] + ' ';
-////    }
-////    return str.replace(/\s+/g, ' ');
-////}
-
-////window.toWords = toWords;
