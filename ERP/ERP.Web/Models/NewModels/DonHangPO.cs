@@ -7,7 +7,8 @@ namespace ERP.Web.Models.NewModels
 {
     public class ThongTinDonPO
     {
-
+        public bool CAN_LAY_HOA_DON { set; get; }
+        public bool CAN_XUAT_NGAY { set; get; }
         public string MA_SO_PO { get; set; }
         public String NGAY_LEN_PO { get; set; }
         public string MA_KHACH_HANG { get; set; }
@@ -28,5 +29,7 @@ namespace ERP.Web.Models.NewModels
         public string TRUC_THUOC { set; get; }
         public bool DA_XUAT_KHO { set; get; }
         public bool DA_LAP_HOA_DON { set; get; }
+        public bool DA_HUY { set; get; }
+        public string LY_DO_HUY { set; get; }
     }
 }

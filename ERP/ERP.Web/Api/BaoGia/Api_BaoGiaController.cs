@@ -248,6 +248,7 @@ namespace ERP.Web.Api.BaoGia
                 lienhe.DVT = item.DVT;
                 lienhe.DON_GIA = item.DON_GIA;
                 lienhe.THANH_TIEN = item.THANH_TIEN;
+                lienhe.THANH_TIEN_NET = item.THANH_TIEN_NET;
                 lienhe.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
                 lienhe.CHIET_KHAU = item.CHIET_KHAU;
                 lienhe.GIA_LIST = item.GIA_LIST;

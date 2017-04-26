@@ -227,19 +227,28 @@ namespace ERP.Web.Api.BanHang
         }
 
         // DELETE: api/Api_BanHang/5
-        [ResponseType(typeof(BH_DON_BAN_HANG))]
+        [Route("api/Api_BanHang/DeleteBH_DON_BAN_HANG/{id}")]
         public IHttpActionResult DeleteBH_DON_BAN_HANG(string id)
         {
-            BH_DON_BAN_HANG bH_DON_BAN_HANG = db.BH_DON_BAN_HANG.Find(id);
-            if (bH_DON_BAN_HANG == null)
+            BH_DON_BAN_HANG donbanhang = db.BH_DON_BAN_HANG.Find(id);
+            if (donbanhang == null)
             {
                 return NotFound();
             }
+            List<BH_CT_DON_BAN_HANG> listChiTiet = new List<BH_CT_DON_BAN_HANG>();
 
-            db.BH_DON_BAN_HANG.Remove(bH_DON_BAN_HANG);
+            listChiTiet = db.BH_CT_DON_BAN_HANG.Where(x => x.MA_SO_BH == id).ToList();
+
+            foreach (var item in listChiTiet)
+            {
+                db.BH_CT_DON_BAN_HANG.Remove(item);
+            }
+
+
+            db.BH_DON_BAN_HANG.Remove(donbanhang);
             db.SaveChanges();
 
-            return Ok(bH_DON_BAN_HANG);
+            return Ok(donbanhang);
         }
 
         protected override void Dispose(bool disposing)

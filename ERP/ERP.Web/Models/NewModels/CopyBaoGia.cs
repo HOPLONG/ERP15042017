@@ -37,6 +37,7 @@ namespace ERP.Web.Models.NewModels
         public decimal DON_GIA { set; get; }
         public double CHIET_KHAU { set; get; }
         public decimal THANH_TIEN { set; get; }
+        public decimal THANH_TIEN_NET { set; get; }
         public double? CK_VAT { set; get; }
         public decimal? TIEN_VAT { set; get; }
         public string THOI_GIAN_GIAO_HANG { set; get; }

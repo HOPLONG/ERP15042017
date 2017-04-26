@@ -20,4 +20,8 @@
     this.save_thongtinchungBH = function (masoBH,data_save) {
         return $http.put('/api/Api_BanHang/PutBH_DON_BAN_HANG/' + masoBH,data_save);
     };
+
+    this.delete_banhang = function (masobh) {
+        return $http.delete('/api/Api_BanHang/DeleteBH_DON_BAN_HANG/' + masobh);
+    };
 });

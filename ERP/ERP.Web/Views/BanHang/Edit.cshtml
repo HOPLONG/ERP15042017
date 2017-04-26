@@ -12,7 +12,7 @@
 <input type="hidden" value="@Session["USERNAME"]" id="username" />
 
 <div ng-app="myApp" ng-controller="BanHangCtrl">
-
+    <button type="button" ng-click="deleteBH()" style="float:right;margin: 15px;" class="btn btn-default">Xóa đơn bán hàng này</button>
     <div class="content">
         <div class="col-md-12" ng-repeat="item in thongtinchung">
             <div class="col-md-12">

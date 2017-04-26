@@ -21,6 +21,10 @@ namespace ERP.Web.Controllers
             return View(bH_DON_BAN_HANG.ToList());
         }
 
+        public ActionResult POChuaXuLy()
+        {
+            return View();
+        }
         // GET: BanHang/Details/5
         public ActionResult Details(string id)
         {
