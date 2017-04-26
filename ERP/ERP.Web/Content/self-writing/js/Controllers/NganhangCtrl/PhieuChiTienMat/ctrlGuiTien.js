@@ -113,7 +113,6 @@ function ctrlGuiTien($rootScope, $scope, $location, $http, $uibModal) {
         QUY_DOI: '',
         DIEN_GIAI: 'Gửi Tiền vào ngân hàng',
         TK_NGAN_HANG: ''
-
     }];
 
     $scope.arrayCTTC = [];
@@ -482,6 +481,7 @@ function ctrlGuiTien($rootScope, $scope, $location, $http, $uibModal) {
                     NGAY_HACH_TOAN: ngayhachtoan,
                     MA_DOI_TUONG: $scope.arrayTongHop.ma_doi_tuong,
                     ChiTietQPC: $scope.arraydiengiai,
+                   
                     ThamChieu: $scope.ThamChieu.ListSelect,
                     LY_DO_CHI: 'Gửi tiền vào ngân hàng',
                     NGUOI_NHAN: $scope.arrayTongHop.nguoi_nhan,

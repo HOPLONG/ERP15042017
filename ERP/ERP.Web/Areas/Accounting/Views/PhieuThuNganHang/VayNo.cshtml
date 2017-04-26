@@ -3,7 +3,7 @@
 <link href="~/Content/assets/css/core.css" rel="stylesheet" />
 <script src="~/Content/self-writing/js/Controllers/NganhangCtrl/PhieuThuNganHang/ctrPhieuThuVayNo.js"></script>
 <script src="~/Content/self-writing/js/date_directive.js"></script>
-
+<script src="~/Content/download/number_directive.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 <div class="container body-content" ng-app="myApp" ng-controller="ctrPhieuThuVayNo">
@@ -49,8 +49,8 @@
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr style="cursor:pointer" ng-click="showInfoDT(dt)" ng-repeat="dt in dtCollection">
-                                                                            <td>{{dt.MA_KHACH_HANG}}</td>
-                                                                            <td>{{dt.TEN_CONG_TY}}</td>
+                                                                            <td>{{dt.MA_DOI_TUONG}}</td>
+                                                                            <td>{{dt.TEN_DOI_TUONG}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -133,7 +133,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <select ng-model="reasonmoney" ng-change="changeType($event)" class="form-control">
-                                                    <option value="VayNo">Vay nợ</option>
+                                                    <option value="Vay Nợ">Vay Nợ</option>
 
                                                 </select>
                                             </div>
@@ -217,7 +217,7 @@
                                         <div>Ngày hạch toán</div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" datepicker class="form-control datetimepickerKT" ng-model="arrayTongHop.ngay_hach_toan">
+                                        <input type="text" id="ngay_hach_toan" class="form-control datetimepickerKT" ng-model="arrayTongHop.ngay_hach_toan">
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                                         <div>Ngày chứng từ</div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" datepicker class="form-control datetimepickerKT" ng-model="arrayTongHop.ngay_chung_tu">
+                                        <input type="text" id="ngay_chung_tu" class="form-control datetimepickerKT" ng-model="arrayTongHop.ngay_chung_tu">
                                     </div>
                                 </div>
                             </div>
@@ -273,9 +273,9 @@
                         <div class="col-md-6">
                             <div class="text-right">
                                 <form class="form-inline">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">
                                         <label class="marginR15">Tỷ giá</label>
-                                        <input type="text" class="form-control" ng-model="arraydiengiai[indexcurrent].TY_GIA">
+                                        <input type="text" format='number' class="form-control" ng-model="arraydiengiai[indexcurrent].TY_GIA">
                                     </div>
                                 </form>
                             </div>
@@ -297,6 +297,7 @@
                             <th>Đơn vị</th>
                             <th>Mã đối tượng</th>
                             <th>Tên đối tượng</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -306,6 +307,7 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -330,7 +332,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="valuetkno in tknoCollections" ng-click="showInfoTKNo(valuetkno)" style="cursor:pointer">
+                                                        <tr ng-repeat="valuetkno in tknoCollections | filter:arraydiengiai[$index].TK_NO" ng-click="showInfoTKNo(valuetkno)" style="cursor:pointer">
                                                             <td>{{valuetkno.SO_TK}}</td>
                                                             <td>{{valuetkno.TEN_TK}}</td>
                                                         </tr>
@@ -358,7 +360,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="valuetkco in tknoCollections" ng-click="showInfoTKCo(valuetkco)" style="cursor:pointer">
+                                                        <tr ng-repeat="valuetkco in tknoCollections | filter:arraydiengiai[$index].TK_CO" ng-click="showInfoTKCo(valuetkco)" style="cursor:pointer">
                                                             <td>{{valuetkco.SO_TK}}</td>
                                                             <td>{{valuetkco.TEN_TK}}</td>
                                                         </tr>
@@ -369,11 +371,12 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><input type="text" class="form-control maxWidth120" ng-model="valueTongHop.SO_TIEN" ng-disabled="indexcurrent != $index"> </td>
-                            <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">{{valueTongHop.SO_TIEN * valueTongHop.TY_GIA}}</td>
+                            <td><input type="text" format='number' class="form-control maxWidth120" ng-model="valueTongHop.SO_TIEN" ng-disabled="indexcurrent != $index"> </td>
+                            <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">{{valueTongHop.SO_TIEN * valueTongHop.TY_GIA | currency: ''}}</td>
                             <td>{{valueTongHop.LOAI_TIEN}}</td>
                             <td> {{arrayTongHop.ma_doi_tuong}}</td>
                             <td>{{arrayTongHop.ten_doi_tuong}}</td>
+                            <td class="text-center"><button ng-click="RemoveRow($index)" style="background: none !important; border: none !important;"><span class="glyphicon glyphicon-remove" style="color:red;"></span></button></td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -382,25 +385,6 @@
                             <td>&nbsp;</td>
                             <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -414,6 +398,7 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -421,6 +406,29 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -457,7 +465,7 @@
                             <label class="control-label col-lg-2">Giá trị</label>
                             <div class="col-lg-5" style="position:relative;z-index:100">
                                 <div class="has-feedback" id="Input_DataGiaTriChungTu" style="display:none" ng-click="ShowDataGiaTriChungTu()">
-                                    <input type="text" ng-model="GiaTriChungTu.Search" class="form-control showtableselect">
+                                    <input type="text" ng-model="GiaTriChungTu.Search" class="form-control showtableselect" ng-change="DoiTuongFind()">
                                     <div class="form-control-feedback">
                                         <i class="icon-arrow-down5"></i>
                                     </div>
