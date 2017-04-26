@@ -229,6 +229,71 @@ namespace ERP.Web.Api.Quy
 
                 }
             }
+            //Lưu nhật ký chung
+           
+            if (quy_phieuchi.ChiTietQPC != null && quy_phieuchi.ChiTietQPC.Count > 0)
+            {
+                foreach (ChiTietQuyPhieuChi item in quy_phieuchi.ChiTietQPC)
+                {
+                    KT_SO_NHAT_KY_CHUNG newitem = new KT_SO_NHAT_KY_CHUNG();                  
+                    newitem.SO_CHUNG_TU = qpc.SO_CHUNG_TU;
+                    newitem.NGAY_CHUNG_TU = qpc.NGAY_CHUNG_TU;
+                    newitem.NGAY_HACH_TOAN = qpc.NGAY_HACH_TOAN;
+                    newitem.DOI_TUONG = qpc.MA_DOI_TUONG;
+                    newitem.TRUC_THUOC = "HOPLONG";
+                    newitem.DIEN_GIAI_CHUNG = qpc.DIEN_GIAI_LY_DO_CHI;
+                    newitem.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                    newitem.TAI_KHOAN_HACH_TOAN = item.TK_NO;
+                    newitem.TAI_KHOAN_DOI_UNG = item.TK_CO;
+                    newitem.PHAT_SINH_NO = tongtien;
+                    newitem.PHAT_SINH_CO = 0;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(newitem);
+                    KT_SO_NHAT_KY_CHUNG newitem1 = new KT_SO_NHAT_KY_CHUNG();
+                    newitem1.SO_CHUNG_TU = qpc.SO_CHUNG_TU;
+                    newitem1.NGAY_CHUNG_TU = qpc.NGAY_CHUNG_TU;
+                    newitem1.NGAY_HACH_TOAN = qpc.NGAY_HACH_TOAN;
+                    newitem1.DOI_TUONG = qpc.MA_DOI_TUONG;
+                    newitem1.TRUC_THUOC = "HOPLONG";
+                    newitem1.DIEN_GIAI_CHUNG = qpc.DIEN_GIAI_LY_DO_CHI;
+                    newitem1.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                    newitem1.TAI_KHOAN_HACH_TOAN = item.TK_CO;
+                    newitem1.TAI_KHOAN_DOI_UNG = item.TK_NO;
+                    newitem1.PHAT_SINH_NO = 0;
+                    newitem1.PHAT_SINH_CO = tongtien;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(newitem1);
+                  
+                    if(item.TK_THUE_GTGT != null)
+                    {
+                        KT_SO_NHAT_KY_CHUNG newitem2 = new KT_SO_NHAT_KY_CHUNG();
+                        newitem2.SO_CHUNG_TU = qpc.SO_CHUNG_TU;
+                        newitem2.NGAY_CHUNG_TU = qpc.NGAY_CHUNG_TU;
+                        newitem2.NGAY_HACH_TOAN = qpc.NGAY_HACH_TOAN;
+                        newitem2.DOI_TUONG = qpc.MA_DOI_TUONG;
+                        newitem2.TRUC_THUOC = "HOPLONG";
+                        newitem2.DIEN_GIAI_CHUNG = qpc.DIEN_GIAI_LY_DO_CHI;
+                        newitem2.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                        newitem2.TAI_KHOAN_HACH_TOAN = item.TK_THUE_GTGT;
+                        newitem2.TAI_KHOAN_DOI_UNG = item.TK_NO;
+                        newitem2.PHAT_SINH_NO = item.TIEN_THUE_GTGT;
+                        newitem2.PHAT_SINH_CO = 0;
+                        db.KT_SO_NHAT_KY_CHUNG.Add(newitem2);
+                        KT_SO_NHAT_KY_CHUNG newitem3 = new KT_SO_NHAT_KY_CHUNG();
+                        newitem3.SO_CHUNG_TU = qpc.SO_CHUNG_TU;
+                        newitem3.NGAY_CHUNG_TU = qpc.NGAY_CHUNG_TU;
+                        newitem3.NGAY_HACH_TOAN = qpc.NGAY_HACH_TOAN;
+                        newitem3.DOI_TUONG = qpc.MA_DOI_TUONG;
+                        newitem3.TRUC_THUOC = "HOPLONG";
+                        newitem3.DIEN_GIAI_CHUNG = qpc.DIEN_GIAI_LY_DO_CHI;
+                        newitem3.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                        newitem3.TAI_KHOAN_HACH_TOAN = item.TK_NO;
+                        newitem3.TAI_KHOAN_DOI_UNG = item.TK_THUE_GTGT;
+                        newitem3.PHAT_SINH_NO = 0;
+                        newitem3.PHAT_SINH_CO = item.TIEN_THUE_GTGT;
+                        db.KT_SO_NHAT_KY_CHUNG.Add(newitem3);
+                        db.SaveChanges();
+                    }
+                }
+            }
 
             qpc.TONG_TIEN = tongtien;
 

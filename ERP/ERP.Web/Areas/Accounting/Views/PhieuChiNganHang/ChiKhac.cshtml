@@ -3,6 +3,7 @@
 <link href="~/Content/assets/css/core.css" rel="stylesheet" />
 <script src="~/Content/self-writing/js/Controllers/NganhangCtrl/PhieuChiNganHang/ctrChiKhac.js"></script>
 <script src="~/Content/self-writing/js/date_directive.js"></script>
+<script src="~/Content/download/number_directive.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 <div class="container" ng-app="myApp" ng-controller="ctrChiKhac">
@@ -97,12 +98,12 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" ng-model="info.ma_doi_tuong" ng-value="info.ma_doi_tuong">
+                                                    <input type="text" class="form-control" ng-model="info.ma_doi_tuong" ng-change="onDoiTuongFind()" ng-focus="showtable_ma_doi_tuong = true">
                                                     <div class="input-group-btn">
-                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="getDoiTuong()">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="showtable_ma_doi_tuong = !showtable_ma_doi_tuong">
                                                             <span class="caret"></span>
                                                         </button>
-                                                        <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0">
+                                                        <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_ma_doi_tuong">
                                                             <div class="table-responsive"style="max-height:400px; max-width:500px;">
                                                                 <table class="table table-striped table-hover" st-table="listDoiTuongCollection" st-safe-src="listDoiTuong">
                                                                     <thead class="bg-blue text-white">
@@ -193,14 +194,14 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" ng-model="info.nhan_vien_thu">
+                                                    <input type="text" class="form-control" ng-model="info.nhan_vien_thu" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
                                                     <div class="input-group-btn">
-                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" ng-click="showtable_ho_va_ten = !showtable_ho_va_ten" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <span class="caret"></span>
                                                         </button>
-                                                        <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0">
+                                                        <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_ho_va_ten">
                                                             <div class="table-responsive" style="max-height: 280px">
-                                                                <table class="table table-striped table-hover" st-table="staffsCollection" st-safe-src="listStaff">
+                                                                <table class="table table-striped table-hover" st-table="staffsCollection" st-safe-src="arrayNVFinded">
                                                                     <thead class="bg-blue text-white">
                                                                         <tr>
                                                                             <th>Mã nhân viên</th>
@@ -256,7 +257,7 @@
                                         <div>Ngày hạch toán</div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" datepicker class="form-control datetimepickerKT" ng-model="info.ngay_hach_toan">
+                                        <input type="text" id="ngay_hach_toan" class="form-control datetimepickerKT" ng-model="info.ngay_hach_toan">
                                     </div>
                                 </div>
                             </div>
@@ -266,7 +267,7 @@
                                         <div>Ngày chứng từ</div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" datepicker class="form-control datetimepickerKT" ng-model="info.ngay_chung_tu">
+                                        <input type="text" id="ngay_chung_tu" class="form-control datetimepickerKT" ng-model="info.ngay_chung_tu">
                                     </div>
                                 </div>
                             </div>
@@ -314,11 +315,8 @@
                                 <form class="form-inline" name="form">
                                     <div class="form-group" ng-show="listHachToan[itemHachToanSelect].LOAI_TIEN != 'VND'">
                                         <label class="marginR15">Tỷ giá</label>
-                                        <input name="tyGia" float required type="text" class="form-control" ng-model="listHachToan[itemHachToanSelect].TY_GIA">
-                                        <div ng-if="$submitted" ng-messages="form.tyGia.$error" style="color:maroon" role="alert">
-                                            <div ng-message="required">Nhập tỷ giá.</div>
-                                            <div ng-message="float">Tỉ giá phải là số.</div>
-                                        </div>
+                                        <input type="text" format='number' class="form-control" ng-model="listHachToan[itemHachToanSelect].TY_GIA">
+                                        
                                     </div>
                                 </form>
                             </div>
@@ -350,6 +348,7 @@
                                         <th>Đơn vị</th>
                                         <th>Mã đối tượng</th>
                                         <th>Tên đối tượng</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -359,6 +358,7 @@
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td ng-show="listHachToan[itemHachToanSelect].LOAI_TIEN != 'VND'">&nbsp;</td>
+                                        <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
@@ -382,7 +382,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr ng-repeat="tk_no in tknoCollections" ng-click="selectTkNo(tk_no)" style="cursor:pointer">
+                                                                    <tr ng-repeat="tk_no in tknoCollections | filter:listHachToan[$index].TK_NO" ng-click="selectTkNo(tk_no)" style="cursor:pointer">
                                                                         <td>{{tk_no.SO_TK}}</td>
                                                                         <td>{{tk_no.TEN_TK}}</td>
                                                                     </tr>
@@ -410,7 +410,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr ng-repeat="tk_co in tkcoCollections" ng-click="selectTkCo(tk_co)" style="cursor:pointer">
+                                                                    <tr ng-repeat="tk_co in tkcoCollections | filter:listHachToan[$index].TK_CO" ng-click="selectTkCo(tk_co)" style="cursor:pointer">
                                                                         <td>{{tk_co.SO_TK}}</td>
                                                                         <td>{{tk_co.TEN_TK}}</td>
                                                                     </tr>
@@ -421,11 +421,12 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><input type="text" class="form-control maxWidth120" ng-model="itemHachToan.SO_TIEN" ng-disabled="itemHachToanSelect != $index"> </td>
-                                        <td ng-show="listHachToan[itemHachToanSelect].LOAI_TIEN != 'VND'">{{itemHachToan.SO_TIEN *( itemHachToan.TY_GIA || 1)}}</td>
+                                        <td><input type="text" format='number' class="form-control maxWidth120" ng-model="itemHachToan.SO_TIEN" ng-disabled="itemHachToanSelect != $index"> </td>
+                                        <td ng-show="listHachToan[itemHachToanSelect].LOAI_TIEN != 'VND'">{{itemHachToan.SO_TIEN * itemHachToan.TY_GIA | currency: ''}}</td>
                                         <td>{{itemHachToan.LOAI_TIEN}}</td>
-                                        <td> {{info.ma_doi_tuong}}</td>
+                                        <td>{{info.ma_doi_tuong}}</td>
                                         <td>{{info.ten_doi_tuong}}</td>
+                                        <td class="text-center"><button ng-click="RemoveRow($index)" style="background: none !important; border: none !important;"><span class="glyphicon glyphicon-remove" style="color:red;"></span></button></td>
                                     </tr>
                                     <tr ng-repeat="item in arrayBlank">
                                         <td>&nbsp;</td>
@@ -433,6 +434,7 @@
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td ng-show="listHachToan[itemHachToanSelect].LOAI_TIEN != 'VND'">&nbsp;</td>
+                                        <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
@@ -456,11 +458,15 @@
                                         <th>Mẫu số HĐ</th>
                                         <th>Ký hiệu HĐ</th>
                                         <th>Mã NCC</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td><a href="" ng-click="addHachToan()">Bấm vào đây để thêm mới</a></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
@@ -488,7 +494,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr ng-repeat="tk_thue in tkThueCollections" ng-click="selectTkThue(tk_thue)" style="cursor:pointer">
+                                                                    <tr ng-repeat="tk_thue in tkThueCollections | filter:itemThue.TK_THUE_GTGT" ng-click="selectTkThue(tk_thue)" style="cursor:pointer">
                                                                         <td>{{tk_thue.SO_TK}}</td>
                                                                         <td>{{tk_thue.TEN_TK}}</td>
                                                                     </tr>
@@ -499,14 +505,15 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><input type="text" class="form-control maxWidth120" ng-model="itemThue.TIEN_THUE_GTGT" ng-disabled="itemHachToanSelect != $index"> </td>
+                                        <td><input type="text" format='number' class="form-control maxWidth120" ng-model="itemThue.TIEN_THUE_GTGT" ng-disabled="itemHachToanSelect != $index"> </td>
                                         <td><input type="text" class="form-control maxWidth120" ng-model="itemThue.CK_THUE_GTGT" ng-disabled="itemHachToanSelect != $index"> </td>
                                         <td><input type="text" class="form-control maxWidth120" ng-model="itemThue.GIA_TRI_HHDV_CHUA_THUE" ng-disabled="itemHachToanSelect != $index"> </td>
                                         <td><div style="position: relative"><input type="text" class="form-control datetimepickerKT" datepicker ng-model="itemThue.NGAY_HD" ng-disabled="itemHachToanSelect != $index"></div> </td>
                                         <td><input type="text" class="form-control maxWidth120" ng-model="itemThue.SO_HD" ng-disabled="itemHachToanSelect != $index"> </td>
                                         <td><input type="text" class="form-control maxWidth120" ng-model="itemThue.MAU_SO_HD" ng-disabled="itemHachToanSelect != $index"> </td>
                                         <td><input type="text" class="form-control maxWidth120" ng-model="itemThue.KY_HIEU_HD" ng-disabled="itemHachToanSelect != $index"> </td>
-                                        <td>{{info.ma_doi_tuong}}</td>
+                                        <td><p ng-model="info.ma_doi_tuong">{{info.ma_doi_tuong}}</p></td>
+                                        <td class="text-center"><button ng-click="RemoveRow($index)" style="background: none !important; border: none !important;"><span class="glyphicon glyphicon-remove" style="color:red;"></span></button></td>
                                         @*<td>
                                             <div class="input-group maxWidth150">
                                                 <input type="text" class="form-control" style="min-width: 86px;" ng-model="itemThue.MA_NHA_CUNG_CAP" ng-disabled="itemHachToanSelect != $index">
@@ -537,6 +544,7 @@
                                         </td>*@
                                     </tr>
                                     <tr ng-repeat="item in arrayBlank">
+                                        <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
@@ -584,7 +592,7 @@
                             <label class="control-label col-lg-2">Giá trị</label>
                             <div class="col-lg-5" style="position:relative;z-index:100">
                                 <div class="has-feedback" id="Input_DataGiaTriChungTu" style="display:none" ng-click="ShowDataGiaTriChungTu()">
-                                    <input type="text" ng-model="GiaTriChungTu.Search" class="form-control showtableselect">
+                                    <input type="text" ng-model="GiaTriChungTu.Search" class="form-control showtableselect" ng-change="DoiTuongFind()">
                                     <div class="form-control-feedback">
                                         <i class="icon-arrow-down5"></i>
                                     </div>
