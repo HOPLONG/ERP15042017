@@ -17,13 +17,14 @@
                     <th>Khách hàng</th>
                     <th>Tên liên hệ</th>
                     <th>Hình thức thanh toán</th>
-                    <th>Thuế suất GTGT</th>
-                    <th>Tiền thuế GTGT</th>
+                    <th>Tổng tiền hàng</th>
+                    <th>Tổng tiền thuế</th>
                     <th>Tổng tiền thanh toán</th>
                     <th>Số tiền viết bằng chữ</th>
                     <th>Nhân viên quản lý</th>
-                    <th>Ngày giao hàng</th>
                     <th>Địa điểm giao hàng</th>
+                    <th>Đã xuất kho</th>
+                    <th>Đã lập hóa đơn</th>
                     <th>Sửa</th>
                 </tr>
             </thead>
@@ -34,13 +35,14 @@
                     <td>{{entry.TEN_CONG_TY}}</td>
                     <td>{{entry.TEN_LIEN_HE}}</td>
                     <td>{{entry.HINH_THUC_THANH_TOAN}}</td>
-                    <td>{{entry.THUE_SUAT_GTGT}}</td>
-                    <td>{{entry.TIEN_THUE_GTGT | currency: '':0}}</td>
+                    <td>{{entry.TONG_TIEN_HANG | currency : '' : 0}}</td>
+                    <td>{{entry.TONG_TIEN_THUE_GTGT | currency: '' : 0}}</td>
                     <td>{{entry.TONG_TIEN_THANH_TOAN | currency : '' : 0}}</td>
                     <td>{{entry.SO_TIEN_VIET_BANG_CHU}}</td>
                     <td>{{entry.HO_VA_TEN}}</td>
-                    <td>{{entry.NGAY_GIAO_HANG | date : 'dd/MM/yyyy'}}</td>
                     <td>{{entry.DIA_DIEM_GIAO_HANG}}</td>
+                    <td><input type="checkbox" ng-disabled="true" ng-model="entry.DA_XUAT_KHO" /></td>
+                    <td><input type="checkbox" ng-disabled="true" ng-model="entry.DA_LAP_HOA_DON" /></td>
                     <td><a href="/DonHangPO/Edit/{{entry.MA_SO_PO}}">Sửa đơn PO</a></td>
                 </tr>
             </tbody>

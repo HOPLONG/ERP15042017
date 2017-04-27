@@ -4,12 +4,7 @@
         ListNew: []
     }
     $scope.Detail.ListAdd = [{
-        MA_HANG: '',
-        MA_DIEU_CHINH: '',
-        DVT: '',
-        SO_LUONG: 0,
-        DON_GIA: 0,
-        THANH_TIEN: 0,
+
     }];
 
     $scope.load_danhsachPO = function () {
@@ -35,17 +30,19 @@
             DonHangPOService.get_thongtinchitietPO(url).then(function (b) {
                 $scope.Detail.ListAdd = b;
 
-                var tong_thanh_tien = 0;
-                var thuesuat_gtgt = $('#thuesuat_gtgt').val();
+                var tong_tien_hang = 0;
+                var tong_tien_thue_GTGT = 0;
+                var tong_tien_thanh_toan = 0;
                 
                 for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
-                    tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
+                    tong_tien_hang = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN_HANG + tong_tien_hang);
+                    tong_tien_thue_GTGT = parseFloat($scope.Detail.ListAdd[i].TIEN_THUE_GTGT + tong_tien_thue_GTGT);
+                    tong_tien_thanh_toan = parseFloat($scope.Detail.ListAdd[i].TIEN_THANH_TOAN + tong_tien_thanh_toan)
                 }
-                $scope.tong_thanh_tien = tong_thanh_tien;
-                $scope.tong_tien_VAT = parseFloat($scope.tong_thanh_tien * (thuesuat_gtgt / 100));
-
-                $scope.tong_tien_thuc_te = $scope.tong_thanh_tien + $scope.tong_tien_VAT;
-                $scope.so_tien_viet_bang_chu = docso($scope.tong_tien_thuc_te);
+                $scope.tong_tien_hang = tong_tien_hang;
+                $scope.tong_tien_thue_GTGT = tong_tien_thue_GTGT
+                $scope.tong_tien_thanh_toan = tong_tien_thanh_toan;
+                $scope.so_tien_viet_bang_chu = docso($scope.tong_tien_thanh_toan);
             });
         });
     };
@@ -55,19 +52,23 @@
     $scope.kiemtra = function (item) {
         $scope.item = item;
 
-        var tong_thanh_tien = 0;
-        var thuesuat_gtgt = $('#thuesuat_gtgt').val();
+        var tong_tien_hang = 0;
+        var tong_tien_thue_GTGT = 0;
+        var tong_tien_thanh_toan = 0;
 
-        $scope.item.THANH_TIEN = $scope.item.DON_GIA * $scope.item.SO_LUONG;
+        $scope.item.THANH_TIEN_HANG =parseFloat( $scope.item.DON_GIA * $scope.item.SO_LUONG );
+        $scope.item.TIEN_THUE_GTGT = parseFloat($scope.item.THANH_TIEN_HANG * ($scope.item.THUE_GTGT / 100));
+        $scope.item.TIEN_THANH_TOAN = $scope.item.THANH_TIEN_HANG + $scope.item.TIEN_THUE_GTGT;
 
         for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
-            tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
+            tong_tien_hang = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN_HANG + tong_tien_hang);
+            tong_tien_thue_GTGT = parseFloat($scope.Detail.ListAdd[i].TIEN_THUE_GTGT + tong_tien_thue_GTGT);
+            tong_tien_thanh_toan = parseFloat($scope.Detail.ListAdd[i].TIEN_THANH_TOAN + tong_tien_thanh_toan)
         }
-        $scope.tong_thanh_tien = tong_thanh_tien;
-        $scope.tong_tien_VAT = parseFloat($scope.tong_thanh_tien * (thuesuat_gtgt / 100));
-
-        $scope.tong_tien_thuc_te = $scope.tong_thanh_tien + $scope.tong_tien_VAT;
-        $scope.so_tien_viet_bang_chu = docso($scope.tong_tien_thuc_te);
+        $scope.tong_tien_hang = tong_tien_hang;
+        $scope.tong_tien_thue_GTGT = tong_tien_thue_GTGT
+        $scope.tong_tien_thanh_toan = tong_tien_thanh_toan;
+        $scope.so_tien_viet_bang_chu = docso($scope.tong_tien_thanh_toan);
     };
 
 
@@ -90,12 +91,14 @@
             MA_KHACH_HANG: $scope.thongtinchung[0].MA_KHACH_HANG,
             TEN_LIEN_HE: $scope.thongtinchung[0].TEN_LIEN_HE,
             HINH_THUC_THANH_TOAN: $scope.thongtinchung[0].HINH_THUC_THANH_TOAN,
-            THUE_SUAT_GTGT: $scope.thongtinchung[0].THUE_SUAT_GTGT,
-            TIEN_THUE_GTGT: $scope.tong_tien_VAT,
-            TONG_TIEN_THANH_TOAN: $scope.tong_tien_thuc_te,
+            TONG_TIEN_HANG: $scope.tong_tien_hang,
+            TONG_TIEN_THUE_GTGT: $scope.tong_tien_thue_GTGT,
+            TONG_TIEN_THANH_TOAN: $scope.tong_tien_thanh_toan,
             SO_TIEN_VIET_BANG_CHU: $scope.so_tien_viet_bang_chu,
             NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG.format('DD/MM/YYYY'),
             DIA_DIEM_GIAO_HANG: $scope.thongtinchung[0].DIA_DIEM_GIAO_HANG,
+            DA_XUAT_KHO: $scope.thongtinchung[0].DA_XUAT_KHO,
+            DA_LAP_HOA_DON: $scope.thongtinchung[0].DA_LAP_HOA_DON,
         }
 
         $scope.arrayChiTietPO = [];
@@ -109,8 +112,15 @@
                 MA_DIEU_CHINH: $scope.Detail.ListAdd[i].MA_DIEU_CHINH,
                 SO_LUONG: $scope.Detail.ListAdd[i].SO_LUONG,
                 DON_GIA: $scope.Detail.ListAdd[i].DON_GIA,
-                THANH_TIEN: $scope.Detail.ListAdd[i].THANH_TIEN,
+                THANH_TIEN: $scope.Detail.ListAdd[i].THANH_TIEN_HANG,
                 DVT: $scope.Detail.ListAdd[i].DVT,
+                DIEN_GIAI_THUE: $scope.Detail.ListAdd[i].DIEN_GIAI_THUE,
+                THUE_GTGT: $scope.Detail.ListAdd[i].THUE_GTGT,
+                TIEN_THUE_GTGT: $scope.Detail.ListAdd[i].TIEN_THUE_GTGT,
+                TIEN_THANH_TOAN: $scope.Detail.ListAdd[i].TIEN_THANH_TOAN,
+                TK_NO: $scope.Detail.ListAdd[i].TK_NO,
+                TK_CO: $scope.Detail.ListAdd[i].TK_CO,
+                TK_THUE: $scope.Detail.ListAdd[i].TK_THUE,
             }
             //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
             $scope.arrayChiTietPO.push(ChiTietPO);

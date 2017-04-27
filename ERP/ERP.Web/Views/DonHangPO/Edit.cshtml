@@ -40,19 +40,14 @@
                             <div class="col-md-8"><input type="text"  placeholder="Tên liên hệ" class="form-control" ng-model="item.TEN_LIEN_HE" /></div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="col-md-12" style="margin-bottom: 15px;">
+                    <div class="col-md-12 form-group">
                         <div class="form-group">
-
-                            <label class="col-md-4">Thuế suất GTGT</label>
-
-                            <div class="col-md-2">
-                                <input class="form-control" type="number" ng-model="item.THUE_SUAT_GTGT" ng-change="kiemtra(item)" id="thuesuat_gtgt"/>
-                            </div>
+                            <label class="col-md-4">Đã xuất kho</label>
+                            <div class="col-md-1"><input type="checkbox"  ng-model="item.DA_XUAT_KHO" /></div>
                         </div>
                     </div>
-
+                </div>
+                <div class="col-md-6">
                     <div class="col-md-12 form-group">
                         <div class="form-group">
                             <label class="col-md-4">Phương thức thanh toán </label>
@@ -76,6 +71,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12 form-group">
+                        <div class="form-group">
+                            <label class="col-md-4">Đã lập hóa đơn</label>
+                            <div class="col-md-1"><input type="checkbox" ng-model="item.DA_LAP_HOA_DON" /></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-12 content-group" style="padding-left: 5px; padding-right: 5px;">
@@ -88,7 +89,13 @@
                                 <td class="text-center !important">Đơn vị tính</td>
                                 <td class="text-center !important">Số lượng</td>
                                 <td class="text-center !important">Đơn giá</td>
-                                <td class="text-center !important">Thành tiền</td>
+                                <td class="text-center !important">Thành tiền hàng</td>
+                                <td  class="text-center !important">% thuế GTGT</td>
+                                <td class="text-center !important">Tiền thuế GTGT</td>
+                                <td class="text-center !important">Diễn giải thuế</td>
+                                <td class="text-center !important">Tài khoản thuế</td>
+                                <td class="text-center !important">Tài khoản nợ</td>
+                                <td class="text-center !important">Tài khoản có</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,8 +122,27 @@
                                     <input type="number" style="height: 27px;" ng-model="item.DON_GIA" class="form-control" ng-change="kiemtra(item)">
                                 </td>
                                 <td class="text-center">
-                                    {{item.THANH_TIEN | currency: '':0}}
-                                    <input ng-model="item.THANH_TIEN" style="height: 27px;" class="form-control" type="hidden" ng-disabled="true" />
+                                    {{item.THANH_TIEN_HANG | currency: '':0}}
+                                    <input ng-model="item.THANH_TIEN_HANG" style="height: 27px;" class="form-control" type="hidden" ng-disabled="true" />
+                                </td>
+                                <td class="text-center">
+                                    <input type="number" style="height: 27px;" ng-model="item.THUE_GTGT" class="form-control" ng-change="kiemtra(item)">
+                                </td>
+                                <td class="text-center">
+                                    {{item.TIEN_THUE_GTGT | currency: '':0}}
+                                    <input ng-model="item.TIEN_THUE_GTGT" style="height: 27px;" class="form-control" type="hidden" ng-disabled="true" />
+                                </td>
+                                <td class="text-center">
+                                    <input type="text" style="height: 27px;" ng-model="item.DIEN_GIAI_THUE" class="form-control">
+                                </td>
+                                <td class="text-center">
+                                    <input type="text" style="height: 27px;" ng-model="item.TK_THUE" class="form-control">
+                                </td>
+                                <td class="text-center">
+                                    <input type="text" style="height: 27px;" ng-model="item.TK_NO" class="form-control">
+                                </td>
+                                <td class="text-center">
+                                    <input type="text" style="height: 27px;" ng-model="item.TK_CO" class="form-control">
                                 </td>
                             </tr>
                         </tbody>    
@@ -124,19 +150,19 @@
                             <tr>
                                 <td colspan="6">
                                     <div class="col-md-12">
-                                        <label class="col-md-3">Tổng thành tiền: </label>
-                                        <p class="col-md-6" style="text-align:left" ng-model="tong_thanh_tien">{{tong_thanh_tien | currency: '':0}} vnd</p>
+                                        <label class="col-md-3">Tổng tiền hàng: </label>
+                                        <p class="col-md-6" style="text-align:left" ng-model="tong_tien_hang">{{tong_tien_hang | currency: '':0}} vnd</p>
                                     </div>
                                     <div class="col-md-12">
                                         <label class="col-md-3">Thuế VAT : </label>
-                                        <p class="col-md-6" style="text-align:left" ng-model="tong_tien_VAT">{{tong_tien_VAT | currency: '':0 }} vnd</p>
+                                        <p class="col-md-6" style="text-align:left" ng-model="tong_tien_thue_GTGT">{{tong_tien_thue_GTGT | currency: '':0 }} vnd</p>
                                     </div>                                   
                                     <div class="col-md-4">
                                         <hr />
                                     </div>
                                     <div class="col-md-12">
-                                        <label class="col-md-3">Tổng giá trị </label>
-                                        <p class="col-md-6" style="text-align:left"><span id="tong_tien_thuc_te " ng-model="tong_tien_thuc_te">{{tong_tien_thuc_te | currency: '':0}}</span> vnd</p>
+                                        <label class="col-md-3">Tổng tiền thanh toán </label>
+                                        <p class="col-md-6" style="text-align:left"><span id="tong_tien_thuc_te " ng-model="tong_tien_thanh_toan">{{tong_tien_thanh_toan | currency: '':0}}</span> vnd</p>
                                     </div>  
                                     <div class="col-md-12">
                                         <label class="col-md-3">Số tiền viết bằng chữ </label>

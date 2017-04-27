@@ -28,9 +28,11 @@
 
     $scope.add_new_ncc = function () {
         $scope.Detail.ListAdd.push({
+            ID : '',
             ID_YEU_CAU_HOI_GIA : '',
-            MA_HANG: 0,
-            MA_CHUAN: 0,
+            MA_HANG: '',
+            MA_CHUAN: '',
+            MA_KHACH_ORDER : '',
             SO_LUONG: 0,
             MA_NCC: 0,
             TEN_NHA_CUNG_CAP: 0,
@@ -48,8 +50,10 @@
 
 
             var ChiTietXL = {
+                ID: $scope.Detail.ListAdd[i].ID,
                 ID_YEU_CAU_HOI_GIA: $scope.Detail.ListAdd[i].ID_YEU_CAU_HOI_GIA,
                 MA_HANG: $scope.Detail.ListAdd[i].MA_HANG,
+                MA_KHACH_ORDER: $scope.Detail.ListAdd[i].MA_KHACH_ORDER,
                 SO_LUONG: $scope.Detail.ListAdd[i].SO_LUONG,
                 MA_NCC: $scope.Detail.ListAdd[i].MA_NCC,
                 TEN_NHA_CUNG_CAP: $scope.Detail.ListAdd[i].TEN_NHA_CUNG_CAP,

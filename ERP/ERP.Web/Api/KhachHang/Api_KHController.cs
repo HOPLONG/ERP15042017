@@ -26,6 +26,17 @@ namespace ERP.Web.Api.HeThong
             var result = query.ToList();
             return result;
         }
+
+        [Route("api/Search_KH/Search/{mkh}")]
+        public List<GetAll_KhachHang_Result> Search_KH(string mkh)
+        {
+            
+            var query = db.Database.SqlQuery<GetAll_KhachHang_Result>("GetAll_KhachHang");
+            var result = query.ToList();
+            var kq = result.Where(x => x.TEN_CONG_TY.ToLower().Contains(mkh.ToLower())).Take(10).ToList();
+            return kq;
+        }
+
         [Route("api/Api_KH/KH_THEO_SALES/{username}/{tukhoa}")]
         public List<HopLong_LocKHTheoSale_Result> KH_THEO_SALES( string username, string tukhoa)
         {

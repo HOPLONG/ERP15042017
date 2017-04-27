@@ -13,17 +13,62 @@ using System.Text.RegularExpressions;
 using ERP.Web.Models.NewModels.Quy;
 using ERP.Web.Common;
 using ERP.Web.Models.NewModels.All;
+using System.Dynamic;
 
 namespace ERP.Web.Api.Quy
 {
     public class Api_QUY_PHIEU_THUController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
-
+        [HttpGet]
         // GET: api/Api_QUY_PHIEU_THU
-        public IQueryable<QUY_PHIEU_THU> GetQUY_PHIEU_THU()
+        public ExpandoObject GetQUY_PHIEU_THU(DateTime? from_day = null, DateTime? to_day = null, int current_page = 1, int page_size = 10)
         {
-            return db.QUY_PHIEU_THU;
+
+            IEnumerable<QUY_PHIEU_THU> value = db.QUY_PHIEU_THU;
+
+
+
+            if (to_day != null)
+            {
+                value = value.Where(c => c.NGAY_CHUNG_TU <= to_day);
+            }
+
+            if (from_day != null)
+            {
+                value = value.Where(c => c.NGAY_CHUNG_TU >= from_day);
+            }
+
+            int count = value.Count();
+            value = value.Skip(page_size * (current_page - 1)).Take(page_size);
+            int max_page = (count + page_size - 1) / page_size;
+
+            if (max_page < current_page)
+            {
+                current_page = max_page;
+            }
+
+            var result = value.ToList().Select(x => new QUY_PHIEU_THU()
+            {
+                SO_CHUNG_TU = x.SO_CHUNG_TU,
+                NGAY_HACH_TOAN = x.NGAY_HACH_TOAN,
+                NGAY_CHUNG_TU = x.NGAY_CHUNG_TU,
+                MA_DOI_TUONG = x.MA_DOI_TUONG,
+                DIEN_GIAI_LY_DO_NOP = x.DIEN_GIAI_LY_DO_NOP,
+                LY_DO_NOP = x.LY_DO_NOP,
+                NGUOI_NOP = x.NGUOI_NOP,
+                TONG_TIEN = x.TONG_TIEN,
+                NGUOI_LAP_BIEU = x.NGUOI_LAP_BIEU,
+                TRUC_THUOC = x.TRUC_THUOC
+
+            }).ToList();
+
+            dynamic res_data = new ExpandoObject();
+            res_data.current_page = current_page;
+            res_data.page_size = page_size;
+            res_data.max_page = max_page;
+            res_data.data = result;
+            return res_data;
         }
 
         // GET: api/Api_QUY_PHIEU_THU/5
@@ -168,6 +213,41 @@ namespace ERP.Web.Api.Quy
                     db.QUY_CT_PHIEU_THU.Add(newItem);
 
 
+                }
+            }
+            //Lưu nhật ký chung
+
+            if (quy_phieuthu.ChiTietQPT != null && quy_phieuthu.ChiTietQPT.Count > 0)
+            {
+                foreach (ChiTietQuyPhieuThu item in quy_phieuthu.ChiTietQPT)
+                {
+                    KT_SO_NHAT_KY_CHUNG newitem = new KT_SO_NHAT_KY_CHUNG();
+                    newitem.SO_CHUNG_TU = qpt.SO_CHUNG_TU;
+                    newitem.NGAY_CHUNG_TU = qpt.NGAY_CHUNG_TU;
+                    newitem.NGAY_HACH_TOAN = qpt.NGAY_HACH_TOAN;
+                    newitem.DOI_TUONG = qpt.MA_DOI_TUONG;
+                    newitem.TRUC_THUOC = "HOPLONG";
+                    newitem.DIEN_GIAI_CHUNG = qpt.DIEN_GIAI_LY_DO_NOP;
+                    newitem.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                    newitem.TAI_KHOAN_HACH_TOAN = item.TK_NO;
+                    newitem.TAI_KHOAN_DOI_UNG = item.TK_CO;
+                    newitem.PHAT_SINH_NO = tongtien;
+                    newitem.PHAT_SINH_CO = 0;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(newitem);
+                    KT_SO_NHAT_KY_CHUNG newitem1 = new KT_SO_NHAT_KY_CHUNG();
+                    newitem1.SO_CHUNG_TU = qpt.SO_CHUNG_TU;
+                    newitem1.NGAY_CHUNG_TU = qpt.NGAY_CHUNG_TU;
+                    newitem1.NGAY_HACH_TOAN = qpt.NGAY_HACH_TOAN;
+                    newitem1.DOI_TUONG = qpt.MA_DOI_TUONG;
+                    newitem1.TRUC_THUOC = "HOPLONG";
+                    newitem1.DIEN_GIAI_CHUNG = qpt.DIEN_GIAI_LY_DO_NOP;
+                    newitem1.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                    newitem1.TAI_KHOAN_HACH_TOAN = item.TK_CO;
+                    newitem1.TAI_KHOAN_DOI_UNG = item.TK_NO;
+                    newitem1.PHAT_SINH_NO = 0;
+                    newitem1.PHAT_SINH_CO = tongtien;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(newitem1);
+                    db.SaveChanges();
                 }
             }
 

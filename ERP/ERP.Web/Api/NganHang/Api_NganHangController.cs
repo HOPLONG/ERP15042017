@@ -14,17 +14,67 @@ using ERP.Web.Common;
 using System.Text.RegularExpressions;
 using ERP.Web.Models.NewModels.All;
 using ERP.Web.Models.NewModels.XuatKho;
+using System.Dynamic;
 
 namespace ERP.Web.Api.NganHang
 {
     public class Api_NganHangController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
-
+        [HttpGet]
         // GET: api/Api_NganHang
-        public IQueryable<NH_NTTK> GetNH_NTTK()
+        public ExpandoObject GetNH_NTTKLIST(DateTime? from_day = null, DateTime? to_day = null, string so_tai_khoan = null, int current_page = 1, int page_size = 10)
         {
-            return db.NH_NTTK;
+            //return _context.NH_NTTK;
+            IEnumerable<NH_NTTK> value = db.NH_NTTK;
+            //  var vData = db.NH_NTTK;
+            if (so_tai_khoan != null)
+            {
+                value = value.Where(c => c.NOP_VAO_TAI_KHOAN == so_tai_khoan);
+            }
+
+            if (to_day != null)
+            {
+                value = value.Where(c => c.NGAY_CHUNG_TU <= to_day);
+            }
+
+            if (from_day != null)
+            {
+                value = value.Where(c => c.NGAY_CHUNG_TU >= from_day);
+            }
+
+            int count = value.Count();
+            value = value.Skip(page_size * (current_page - 1)).Take(page_size);
+            int max_page = (count + page_size - 1) / page_size;
+
+            if (max_page < current_page)
+            {
+                current_page = max_page;
+            }
+
+            // List<NH_NTTK> Listtest = value.ToList();
+            var result = value.ToList().Select(x => new NH_NTTK()
+            {
+                SO_CHUNG_TU = x.SO_CHUNG_TU,
+                NGAY_HACH_TOAN = x.NGAY_HACH_TOAN,
+                NGAY_CHUNG_TU = x.NGAY_CHUNG_TU,
+                MA_DOI_TUONG = x.MA_DOI_TUONG,
+                NOP_VAO_TAI_KHOAN = x.NOP_VAO_TAI_KHOAN,
+                LY_DO_THU = x.LY_DO_THU,
+                DIEN_GIAI_LY_DO_THU = x.DIEN_GIAI_LY_DO_THU,
+                NHAN_VIEN_THU = x.NHAN_VIEN_THU,
+                TONG_TIEN = x.TONG_TIEN,
+                NGUOI_LAP_BIEU = x.NGUOI_LAP_BIEU,
+                TRUC_THUOC = x.TRUC_THUOC
+
+            }).ToList();
+
+            dynamic res_data = new ExpandoObject();
+            res_data.current_page = current_page;
+            res_data.page_size = page_size;
+            res_data.max_page = max_page;
+            res_data.data = result;
+            return res_data;
         }
 
         // GET: api/Api_NganHang/5
@@ -166,10 +216,46 @@ namespace ERP.Web.Api.NganHang
                     newItem.MA_DOI_TUONG = nhnttk.MA_DOI_TUONG;
                     newItem.DON_VI = item.DON_VI;
                     db.NH_CT_NTTK.Add(newItem);
-                  
+
 
                 }
             }
+            //Lưu nhật ký chung
+
+            if (chi_nganhang.ChiTietPTNH != null && chi_nganhang.ChiTietPTNH.Count > 0)
+            {
+                foreach (ChiTietPhieuThuNH item in chi_nganhang.ChiTietPTNH)
+                {
+                    KT_SO_NHAT_KY_CHUNG newitem = new KT_SO_NHAT_KY_CHUNG();
+                    newitem.SO_CHUNG_TU = nhnttk.SO_CHUNG_TU;
+                    newitem.NGAY_CHUNG_TU = nhnttk.NGAY_CHUNG_TU;
+                    newitem.NGAY_HACH_TOAN = nhnttk.NGAY_HACH_TOAN;
+                    newitem.DOI_TUONG = nhnttk.MA_DOI_TUONG;
+                    newitem.TRUC_THUOC = "HOPLONG";
+                    newitem.DIEN_GIAI_CHUNG = nhnttk.DIEN_GIAI_LY_DO_THU;
+                    newitem.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                    newitem.TAI_KHOAN_HACH_TOAN = item.TK_NO;
+                    newitem.TAI_KHOAN_DOI_UNG = item.TK_CO;
+                    newitem.PHAT_SINH_NO = tongtien;
+                    newitem.PHAT_SINH_CO = 0;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(newitem);
+                    KT_SO_NHAT_KY_CHUNG newitem1 = new KT_SO_NHAT_KY_CHUNG();
+                    newitem1.SO_CHUNG_TU = nhnttk.SO_CHUNG_TU;
+                    newitem1.NGAY_CHUNG_TU = nhnttk.NGAY_CHUNG_TU;
+                    newitem1.NGAY_HACH_TOAN = nhnttk.NGAY_HACH_TOAN;
+                    newitem1.DOI_TUONG = nhnttk.MA_DOI_TUONG;
+                    newitem1.TRUC_THUOC = "HOPLONG";
+                    newitem1.DIEN_GIAI_CHUNG = nhnttk.DIEN_GIAI_LY_DO_THU;
+                    newitem1.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                    newitem1.TAI_KHOAN_HACH_TOAN = item.TK_CO;
+                    newitem1.TAI_KHOAN_DOI_UNG = item.TK_NO;
+                    newitem1.PHAT_SINH_NO = 0;
+                    newitem1.PHAT_SINH_CO = tongtien;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(newitem1);
+                    db.SaveChanges();
+                }
+            }
+
 
             nhnttk.TONG_TIEN = tongtien;
 
@@ -193,7 +279,7 @@ namespace ERP.Web.Api.NganHang
 
 
             return Ok(nhnttk.SO_CHUNG_TU);
-            
+
         }
 
         // DELETE: api/Api_NganHang/5
