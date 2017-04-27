@@ -217,7 +217,7 @@ namespace ERP.Web.Api.Kho
 
                     newItem.MA_DIEU_CHINH = item.MA_DIEU_CHINH;
 
-                    newItem.MA_KHO_CON = item.MA_KHO;
+                    newItem.MA_KHO_CON = item.MA_KHO_CON;
                     newItem.TK_CO = item.TK_CO;
                     newItem.TK_NO = item.TK_NO;
                     newItem.DVT = item.DVT;
@@ -229,10 +229,10 @@ namespace ERP.Web.Api.Kho
                     newItem.TK_KHO = item.TK_KHO;
                     db.KHO_CT_XUAT_KHO.Add(newItem);
                     //Cập nhật hàng tồn
-                    TONKHO_HOPLONG newHangTon = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG && x.MA_KHO_CON == item.MA_KHO).FirstOrDefault();
+                    TONKHO_HOPLONG newHangTon = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG && x.MA_KHO_CON == item.MA_KHO_CON).FirstOrDefault();
                     if (newHangTon == null || newHangTon.SL_HOPLONG < item.SO_LUONG)
                     {
-                        return BadRequest("Hàng không có trong kho hoặc SL tồn không đủ");
+                        return Ok("Hàng không có trong kho hoặc SL tồn không đủ");
                     }
                     newHangTon.SL_HOPLONG -= Convert.ToInt32(item.SO_LUONG);
                     //if (newHangTon == null)
@@ -245,6 +245,49 @@ namespace ERP.Web.Api.Kho
                     //{
                     //    hangton.SL_HANG = Convert.ToInt32(item.SO_LUONG);
                     //}
+                    // Lưu Nhật ký
+                    KT_SO_NHAT_KY_CHUNG sonhatky = new KT_SO_NHAT_KY_CHUNG();
+                    sonhatky.SO_CHUNG_TU = newItem.SO_CHUNG_TU;
+                    sonhatky.NGAY_CHUNG_TU = xk.NGAY_CHUNG_TU;
+                    sonhatky.NGAY_HACH_TOAN = xk.NGAY_HACH_TOAN;
+                    if (xk.NGUOI_NHAN == null)
+                    {
+                        sonhatky.DOI_TUONG = xk.KHACH_HANG;
+                    }
+                    else
+                    {
+                        sonhatky.DOI_TUONG = xk.NGUOI_NHAN;
+                    }
+
+                    sonhatky.TRUC_THUOC = "HOPLONG";
+                    sonhatky.DIEN_GIAI_CHUNG = xk.LY_DO_XUAT;
+                    sonhatky.DIEN_GIAI_CHI_TIET = xk.LY_DO_XUAT;
+                    sonhatky.TAI_KHOAN_HACH_TOAN = newItem.TK_NO;
+                    sonhatky.TAI_KHOAN_DOI_UNG = newItem.TK_CO;
+                    sonhatky.PHAT_SINH_NO = tongtien;
+                    sonhatky.PHAT_SINH_CO = 0;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(sonhatky);
+                    KT_SO_NHAT_KY_CHUNG sonhatky1 = new KT_SO_NHAT_KY_CHUNG();
+                    sonhatky1.SO_CHUNG_TU = newItem.SO_CHUNG_TU;
+                    sonhatky1.NGAY_CHUNG_TU = xk.NGAY_CHUNG_TU;
+                    sonhatky1.NGAY_HACH_TOAN = xk.NGAY_HACH_TOAN;
+                    if (xk.NGUOI_NHAN == null)
+                    {
+                        sonhatky1.DOI_TUONG = xk.KHACH_HANG;
+                    }
+                    else
+                    {
+                        sonhatky1.DOI_TUONG = xk.NGUOI_NHAN;
+                    }
+                    sonhatky1.TRUC_THUOC = "HOPLONG";
+                    sonhatky1.DIEN_GIAI_CHUNG = xk.LY_DO_XUAT;
+                    sonhatky1.DIEN_GIAI_CHI_TIET = xk.LY_DO_XUAT;
+                    sonhatky1.TAI_KHOAN_HACH_TOAN = newItem.TK_CO;
+                    sonhatky1.TAI_KHOAN_DOI_UNG = newItem.TK_NO;
+                    sonhatky1.PHAT_SINH_NO = 0;
+                    sonhatky1.PHAT_SINH_CO = tongtien;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(sonhatky1);
+
 
                 }
             }
@@ -269,7 +312,7 @@ namespace ERP.Web.Api.Kho
 
             }
 
-            return Ok(xk.SO_CHUNG_TU);
+            return Ok("Chứng từ " + xk.SO_CHUNG_TU + "đã được tạo");
         }
 
         // DELETE: api/Api_XuatKho/5
