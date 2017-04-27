@@ -28,17 +28,13 @@ namespace ERP.Web.Api.MuaHang
             return data;
         }
 
-        // GET: api/Api_XuLyYeuCauHoiGia/5
+        [Route("api/Api_XuLyYeuCauHoiGia/GetNhatKyHoiGia/{id}/{macongty}")]
         [ResponseType(typeof(MH_XL_YEU_CAU_HOI_GIA))]
-        public IHttpActionResult GetMH_XL_YEU_CAU_HOI_GIA(int id)
+        public List<Prod_MH_NhatKyHoiGia_Result> GetNhatKyHoiGia(string id, string macongty)
         {
-            MH_XL_YEU_CAU_HOI_GIA mH_XL_YEU_CAU_HOI_GIA = db.MH_XL_YEU_CAU_HOI_GIA.Find(id);
-            if (mH_XL_YEU_CAU_HOI_GIA == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(mH_XL_YEU_CAU_HOI_GIA);
+            var query = db.Database.SqlQuery<Prod_MH_NhatKyHoiGia_Result>("Prod_MH_NhatKyHoiGia @mahang, @tructhuoc", new SqlParameter("mahang", id), new SqlParameter("tructhuoc", macongty));
+            var data = query.ToList();
+            return data;
         }
 
         // PUT: api/Api_XuLyYeuCauHoiGia/5

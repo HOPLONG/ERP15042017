@@ -13,5 +13,17 @@ namespace ERP.Web.Areas.Inventory.Controllers
         {
             return View();
         }
+
+
+        public ActionResult TachMaHang()
+        {
+            return View();
+        }
+
+        public ActionResult GopMaHang()
+        {
+            return View();
+        }
+
     }
 }
