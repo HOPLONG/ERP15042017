@@ -1,21 +1,4 @@
-﻿function ErrorSystem(errorString) {
-    new PNotify({
-        title: 'Thất bại',
-        text: errorString,
-        addclass: 'bg-danger'
-    });
-}
-
-function SuccessSystem(errorString) {
-    new PNotify({
-        title: 'Thành Công',
-        text: errorString,
-        addclass: 'bg-danger'
-    });
-}
-
-
-
+﻿
 
 app.controller('giamdocCtrl', function (giamdocService, $scope) {
     $scope.push = function (username) {
@@ -918,8 +901,10 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         });
     }
 
-    $scope.showInfoStaff = function (staff) {
+    $scope.showInfoSaleKD = function (staff) {
         $scope.nvkd = staff;
+        $scope.nvkd.HO_VA_TEN = staff.HO_VA_TEN;
+        $scope.nvkd.USERNAME = staff.USERNAME;
         $scope.showtable_ho_va_ten = false;
     }
     // End Lọc nhân viên

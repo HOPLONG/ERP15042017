@@ -43,5 +43,24 @@
             alert('Sự cố hệ thống, Bạn vui lòng kiểm tra kết nối Internet hoặc liên hệ với admin để được hỗ trợ ');
         });
     }
+    //-------------------------
+    var macongty = $("#macongty").val();
+    //Nhật ký hỏi hàng
+    $scope.nhatkyhoihang = function (mahang) {
+        var mact = macongty;
+        //Lưu vào CSDL
+        $http.get("/api/Api_XuLyYeuCauHoiGia/GetNhatKyHoiGia/" + mahang + "/" + mact)
+           .then(function successCallback(response) {
+               $scope.nkhoihang = response.data;
+           }, function errorCallback(response) {
+               console.log(response);
+               ErrorSystem("Sự cố đường truyền, hãy kiểm tra lại mạng Internet");
+           });
+
+    }
+    //-------------------------
+
+
+
 
 });

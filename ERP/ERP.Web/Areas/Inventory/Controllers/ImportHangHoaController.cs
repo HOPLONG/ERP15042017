@@ -214,7 +214,7 @@ namespace ERP.Web.Areas.Inventory.Controllers
 
         #endregion
 
-        #region "Import hàng tồn kho"
+        #region "Import hàng tồn kho Hợp Long"
 
         [HttpPost]
         public ActionResult Import_Hangtonkho(HttpPostedFileBase file)
@@ -242,7 +242,8 @@ namespace ERP.Web.Areas.Inventory.Controllers
 
                                 TONKHO_HOPLONG tonkho = new TONKHO_HOPLONG();
                                 tonkho.MA_HANG = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                tonkho.SL_HOPLONG = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
+                                tonkho.MA_KHO_CON = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                tonkho.SL_HOPLONG = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
 
                                 db.TONKHO_HOPLONG.Add(tonkho);
 
@@ -272,7 +273,7 @@ namespace ERP.Web.Areas.Inventory.Controllers
 
         #endregion
 
-        #region "Update hàng tồn kho"
+        #region "Update hàng tồn kho hợp long"
 
         [HttpPost]
         public ActionResult Update_Hangtonkho(HttpPostedFileBase file)
@@ -299,10 +300,11 @@ namespace ERP.Web.Areas.Inventory.Controllers
                             for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                             {
                                 var mahang = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                var tonkho = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == mahang).FirstOrDefault();
+                                var makhocon = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                var tonkho = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == mahang && x.MA_KHO_CON == makhocon).FirstOrDefault();
                                 if(tonkho != null)
                                 {
-                                    tonkho.SL_HOPLONG = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
+                                    tonkho.SL_HOPLONG = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
                                     so_dong_thanh_cong++;
                                 }
                                 else
@@ -461,6 +463,437 @@ namespace ERP.Web.Areas.Inventory.Controllers
 
             return View("Import_Hanghoa");
         }
+
+        #endregion
+
+
+
+        #region "Tồn Kho HCM"
+
+        #region "Import hàng tồn kho HCM"
+        public ActionResult Import_TonKhoHCM()
+        {
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Import_TonKhoHCM(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase filetonkho = Request.Files["UploadedFile"];
+                    if ((filetonkho != null) && (filetonkho.ContentLength > 0) && !string.IsNullOrEmpty(filetonkho.FileName))
+                    {
+                        string fileName = filetonkho.FileName;
+                        string fileContentType = filetonkho.ContentType;
+                        byte[] fileBytes = new byte[filetonkho.ContentLength];
+                        var data = filetonkho.InputStream.Read(fileBytes, 0, Convert.ToInt32(filetonkho.ContentLength));
+                        //var usersList = new List<Users>();
+                        using (var package = new ExcelPackage(filetonkho.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+
+                                TONKHO_TAHCM tonkho = new TONKHO_TAHCM();
+                                tonkho.MA_HANG = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                tonkho.MA_KHO_CON = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                tonkho.SL_TAHCM = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
+
+                                db.TONKHO_TAHCM.Add(tonkho);
+
+
+                                db.SaveChanges();
+                                so_dong_thanh_cong++;
+                                dong = rowIterator;
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+                ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+
+            }
+            finally
+            {
+                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+            }
+
+            return View("Import_TonKhoHCM");
+        }
+
+        #endregion
+
+        #region "Update hàng tồn kho HCM"
+
+        [HttpPost]
+        public ActionResult Update_TonKhoHCM(HttpPostedFileBase file)
+        {
+
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase filetonkho = Request.Files["UpFile"];
+                    if ((filetonkho != null) && (filetonkho.ContentLength > 0) && !string.IsNullOrEmpty(filetonkho.FileName))
+                    {
+                        string fileName = filetonkho.FileName;
+                        string fileContentType = filetonkho.ContentType;
+                        byte[] fileBytes = new byte[filetonkho.ContentLength];
+                        var data = filetonkho.InputStream.Read(fileBytes, 0, Convert.ToInt32(filetonkho.ContentLength));
+                        //var usersList = new List<Users>();
+                        using (var package = new ExcelPackage(filetonkho.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                var mahang = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                var makhocon = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                var tonkho = db.TONKHO_TAHCM.Where(x => x.MA_HANG == mahang && x.MA_KHO_CON == makhocon).FirstOrDefault();
+                                if (tonkho != null)
+                                {
+                                    tonkho.SL_TAHCM = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
+                                    so_dong_thanh_cong++;
+                                }
+                                else
+                                {
+                                    result = result + " " + ((rowIterator - 1).ToString()) + ", ";
+                                }
+
+
+
+                                //db.DM_HANG_TON_KHO.Add(tonkho);
+
+                                db.SaveChanges();
+
+                                // dong = rowIterator;
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+                // ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+
+            }
+            finally
+            {
+                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+                ViewBag.Dongloi = "Các dòng bị lỗi là: " + result;
+
+
+
+
+            }
+
+            return View("Import_TonKhoHCM");
+        }
+
+        #endregion
+
+        #endregion
+
+
+
+        #region "Tồn Kho DN"
+
+        #region "Import hàng tồn kho DN"
+        public ActionResult Import_TonKhoDN()
+        {
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Import_TonKhoDN(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase filetonkho = Request.Files["UploadedFile"];
+                    if ((filetonkho != null) && (filetonkho.ContentLength > 0) && !string.IsNullOrEmpty(filetonkho.FileName))
+                    {
+                        string fileName = filetonkho.FileName;
+                        string fileContentType = filetonkho.ContentType;
+                        byte[] fileBytes = new byte[filetonkho.ContentLength];
+                        var data = filetonkho.InputStream.Read(fileBytes, 0, Convert.ToInt32(filetonkho.ContentLength));
+                        //var usersList = new List<Users>();
+                        using (var package = new ExcelPackage(filetonkho.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+
+                                TONKHO_TADN tonkho = new TONKHO_TADN();
+                                tonkho.MA_HANG = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                tonkho.MA_KHO_CON = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                tonkho.SL_TADN = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
+
+                                db.TONKHO_TADN.Add(tonkho);
+
+
+                                db.SaveChanges();
+                                so_dong_thanh_cong++;
+                                dong = rowIterator;
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+                ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+
+            }
+            finally
+            {
+                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+            }
+
+            return View("Import_TonKhoDN");
+        }
+
+        #endregion
+
+        #region "Update hàng tồn kho DN"
+
+        [HttpPost]
+        public ActionResult Update_TonKhoDN(HttpPostedFileBase file)
+        {
+
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase filetonkho = Request.Files["UpFile"];
+                    if ((filetonkho != null) && (filetonkho.ContentLength > 0) && !string.IsNullOrEmpty(filetonkho.FileName))
+                    {
+                        string fileName = filetonkho.FileName;
+                        string fileContentType = filetonkho.ContentType;
+                        byte[] fileBytes = new byte[filetonkho.ContentLength];
+                        var data = filetonkho.InputStream.Read(fileBytes, 0, Convert.ToInt32(filetonkho.ContentLength));
+                        //var usersList = new List<Users>();
+                        using (var package = new ExcelPackage(filetonkho.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                var mahang = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                var makhocon = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                var tonkho = db.TONKHO_TADN.Where(x => x.MA_HANG == mahang && x.MA_KHO_CON == makhocon).FirstOrDefault();
+                                if (tonkho != null)
+                                {
+                                    tonkho.SL_TADN = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
+                                    so_dong_thanh_cong++;
+                                }
+                                else
+                                {
+                                    result = result + " " + ((rowIterator - 1).ToString()) + ", ";
+                                }
+
+
+
+                                //db.DM_HANG_TON_KHO.Add(tonkho);
+
+                                db.SaveChanges();
+
+                                // dong = rowIterator;
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+                // ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+
+            }
+            finally
+            {
+                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+                ViewBag.Dongloi = "Các dòng bị lỗi là: " + result;
+
+
+
+
+            }
+
+            return View("Import_TonKhoDN");
+        }
+
+        #endregion
+
+        #endregion
+
+
+        #region "Tồn Kho DN"
+
+        #region "Import hàng tồn kho DN"
+        public ActionResult Import_TonKhoHP()
+        {
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Import_TonKhoHP(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase filetonkho = Request.Files["UploadedFile"];
+                    if ((filetonkho != null) && (filetonkho.ContentLength > 0) && !string.IsNullOrEmpty(filetonkho.FileName))
+                    {
+                        string fileName = filetonkho.FileName;
+                        string fileContentType = filetonkho.ContentType;
+                        byte[] fileBytes = new byte[filetonkho.ContentLength];
+                        var data = filetonkho.InputStream.Read(fileBytes, 0, Convert.ToInt32(filetonkho.ContentLength));
+                        //var usersList = new List<Users>();
+                        using (var package = new ExcelPackage(filetonkho.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+
+                                TONKHO_TAHP tonkho = new TONKHO_TAHP();
+                                tonkho.MA_HANG = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                tonkho.MA_KHO_CON = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                tonkho.SL_TAHP = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
+
+                                db.TONKHO_TAHP.Add(tonkho);
+
+
+                                db.SaveChanges();
+                                so_dong_thanh_cong++;
+                                dong = rowIterator;
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+                ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+
+            }
+            finally
+            {
+                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+            }
+
+            return View("Import_TonKhoHP");
+        }
+
+        #endregion
+
+        #region "Update hàng tồn kho HP"
+
+        [HttpPost]
+        public ActionResult Update_TonKhoHP(HttpPostedFileBase file)
+        {
+
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase filetonkho = Request.Files["UpFile"];
+                    if ((filetonkho != null) && (filetonkho.ContentLength > 0) && !string.IsNullOrEmpty(filetonkho.FileName))
+                    {
+                        string fileName = filetonkho.FileName;
+                        string fileContentType = filetonkho.ContentType;
+                        byte[] fileBytes = new byte[filetonkho.ContentLength];
+                        var data = filetonkho.InputStream.Read(fileBytes, 0, Convert.ToInt32(filetonkho.ContentLength));
+                        //var usersList = new List<Users>();
+                        using (var package = new ExcelPackage(filetonkho.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                var mahang = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                var makhocon = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                var tonkho = db.TONKHO_TAHP.Where(x => x.MA_HANG == mahang && x.MA_KHO_CON == makhocon).FirstOrDefault();
+                                if (tonkho != null)
+                                {
+                                    tonkho.SL_TAHP = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
+                                    so_dong_thanh_cong++;
+                                }
+                                else
+                                {
+                                    result = result + " " + ((rowIterator - 1).ToString()) + ", ";
+                                }
+
+
+
+                                //db.DM_HANG_TON_KHO.Add(tonkho);
+
+                                db.SaveChanges();
+
+                                // dong = rowIterator;
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+                // ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+
+            }
+            finally
+            {
+                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+                ViewBag.Dongloi = "Các dòng bị lỗi là: " + result;
+
+
+
+
+            }
+
+            return View("Import_TonKhoHP");
+        }
+
+        #endregion
 
         #endregion
     }

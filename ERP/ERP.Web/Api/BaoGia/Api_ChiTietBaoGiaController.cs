@@ -185,7 +185,7 @@ namespace ERP.Web.Api.BaoGia
                     throw;
             }
 
-            return Ok("Thành công");
+            return Ok("Thành Công");
         }
 
         public string GenerateSoBaoGia()
