@@ -81,6 +81,7 @@ namespace ERP.Web.Api.BaoGia
                     baogia.DVT = item.DVT;
                     baogia.DON_GIA = item.DON_GIA;
                     baogia.THANH_TIEN = item.THANH_TIEN;
+                    baogia.THANH_TIEN_NET = item.THANH_TIEN_NET;
                     baogia.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
                     baogia.CHIET_KHAU = item.CHIET_KHAU;
                     baogia.GIA_LIST = item.GIA_LIST;
@@ -108,6 +109,7 @@ namespace ERP.Web.Api.BaoGia
                     newbaogia.DVT = item.DVT;
                     newbaogia.DON_GIA = item.DON_GIA;
                     newbaogia.THANH_TIEN = item.THANH_TIEN;
+                    newbaogia.THANH_TIEN_NET = item.THANH_TIEN_NET;
                     newbaogia.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
                     newbaogia.CHIET_KHAU = item.CHIET_KHAU;
                     newbaogia.GIA_LIST = item.GIA_LIST;
@@ -161,6 +163,7 @@ namespace ERP.Web.Api.BaoGia
                 lienhe.DVT = item.DVT;
                 lienhe.DON_GIA = item.DON_GIA;
                 lienhe.THANH_TIEN = item.THANH_TIEN;
+                lienhe.THANH_TIEN_NET = item.THANH_TIEN_NET;
                 lienhe.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
                 lienhe.CHIET_KHAU = item.CHIET_KHAU;
                 lienhe.GIA_LIST = item.GIA_LIST;
@@ -229,7 +232,7 @@ namespace ERP.Web.Api.BaoGia
             var thongtinchung = db.BH_BAO_GIA.Where(x => x.SO_BAO_GIA == SoBaoGia).FirstOrDefault();
 
             for (var i = 0; i < chitiet.Count; i++) {
-                tong_gia_tri_thuc_te_edit = chitiet[i].DON_GIA_BAO_DI_NET + tong_gia_tri_thuc_te_edit;
+                tong_gia_tri_thuc_te_edit = chitiet[i].THANH_TIEN_NET + tong_gia_tri_thuc_te_edit;
                 tong_gia_tri_theo_hop_dong_edit = chitiet[i].THANH_TIEN + tong_gia_tri_theo_hop_dong_edit;
                 tong_chi_phi_hoa_don_edit = chitiet[i].TIEN_THUE_TNDN + tong_chi_phi_hoa_don_edit;
                 tong_khach_nhan_edit = chitiet[i].KHACH_NHAN_DUOC + tong_khach_nhan_edit;
@@ -281,7 +284,7 @@ namespace ERP.Web.Api.BaoGia
 
             for (var i = 0; i < chitiet.Count; i++)
             {
-                tong_gia_tri_thuc_te_edit = chitiet[i].DON_GIA_BAO_DI_NET + tong_gia_tri_thuc_te_edit;
+                tong_gia_tri_thuc_te_edit = chitiet[i].THANH_TIEN_NET + tong_gia_tri_thuc_te_edit;
                 tong_gia_tri_theo_hop_dong_edit = chitiet[i].THANH_TIEN + tong_gia_tri_theo_hop_dong_edit;
                 tong_chi_phi_hoa_don_edit = chitiet[i].TIEN_THUE_TNDN + tong_chi_phi_hoa_don_edit;
                 tong_khach_nhan_edit = chitiet[i].KHACH_NHAN_DUOC + tong_khach_nhan_edit;
@@ -310,6 +313,7 @@ namespace ERP.Web.Api.BaoGia
                 lienhe.DVT = item.DVT;
                 lienhe.DON_GIA = item.DON_GIA;
                 lienhe.THANH_TIEN = item.THANH_TIEN;
+                lienhe.THANH_TIEN_NET = item.THANH_TIEN_NET;
                 lienhe.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
                 lienhe.CHIET_KHAU = item.CHIET_KHAU;
                 lienhe.GIA_LIST = item.GIA_LIST;
@@ -385,6 +389,7 @@ namespace ERP.Web.Api.BaoGia
                 lienhe.DVT = item.DVT;
                 lienhe.DON_GIA = item.DON_GIA;
                 lienhe.THANH_TIEN = item.THANH_TIEN;
+                lienhe.THANH_TIEN_NET = item.THANH_TIEN_NET;
                 lienhe.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
                 lienhe.CHIET_KHAU = item.CHIET_KHAU;
                 lienhe.GIA_LIST = item.GIA_LIST;

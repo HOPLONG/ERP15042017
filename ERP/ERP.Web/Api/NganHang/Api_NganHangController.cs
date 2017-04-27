@@ -220,6 +220,42 @@ namespace ERP.Web.Api.NganHang
 
                 }
             }
+            //Lưu nhật ký chung
+
+            if (chi_nganhang.ChiTietPTNH != null && chi_nganhang.ChiTietPTNH.Count > 0)
+            {
+                foreach (ChiTietPhieuThuNH item in chi_nganhang.ChiTietPTNH)
+                {
+                    KT_SO_NHAT_KY_CHUNG newitem = new KT_SO_NHAT_KY_CHUNG();
+                    newitem.SO_CHUNG_TU = nhnttk.SO_CHUNG_TU;
+                    newitem.NGAY_CHUNG_TU = nhnttk.NGAY_CHUNG_TU;
+                    newitem.NGAY_HACH_TOAN = nhnttk.NGAY_HACH_TOAN;
+                    newitem.DOI_TUONG = nhnttk.MA_DOI_TUONG;
+                    newitem.TRUC_THUOC = "HOPLONG";
+                    newitem.DIEN_GIAI_CHUNG = nhnttk.DIEN_GIAI_LY_DO_THU;
+                    newitem.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                    newitem.TAI_KHOAN_HACH_TOAN = item.TK_NO;
+                    newitem.TAI_KHOAN_DOI_UNG = item.TK_CO;
+                    newitem.PHAT_SINH_NO = tongtien;
+                    newitem.PHAT_SINH_CO = 0;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(newitem);
+                    KT_SO_NHAT_KY_CHUNG newitem1 = new KT_SO_NHAT_KY_CHUNG();
+                    newitem1.SO_CHUNG_TU = nhnttk.SO_CHUNG_TU;
+                    newitem1.NGAY_CHUNG_TU = nhnttk.NGAY_CHUNG_TU;
+                    newitem1.NGAY_HACH_TOAN = nhnttk.NGAY_HACH_TOAN;
+                    newitem1.DOI_TUONG = nhnttk.MA_DOI_TUONG;
+                    newitem1.TRUC_THUOC = "HOPLONG";
+                    newitem1.DIEN_GIAI_CHUNG = nhnttk.DIEN_GIAI_LY_DO_THU;
+                    newitem1.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                    newitem1.TAI_KHOAN_HACH_TOAN = item.TK_CO;
+                    newitem1.TAI_KHOAN_DOI_UNG = item.TK_NO;
+                    newitem1.PHAT_SINH_NO = 0;
+                    newitem1.PHAT_SINH_CO = tongtien;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(newitem1);
+                    db.SaveChanges();
+                }
+            }
+
 
             nhnttk.TONG_TIEN = tongtien;
 

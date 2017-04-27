@@ -100,16 +100,15 @@ namespace ERP.Web.Api.Kho
 
 
         #region "Get All Doi Tuong"
-
-        [Route("api/Api_XuatNhapKho/GetAllDoiTuong")]
-        public List<GetAllDoiTuong_Result> GetAllDoiTuong()
+        [HttpPost]
+        [Route("api/Api_XuatNhapKho/GetAllDoiTuong/{mdt}")]
+        public List<GetAllDoiTuong_Result> GetAllDoiTuong(string mdt)
         {
-
-
             var query = db.Database.SqlQuery<GetAllDoiTuong_Result>("GetAllDoiTuong @macongty", new SqlParameter("macongty", "HOPLONG"));
             var resultAllDT = query.ToList();
-
-            return resultAllDT;
+            var kq = resultAllDT.Where(x => x.TEN_DOI_TUONG.ToLower().Contains(mdt.ToLower())).Take(10).ToList();
+            return kq;
+           
         }
         #endregion
 

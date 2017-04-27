@@ -5,7 +5,7 @@
 <link href="~/Content/self-writing/css/Nganhang/style.css" rel="stylesheet" />
 <script src="~/Content/self-writing/js/Controllers/NganhangCtrl/PhieuChiTienMat/ctrlChiKhac.js"></script>
 <script src="~/Content/self-writing/js/date_directive.js"></script>
-
+<script src="~/Content/download/number_directive.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 <div class="container" ng-app="myApp" ng-controller="ctrlChiKhac">
@@ -41,7 +41,7 @@
                                                             <span class="caret"></span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_ma_doi_tuong">
-                                                            <div class="table-responsive" style="max-height:270px; max-width:280px;">
+                                                            <div class="table-responsive" style="max-height:3500px;">
                                                                 <table class="table table-striped table-hover" st-table="dtCollection" st-safe-src="arrayDTFinded" style="display: block" ng-mouseenter="hovertable_MDT = true" ng-mouseleave="hovertable_MDT = false">
                                                                     <thead class="bg-blue text-white">
                                                                         <tr>
@@ -51,10 +51,8 @@
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr style="cursor:pointer" ng-click="showInfoDT(dt)" ng-repeat="dt in dtCollection">
-                                                                            <td>{{dt.MA_KHACH_HANG}}</td>
-                                                                            <td>{{dt.TEN_CONG_TY}}</td>
-                                                                            <td></td>
-                                                                            <td></td>
+                                                                            <td>{{dt.MA_DOI_TUONG}}</td>
+                                                                            <td>{{dt.TEN_DOI_TUONG}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -115,19 +113,18 @@
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <div>Nhân viên</div>
+                                                <div>Nhân viên thu</div>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" ng-model="arrayTongHop.ho_va_ten">
-
+                                                    <input type="text" class="form-control" ng-model="arrayTongHop.ho_va_ten" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
                                                     <div class="input-group-btn">
-                                                        <button type="button" class="btn btn-default dropdown-toggle" style="height:34px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_ho_va_ten = !showtable_ho_va_ten" aria-haspopup="true" aria-expanded="false">
                                                             <span class="caret"></span>
                                                         </button>
-                                                        <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0">
+                                                        <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_ho_va_ten">
                                                             <div class="table-responsive" style="max-height: 280px">
-                                                                <table class="table table-striped table-hover" st-pagination-scroll st-table="staffsCollection" st-safe-src="arrayStaffs">
+                                                                <table class="table table-striped table-hover" st-pagination-scroll st-table="staffsCollection" st-safe-src="arrayNVFinded">
                                                                     <thead class="bg-blue text-white">
                                                                         <tr>
                                                                             <th>Mã nhân viên</th>
@@ -147,22 +144,8 @@
                                                                 </table>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                Kèm theo
-                                            </div>
-                                            <div class="col-md-5">
-                                                <input type="text" class="form-control" ng-model="ma_chung_tu_tham_chieu">
-                                            </div>
-                                            <div class="col-md-4">
-                                                Chứng từ gốc
                                             </div>
                                         </div>
                                     </div>
@@ -197,7 +180,7 @@
                                         <div>Ngày hạch toán</div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" datepicker class="form-control datetimepickerKT" ng-model="arrayTongHop.ngay_hach_toan">
+                                        <input type="text" id="ngay_hach_toan" class="form-control datetimepickerKT" ng-model="arrayTongHop.ngay_hach_toan">
                                     </div>
                                 </div>
                             </div>
@@ -207,7 +190,8 @@
                                         <div>Ngày chứng từ</div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" datepicker class="form-control datetimepickerKT" ng-model="arrayTongHop.ngay_chung_tu">
+                                        <input type="text" id="ngay_chung_tu" class="form-control datetimepickerKT" ng-model="arrayTongHop.ngay_chung_tu">
+                                        @*<button ng-click="test_()">test</button>*@
                                     </div>
                                 </div>
                             </div>
@@ -217,7 +201,7 @@
                                         <div>Số chứng từ</div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" ng-model="arrayTongHop.SoChungTu" class="form-control" disabled="disabled">
+                                        <input type="text"  ng-model="arrayTongHop.SoChungTu" class="form-control" disabled="disabled">
                                     </div>
                                 </div>
                             </div>
@@ -253,9 +237,9 @@
                         <div class="col-md-6">
                             <div class="text-right">
                                 <form class="form-inline">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">
                                         <label class="marginR15">Tỷ giá</label>
-                                        <input type="number" class="form-control" ng-model="arraydiengiai[indexcurrent].TY_GIA">
+                                        <input type="text" format='number' class="form-control" ng-model="arraydiengiai[indexcurrent].TY_GIA">
                                     </div>
                                 </form>
                             </div>
@@ -292,7 +276,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><a href="" ng-click="addTongHop()">Bấm vào đây để thêm mới dòng</a></td>
+                                        <td><a href="" ng-click="addTongHop()">Bấm vào đây để thêm mới</a></td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
@@ -306,13 +290,13 @@
                                         <td><input type="text" class="form-control" style="max-width: 170px;" ng-model="arraydiengiai[$index].DIEN_GIAI" ng-disabled="indexcurrent != $index" id="diengiai"></td>
                                         <td>
                                             <div class="input-group maxWidth150">
-                                                <input type="text" class="form-control" ng-model="arraydiengiai[$index].TK_NO" ng-disabled="indexcurrent != $index">
+                                                <input type="text" class="form-control" ng-model="arraydiengiai[$index].TK_NO" ng-disabled="indexcurrent != $index" ng-focus="showtable_tk = true">
                                                 <div class="input-group-btn">
                                                     <button type="button" class="btn btn-default dropdown-toggle height_hachtoan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="indexcurrent != $index">
                                                         <span class="caret"></span>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0">
-                                                        <div class="table-responsive" style="max-height:200px">
+                                                        <div class="table-responsive" style="max-width:500px; max-height:200px;">
                                                             <table class="table table-striped table-hover " st-pagination-scroll st-table="tknoCollections" st-safe-src="arrayBankHackToan">
                                                                 <thead class="bg-blue text-white">
                                                                     <tr>
@@ -321,7 +305,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr ng-repeat="valuetkno in tknoCollections" ng-click="showInfoTKNo(valuetkno)" style="cursor:pointer">
+                                                                    <tr ng-repeat="valuetkno in tknoCollections | filter: arraydiengiai[$index].TK_NO" ng-click="showInfoTKNo(valuetkno)" style="cursor:pointer">
                                                                         <td>{{valuetkno.SO_TK}}</td>
                                                                         <td>{{valuetkno.TEN_TK}}</td>
                                                                     </tr>
@@ -340,7 +324,7 @@
                                                         <span class="caret"></span>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0">
-                                                        <div class="table-responsive" style="max-height:200px">
+                                                        <div class="table-responsive" style="max-width:500px; max-height:200px;">
                                                             <table class="table table-striped table-hover " st-pagination-scroll st-table="tknoCollections" st-safe-src="arrayBankHackToan">
                                                                 <thead class="bg-blue text-white">
                                                                     <tr>
@@ -360,8 +344,8 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><input type="number" class="form-control maxWidth120" ng-model="valueTongHop.SO_TIEN" ng-disabled="indexcurrent != $index" ng-init="valueTongHop.SO_TIEN = 0.00"> </td>
-                                        <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">{{valueTongHop.SO_TIEN * valueTongHop.TY_GIA}}</td>
+                                        <td><input type="text" format='number' class="form-control maxWidth120" ng-model="valueTongHop.SO_TIEN" ng-disabled="indexcurrent != $index" ng-init="valueTongHop.SO_TIEN = 0.00"> </td>
+                                        <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">{{valueTongHop.SO_TIEN * valueTongHop.TY_GIA | currency: ''}}</td>
                                         <td> {{arrayTongHop.ma_doi_tuong}}</td>
                                         <td>{{arrayTongHop.ten_doi_tuong}}</td>
                                         @*<td><input type="text" class="form-control" ng-model="arraydiengiai[$index].tk_ngan_hang" ng-disabled="indexcurrent != $index"></td>*@
@@ -373,7 +357,7 @@
                                                         <span class="caret"></span>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="left: -299px;">
-                                                        <div class="table-responsive" style="max-height:200px">
+                                                        <div class="table-responsive" style="max-width:500px; max-height:200px;">
                                                             <table class="table table-striped table-hover " st-pagination-scroll st-table="tknhCollections" st-safe-src="arrayBanks">
                                                                 <thead class="bg-blue text-white">
                                                                     <tr>
@@ -395,7 +379,61 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-center"><button ng-click="RemoveRow($index)" style="background: none !important"><span class="glyphicon glyphicon-remove" style="color:red;"></span></button></td>
+                                        <td class="text-center"><button ng-click="RemoveRow($index)" style="background: none !important; border: none !important;"><span class="glyphicon glyphicon-remove" style="color:red;"></span></button></td>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td ng-show="arraydiengiai[indexcurrent].LOAI_TIEN != 'VND'">&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
                                     </tr>
                                    
                                 </tbody>
@@ -422,7 +460,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><a href="" ng-click="addTongHop()">Bấm vào đây để thêm mới dòng</a></td>
+                                        <td><a href="" ng-click="addTongHop()">Bấm vào đây để thêm mới</a></td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
@@ -473,7 +511,46 @@
                                         <td><input type="text" class="form-control" ng-model="arraydiengiai[$index].MAU_SO_HD" ng-disabled="indexcurrent != $index"></td>
                                         <td><input type="text" class="form-control" ng-model="arraydiengiai[$index].KY_HIEU_HD" ng-disabled="indexcurrent != $index"></td>
                                         <td>{{arrayTongHop.ma_doi_tuong}}</td>
-                                        <td class="text-center"><button ng-click="RemoveRow($index)" style="background: none !important"><span class="glyphicon glyphicon-remove" style="color:red;"></span></button></td>
+                                        <td class="text-center"><button ng-click="RemoveRow($index)" style="background: none !important; border: none !important;"><span class="glyphicon glyphicon-remove" style="color:red;"></span></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
                                     </tr>
                                     
                                 </tbody>
@@ -502,7 +579,7 @@
                                         <label class="control-label col-lg-2">Giá trị</label>
                                         <div class="col-lg-5" style="position:relative;z-index:100">
                                             <div class="has-feedback" id="Input_DataGiaTriChungTu" style="display:none" ng-click="ShowDataGiaTriChungTu()">
-                                                <input type="text" ng-model="GiaTriChungTu.Search" class="form-control showtableselect">
+                                                <input type="text" ng-model="GiaTriChungTu.Search" class="form-control showtableselect" ng-change="DoiTuongFind()">
                                                 <div class="form-control-feedback">
                                                     <i class="icon-arrow-down5"></i>
                                                 </div>
