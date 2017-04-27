@@ -5,10 +5,10 @@ using System.Web;
 
 namespace ERP.Web.Models.NewModels
 {
-    public class ChiTietDonHangPO
+    public class ChiTietDonBanHang
     {
         public int ID { set; get; }
-        public string MA_SO_PO { set; get; }
+        public string MA_SO_BH { set; get; }
         public string MA_HANG { set; get; }
         public string MA_DIEU_CHINH { set; get; }
         public string DVT { set; get; }
@@ -22,5 +22,6 @@ namespace ERP.Web.Models.NewModels
         public string TK_CO { set; get; }
         public string TK_THUE { set; get; }
         public string DIEN_GIAI_THUE { set; get; }
+        public string MA_PO { set; get; }
     }
 }

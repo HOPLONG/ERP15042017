@@ -16,98 +16,104 @@
 <br />
 <div ng-app="myApp"  ng-controller="TonCacNoiCtrl" >
     <div class="content">
-
+        <input type="hidden" name="macongty" id="macongty" value="@Session["MA_CONG_TY"]">
         <!--Tìm Kiếm Hàng Hóa-->
         <div class="tab-pane fade in" style="border:1px solid #ddd">
-            <center>
-                <div id="quick-access" style="padding-bottom: 20px;padding-top: 20px; align-content:center">
-                    <form class="form-inline quick-search-form" role="form" action="#">
-                        <div class="form-group" style="width: 90%">
-                            <input type="text" style="width: 60%" class="form-control" placeholder="Nhập mã hàng chuẩn tại đây" ng-model="search_text">
-
-                            <button type="button" style="border-radius: 5px" class="btn btn-info" ng-model="find" ng-click="datatonkho(search_text)">Tìm kiếm</button>
-                        </div>
-                    </form>
-                </div>
-            </center>
-
-
-
+            
             <div class="col-md-12 content-group" >
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover ">
-                        <thead>
+                        <tr>
+                            <td colspan="15" class="text-center">
+                                <input type="text" style="width: 100%" class="form-control" placeholder="Nhập mã hàng chuẩn tại đây" ng-model="search_text">
+                            </td>
+                                <td colspan="4" class="text-left"><button type="button" style="border-radius: 5px" class="btn btn-info" ng-model="find" ng-click="datatonkho(search_text)">Tìm kiếm</button></td>
+                        </tr>
                             <tr class="bg-primary-300">
-                                <th style="width:6%" class="text-left">Mã hàng</th>
-                                <th style="width:6%" class="text-center">Tên hàng</th>
-                                <th style="width:6%" class="text-center">Mã chuẩn</th>
-                                <th style="width:8%" class="text-center">Thông số</th>
-                                <th style="width:4%" class="text-center">Hãng</th>
-                                <th style="width:2%" class="text-center">ĐVT</th>
-                                <th style="width:5%" class="text-center">Xuất xứ</th>
-                                <th style="width:6%" class="text-center">Giá List</th>
-                                <th style="width:5%" class="text-center">Discontinue</th>
-                                <th style="width:8%" class="text-center">Mã chuyển đổi</th>
-                                <th style="width:4%" class="text-center">Tồn HL</th>
-                                <th style="width:4%" class="text-center">Tồn ĐN</th>
-                                <th style="width:5%" class="text-center">Tồn HCM</th>
-                                <th style="width:4%" class="text-center">Tồn HP</th>
-                                <th style="width:5%" class="text-center">Đang giữ</th>
-                                <th style="width:5%" class="text-center">Ký gửi</th>
-                                <th style="width:5%" class="text-center">Tồn Hãng</th>
-                                <th style="width:9%" class="text-center">Thời gian cấp hàng (Hãng)</th>
-                                <th style="width:5%" class="text-center"></th>
+                                <th style="width:15%" class="text-center">Mã chuẩn</th>
+                                <th style="width:15%" class="text-center">Thông số</th>
+                                <th style="width:5%" class="text-center">Hãng/Xuất xứ</th>
+                                <th style="width:3%" class="text-center">ĐVT</th>
+                                <th style="width:10%" class="text-center">Giá List</th>
+                                <th style="width:5%" class="text-center">Discontinue <br />Mã chuyển đổi</th>
+                                <th style="width:3%" class="text-center">Tồn T2</th>
+                                <th style="width:3%" class="text-center">Tồn T3</th>
+                                <th style="width:3%" class="text-center">Tồn T4</th>
+                                <th style="width:3%" class="text-center">Đang giữ</th>
+                                <th style="width:3%" class="text-center">KG đi</th>
+                                <th style="width:3%" class="text-center">KG đến</th>
+                                <th style="width:3%" class="text-center">Đang về</th>
+                                <th style="width:3%" class="text-center">Tồn ĐN</th>
+                                <th style="width:3%" class="text-center">Tồn HCM</th>
+                                <th style="width:3%" class="text-center">Tồn HP</th>
+                                <th style="width:3%" class="text-center">Tồn Hãng</th>
+                                <th colspan="2" style="width:8%" class="text-center"></th>
                             </tr>
-                        </thead>
                         <tbody>
                             <tr ng-repeat="item in listtonkho">
 
-                                <td>
+                                <td class="text-left">
                                     <div>
-                                        {{item.MA_HANG }}
+                                        {{item.MA_CHUAN }}<br />
+                                        {{item.TEN_HANG }}
                                     </div>
                                 </td>
-                                <td>
-                                    {{item.TEN_HANG }}
-                                </td>
-                                <td class="text-center">
-                                    {{item.MA_CHUAN }}
-                                </td>
-                                <td class="text-center">
+                                <td class="text-left">
                                     {{item.THONG_SO }}
                                 </td>
                                 <td class="text-center">
-                                    {{item.MA_NHOM_HANG }}
+                                    {{item.MA_NHOM_HANG }}<br /> {{item.XUAT_XU }}
+                                   
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <div>
                                         {{item.DVT }}
                                     </div>
                                 </td>
-
-                                <td>
-                                    <div>
-                                        {{item.XUAT_XU }}
-                                    </div>
-                                </td>
-                                <td>
+                                <td class="text-right">
                                     <div>
                                         {{item.GIA_LIST | currency:'':0}} vnd
                                     </div>
                                 </td>
                                 <td>
                                     <div class="text-center">
-                                        <input type="checkbox" ng-model="item.DISCONTINUE">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
+                                        <input type="checkbox" ng-model="item.DISCONTINUE"><br />
                                         {{item.MA_CHUYEN_DOI }}
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        {{item.TON_HOPLONG }}
+                                        {{item.HL_TANG_2 }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.HL_TANG_3 }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.HL_TANG_4 }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.DANG_GIU }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.KY_GUI_DI }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.KY_GUI_DEN }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{item.SL_DANG_VE }}
                                     </div>
                                 </td>
                                 <td>
@@ -127,27 +133,17 @@
                                 </td>
                                 <td>
                                     <div>
-                                        {{item.SL_DANG_GIU }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.SL_KY_GUI_DI }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
                                         {{item.TON_TAI_HANG }}
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        {{item.THOI_GIAN_CAP_HANG }}
+                                        <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#myModal" ng-click="edit(item)">Hỏi giá</button>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#myModal" ng-click="edit(item)">Hỏi giá</button>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#nhatky" ng-click="nhatkyhoihang(item.MA_HANG)">Lịch sử hỏi giá</button>
                                     </div>
                                 </td>
                             </tr>
@@ -232,6 +228,58 @@
     </div>
 
 
+
+
+    <!--Xem nhật ký hỏi hàng-->
+    <div class="modal fade" id="nhatky" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Nhật Ký Hỏi Hàng</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="col-md-12" style="padding-bottom: 20px; padding-top:30px;">
+                       <table>
+                           <tr>
+                               <td style="width:10% ;padding: 5px;">Mã chuẩn</td>
+                               <td style="width:10% ;padding: 5px;">Mã khách order</td>
+                               <td style="width:5% ;padding: 5px;">SL</td>
+                               <td style="width:10% ;padding: 5px;">NCC</td>
+                               <td style="width:10% ;padding: 5px;">Giá</td>
+                               <td style="width:15% ;padding: 5px;">TG cấp hàng</td>
+                               <td style="width:5% ;padding: 5px;">Ngày hỏi giá</td>
+                               <td style="width:10% ;padding: 5px;">Ghi chú</td>
+                               <td style="width:10% ;padding: 5px;">Người xử lý</td>
+                           </tr>
+                           <tr ng-repeat="item in nkhoihang">
+                               <td>{{item.MA_CHUAN}}</td>
+                               <td>{{item.MA_KHACH_ORDER}}</td>
+                               <td>{{item.SL}}</td>
+                               <td>{{item.MA_NCC}}</td>
+                               <td>{{item.GIA}}</td>
+                               <td>{{item.THOI_GIAN_CAP_HANG}}</td>
+                               <td>{{item.NGAY_HOI}}</td>
+                               <td>{{item.GHI_CHU}}</td>
+                               <td>{{item.HO_VA_TEN}}</td>
+                           </tr>
+                       </table>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <center>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </center>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!---------------------------->
   
 </div>
 

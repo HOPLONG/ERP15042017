@@ -93,7 +93,7 @@
         var r = confirm("Bạn có chắc là thông tin đã đầy đủ?");
         if (r == true) {
             XuLyHoiGiaService.save_stt(id, status).then(function (response) {
-                alert('Thành công');
+                SuccessSystem('Thành công');
                 $scope.xuly_hoihang();
             });
         } else {
