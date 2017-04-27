@@ -212,6 +212,27 @@
         return;       
     };
 
+    $scope.deleteBH = function () {
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+        //
+        BanHangService.delete_banhang(url).then(function (response) {
+            SuccessSystem('Xóa thành công');
+            window.setTimeout(function () {
+
+                // Move to a new location or you can do something else
+                window.location.href = "/BanHang/Index";
+
+            }, 2000);
+        }, function errorCallback(response) {
+            ErrorSystem('Gặp sự cố khi xóa');
+        });;
+    };
     $scope.load_thongtinchung_banhang();
     $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi)
 

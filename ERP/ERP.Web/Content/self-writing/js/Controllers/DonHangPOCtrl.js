@@ -97,8 +97,10 @@
             SO_TIEN_VIET_BANG_CHU: $scope.so_tien_viet_bang_chu,
             NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG.format('DD/MM/YYYY'),
             DIA_DIEM_GIAO_HANG: $scope.thongtinchung[0].DIA_DIEM_GIAO_HANG,
-            DA_XUAT_KHO: $scope.thongtinchung[0].DA_XUAT_KHO,
-            DA_LAP_HOA_DON: $scope.thongtinchung[0].DA_LAP_HOA_DON,
+            DA_HUY: $scope.thongtinchung[0].DA_HUY,
+            LY_DO_HUY: $scope.thongtinchung[0].LY_DO_HUY,
+            CAN_XUAT_NGAY: $scope.thongtinchung[0].CAN_XUAT_NGAY,
+            CAN_LAY_HOA_DON:$scope.thongtinchung[0].CAN_LAY_HOA_DON,
         }
 
         $scope.arrayChiTietPO = [];
