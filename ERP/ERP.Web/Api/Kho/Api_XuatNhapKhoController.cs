@@ -21,6 +21,7 @@ namespace ERP.Web.Api.Kho
         List<GetChungTuTra_Result> resultCTTra = new List<GetChungTuTra_Result>();
         List<GetChungTuTra_ByKhachHang_Result> resultCTTraByKhach = new List<GetChungTuTra_ByKhachHang_Result>();
         List<GetAll_PhieuNhapKho_Result> resultDSNhap = new List<GetAll_PhieuNhapKho_Result>();
+        List<Prod_KHO_GetHHTonKho_Result> resultHH = new List<Prod_KHO_GetHHTonKho_Result>();
         #region "SearchByType"
 
 
@@ -192,6 +193,19 @@ namespace ERP.Web.Api.Kho
             }
             return resultDSNhap;
 
+        }
+        #endregion
+
+        #region "Get All Thông tin hàng hóa"
+        [HttpGet]
+        [Route("api/Api_XuatNhapKho/GetAllHH/{macongty}/{key}/{mh}")]
+        public List<Prod_KHO_GetHHTonKho_Result> GetAllHH(string macongty, string key, string mh)
+        {
+            var query = db.Database.SqlQuery<Prod_KHO_GetHHTonKho_Result>("Prod_KHO_GetHHTonKho @macongty,@key", new SqlParameter("macongty", macongty), new SqlParameter("key", key));
+            resultHH = query.ToList();
+            var kq = resultHH.Where(x => x.MA_CHUAN.ToLower().Contains(mh.ToLower())).Take(10).ToList();
+            return kq;
+            
         }
         #endregion
     }
