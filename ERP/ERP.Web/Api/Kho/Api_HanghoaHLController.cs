@@ -19,10 +19,9 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
     public class Api_HanghoaHLController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
-
         //int page_size = 30;
-     
-        
+
+
         // GET: api/Api_HanghoaHL
         [Route("api/Api_HanghoaHL/TimKiemHH/{ma_chuan}")]
         public List<HH> TimKiemHH(string ma_chuan)
@@ -95,9 +94,20 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
             return result;
         }
 
+        //Hang hoa bao gia
+        [HttpGet]
+        [Route("api/Api_HanghoaHL/GetAllHHBaoGia/{machuan}")]
+        public List<Prod_KHO_GetAllTon_Result> GetAllHHBaoGia(string machuan)
+        {
+            var query = db.Database.SqlQuery<Prod_KHO_GetAllTon_Result>("Prod_KHO_GetAllTon @macongty,@machuan", new SqlParameter("macongty","HOPLONG"), new SqlParameter("machuan", machuan));
+            var resultHH = query.ToList();
+
+            return resultHH;
+
+        }
 
         // GET: api/Api_HanghoaHL/5
-        
+
         [ResponseType(typeof(HH))]
         public IHttpActionResult GetHH(string id)
         {

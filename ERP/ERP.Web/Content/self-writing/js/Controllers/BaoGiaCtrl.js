@@ -197,6 +197,34 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         $scope.Detail.ListXoa.splice(0, 1);
     }
 
+    $scope.RemoveNew = function (index, detail) {
+        $scope.Detail.ListNew.splice(index, 1);
+
+        $scope.detail = detail;
+        var phi_van_chuyen = parseFloat($('#tienvanchuyen').val()) || 0;
+        var tong_gia_tri_thuc_te_new = 0;
+        var tong_gia_tri_theo_hop_dong_new = 0;
+        var tong_chi_phi_hoa_don_new = 0;
+        var tong_khach_nhan_new = 0;
+
+        for (var i = 0; i < $scope.Detail.ListNew.length; i++) {
+            tong_gia_tri_thuc_te_new = parseFloat($scope.Detail.ListNew[i].thanh_tien_net + tong_gia_tri_thuc_te_new);
+            tong_gia_tri_theo_hop_dong_new = parseFloat($scope.Detail.ListNew[i].thanh_tien + tong_gia_tri_theo_hop_dong_new);
+            tong_chi_phi_hoa_don_new = parseFloat($scope.Detail.ListNew[i].tien_thue_tndn + tong_chi_phi_hoa_don_new);
+            tong_khach_nhan_new = parseFloat($scope.Detail.ListNew[i].khach_nhan + tong_khach_nhan_new);
+        }
+        $scope.tong_gia_tri_thuc_te_new = tong_gia_tri_thuc_te_new;
+        $scope.tong_gia_tri_theo_hop_dong_new = tong_gia_tri_theo_hop_dong_new;
+        $scope.tong_chi_phi_hoa_don_new = tong_chi_phi_hoa_don_new;
+        $scope.tong_khach_nhan_new = tong_khach_nhan_new;
+
+        $scope.gia_tri_chenh_lech_new = parseFloat($scope.tong_gia_tri_theo_hop_dong_new - $scope.tong_gia_tri_thuc_te_new);
+
+        $scope.thue_vat_new = parseFloat($scope.tong_gia_tri_theo_hop_dong_new * ($scope.thue_suat_gtgt / 100));
+
+
+        $scope.tong_gia_tri_thu_cua_khach_new = parseFloat($scope.tong_gia_tri_thuc_te_new + $scope.tong_chi_phi_hoa_don_new + $scope.thue_vat_new);
+    }
 
     $scope.kiemtra = function (item) {
         $scope.item = item;
@@ -344,7 +372,25 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         DIA_DIEM_GIAO_HANG: '',
         GHI_CHU: '',
     }];
-    $scope.Detail.ListNew = [];
+    $scope.Detail.ListNew = [{
+        ma_hang: '',
+        ten_hang: '',
+        so_luong: 0,
+        ma_dieu_chinh: '',
+        dvt: '',
+        hang: '',
+        gia_list: 0,
+        gia_nhap: 0,
+        don_gia: 0,
+        he_so_loi_nhuan: 0,
+        chiet_khau: 0,
+        gia_bao_di_net: 0,
+        thanh_tien: 0,
+        thanh_tien_net: 0,
+        thoi_gian_giao_hang: '',
+        ghi_chu: '',
+        hoa_hong: 0,
+    }];
 
 
 
@@ -1091,12 +1137,12 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                 ma_hang: mahang,
                 ten_hang: tenhang,
                 so_luong: 0,
-                ma_dieu_chinh: mahang,
+                ma_dieu_chinh: '',
                 dvt: dvt,
                 hang: hang,
                 gia_list: dongia,
                 gia_nhap: 0,
-                don_gia: '',
+                don_gia: 0,
                 gia_bao_di_net: dongia,
                 he_so_loi_nhuan: 0,
                 chiet_khau: 0,
@@ -1111,12 +1157,12 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                 ma_hang: mahang,
                 ten_hang: tenhang,
                 so_luong: 0,
-                ma_dieu_chinh: mahang,
+                ma_dieu_chinh: '',
                 dvt: dvt,
                 hang: hang,
                 gia_list: dongia,
                 gia_nhap: 0,
-                don_gia: '',
+                don_gia: 0,
                 he_so_loi_nhuan: 0,
                 chiet_khau: 0,
                 gia_bao_di_net: dongia,
@@ -1215,7 +1261,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                 MA_HANG: mahang,
                 TEN_HANG: tenhang,
                 HANG_SP: hang,
-                MA_DIEU_CHINH: mahang,
+                MA_DIEU_CHINH: '',
                 DVT: dvt,
                 SO_LUONG: 0,
                 GIA_LIST: dongia,
@@ -1235,7 +1281,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                 MA_HANG: mahang,
                 TEN_HANG: tenhang,
                 HANG_SP: hang,
-                MA_DIEU_CHINH: mahang,
+                MA_DIEU_CHINH: '',
                 DVT: dvt,
                 SO_LUONG: 0,
                 GIA_LIST: dongia,
@@ -1285,7 +1331,191 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
     };
     //End chọn hàng hóa tách
 
+    //Lọc hàng hóa----------------------------------------------------------------------------------------------------
 
+
+    //mảng khách hàng
+    $scope.arrayHHFinded = [];
+    $scope.arrayHH = [];
+    $scope.showtable_hanghoa = false;
+
+    //get data khách hàng
+    
+    var inputChangedPromise;
+    //hàm tìm kiếm
+    $scope.onHHFind = function (mh) {
+        $http.get(window.location.origin + '/api/Api_HanghoaHL/GetAllHHBaoGia/' + mh)
+         .then(function (response) {
+             if (response.data) {
+                 $scope.arrayHH = response.data;
+                 $scope.arrayHHFinded = $scope.arrayHH.map(function (item) {
+                     return item;
+                 });
+             }
+         }, function (error) {
+             console.log(error);
+         })
+    }
+    // hiển thị danh sách đổi tượng(LẤY THEO MÃ)
+    $scope.inputstaff = function (kh, index, detail) {
+        $scope.showtable_hanghoa = true;
+        if (kh.SO_LUONG > 0) {
+            detail.ma_hang = kh.MA_HANG;
+            detail.ma_chuan = kh.MA_CHUAN;
+            detail.ten_hang = kh.TEN_HANG;
+            detail.so_luong = 0;
+            detail.ma_dieu_chinh = '';
+            detail.dvt = kh.DVT;
+            detail.hang = kh.MA_NHOM_HANG;
+            detail.gia_list = kh.GIA_LIST;
+            detail.gia_nhap = 0;
+            detail.don_gia = 0;
+            detail.he_so_loi_nhuan = 0;
+            detail.chiet_khau = 0;
+            detail.gia_bao_di_net = kh.GIA_LIST;
+            detail.thanh_tien = 0;
+            detail.thanh_tien_net = 0;
+            detail.thoi_gian_giao_hang = 'Có sẵn';
+            detail.ghi_chu = '';
+            detail.hoa_hong = 0;
+        } else {
+            detail.ma_hang = kh.MA_HANG;
+            detail.ma_chuan = kh.MA_CHUAN;
+            detail.ten_hang = kh.TEN_HANG;
+            detail.so_luong = 0;
+            detail.ma_dieu_chinh = '';
+            detail.dvt = kh.DVT;
+            detail.hang = kh.MA_NHOM_HANG;
+            detail.gia_list = kh.GIA_LIST;
+            detail.gia_nhap = 0;
+            detail.don_gia = 0;
+            detail.he_so_loi_nhuan = 0;
+            detail.chiet_khau = 0;
+            detail.gia_bao_di_net = kh.GIA_LIST;
+            detail.thanh_tien = 0;
+            detail.thanh_tien_net = 0;
+            detail.thoi_gian_giao_hang = '';
+            detail.ghi_chu = '';
+            detail.hoa_hong = 0;
+        }
+    }
+    //End lọc hàng hóa----------------------------------------------------------------------------------------------------------------------
+
+
+    //Lọc hàng hóa----------------------------------------------------------------------------------------------------
+
+
+    //mảng khách hàng
+    $scope.arrayHHEditFinded = [];
+    $scope.arrayHHEdit = [];
+    $scope.showtable_hanghoa_edit = false;
+
+    //get data khách hàng
+
+    var inputChangedPromise;
+    //hàm tìm kiếm
+    $scope.onHHEditFind = function (mh) {
+        $http.get(window.location.origin + '/api/Api_HanghoaHL/GetAllHHBaoGia/' + mh)
+         .then(function (response) {
+             if (response.data) {
+                 $scope.arrayHHEdit = response.data;
+                 $scope.arrayHHEditFinded = $scope.arrayHHEdit.map(function (item) {
+                     return item;
+                 });
+             }
+         }, function (error) {
+             console.log(error);
+         })
+    }
+    // hiển thị danh sách đổi tượng(LẤY THEO MÃ)
+    $scope.inputstaff_edit = function (kh, index, item) {
+        if (kh.SO_LUONG > 0) {
+            item.MA_HANG = kh.MA_HANG;
+            item.MA_CHUAN = kh.MA_CHUAN;
+            item.TEN_HANG = kh.TEN_HANG;
+            item.SO_LUONG = 0;
+            item.MA_DIEU_CHINH = '';
+            item.DVT = kh.DVT;
+            item.HANG_SP = kh.MA_NHOM_HANG;
+            item.GIA_LIST = kh.GIA_LIST;
+            item.DON_GIA_NHAP = 0;
+            item.DON_GIA = 0;
+            item.HE_SO_LOI_NHUAN = 0;
+            item.CHIET_KHAU = 0;
+            item.DON_GIA_BAO_DI_NET = kh.GIA_LIST;
+            item.THANH_TIEN = 0;
+            item.THANH_TIEN_NET = 0;
+            item.THOI_GIAN_GIAO_HANG = 'Có sẵn';
+            item.GHI_CHU = '';
+            item.CM = 0;
+        } else {
+            item.MA_HANG = kh.MA_HANG;
+            item.MA_CHUAN = kh.MA_CHUAN;
+            item.TEN_HANG = kh.TEN_HANG;
+            item.SO_LUONG = 0;
+            item.MA_DIEU_CHINH = '';
+            item.DVT = kh.DVT;
+            item.HANG_SP = kh.MA_NHOM_HANG;
+            item.GIA_LIST = kh.GIA_LIST;
+            item.DON_GIA_NHAP = 0;
+            item.DON_GIA = 0;
+            item.HE_SO_LOI_NHUAN = 0;
+            item.CHIET_KHAU = 0;
+            item.DON_GIA_BAO_DI_NET = kh.GIA_LIST;
+            item.THANH_TIEN = 0;
+            item.THANH_TIEN_NET = 0;
+            item.THOI_GIAN_GIAO_HANG = '';
+            item.GHI_CHU = '';
+            item.CM = 0;
+        }
+        $scope.showtable_hanghoa_edit = false;
+    }
+    //End lọc hàng hóa----------------------------------------------------------------------------------------------------------------------
+
+
+    $scope.addnewproduct = function () {
+        $scope.Detail.ListNew.push({
+            ma_hang: '',
+            ten_hang: '',
+            so_luong: 0,
+            ma_dieu_chinh: '',
+            dvt: '',
+            hang: '',
+            gia_list: 0,
+            gia_nhap: 0,
+            don_gia: 0,
+            he_so_loi_nhuan: 0,
+            chiet_khau: 0,
+            gia_bao_di_net: 0,
+            thanh_tien: 0,
+            thanh_tien_net: 0,
+            thoi_gian_giao_hang: '',
+            ghi_chu: '',
+            hoa_hong: 0,
+        });
+    };
+
+    $scope.NewEditProduct = function () {
+        $scope.Detail.ListAdd.push({
+            MA_HANG: '',
+            TEN_HANG: '',
+            HANG_SP: '',
+            MA_DIEU_CHINH: '',
+            DVT: '',
+            SO_LUONG: 0,
+            GIA_LIST: 0,
+            DON_GIA_NHAP: 0,
+            DON_GIA: 0,
+            DON_GIA_BAO_DI_NET: 0,
+            HE_SO_LOI_NHUAN: 0,
+            CHIET_KHAU: 0,
+            THANH_TIEN: 0,
+            THANH_TIEN_NET: 0,
+            THOI_GIAN_GIAO_HANG: '',
+            GHI_CHU: '',
+            CM: 0,
+        });
+    };
 
     $scope.phuongthuctt = ["Chuyển khoản", "Tiền mặt","Trả tiền sau khi nhận hàng"];
     $scope.cachtinhthanhtien = ['Giá nhập','Giá list'];

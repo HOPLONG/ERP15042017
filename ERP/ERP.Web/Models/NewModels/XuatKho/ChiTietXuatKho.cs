@@ -19,5 +19,6 @@ namespace ERP.Web.Models.NewModels.XuatKho
         public string TK_CO { get; set; }
         public string TK_KHO { set; get; }
         public string DON_GIA_VON { set; get; }
+        public string MA_KHO_CON { set; get; }
     }
 }
