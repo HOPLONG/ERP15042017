@@ -3,6 +3,7 @@
 
     $scope.edit = function (item) {
         $scope.ton = item;
+        $scope.item = item;
     };
 
 
@@ -61,6 +62,20 @@
     //-------------------------
 
 
-
+    $scope.AddNewComment = function (mahang) {
+        var username = $('#username').val();
+        $("textarea[name=newcomment]").val(CKEDITOR.instances.newcomment.getData());
+        var newcomment = $("[name=newcomment]").val();
+        var data_save = {
+            NGUOI_COMMENT: username,
+            MA_HANG: mahang,
+            NOI_DUNG_COMMENT: newcomment,
+        }
+        $http.post('/api/Api_TonKhoHL/NewComment', data_save).then(function (response) {
+            SuccessSystem('Thêm comment thành công');
+        }, function errorCallback(response) {
+            ErrorSystem("Lỗi khi thêm comment");
+        });
+    };
 
 });

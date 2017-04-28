@@ -17,6 +17,7 @@
 <div ng-app="myApp"  ng-controller="TonCacNoiCtrl" >
     <div class="content">
         <input type="hidden" name="macongty" id="macongty" value="@Session["MA_CONG_TY"]">
+        <input type="hidden" name="macongty" id="username" value="@Session["USERNAME"]">
         <!--Tìm Kiếm Hàng Hóa-->
         <div class="tab-pane fade in" style="border:1px solid #ddd">
             
@@ -146,23 +147,15 @@
                                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#nhatky" ng-click="nhatkyhoihang(item.MA_HANG)">Lịch sử hỏi giá</button>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#comment" ng-click="edit(item)">New Comment</button>
+                                    </div>
+                                </td>
                             </tr>
-
-
                         </tbody>
-
-
                     </table>
-
-
-
                 </div>
-
-
-
-              
-
-
             </div>
 
         </div>
@@ -281,6 +274,36 @@
     </div>
     <!---------------------------->
   
+    <div class="modal fade" id="comment" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <label class="col-md-2">Nội dung</label>
+                        <div class="col-sm-10">
+                            <textarea id="newcomment" name="newcomment" class="form-control input-md"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="anmelden"></label>
+                        <div class="col-md-8 addnew" style="text-align: left;margin-top: 30px;">
+                            <button id="addnew" name="addnew" class="btn" ng-click="AddNewComment(item.MA_HANG)" data-dismiss="modal">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            CKEDITOR.replace('newcomment', {
+                height: 150
+            });
+        </script>
+
+    </div>
 </div>
 
 

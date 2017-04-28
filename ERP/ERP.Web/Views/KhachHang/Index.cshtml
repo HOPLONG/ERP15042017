@@ -232,7 +232,10 @@ input:-ms-input-placeholder {
                                 <tr>
                                     <td><label class="col-md-12">Ghi chú</label></td>
                                     <td colspan='10'><textarea id="themghichu" name="themghichu" placeholder="Ghi chú" class="form-control input-md" ng-model="arraythongtin.ghi_chu"></textarea></td>
-
+                                </tr>
+                                <tr>
+                                    <td><label class="col-md-12">Hồ sơ thanh toán</label></td>
+                                    <td colspan='10'><textarea id="ho_so_thanh_toan" name="ho_so_thanh_toan" class="form-control input-md" ng-model="arraythongtin.ho_so_thanh_toan"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td colspan='11' style='height: 15px'></td>
@@ -322,7 +325,9 @@ input:-ms-input-placeholder {
                                     CKEDITOR.replace('themghichu', {
                                         height: 100
                                     });
-
+                                    CKEDITOR.replace('ho_so_thanh_toan', {
+                                        height: 100
+                                    });
                             </script>
 
                         </form>
@@ -341,7 +346,7 @@ input:-ms-input-placeholder {
         <!-- Modal Update khách hàng-->
         <div class="modal fade" id="myEdit" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-md" style="width: 65%">
-                <div class="modal-content" style="height: 100%;overflow:scroll">
+                <div class="modal-content" style="height: 800px;overflow:scroll">
 
                     <div class="modal-body">
                         <form class="form-horizontal" action="/KhachHang/Index" method="post">
@@ -422,10 +427,17 @@ input:-ms-input-placeholder {
                                     <td class="text-left"><label>Ghi chú</label></td>
                                     <td colspan='5'><textarea id="editghichu" name="editghichu" class="form-control input-md" ng-model="kh.GHI_CHU"></textarea></td>
                                 </tr>
+                                <tr>
+                                    <td class="text-left"><label>Hồ sơ thanh toán</label></td>
+                                    <td colspan='5'><textarea id="edit_ho_so_thanh_toan" name="edit_ho_so_thanh_toan" class="form-control input-md" ng-model="kh.HO_SO_THANH_TOAN"></textarea></td>
+                                </tr>
                                 
                             </table>
                             <script>
                                     CKEDITOR.replace('editghichu', {
+                                        height: 150
+                                    });
+                                    CKEDITOR.replace('edit_ho_so_thanh_toan', {
                                         height: 150
                                     });
                             </script>
@@ -662,6 +674,7 @@ input:-ms-input-placeholder {
                                     <li><a data-toggle="tab" href="#phanhoikhachhang">Phản hồi khách hàng</a></li>
                                     <li><a data-toggle="tab" href="#thongkemuahang">Thống kê mua hàng</a></li>
                                     <li><a data-toggle="tab" href="#policy">POLICY</a></li>
+                                    <li><a data-toggle="tab" href="#hosothanhtoan">Hồ sơ thanh toán</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <!--Tab chi tiết hàng hóa-->
@@ -780,11 +793,13 @@ input:-ms-input-placeholder {
                                                 <th style="border: 1px solid #ddd !important">Ngày phản hồi</th>
                                                 <th style="border: 1px solid #ddd !important">Người phản hồi</th>
                                                 <th style="border: 1px solid #ddd !important">Thông tin phản hồi</th>
+                                                <th style="border: 1px solid #ddd !important">Action</th>
                                             </tr>
                                             <tr ng-repeat="khachphanhoi in list_phanhoi">
                                                 <td style="width: 10%;">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
                                                 <td style="width: 20%;">{{khachphanhoi.HO_VA_TEN}}</td>
-                                                <td ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 69%;"></td>
+                                                <td ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 64%;"></td>
+                                                <td style="width : 5%" ng-click="XoaPhanHoi(khachphanhoi)">Xóa</td>
                                             </tr>
                                         </table>
                                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newphanhoi">Thêm mới</button>
@@ -862,6 +877,11 @@ input:-ms-input-placeholder {
                                             </tr>
                                         </table>
                                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#new_policy">Thêm mới</button>
+                                    </div>
+                                    <div id="hosothanhtoan" class="tab-pane fade">
+                                        <div class="col-md-12">
+                                            <p ng-bind-html="item.HO_SO_THANH_TOAN | unsafe"  class="{{item.MA_KHACH_HANG}}-2"></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

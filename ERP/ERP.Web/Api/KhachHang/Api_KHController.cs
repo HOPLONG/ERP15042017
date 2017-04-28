@@ -177,6 +177,7 @@ namespace ERP.Web.Api.HeThong
                 khach.SO_NO_TOI_DA = kH.SO_NO_TOI_DA;
                 khach.TINH_TRANG_HOAT_DONG = kH.TINH_TRANG_HOAT_DONG;
                 khach.GHI_CHU = kH.GHI_CHU;
+                khach.HO_SO_THANH_TOAN = kH.HO_SO_THANH_TOAN;
                 khach.TRUC_THUOC = kH.TRUC_THUOC;
                 khach.SALES_TAO = kH.SALES_TAO;
                 khach.KHACH_DO_MARKETING_TIM_KIEM = kH.KHACH_DO_MARKETING_TIM_KIEM;
@@ -279,6 +280,7 @@ namespace ERP.Web.Api.HeThong
             khach.SO_NO_TOI_DA = kH.SO_NO_TOI_DA;
             khach.TINH_TRANG_HOAT_DONG = kH.TINH_TRANG_HOAT_DONG;
             khach.GHI_CHU = kH.GHI_CHU;
+            khach.HO_SO_THANH_TOAN = kH.HO_SO_THANH_TOAN;
             khach.TRUC_THUOC = kH.TRUC_THUOC;
             khach.SALES_TAO = kH.SALES_TAO;
             khach.KHACH_DO_MARKETING_TIM_KIEM = kH.KHACH_DO_MARKETING_TIM_KIEM;
