@@ -33,5 +33,10 @@ namespace ERP.Web.Models.Database
         public string SALES_TAO { get; set; }
         public string USERNAME { get; set; }
         public string HO_VA_TEN { get; set; }
+        public Nullable<bool> KHACH_DO_MARKETING_TIM_KIEM { get; set; }
+        public Nullable<bool> KHACH_MUA_DOANH_SO_CAO { get; set; }
+        public Nullable<bool> KHACH_MUA_SO_LUONG_NHIEU { get; set; }
+        public Nullable<bool> KHACH_DAC_BIET { get; set; }
+        public Nullable<bool> THONG_TIN_DA_DAY_DU { get; set; }
     }
 }

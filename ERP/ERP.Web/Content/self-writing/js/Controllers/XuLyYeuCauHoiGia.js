@@ -75,10 +75,10 @@
                 data: $scope.arrayChiTietXuLy,
                 url: window.location.origin + '/api/Api_LoadXuLyYeuCauHoiGia/XuLyHoiHang/' + $scope.item.ID_HOI_GIA
             }).then(function successCallback(response) {
-                alert("Hoàn Thành Lưu");
+                SuccessSystem("Hoàn Thành Lưu");
                 $scope.xuly_hoihang();
             }, function errorCallback(response) {
-                alert('Không lưu được chi tiết giữ kho');
+                ErrorSystem('Không lưu được chi tiết giữ kho');
             });
             return;
         }
