@@ -264,10 +264,10 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                    $scope.phantrangkh(0);
                 });
 
-                if (!$scope.Thong_tin_KH) {
-                    ErrorSystem('Thông tin chung Khách hàng lỗi');
-                    return;
-                }
+                //if (!$scope.Thong_tin_KH) {
+                //    ErrorSystem('Thông tin chung Khách hàng lỗi');
+                //    return;
+                //}
 
                 for (var i = 0; i < $scope.Tai_khoan_KH.length; i++) {
                     $scope.Tai_khoan_KH[i].MA_KHACH_HANG = $scope.lastmakh;
