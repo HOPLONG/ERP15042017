@@ -11,7 +11,7 @@ namespace ERP.Web.Models.NewModels.XuatKho
 
         public string MA_DIEU_CHINH { get; set; }
 
-        public string MA_KHO { get; set; }
+        public string MA_KHO_CON { get; set; }
         public decimal DON_GIA { get; set; }
         public int SO_LUONG { get; set; }
         public string DVT { get; set; }
