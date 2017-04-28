@@ -51,7 +51,7 @@ app.controller('DonDuKienCtrl', function ($scope, $http) {
                  });
              }
          }, function (error) {
-             console.log(error);
+             SuccessSystem("Lỗi hệ thống: "+error);
          });
 
     //hàm tìm kiếm
@@ -170,7 +170,7 @@ app.controller('DonDuKienCtrl', function ($scope, $http) {
             LY_DO_THAT_BAI: $scope.item.LY_DO_THAT_BAI,
         }
         $http.put("/api/Api_BaoGia_DonHangDuKien/PutBH_DON_HANG_DU_KIEN/" + $scope.item.MA_DU_KIEN, data_save).then(function (response) {
-            alert('Sửa thành công');
+            SuccessSystem('Sửa thành công');
             $scope.getDanhSachDuKien();
         });
     };

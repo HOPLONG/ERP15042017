@@ -215,6 +215,41 @@ namespace ERP.Web.Api.Quy
 
                 }
             }
+            //Lưu nhật ký chung
+
+            if (quy_phieuthu.ChiTietQPT != null && quy_phieuthu.ChiTietQPT.Count > 0)
+            {
+                foreach (ChiTietQuyPhieuThu item in quy_phieuthu.ChiTietQPT)
+                {
+                    KT_SO_NHAT_KY_CHUNG newitem = new KT_SO_NHAT_KY_CHUNG();
+                    newitem.SO_CHUNG_TU = qpt.SO_CHUNG_TU;
+                    newitem.NGAY_CHUNG_TU = qpt.NGAY_CHUNG_TU;
+                    newitem.NGAY_HACH_TOAN = qpt.NGAY_HACH_TOAN;
+                    newitem.DOI_TUONG = qpt.MA_DOI_TUONG;
+                    newitem.TRUC_THUOC = "HOPLONG";
+                    newitem.DIEN_GIAI_CHUNG = qpt.DIEN_GIAI_LY_DO_NOP;
+                    newitem.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                    newitem.TAI_KHOAN_HACH_TOAN = item.TK_NO;
+                    newitem.TAI_KHOAN_DOI_UNG = item.TK_CO;
+                    newitem.PHAT_SINH_NO = tongtien;
+                    newitem.PHAT_SINH_CO = 0;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(newitem);
+                    KT_SO_NHAT_KY_CHUNG newitem1 = new KT_SO_NHAT_KY_CHUNG();
+                    newitem1.SO_CHUNG_TU = qpt.SO_CHUNG_TU;
+                    newitem1.NGAY_CHUNG_TU = qpt.NGAY_CHUNG_TU;
+                    newitem1.NGAY_HACH_TOAN = qpt.NGAY_HACH_TOAN;
+                    newitem1.DOI_TUONG = qpt.MA_DOI_TUONG;
+                    newitem1.TRUC_THUOC = "HOPLONG";
+                    newitem1.DIEN_GIAI_CHUNG = qpt.DIEN_GIAI_LY_DO_NOP;
+                    newitem1.DIEN_GIAI_CHI_TIET = item.DIEN_GIAI;
+                    newitem1.TAI_KHOAN_HACH_TOAN = item.TK_CO;
+                    newitem1.TAI_KHOAN_DOI_UNG = item.TK_NO;
+                    newitem1.PHAT_SINH_NO = 0;
+                    newitem1.PHAT_SINH_CO = tongtien;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(newitem1);
+                    db.SaveChanges();
+                }
+            }
 
             qpt.TONG_TIEN = tongtien;
 

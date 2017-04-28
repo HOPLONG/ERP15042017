@@ -1,6 +1,5 @@
 ﻿
 app.controller('ctrlPhieuThuThuLai', ctrlPhieuThuThuLai);
-app.controller('InstanceController', InstanceController);
 ctrlPhieuThuThuLai.$inject = ['$rootScope', '$scope', "$location", '$http', '$uibModal'];
 
 function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
@@ -112,11 +111,11 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
 
 
     $scope.arraydiengiai = [{
-        DIEN_GIAI: '',
-        LOAI_TIEN: '',
+        DIEN_GIAI: 'Thu lãi đầu tư tài chính',
+        LOAI_TIEN: 'VND',
         TY_GIA: '',
-        TK_NO: '',
-        TK_CO: '',
+        TK_NO: 1121,
+        TK_CO: 635,
         SO_TIEN: '',
         QUY_DOI: ''
     }];
@@ -156,7 +155,8 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
     $scope.indexcurrent = 0;
 
     //method change type reason.
-    $scope.reasonmoney = 'ThuLai';
+    $scope.reasonmoney = 'Thu lãi đầu tư tài chính';
+    $scope.arrayTongHop.dien_giai_ly_do_thu = $scope.reasonmoney;
 
     //mảng đối tượng
     $scope.arrayDTFinded = [];
@@ -186,20 +186,24 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
     $scope.bankTKNo = {};
     $scope.bankTKCo = {};
 
-    /*
-    * get Đối Tượng
-    */
-    $http.get(window.location.origin + '/api/Api_KH')
-     .then(function (response) {
-         if (response.data) {
-             $scope.arrayDT = response.data;
-             $scope.arrayDTFinded = $scope.arrayDT.map(function (item) {
-                 return item;
-             });
-         }
-     }, function (error) {
-         console.log(error);
-     });
+    // ngày hiện tại 
+    $(function () {
+
+        $('#ngay_hach_toan').datetimepicker({
+            format: 'DD/MM/YYYY',
+            defaultDate: moment(),
+            sideBySide: true
+        });
+        $('#ngay_chung_tu').datetimepicker({
+            format: 'DD/MM/YYYY',
+            defaultDate: moment(),
+            sideBySide: true
+        });
+    });
+    $scope.test_ = function () {
+        var abc = $('#ngay_chung_tu').val();
+        console.log(abc);
+    };
 
     /**
     * get tk ngân hàng
@@ -244,18 +248,18 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
     *loc dữ liệu khi input thay đổi
     */
     $scope.onDoiTuongFind = function () {
-        if (!$scope.TEN_KHACH_HANG) {
-            $scope.arrayDTFinded = $scope.arrayDT.map(function (item) {
-                return item;
-            });
-        }
-        $scope.arrayDTFinded = $scope.arrayDT.filter(function (item) {
-            if (item.TEN_KHACH_HANG.toLowerCase().indexOf($scope.arrayTongHop.ma_doi_tuong.toLowerCase()) >= 0) {
-                return true;
-            } else {
-                return false;
-            }
-        });
+        $http.post(window.location.origin + '/api/Api_XuatNhapKho/GetAllDoiTuong/' + $scope.arrayTongHop.ma_doi_tuong)
+         .then(function (response) {
+             console.log(response);
+             if (response.data) {
+                 $scope.arrayDT = response.data;
+                 $scope.arrayDTFinded = $scope.arrayDT.map(function (item) {
+                     return item;
+                 });
+             }
+         }, function (error) {
+             console.log(error);
+         });
     }
     $scope.onBlurInput_MDT = function () {
         if ($scope.hoverbtn_MDT || $scope.hovertable_MDT) {
@@ -292,21 +296,13 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
     }
 
 
-
-    /*
-    * Method Change Lý Do Thu
-    */
-    $scope.changeType = function ($event) {
-        window.location.href = window.location.origin + '/PhieuThuNganHang/' + $scope.reasonmoney;
-    };
-
     /*
     * method show info Đối Tượng Khi user lựa chọn.
     */
     $scope.showInfoDT = function (p_dt) {
-        $scope.arrayTongHop.ma_doi_tuong = p_dt.MA_KHACH_HANG;
+        $scope.arrayTongHop.ma_doi_tuong = p_dt.MA_DOI_TUONG;
         $scope.arrayTongHop.ma_cong_ty = p_dt.MA_CONG_TY;
-        $scope.arrayTongHop.ten_doi_tuong = p_dt.TEN_CONG_TY;
+        $scope.arrayTongHop.ten_doi_tuong = p_dt.TEN_DOI_TUONG;
         $scope.arrayTongHop.dia_chi = p_dt.DIA_CHI_XUAT_HOA_DON;
         $scope.hovertable = false;
         $scope.showtable_ma_doi_tuong = false;
@@ -347,11 +343,11 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
    */
     $scope.addTongHop = function () {
         $scope.arraydiengiai.push({
-            DIEN_GIAI: '',
-            LOAI_TIEN: '',
+            DIEN_GIAI: 'Thu lãi đầu tư tài chính',
+            LOAI_TIEN: 'VND',
             TY_GIA: '',
-            TK_NO: '',
-            TK_CO: '',
+            TK_NO: 1121,
+            TK_CO: 635,
             SO_TIEN: '',
             QUY_DOI: ''
         });
@@ -388,16 +384,18 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
         //    alert('Thiếu thông tin Số Chứng Từ Tham Chiếu của hàng ' + (i + 1));
         //    return;
         //}
-        if (!$scope.arrayTongHop.ngay_hach_toan) {
+        var ngaychungtu = $('#ngay_chung_tu').val();
+        var ngayhachtoan = $('#ngay_hach_toan').val();
+        if (!ngayhachtoan) {
             alert('Thiếu thông tin Ngày Hạch Toán');
             return;
         }
 
-        if (!$scope.arrayTongHop.ngay_chung_tu) {
+        if (!ngaychungtu) {
             alert('Thiếu thông tin Ngày Chứng Từ');
             return;
         }
-        if ($scope.arrayTongHop.ngay_hach_toan <= $scope.arrayTongHop.ngay_chung_tu) {
+        if (ngayhachtoan < ngaychungtu) {
             alert('Ngày Hạch Toán phải lớn hơn hoặc bằng Ngày Chứng Từ');
             return;
         }
@@ -450,8 +448,8 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
             url: '/api/Api_NganHang/PostKNH_NTTK',
             data: {
                 SO_CHUNG_TU: $scope.arrayTongHop.SoChungTu,
-                NGAY_CHUNG_TU: $scope.arrayTongHop.ngay_chung_tu.format('DD/MM/YYYY'),
-                NGAY_HACH_TOAN: $scope.arrayTongHop.ngay_hach_toan.format('DD/MM/YYYY'),
+                NGAY_CHUNG_TU: ngaychungtu,
+                NGAY_HACH_TOAN: ngayhachtoan,
                 MA_DOI_TUONG: $scope.arrayTongHop.ma_doi_tuong,
                 ChiTietPTNH: $scope.arraydiengiai,
                 ThamChieu: $scope.ThamChieu.ListSelect,
@@ -598,9 +596,6 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
         var value = $('#lydothu').val();
         $('#diengiai').val(value);
     };
-
-
-
     //Hiển thị ô giá trị chứng từ
     $scope.ShowDataGiaTriChungTu = function () {
         if ($scope.LoaiChungTu == 2 && $("#DataGiaTriChungTu").css("display") == "none") {
@@ -656,33 +651,35 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
             $("#Input_DataGiaTriChungTu").css({ "display": "block" });
             $("#Input_MaChungTu").css({ "display": "none" });
             $("#DataGiaTriChungTu").css({ "display": "block" });
-            $http({
-                method: 'GET',
-                url: '/api/Api_XuatNhapKho/GetAllDoiTuong'
-            }).then(function (response) {
-                if (typeof (response.data) == "object") {
-                    var data = response.data.DoiTuong;
-                    var colength = 5;
-                    var madoituong = "", tendoituong = "";
-                    var max = 0;
-                    var maxlength = response.data.Length;
-                    for (var i = 0; i < response.data.length; i++) {
-                        madoituong = response.data[i].MA_DOI_TUONG;
-                        tendoituong = response.data[i].TEN_DOI_TUONG;
-                        $scope.GiaTriThamChieu.push({
-                            value: response.data[i].MA_DOI_TUONG,
-                            show: "",
-                            madoituong: madoituong,
-                            tendoituong: tendoituong,
-                        });
-                    }
-                }
-                else {
-                    ErrorSystem();
-                }
-            }, function (error) {
-                ConnectFail();
-            });
+            $scope.DoiTuongFind = function () {
+                $http.post(window.location.origin + '/api/Api_XuatNhapKho/GetAllDoiTuong/' + $scope.GiaTriChungTu.Search)
+                 .then(function (response) {
+                     if (typeof (response.data) == "object") {
+                         var data = response.data.DoiTuong;
+                         var colength = 5;
+                         var madoituong = "", tendoituong = "";
+                         var max = 0;
+                         var maxlength = response.data.Length;
+                         for (var i = 0; i < response.data.length; i++) {
+                             madoituong = response.data[i].MA_DOI_TUONG;
+                             tendoituong = response.data[i].TEN_DOI_TUONG;
+                             $scope.GiaTriThamChieu.push({
+                                 value: response.data[i].MA_DOI_TUONG,
+                                 show: "",
+                                 madoituong: madoituong,
+                                 tendoituong: tendoituong,
+                             });
+                         }
+                     }
+                     else {
+                         ErrorSystem();
+                     }
+                 }, function (error) {
+                     console.log(error);
+                 });
+            }
+
+
         }
         else if ($scope.LoaiChungTu == 3) {
             $("#Select_DataGiaTriChungTu").css({ "display": "none" });
@@ -829,6 +826,11 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
             ResetAfterSave();
         }
     }
+
+    $scope.RemoveRow = function (index) {
+        $scope.arraydiengiai.splice(index, 1);
+        ResetAfterSave();
+    }
     $scope.SetThamChieu = function () {
         var length = $scope.ThamChieu.ListResult.length;
         //$scope.ThamChieu.ListSelect = [];
@@ -856,57 +858,7 @@ function ctrlPhieuThuThuLai($rootScope, $scope, $location, $http, $uibModal) {
         $("#ThamChieuTo").val("");
         $scope.ThamChieu.ListResult = [];
     };
-    $scope.ShowDataNhanVien = function () {
-        if ($("#DataNhanVien").css("display") == "none") {
-            $(".tableselect").css({ "display": "none" });
-            $("#DataNhanVien").css({ "display": "block" });
-        }
-        else {
-            $(".tableselect").css({ "display": "none" });
-        }
-    }
 
+    //Định dạng số tiền
 
 }
-
-
-
-
-
-
-
-
-
-function InstanceController($scope, $http, $uibModalInstance, items) {
-
-    /**
-    * lấy dữ liệu ban đầu
-    */
-    $scope.loaichungtu = 'LoaiChungTu';
-    $scope.showchungtu = true;
-
-    $scope.valueLoaiChungTu = [];
-
-    $scope.valueselected_CTTC = '';
-    $scope.valueselected_LoaiChungTu_CTTC = '';
-
-    $scope.dataFinded = [];
-    $scope.chung_tu_selected = [];
-
-    console.log(items);
-
-    if (items.length) {
-        items.forEach(function (item) {
-            $scope.dataFinded.push(item);
-            $scope.chung_tu_selected.push(item);
-        });
-    }
-
-    $scope.bien_cua_ban = '';
-
-
-
-}
-
-
-

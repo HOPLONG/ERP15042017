@@ -258,7 +258,7 @@
                 </div>
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    @*<div role="tabpanel" class="tab-pane padding10 border borderTopNone active" id="home">*@
+                    <div role="tabpanel" class="tab-pane padding10 border borderTopNone active" id="home">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover table-bordered" st-table="tonghopCollection" st-safe-src="arraydiengiai">
                                 <thead class="bg-blue text-white">
@@ -276,7 +276,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><a href="" ng-click="addTongHop()">Bấm vào đây để thêm mới dòng</a></td>
+                                        <td><a href="" ng-click="addTongHop()">Bấm vào đây để thêm mới</a></td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
@@ -439,7 +439,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    @*</div>*@
+                    </div>
                     <div role="tabpanel" class="tab-pane padding10 border borderTopNone" id="profile">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover table-bordered" st-table="tonghopCollection" st-safe-src="arraydiengiai">
@@ -460,7 +460,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><a href="" ng-click="addTongHop()">Bấm vào đây để thêm mới dòng</a></td>
+                                        <td><a href="" ng-click="addTongHop()">Bấm vào đây để thêm mới</a></td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
@@ -511,7 +511,46 @@
                                         <td><input type="text" class="form-control" ng-model="arraydiengiai[$index].MAU_SO_HD" ng-disabled="indexcurrent != $index"></td>
                                         <td><input type="text" class="form-control" ng-model="arraydiengiai[$index].KY_HIEU_HD" ng-disabled="indexcurrent != $index"></td>
                                         <td>{{arrayTongHop.ma_doi_tuong}}</td>
-                                        <td class="text-center"><button ng-click="RemoveRow($index)" style="background: none !important"><span class="glyphicon glyphicon-remove" style="color:red;"></span></button></td>
+                                        <td class="text-center"><button ng-click="RemoveRow($index)" style="background: none !important; border: none !important;"><span class="glyphicon glyphicon-remove" style="color:red;"></span></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
                                     </tr>
                                     
                                 </tbody>
@@ -540,7 +579,7 @@
                                         <label class="control-label col-lg-2">Giá trị</label>
                                         <div class="col-lg-5" style="position:relative;z-index:100">
                                             <div class="has-feedback" id="Input_DataGiaTriChungTu" style="display:none" ng-click="ShowDataGiaTriChungTu()">
-                                                <input type="text" ng-model="GiaTriChungTu.Search" class="form-control showtableselect">
+                                                <input type="text" ng-model="GiaTriChungTu.Search" class="form-control showtableselect" ng-change="DoiTuongFind()">
                                                 <div class="form-control-feedback">
                                                     <i class="icon-arrow-down5"></i>
                                                 </div>
