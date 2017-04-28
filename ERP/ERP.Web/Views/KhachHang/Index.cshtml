@@ -143,7 +143,7 @@ input:-ms-input-placeholder {
                                     <td colspan='7'>
                                         <div id="themmoiinput">
                                             <div class="has-feedback" ng-click="ShowDataCustomer()">
-                                                <input type="text" id="addtencongty" placeholder="Tên công ty" class="showtableselect" style="width: 100%;height: 100% ;padding-left: 5px; border:none" ng-model="arraythongtin.ten_cong_ty" ng-change="load_khachhang(arraythongtin.ten_cong_ty)">
+                                                <input type="text" id="addtencongty" placeholder="Tên công ty(*)" class="showtableselect" style="width: 100%;height: 100% ;padding-left: 5px; border:none" ng-model="arraythongtin.ten_cong_ty" ng-change="load_khachhang(arraythongtin.ten_cong_ty)">
                                                
                                             </div>
                                             <div class="tableselect" id="DataCustomer" style="display:none;max-width: 1180px;">
@@ -248,7 +248,7 @@ input:-ms-input-placeholder {
                                     <th style="background: #64B5F6;color: white;" colspan='2'>Tên ngân hàng</th>
                                     <th style="background: #64B5F6;color: white;" colspan='3'>Chi nhánh</th>
                                     <th style="background: #64B5F6;color: white;">Tỉnh/TP</th>
-                                    <th style="background: #64B5F6;color: white;" colspan='2'>Loại TK</th>
+                                    <th style="background: #64B5F6;color: white;" colspan='2'>Loại TK(*)</th>
                                 </tr>
                                 <tr ng-repeat="i in range(0,2)">
                                     <td><input type="text" class="form-control" style="height: 100%;padding-left: 5px;" ng-model="arraytaikhoan[$index].so_tai_khoan"></td>
@@ -292,12 +292,13 @@ input:-ms-input-placeholder {
                                         <input type="text" style="height: 100%;padding-left: 5px;width:100%" class="form-control" ng-model="arraylienhe[$index].gioi_tinh">
                                     </td>
                                     <td>
-                                        <input type="tel" ng-model="arraylienhe[$index].so_dien_thoai1" placeholder="Số điện thoại 1">
+                                        <input type="tel" ng-model="arraylienhe[$index].so_dien_thoai1" placeholder="Số điện thoại 1(*)">
                                         <input type="tel" ng-model="arraylienhe[$index].so_dien_thoai2" placeholder="Số điện thoại 2">
                                     </td>
                                     <td>
-                                        <input type="text" ng-model="arraylienhe[$index].email_ca_nhan" placeholder="Email cá nhân">
                                         <input type="text" ng-model="arraylienhe[$index].email_cong_ty" placeholder="Email công ty">
+                                        <input type="text" ng-model="arraylienhe[$index].email_ca_nhan" placeholder="Email cá nhân">
+                                        
                                     </td>
                                     <td><input type="text" class="form-control" ng-model="arraylienhe[$index].skype"></td>
                                     <td><input type="text" style="height: 100%;padding-left: 5px;width:100%" class="form-control" ng-model="arraylienhe[$index].facebook"></td>
