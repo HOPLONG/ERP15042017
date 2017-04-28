@@ -26,8 +26,6 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
             return result;
         }
 
-
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -37,5 +35,24 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
             base.Dispose(disposing);
         }
 
+        [HttpPost]
+        [Route("api/Api_TonKhoHL/NewComment")]
+        public IHttpActionResult PostNewComment(HH_COMMENTS comment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            HH_COMMENTS newcomment = new HH_COMMENTS();
+            newcomment.MA_HANG = comment.MA_HANG;
+            newcomment.NOI_DUNG_COMMENT = comment.NOI_DUNG_COMMENT;
+            newcomment.NGAY_COMMENT = DateTime.Today.Date;
+            newcomment.NGUOI_COMMENT = comment.NGUOI_COMMENT;
+            db.HH_COMMENTS.Add(newcomment);
+            db.SaveChanges();
+
+            return Ok(newcomment);
+        }
     }
 }

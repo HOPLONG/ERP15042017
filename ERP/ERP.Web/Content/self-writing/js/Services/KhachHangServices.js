@@ -126,5 +126,8 @@ app.service('khachhangService', function ($http) {
     this.add_kh_policy = function (data_add) {
         return $http.post("/api/Api_KhachHangPolicy", data_add);
     };
+    this.delete_phanhoi = function (id) {
+        return $http.delete('/api/Api_PhanHoiKhachHang/' + id);
+    }
 });
 //end khach hang
