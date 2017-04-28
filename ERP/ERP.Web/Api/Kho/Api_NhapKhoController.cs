@@ -245,6 +245,7 @@ namespace ERP.Web.Api.Kho
                     {
                         newHangTon = new TONKHO_HOPLONG();
                         newHangTon.MA_HANG = item.MA_HANG;
+                        newHangTon.MA_KHO_CON = item.MA_KHO;
                         newHangTon.SL_HOPLONG = Convert.ToInt32(item.SO_LUONG);
                         db.TONKHO_HOPLONG.Add(newHangTon);
                     }
@@ -252,6 +253,51 @@ namespace ERP.Web.Api.Kho
                     {
                         newHangTon.SL_HOPLONG += Convert.ToInt32(item.SO_LUONG);
                     }
+
+                    // Lưu Nhật ký
+                    KT_SO_NHAT_KY_CHUNG sonhatky = new KT_SO_NHAT_KY_CHUNG();
+                    sonhatky.SO_CHUNG_TU = newItem.SO_CHUNG_TU;
+                    sonhatky.NGAY_CHUNG_TU = nk.NGAY_CHUNG_TU;
+                    sonhatky.NGAY_HACH_TOAN = nk.NGAY_HACH_TOAN;
+                    if(nk.MA_DOI_TUONG == null)
+                    {
+                        sonhatky.DOI_TUONG = nk.NGUOI_GIAO_HANG;
+                    }
+                    else
+                    {
+                        sonhatky.DOI_TUONG = nk.MA_DOI_TUONG;
+                    }
+                  
+                    sonhatky.TRUC_THUOC = "HOPLONG";
+                    sonhatky.DIEN_GIAI_CHUNG = nk.DIEN_GIAI;
+                    sonhatky.DIEN_GIAI_CHI_TIET = nk.DIEN_GIAI;
+                    sonhatky.TAI_KHOAN_HACH_TOAN = newItem.TK_NO;
+                    sonhatky.TAI_KHOAN_DOI_UNG = newItem.TK_CO;
+                    sonhatky.PHAT_SINH_NO = tongtien;
+                    sonhatky.PHAT_SINH_CO = 0;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(sonhatky);
+                    KT_SO_NHAT_KY_CHUNG sonhatky1 = new KT_SO_NHAT_KY_CHUNG();
+                    sonhatky1.SO_CHUNG_TU = newItem.SO_CHUNG_TU;
+                    sonhatky1.NGAY_CHUNG_TU = nk.NGAY_CHUNG_TU;
+                    sonhatky1.NGAY_HACH_TOAN = nk.NGAY_HACH_TOAN;
+                    if (nk.MA_DOI_TUONG == null)
+                    {
+                        sonhatky1.DOI_TUONG = nk.NGUOI_GIAO_HANG;
+                    }
+                    else
+                    {
+                        sonhatky1.DOI_TUONG = nk.MA_DOI_TUONG;
+                    }
+                    sonhatky1.TRUC_THUOC = "HOPLONG";
+                    sonhatky1.DIEN_GIAI_CHUNG = nk.DIEN_GIAI;
+                    sonhatky1.DIEN_GIAI_CHI_TIET = nk.DIEN_GIAI;
+                    sonhatky1.TAI_KHOAN_HACH_TOAN = newItem.TK_CO;
+                    sonhatky1.TAI_KHOAN_DOI_UNG = newItem.TK_NO;
+                    sonhatky1.PHAT_SINH_NO = 0;
+                    sonhatky1.PHAT_SINH_CO = tongtien;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(sonhatky1);
+                    
+               
 
                 }
             }
