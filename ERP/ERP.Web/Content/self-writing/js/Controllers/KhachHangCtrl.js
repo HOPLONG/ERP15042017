@@ -160,7 +160,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
         $("textarea[name=themghichu]").val(CKEDITOR.instances.themghichu.getData());
         var themghichu = $("[name=themghichu]").val();
-
+        $("textarea[name=ho_so_thanh_toan]").val(CKEDITOR.instances.ho_so_thanh_toan.getData());
+        var ho_so_thanh_toan = $("[name=ho_so_thanh_toan]").val();
 
         $scope.Thong_tin_KH = {
             LOGO: name_without_ext,
@@ -176,6 +177,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             SO_NO_TOI_DA: $scope.arraythongtin.so_no_toi_da,
             EMAIL: $scope.arraythongtin.email,
             GHI_CHU: themghichu,
+            HO_SO_THANH_TOAN : ho_so_thanh_toan,
             TINH: $scope.arraythongtin.tinh,
             TINH_TRANG_HOAT_DONG: $scope.arraythongtin.tinh_trang_hoat_dong,
             QUOC_GIA: $scope.arraythongtin.quoc_gia,
@@ -385,6 +387,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         $scope.kh = item;
         var ghichuvalue = $('.' + item.MA_KHACH_HANG + '-1').html();
         CKEDITOR.instances.editghichu.setData(ghichuvalue);
+        var ho_so_thanh_toan_value = $('.' + item.MA_KHACH_HANG + '-2').html();
+        CKEDITOR.instances.edit_ho_so_thanh_toan.setData(ho_so_thanh_toan_value);
     };
 
     $scope.EditLienHe = function (lienhe) {
@@ -397,6 +401,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
         $("textarea[name=editghichu]").val(CKEDITOR.instances.editghichu.getData());
         var editghichu = $("[name=editghichu]").val();
+        $("textarea[name=edit_ho_so_thanh_toan]").val(CKEDITOR.instances.edit_ho_so_thanh_toan.getData());
+        var edit_ho_so_thanh_toan = $("[name=edit_ho_so_thanh_toan]").val();
 
         var kh_save = {
             MA_KHACH_HANG: makh,
@@ -416,6 +422,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             SO_NGAY_DUOC_NO: $scope.kh.SO_NGAY_DUOC_NO,
             SO_NO_TOI_DA: $scope.kh.SO_NO_TOI_DA,
             GHI_CHU: editghichu,
+            HO_SO_THANH_TOAN : edit_ho_so_thanh_toan,
             TRUC_THUOC: "HOPLONG",
             KHACH_DO_MARKETING_TIM_KIEM: $scope.kh.KHACH_DO_MARKETING_TIM_KIEM,
             THONG_TIN_DA_DAY_DU: $scope.kh.THONG_TIN_DA_DAY_DU,
@@ -556,6 +563,18 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
            $scope.phantrangkh(0);
             $scope.new_ct_khachhang();
         });
+    };
+
+    $scope.XoaPhanHoi = function (khachphanhoi) {
+        $scope.khachphanhoi = khachphanhoi;
+        var ketqua = confirm('Bạn có chắc muốn xóa không?');
+        if (ketqua == true) {
+            khachhangService.delete_phanhoi($scope.khachphanhoi.ID).then(function (resposne) {
+                $scope.get_phanhoi($scope.khachphanhoi.MA_KHACH_HANG);
+            });
+        } else {
+            $scope.get_phanhoi($scope.khachphanhoi.MA_KHACH_HANG);
+        }
     };
 
     $scope.dieukhoantt = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
