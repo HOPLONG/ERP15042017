@@ -419,7 +419,7 @@ function ctrlChiKhac($rootScope, $scope, $location, $http, $uibModal) {
         $scope.arraydiengiai[$scope.indexcurrent].MA_NHA_CUNG_CAP = p_ncc.MA_NHA_CUNG_CAP;
     }
 
-    /**
+   /**
   * chọn tai khoan ngan hang
   */
     $scope.showInfoTKNH = function (p_bank) {
