@@ -373,7 +373,7 @@ function ctrTamUngNhanVien($rootScope, $scope, $location, $http, $uibModal) {
     };
 
     function errorAlert(message) {
-        alert(message);
+        ErrorSystem(message);
     }
 
 
@@ -385,23 +385,23 @@ function ctrTamUngNhanVien($rootScope, $scope, $location, $http, $uibModal) {
         var listChungTu = $scope.arrayCTTC;
 
         if (!info.so_tai_khoan) {
-            alert('Thiếu thông tin Tài Khoản Chi');
+            ErrorSystem('Thiếu thông tin Tài Khoản Chi');
             return;
         }
 
 
 
         if (!info.ma_doi_tuong) {
-            alert('Thiếu thông tin Đối Tượng');
+            ErrorSystem('Thiếu thông tin Đối Tượng');
             return;
         }
 
         if (!info.ncc_so_tai_khoan) {
-            return callback('Thiếu thông tin Tài Khoản Nhận');
+            return ErrorSystem('Thiếu thông tin Tài Khoản Nhận');
         }
 
         if (!info.nhan_vien_thu) {
-            alert('Thiếu thông tin Nhân Viên');
+            ErrorSystem('Thiếu thông tin Nhân Viên');
             return;
         }
 
@@ -409,23 +409,23 @@ function ctrTamUngNhanVien($rootScope, $scope, $location, $http, $uibModal) {
         var ngaychungtu = $('#ngay_chung_tu').val();
         var ngayhachtoan = $('#ngay_hach_toan').val();
         if (!ngayhachtoan) {
-            alert('Thiếu thông tin Ngày Hạch Toán');
+            ErrorSystem('Thiếu thông tin Ngày Hạch Toán');
             return;
         }
 
         if (!ngaychungtu) {
-            alert('Thiếu thông tin Ngày Chứng Từ');
+            ErrorSystem('Thiếu thông tin Ngày Chứng Từ');
             return;
         }
         if (ngayhachtoan < ngaychungtu) {
-            alert('Ngày Hạch Toán phải lớn hơn hoặc bằng Ngày Chứng Từ');
+            ErrorSystem('Ngày Hạch Toán phải lớn hơn hoặc bằng Ngày Chứng Từ');
             return;
         }
 
 
         var tongtien = 0;
         if (listHachToan.length === 0) {
-            alert('Thiếu thông tin danh sách hạch toán');
+            ErrorSystem('Thiếu thông tin danh sách hạch toán');
             return;
         }
 
@@ -435,22 +435,22 @@ function ctrTamUngNhanVien($rootScope, $scope, $location, $http, $uibModal) {
 
 
             if (!hachtoan.LOAI_TIEN) {
-                alert('Thiếu thông tin hạch toán Loại Tiền - Bảng Diễn Giải hàng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin hạch toán Loại Tiền - Bảng Diễn Giải hàng ' + (i + 1));
                 return;
             }
 
             if (!hachtoan.TK_NO) {
-                alert('Thiếu thông tin hạch toán Tài Khoản Nợ - Bảng Diễn Giải hàng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin hạch toán Tài Khoản Nợ - Bảng Diễn Giải hàng ' + (i + 1));
                 return;
             }
 
             if (!hachtoan.TK_CO) {
-                alert('Thiếu thông tin hạch toán Tài Khoản Có - Bảng Diễn Giải hàng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin hạch toán Tài Khoản Có - Bảng Diễn Giải hàng ' + (i + 1));
                 return;
             }
 
             if (!hachtoan.SO_TIEN) {
-                alert('Thiếu thông tin hạch toán Số Tiền - Bảng Diễn Giải hàng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin hạch toán Số Tiền - Bảng Diễn Giải hàng ' + (i + 1));
                 return;
             }
 
@@ -459,12 +459,12 @@ function ctrTamUngNhanVien($rootScope, $scope, $location, $http, $uibModal) {
             }
 
             if (!hachtoan.TY_GIA) {
-                alert('Thiếu thông tin hạch toán Tỷ Giá - Bảng Diễn Giải hàng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin hạch toán Tỷ Giá - Bảng Diễn Giải hàng ' + (i + 1));
                 return;
             }
 
             if (!hachtoan.DIEN_GIAI) {
-                alert('Thiếu thông tin hạch toán Diễn Giải - Bảng Diễn Giải hàng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin hạch toán Diễn Giải - Bảng Diễn Giải hàng ' + (i + 1));
                 return;
             }
 

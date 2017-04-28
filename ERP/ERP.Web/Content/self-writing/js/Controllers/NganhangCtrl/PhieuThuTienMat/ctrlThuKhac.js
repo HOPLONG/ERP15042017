@@ -385,12 +385,12 @@
     
         $scope.onSave = function () {
             if (!$scope.arrayTongHop.ma_doi_tuong) {
-                alert('Thiếu thông tin Mã Đối Tượng');
+                ErrorSystem('Thiếu thông tin Mã Đối Tượng');
                 return;
             }
 
             if (!$scope.arrayTongHop.dien_giai_ly_do_nop) {
-                alert('Thiếu thông tin Diễn Giải Lý Do Nộp');
+                ErrorSystem('Thiếu thông tin Diễn Giải Lý Do Nộp');
                 return;
             }
 
@@ -399,16 +399,16 @@
             var ngaychungtu = $('#ngay_chung_tu').val();
             var ngayhachtoan = $('#ngay_hach_toan').val();
             if (!ngayhachtoan) {
-                alert('Thiếu thông tin Ngày Hạch Toán');
+                ErrorSystem('Thiếu thông tin Ngày Hạch Toán');
                 return;
             }
 
             if (!ngaychungtu) {
-                alert('Thiếu thông tin Ngày Chứng Từ');
+                ErrorSystem('Thiếu thông tin Ngày Chứng Từ');
                 return;
             }
             if (ngayhachtoan < ngaychungtu) {
-                alert('Ngày Hạch Toán phải lớn hơn hoặc bằng Ngày Chứng Từ');
+                ErrorSystem('Ngày Hạch Toán phải lớn hơn hoặc bằng Ngày Chứng Từ');
                 return;
             }
 
@@ -416,22 +416,22 @@
             var tongtien = 0;
             for (var i = 0; i < $scope.arraydiengiai.length; i++) {
                 if (!$scope.arraydiengiai[i].LOAI_TIEN) {
-                    alert('Thiếu thông tin Loại Tiền - Bảng Diễn Giải hàng ' + (i + 1));
+                    ErrorSystem('Thiếu thông tin Loại Tiền - Bảng Diễn Giải hàng ' + (i + 1));
                     return;
                 }
 
                 if (!$scope.arraydiengiai[i].TK_NO) {
-                    alert('Thiếu thông tin Tài Khoản Nợ - Bảng Diễn Giải hàng ' + (i + 1));
+                    ErrorSystem('Thiếu thông tin Tài Khoản Nợ - Bảng Diễn Giải hàng ' + (i + 1));
                     return;
                 }
 
                 if (!$scope.arraydiengiai[i].TK_CO) {
-                    alert('Thiếu thông tin Tài Khoản Có - Bảng Diễn Giải hàng ' + (i + 1));
+                    ErrorSystem('Thiếu thông tin Tài Khoản Có - Bảng Diễn Giải hàng ' + (i + 1));
                     return;
                 }
 
                 if (!$scope.arraydiengiai[i].SO_TIEN) {
-                    alert('Thiếu thông tin Số Tiền - Bảng Diễn Giải hàng ' + (i + 1));
+                    ErrorSystem('Thiếu thông tin Số Tiền - Bảng Diễn Giải hàng ' + (i + 1));
                     return;
                 }
 
@@ -440,12 +440,12 @@
                 }
 
                 if (!$scope.arraydiengiai[i].TY_GIA) {
-                    alert('Thiếu thông tin Tỷ Giá - Bảng Diễn Giải hàng ' + (i + 1));
+                    ErrorSystem('Thiếu thông tin Tỷ Giá - Bảng Diễn Giải hàng ' + (i + 1));
                     return;
                 }
 
                 if (!$scope.arraydiengiai[i].DIEN_GIAI) {
-                    alert('Thiếu thông tin Diễn Giải - Bảng Diễn Giải hàng ' + (i + 1));
+                    ErrorSystem('Thiếu thông tin Diễn Giải - Bảng Diễn Giải hàng ' + (i + 1));
                     return;
                 }
                 console.log($scope.arraydiengiai[i].so_tien);

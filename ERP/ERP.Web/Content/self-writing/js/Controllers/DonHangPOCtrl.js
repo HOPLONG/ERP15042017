@@ -129,7 +129,7 @@
         }
 
         DonHangPOService.save_thongtinchungPO(url,data_save).then(function successCallback(response) {
-            alert('Thêm thông tin chung thành công');
+            SuccessSystem('Thêm thông tin chung thành công');
 
             for (var i = 0; i < $scope.arrayChiTietPO.length; i++) {
                 $scope.arrayChiTietPO[i].MA_SO_PO = url;
@@ -142,16 +142,16 @@
                     data: $scope.arrayChiTietPO,
                     url: window.location.origin + '/api/Api_ChiTiet_DonHangPO/PutBH_CT_DON_HANG_PO'
                 }).then(function successCallback(response) {
-                    alert("Hoàn Thành Lưu");
+                    SuccessSystem("Hoàn Thành Lưu");
                 }, function errorCallback(response) {
-                    alert('Không lưu được chi tiết giữ kho');
+                    ErrorSystem('Không lưu được chi tiết giữ kho');
                 });
                 return;
             }
 
         }, function errorCallback(response) {
-            console.log(response);
-            alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            ErrorSystem(response);
+            ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
         });
     };
 
@@ -167,7 +167,7 @@
         //
 
         DonHangPOService.delete_thongtinchungPO(url).then(function (response) {
-            alert('Bạn đã xóa thành công');
+            SuccessSystem('Bạn đã xóa thành công');
             window.location.href = "/DonHangPO/Index";
         });
     };
@@ -252,10 +252,10 @@
             data: $scope.ThongTinBanHang,
             url: window.location.origin + '/api/Api_BanHang/PostThemPhieuBanHang'
         }).then(function successCallback(response) {
-            alert('Bạn đã tạo thành công 1 đơn bán hàng có mã là ' + response.data)
+            SuccessSystem('Bạn đã tạo thành công 1 đơn bán hàng có mã là ' + response.data)
         }, function errorCallback(response) {
             console.log(response);
-            alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
         });
     };
 
@@ -264,7 +264,7 @@
          .then(function (response) {
              $scope.list_khachhang = response.data;
          }, function (error) {
-             console.log(error);
+             ErrorSystem(error);
          });
 
     //get data nguoi giu
@@ -272,7 +272,7 @@
          .then(function (response) {
              $scope.list_nhanvienql = response.data;
          }, function (error) {
-             console.log(error);
+             ErrorSystem(error);
          });
 
 
