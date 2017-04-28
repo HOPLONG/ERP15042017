@@ -37,10 +37,10 @@
             data: $scope.YeuCau,
             url: window.location.origin + '/api/Api_YeuCauHoiGia'
         }).then(function successCallback(response) {
-            alert('Bạn đã gửi đơn hỏi giá thành công');
+            SuccessSystem('Bạn đã gửi đơn hỏi giá thành công');
         }, function errorCallback(response) {
             console.log(response);
-            alert('Sự cố hệ thống, Bạn vui lòng kiểm tra kết nối Internet hoặc liên hệ với admin để được hỗ trợ ');
+            ErrorSystem('Sự cố hệ thống, Bạn vui lòng kiểm tra kết nối Internet hoặc liên hệ với admin để được hỗ trợ ');
         });
     }
     //-------------------------

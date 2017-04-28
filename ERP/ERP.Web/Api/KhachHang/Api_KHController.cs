@@ -14,6 +14,18 @@ using System.Data.SqlClient;
 
 namespace ERP.Web.Api.HeThong
 {
+    public class ThongTinTimKiem
+    {
+        public string sales { get; set; }
+        public string macongty { get; set; }
+        public Boolean isadmin { get; set; }
+        public string tukhoa { get; set; }
+    }
+    public class DSTrang
+    {
+        public int trangso { get; set; }
+    }
+
     public class Api_KHController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
@@ -37,12 +49,25 @@ namespace ERP.Web.Api.HeThong
             return kq;
         }
 
-        [Route("api/Api_KH/KH_THEO_SALES/{username}/{tukhoa}")]
-        public List<HopLong_LocKHTheoSale_Result> KH_THEO_SALES( string username, string tukhoa)
+        [Route("api/Api_KH/KH_THEO_SALES")]
+        public List<HopLong_LocKHTheoSale_Result> KH_THEO_SALES( ThongTinTimKiem thongtintimkiem)
         {
-            var query = db.Database.SqlQuery<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale, @sdt", new SqlParameter("sale", username), new SqlParameter("sdt", tukhoa));
+            var query = db.Database.SqlQuery<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale, @macongty, @isadmin, @tukhoa", new SqlParameter("sale", thongtintimkiem.sales), new SqlParameter("macongty", thongtintimkiem.macongty), new SqlParameter("isadmin", thongtintimkiem.isadmin), new SqlParameter("tukhoa", thongtintimkiem.tukhoa));
+            var result = query.ToList();
+
+            var kq = result.Take(10).ToList();
+            return kq;
+
+
+        }
+        [Route("api/Api_KH/LOC_KH")]
+        public List<HopLong_LocKHTheoSale_Result> LOC_KH(ThongTinTimKiem thongtintimkiem)
+        {
+            var query = db.Database.SqlQuery<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale, @macongty, @isadmin, @tukhoa", new SqlParameter("sale", thongtintimkiem.sales), new SqlParameter("macongty", thongtintimkiem.macongty), new SqlParameter("isadmin", thongtintimkiem.isadmin), new SqlParameter("tukhoa", thongtintimkiem.tukhoa));
             var result = query.ToList();
             return result;
+
+
         }
 
         [Route("api/Api_KH/ThongKeMuaHang/{makhach}/{page}")]
@@ -62,12 +87,29 @@ namespace ERP.Web.Api.HeThong
         }
 
         
-        [Route("api/Api_KH/PhantrangKH/{page}/{sale}")]
-        public List<HopLong_PhanTrangKhachHang_Result> PhantrangKH(int page,string sale)
+        [Route("api/Api_KH/PhantrangKH/{page}")]
+        public List<HopLong_PhanTrangKhachHang_Result> PhantrangKH(int page, ThongTinTimKiem timkiem)
         {
-            var query = db.Database.SqlQuery<HopLong_PhanTrangKhachHang_Result>("HopLong_PhanTrangKhachHang  @sotrang,@sale", new SqlParameter("sotrang", page), new SqlParameter("sale", sale));
+            var query = db.Database.SqlQuery<HopLong_PhanTrangKhachHang_Result>("HopLong_PhanTrangKhachHang @macongty, @sale, @isadmin", new SqlParameter("macongty", timkiem.macongty), new SqlParameter("sale", timkiem.sales), new SqlParameter("isadmin", timkiem.isadmin));
             var result = query.ToList();
-            return result;
+            var data = result.Skip((page-1)*15).Take(15).ToList();
+            return data;
+        }
+
+        [Route("api/Api_KH/TongSoTrang")]
+        public List<DSTrang> TongSoTrang(ThongTinTimKiem timkiem)
+        {
+            List<DSTrang> danhsachtrang = new List<DSTrang>();
+            
+            var query = db.Database.SqlQuery<HopLong_PhanTrangKhachHang_Result>("HopLong_PhanTrangKhachHang @macongty, @sale, @isadmin", new SqlParameter("macongty", timkiem.macongty), new SqlParameter("sale", timkiem.sales), new SqlParameter("isadmin", timkiem.isadmin));
+            var result = query.ToList();
+            for(int i=1; i< result.Count/15; i++)
+            {
+                DSTrang trang = new DSTrang();
+                trang.trangso = i;
+                danhsachtrang.Add(trang);
+            }
+            return danhsachtrang.ToList();
         }
 
         [Route("api/Api_KH/GET_KHACH_CUA_SALE/{username}")]

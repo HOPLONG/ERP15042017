@@ -111,17 +111,20 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         
 
         //Lấy dữ liệu khách hàng hợp long
-        $http.get("http://27.72.144.148:8003/api/KhachHang/GetKhachHang/HOPLONG")
-            .then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.KhachHang.KhachHang = response.data;
-            }
-            else {
-                ErrorSystem();
-            }
-        }, function (error) {
-            ConnectFail();
-        });
+     
+        $scope.SearchKH = function (mkh) {
+            $http.post(window.location.origin + '/api/Search_KH/Search/' + mkh)
+             .then(function (response) {
+                 if (typeof (response.data) == "object") {
+                     $scope.KhachHang.KhachHang = response.data;
+                 }
+                 else {
+                     ErrorSystem();
+                 }
+             }, function (error) {
+                 console.log(error);
+             });
+        }
         //-------------------------------------
 
 
@@ -439,8 +442,8 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         }
     };
     $scope.SelectDoiTuong = function (item) {
-        $scope.GeneralInfo.NguoiNhan = item.MA_DOI_TUONG;
-        $scope.GeneralInfo.TenDoiTuong = item.TEN_DOI_TUONG;
+        $scope.GeneralInfo.NguoiNhan = item.USERNAME;
+        $scope.GeneralInfo.TenDoiTuong = item.HO_VA_TEN;
     }
     $scope.ChangeType = function () {
 

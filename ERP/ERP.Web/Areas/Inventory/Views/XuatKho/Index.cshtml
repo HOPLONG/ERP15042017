@@ -59,7 +59,7 @@
                                         <label class="control-label col-lg-3">Khách hàng</label>
                                         <div class="col-lg-5">
                                             <div class="has-feedback showtableselect" ng-click="ShowKhachHang()">
-                                                <input type="text" ng-model="GeneralInfo.KhachHang" class="form-control showtableselect">
+                                                <input type="text" ng-model="GeneralInfo.KhachHang" class="form-control showtableselect" ng-change="SearchKH(GeneralInfo.KhachHang)">
                                                 <div class="form-control-feedback">
                                                     <i class="icon-arrow-down5"></i>
                                                 </div>
@@ -104,18 +104,18 @@
                                                         <tr>
                                                             <th style="width:20%">Mã đối tượng</th>
                                                             <th style="width:20%">Tên đối tượng</th>
-                                                            <th style="width:20%">Địa chỉ</th>
-                                                            <th style="width:20%">Mã số thuế</th>
+                                                            <th style="width:20%">Phòng ban</th>
+                                                            <th style="width:20%">Email</th>
                                                             <th style="width:20%">Điện thoại</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="item in KhachHang.DoiTuong| filter:GeneralInfo.NguoiNhan" ng-click="SelectDoiTuong(item)">
-                                                            <td>{{item.MA_DOI_TUONG}}</td>
-                                                            <td>{{item.TEN_DOI_TUONG}}</td>
-                                                            <td>{{item.DIA_CHI}}</td>
-                                                            <td>{{item.MA_SO_THUE}}</td>
-                                                            <td>{{item.DIEN_THOAI}}</td>
+                                                        <tr ng-repeat="item in NhanVien| filter:GeneralInfo.NguoiNhan" ng-click="SelectDoiTuong(item)">
+                                                            <td>{{item.USERNAME}}</td>
+                                                            <td>{{item.HO_VA_TEN}}</td>
+                                                            <td>{{item.TEN_PHONG_BAN}}</td>
+                                                            <td>{{item.EMAIL}}</td>
+                                                            <td>{{item.SDT}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

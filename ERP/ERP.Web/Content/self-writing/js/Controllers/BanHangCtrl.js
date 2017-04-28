@@ -125,7 +125,7 @@
         }
 
         BanHangService.save_thongtinchungBH(url,data_save).then(function successCallback(response) {
-            alert('Sửa thông tin chung thành công');
+            SuccessSystem('Sửa thông tin chung thành công');
 
             for (var i = 0; i < $scope.arrayChiTietBH.length; i++) {
                 $scope.arrayChiTietBH[i].MA_SO_BH = url;
@@ -138,16 +138,16 @@
                     data: $scope.arrayChiTietBH,
                     url: window.location.origin + '/api/Api_ChiTietBanHang/PUTBH_CT_BAN_HANG'
                 }).then(function successCallback(response) {
-                    alert("Hoàn Thành Lưu");
+                    SuccessSystem("Hoàn Thành Lưu");
                 }, function errorCallback(response) {
-                    alert('Không lưu được chi tiết đơn bán hàng');
+                    ErrorSystem('Không lưu được chi tiết đơn bán hàng');
                 });
                 return;
             }
 
         }, function errorCallback(response) {
             console.log(response);
-            alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
         });
     };
 
@@ -205,9 +205,9 @@
             data: $scope.SoNhatKy,
             url: window.location.origin + '/api/Api_SoNhatKyChung/PostKT_SO_NHAT_KY_CHUNG'
         }).then(function successCallback(response) {
-            alert("Lên sổ nhật ký chung thành công");
+            SuccessSystem("Lên sổ nhật ký chung thành công");
         }, function errorCallback(response) {
-            alert('Lên sổ nhật ký chung thất bại');
+            ErrorSystem('Lên sổ nhật ký chung thất bại');
         });
         return;       
     };

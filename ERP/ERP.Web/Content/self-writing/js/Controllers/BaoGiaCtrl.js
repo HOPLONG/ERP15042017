@@ -178,20 +178,20 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                             data: $scope.arrayChiTietBaoGia,
                             url: window.location.origin + '/api/Api_ChiTietBaoGia/PutBH_CT_BAO_GIA'
                         }).then(function successCallback(response) {
-                            alert("Hoàn Thành Lưu");
+                            SuccessSystem("Hoàn Thành Lưu");
                         }, function errorCallback(response) {
-                            alert('Không lưu được chi tiết giữ kho');
+                            ErrorSystem('Không lưu được chi tiết giữ kho');
                         });
                         return;
                     }
 
                 }, function errorCallback(response) {
                     console.log(response);
-                    alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+                    ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
                 });
 
             }, function errorCallback(response) {
-                alert('Lỗi - Xóa không thành công');
+                ErrorSystem('Lỗi - Xóa không thành công');
             });
         }
         $scope.Detail.ListXoa.splice(0, 1);
@@ -410,17 +410,17 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
         for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
             if (!$scope.Detail.ListAdd[i].MA_HANG) {
-                alert('Thiếu thông tin Mã hàng - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin Mã hàng - tại dòng ' + (i + 1));
                 return;
             }
 
             if (!$scope.Detail.ListAdd[i].SO_LUONG) {
-                alert('Thiếu thông tin số lượng giữ - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin số lượng giữ - tại dòng ' + (i + 1));
                 return;
             }
 
             if (!$scope.Detail.ListAdd[i].DON_GIA_MOI) {
-                alert('Thiếu thông tin đơn giá - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin đơn giá - tại dòng ' + (i + 1));
                 return;
             }
 
@@ -520,16 +520,16 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                 data: $scope.arrayChiTietBaoGia,
                 url: window.location.origin + '/api/Api_ChiTietBaoGia/PutBH_CT_BAO_GIA'
             }).then(function successCallback(response) {
-                alert("Hoàn Thành Lưu");
+                SuccessSystem("Hoàn Thành Lưu");
             }, function errorCallback(response) {
-                alert('Không lưu được chi tiết giữ kho');
+                ErrorSystem('Không lưu được chi tiết giữ kho');
             });
             return;
         }
         
     }, function errorCallback(response) {
         console.log(response);
-        alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+        ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
     });
 }
 
@@ -694,28 +694,28 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             data: $scope.arrayChiTietBaoGia,
             url: window.location.origin + '/api/Api_ChiTietBaoGia/TachBaoGia/' + $scope.BangBaoGia[0].SO_BAO_GIA,
         }).then(function successCallback(response) {
-            alert('Tách thành công báo giá mới' + response.data);
+            SuccessSystem('Tách thành công báo giá mới' + response.data);
            
         }, function errorCallback(response) {
             console.log(response);
-            alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
         });
     };
 
     $scope.Copy = function () {
         for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
             if (!$scope.Detail.ListAdd[i].MA_HANG) {
-                alert('Thiếu thông tin Mã hàng - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin Mã hàng - tại dòng ' + (i + 1));
                 return;
             }
 
             if (!$scope.Detail.ListAdd[i].SO_LUONG) {
-                alert('Thiếu thông tin số lượng giữ - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin số lượng giữ - tại dòng ' + (i + 1));
                 return;
             }
 
             if (!$scope.Detail.ListAdd[i].DON_GIA_MOI) {
-                alert('Thiếu thông tin đơn giá - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin đơn giá - tại dòng ' + (i + 1));
                 return;
             }
 
@@ -822,20 +822,20 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
         //Lưu vào CSDL
         baogiaService.copynewbg($scope.TongHop).then(function successCallback(response) {
-            alert('Bạn đã sao chép thành công một báo giá mới là ' + response.data);
+            SuccessSystem('Bạn đã sao chép thành công một báo giá mới là ' + response.data);
             reload();
         }, function errorCallback(response) {
             console.log(response);
-            alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
         });
         
     };
 
     $scope.GopBaoGia = function () {
         $http.post('/api/Api_BaoGia/GopBaoGia/' + $scope.baogia1 + '/' + $scope.baogia2).then(function (response) {
-            alert('Gộp 2 báo giá thành báo giá ' + response.data + 'thành công');
+            SuccessSystem('Gộp 2 báo giá thành báo giá ' + response.data + 'thành công');
         }, function errorCallback(response) {
-            alert('Gộp báo giá không thành công');
+            ErrorSystem('Gộp báo giá không thành công');
         });
     };
 
@@ -843,17 +843,17 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
         for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
             if (!$scope.Detail.ListAdd[i].MA_HANG) {
-                alert('Thiếu thông tin Mã hàng - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin Mã hàng - tại dòng ' + (i + 1));
                 return;
             }
 
             if (!$scope.Detail.ListAdd[i].SO_LUONG) {
-                alert('Thiếu thông tin số lượng giữ - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin số lượng giữ - tại dòng ' + (i + 1));
                 return;
             }
 
             if (!$scope.Detail.ListAdd[i].DON_GIA_MOI) {
-                alert('Thiếu thông tin đơn giá - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin đơn giá - tại dòng ' + (i + 1));
                 return;
             }
 
@@ -902,10 +902,10 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             data: $scope.Bao_Gia,
             url: window.location.origin + '/api/Api_DonHangPO/PostDon_Hang_PO'
         }).then(function successCallback(response) {
-            alert('Bạn đã tạo thành công 1 đơn PO có mã là ' + response.data)
+            SuccessSystem('Bạn đã tạo thành công 1 đơn PO có mã là ' + response.data)
         }, function errorCallback(response) {
             console.log(response);
-            alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
         });
     };
 
