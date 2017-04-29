@@ -198,13 +198,13 @@ namespace ERP.Web.Api.Kho
 
         #region "Get All Thông tin hàng hóa"
         [HttpGet]
-        [Route("api/Api_XuatNhapKho/GetAllHH/{macongty}/{key}/{mh}")]
-        public List<Prod_KHO_GetHHTonKho_Result> GetAllHH(string macongty, string key, string mh)
+        [Route("api/Api_XuatNhapKho/GetAllHH/{macongty}/{key}/{machuan}")]
+        public List<Prod_KHO_GetHHTonKho_Result> GetAllHH(string macongty, string key, string machuan)
         {
-            var query = db.Database.SqlQuery<Prod_KHO_GetHHTonKho_Result>("Prod_KHO_GetHHTonKho @macongty,@key", new SqlParameter("macongty", macongty), new SqlParameter("key", key));
+            var query = db.Database.SqlQuery<Prod_KHO_GetHHTonKho_Result>("Prod_KHO_GetHHTonKho @macongty,@key,@machuan", new SqlParameter("macongty", macongty), new SqlParameter("key", key), new SqlParameter("machuan", machuan));
             resultHH = query.ToList();
-            var kq = resultHH.Where(x => x.MA_CHUAN.ToLower().Contains(mh.ToLower())).Take(10).ToList();
-            return kq;
+            
+            return resultHH;
             
         }
         #endregion
