@@ -28,6 +28,9 @@ namespace ERP.Web.Models.Database
             this.QUY_PHIEU_THU = new HashSet<QUY_PHIEU_THU>();
             this.QUY_PHIEU_CHI1 = new HashSet<QUY_PHIEU_CHI>();
             this.QUY_PHIEU_THU1 = new HashSet<QUY_PHIEU_THU>();
+            this.HH_COMMENTS = new HashSet<HH_COMMENTS>();
+            this.HT_PHAN_HOI_PHAN_MEM = new HashSet<HT_PHAN_HOI_PHAN_MEM>();
+            this.HT_PHAN_HOI_PHAN_MEM1 = new HashSet<HT_PHAN_HOI_PHAN_MEM>();
         }
     
         public string USERNAME { get; set; }
@@ -66,5 +69,11 @@ namespace ERP.Web.Models.Database
         public virtual ICollection<QUY_PHIEU_CHI> QUY_PHIEU_CHI1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QUY_PHIEU_THU> QUY_PHIEU_THU1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HH_COMMENTS> HH_COMMENTS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HT_PHAN_HOI_PHAN_MEM> HT_PHAN_HOI_PHAN_MEM { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HT_PHAN_HOI_PHAN_MEM> HT_PHAN_HOI_PHAN_MEM1 { get; set; }
     }
 }

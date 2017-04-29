@@ -8,14 +8,14 @@ app.service('khachhangService', function ($http) {
     };
 
 
-    this.get_khachhang = function (thongtintimkiem) {
-        return $http.post('/api/Api_KH/KH_THEO_SALES', thongtintimkiem).then(function (response) {
+    this.get_khachhang = function (page,thongtintimkiem) {
+        return $http.post('/api/Api_KH/KH_THEO_SALES/'+page, thongtintimkiem).then(function (response) {
             return response.data;
         });
     };
 
-    this.Loc_KH = function (thongtintimkiem) {
-        return $http.post('/api/Api_KH/LOC_KH', thongtintimkiem).then(function (response) {
+    this.Loc_KH = function (page,thongtintimkiem) {
+        return $http.post('/api/Api_KH/LOC_KH/'+page, thongtintimkiem).then(function (response) {
             return response.data;
         });
     };

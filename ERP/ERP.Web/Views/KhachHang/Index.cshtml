@@ -15,6 +15,7 @@
 <script src="~/Content/self-writing/js/Services/KhachHangServices.js"></script>
 <script src="~/Content/self-writing/js/Controllers/KhachHangCtrl.js"></script>
 <link href="~/Content/assets/css/core.css" rel="stylesheet" />
+
 <style>
 
 
@@ -103,6 +104,7 @@ input:-ms-input-placeholder {
 
 
 </style>
+
 <div ng-app="myApp" ng-controller="khachhangCtrl">
 
     <div class="content">
@@ -115,7 +117,7 @@ input:-ms-input-placeholder {
         <div id="quick-access">
             <form class="form-inline quick-search-form" role="form" action="#">
                 <div class="form-group" style="width: 100%">
-                    <input type="text" style="width: 60%" class="form-control" placeholder="Type Customer Name You Want To Search Here" ng-model="search_text"  ng-change="load_khachhang(search_text)">
+                    <input type="text" style="width: 60%" class="form-control" placeholder="Type Customer Name You Want To Search Here" ng-model="search_text"  ng-change="load_khachhang(1,search_text)">
                     @*<input type="button" class="btn btn-info" ng-click="load_khachhang(search_text)" value="Tìm kiếm khách" />*@
                 </div>
             </form>
@@ -1244,7 +1246,7 @@ input:-ms-input-placeholder {
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
                 <tr ng-repeat="item in filtered" ng-click="transfer(item);get_lienhe(item.MA_KHACH_HANG);get_taikhoan(item.MA_KHACH_HANG);get_phanhoi(item.MA_KHACH_HANG);get_thongkemuahang(item.MA_KHACH_HANG);get_policy(item.MA_KHACH_HANG)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.MA_KHACH_HANG}}</td>
                     <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_CONG_TY}}</td>
@@ -1268,31 +1270,44 @@ input:-ms-input-placeholder {
                     <td>
                         <button type="submit" ng-hide="editMode" ng-click="editMode = true; editAppKey(item)" class="btn btn-default">Edit</button>
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; chuyensale(item)" class="btn btn-default">Save</button>
-                        <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
+                        <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button> 
                     </td>
                     <td><a href="/KinhDoanh/Donhangdukien/TaoDuKienMoi/{{item.MA_KHACH_HANG}}">Tạo đơn dự kiến</a></td>
                 </tr>
                 <!--Detail row-->
 
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="10">
+                    </td>
+                </tr>
+                
+            </tfoot>
         </table>
-        <div class="col-md-12">
-            <div class="col-md-2"><label style="text-decoration:underline; cursor:pointer" ng-click="TongSoTrang()">Hiển thị tổng số trang</label></div>
-            <div>
-                <!--Hiển thị danh sách số trang-->
-                <md-input-container>
-                    <md-select ng-model="trangso">
-                        <md-option ng-repeat="item in DanhSachSoTrang" ng-value="trangso" ng-click="phantrangkh($index)">
-                            {{item.trangso}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <!--End hiển thị danh sách số trang-->
-            </div>
+        <div class="card-footer p-0">
+            
+               <center>
+                   Trang:
+                   <select ng-model="tranghienthoi" ng-change="phantrangkh(tranghienthoi)">
+                       <option ng-repeat="item in danhsachtrang">{{item}}</option>
+                   </select>
+               </center>
+ 
         </div>
 
-        
     </div>
+
+    <style>
+        #texttime {
+            color: gray;
+            font-size: 14px;
+            font-weight: 700;
+        }
+    </style>
+    <script type="text/javascript">var startTime=new Date();function currentTime(){var a=Math.floor((new Date()-startTime)/100)/10;if (a%1==0) a+=".0";document.getElementById("endTime").innerHTML=a;}window.onload=function(){clearTimeout(loopTime);}</script>
+    <script type="text/javascript">document.write('<div align="center"><span id="texttime"><i class="fa fa fa-spinner fa-spin"></i> Thời gian tải trang: <span id="endTime">0.0</span>s</span></div> ');var loopTime=setInterval("currentTime()",100);</script>
+
 
     <script>
     (function () {

@@ -90,6 +90,16 @@
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="color: white;">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
+                <!-- DANH SÁCH MENU TRÊN-->
+                <div class="navbar-custom-menu pull-left">
+                    <input type="hidden" value="@Session["MA_PHONG_BAN"]" id="maphongban" />
+                    <input type="hidden" value="@Session["USERNAME"]" id="username" />
+                    <ul class="nav navbar-nav" ng-repeat="menu in danhsachmenu" ng-class="get(menu.USERNAME)">
+                        <li ng-class="check(menu.TRANG_THAI)">
+                            <a href="{{menu.LINK}}" class="dropdown-toggle" ng-mouseup="edit(menu.MA_MENU)">{{menu.TEN_MENU}}</a>
+                        </li>
+                    </ul>
+                </div><!-- /end menu bar -->
  
                 <div class="navbar-custom-menu pull-right">
                     <ul class="nav navbar-nav ">
