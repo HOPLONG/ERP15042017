@@ -577,6 +577,33 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         }
     };
 
+    $scope.edit_thongtinphanhoi = function (khachphanhoi) {
+        $scope.khachphanhoi = khachphanhoi;
+        var phanhoivalue = $('.thongtinphanhoi-' + khachphanhoi.ID).html();
+        CKEDITOR.instances.edit_thong_tin_phan_hoi.setData(phanhoivalue);
+    }
+
+    $scope.save_thongtinphanhoi = function (id,makh) {
+        $("textarea[name=edit_thong_tin_phan_hoi]").val(CKEDITOR.instances.edit_thong_tin_phan_hoi.getData());
+        var edit_thong_tin_phan_hoi = $("[name=edit_thong_tin_phan_hoi]").val();
+
+        var data_save = {
+            THONG_TIN_PHAN_HOI: edit_thong_tin_phan_hoi
+        }
+        
+        $http.put('/api/Api_PhanHoiKhachHang/' + id,data_save).then(function successCallback(response1) {
+            SuccessSystem("Sửa thành công");
+        }, function errorCallback(response1) {
+            ErrorSystem("Lỗi khi sửa");
+        });
+    };
+
+    $scope.cancel_thongtinphanhoi = function (khachphanhoi) {
+        $scope.khachphanhoi = khachphanhoi;
+        $scope.get_phanhoi($scope.khachphanhoi.MA_KHACH_HANG);
+    };
+
+
     $scope.dieukhoantt = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
     $scope.tinhtranghoatdong = ['Cầm chừng', 'Bình thường', 'Sắp phá sản', 'Đã phá sản'];
     $scope.tinh_trang = ['Còn công tác', 'Đã luân chuyển', 'Đã nghỉ việc', 'Chuyển công ty khác'];

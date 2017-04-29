@@ -90,10 +90,9 @@ namespace ERP.Web.Api.HeThong
         [Route("api/Api_KH/PhantrangKH/{page}")]
         public List<HopLong_PhanTrangKhachHang_Result> PhantrangKH(int page, ThongTinTimKiem timkiem)
         {
-            var query = db.Database.SqlQuery<HopLong_PhanTrangKhachHang_Result>("HopLong_PhanTrangKhachHang @macongty, @sale, @isadmin", new SqlParameter("macongty", timkiem.macongty), new SqlParameter("sale", timkiem.sales), new SqlParameter("isadmin", timkiem.isadmin));
+            var query = db.Database.SqlQuery<HopLong_PhanTrangKhachHang_Result>("HopLong_PhanTrangKhachHang @macongty, @sale, @isadmin, @sotrang", new SqlParameter("macongty", timkiem.macongty), new SqlParameter("sale", timkiem.sales), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("sotrang", page));
             var result = query.ToList();
-            var data = result.Skip((page-1)*15).Take(15).ToList();
-            return data;
+            return result;
         }
 
         [Route("api/Api_KH/TongSoTrang")]

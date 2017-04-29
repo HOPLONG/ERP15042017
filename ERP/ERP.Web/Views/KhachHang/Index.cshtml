@@ -31,11 +31,6 @@ input:-ms-input-placeholder {
    font-size:9px;
 }
 
-
-
-
-
-
     .form-control {
     border: none;
     -webkit-box-shadow: none;
@@ -798,7 +793,12 @@ input:-ms-input-placeholder {
                                             <tr ng-repeat="khachphanhoi in list_phanhoi">
                                                 <td style="width: 10%;">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
                                                 <td style="width: 20%;">{{khachphanhoi.HO_VA_TEN}}</td>
-                                                <td ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 64%;"></td>
+                                                <td style="width: 64%;">
+                                                    <p ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" class="thongtinphanhoi-{{khachphanhoi.ID}}"></p>                                                    
+                                                </td>                                                
+                                                <td>
+                                                    <button type="button" ng-click="edit_thongtinphanhoi(khachphanhoi)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#editphanhoi">Sửa</button>
+                                                </td>
                                                 <td style="width : 5%" ng-click="XoaPhanHoi(khachphanhoi)">Xóa</td>
                                             </tr>
                                         </table>
@@ -1187,9 +1187,38 @@ input:-ms-input-placeholder {
             </div>
         </div>
         <!-- End modal thêm mới policy -->
+        <!--Update phản hồi-->
+        <div class="modal fade" id="editphanhoi" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <label class="col-md-2">Thông tin phản hồi</label>
+                            <div class="col-sm-10">
+                                <textarea id="edit_thong_tin_phan_hoi" name="edit_thong_tin_phan_hoi" class="form-control input-md"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="anmelden"></label>
+                            <div class="col-md-8 addnew" style="text-align: left;margin-top: 30px;">
+                                <button id="addnew" name="addnew" class="btn" ng-click="save_thongtinphanhoi(khachphanhoi.ID,khachphanhoi.MA_KHACH_HANG)" data-dismiss="modal">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                CKEDITOR.replace('edit_thong_tin_phan_hoi', {
+                height: 150
+            });
+            </script>
 
-
-
+        </div>
+        <!--End update phản hồi-->
         <table id="example" class="table" cellspacing="0">
             <thead>
                 <tr>
