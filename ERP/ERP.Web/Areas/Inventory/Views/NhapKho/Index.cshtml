@@ -26,6 +26,7 @@
 <script src="~/Content/download/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/pages/form_bootstrap_select.js"></script>
+<script src= "https://cdnjs.cloudflare.com/ajax/libs/angular-debounce/0.1.7/angular-debounce.js"></script>
 <script src="~/Content/Scripts/angularjs/controller/StoreInsertController.js"></script>
 <div class="" ng-app="app" ng-controller="StoreInsertController">
     <!-- Dashboard content -->
@@ -246,7 +247,7 @@
                                     <tr ng-repeat="(index,item) in Detail.ListAdd">
                                         <td>
                                             <div class="has-feedback showtableselect" ng-click="ShowHangHoa(index)">
-                                                <input type="text" ng-model="item.MA_CHUAN" class="input showtableselect" ng-change="SearchHH(item.MA_CHUAN)">
+                                                <input type="text" ng-model="item.MA_CHUAN" class="input showtableselect" ng-change="SearchHH(item.MA_CHUAN)" debounce="500" immediate="true">
 
                                                 <div class="form-control-feedback">
                                                     <i class="icon-arrow-down5"></i>

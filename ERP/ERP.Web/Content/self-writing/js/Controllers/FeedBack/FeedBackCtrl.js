@@ -20,21 +20,22 @@ app.controller('FeedBackCtrl', function ($scope, $http) {
     };
 
     // Update chấm điểm
-
+    var usernamenguoiduyet = $('#usernamenguoiduyet').val();
     $scope.SaveChamDiem = function () {
         $("textarea[name=edit_thong_tin_phan_hoi]").val(CKEDITOR.instances.edit_thong_tin_phan_hoi.getData());
         var phanhoi = $("[name=edit_thong_tin_phan_hoi]").val();
         $http({
             method: 'PUT',
-            url: '/api/Api_HT_PHAN_HOI_PHAN_MEM/PostHT_PHAN_HOI_PHAN_MEM',
+            url: '/api/Api_HT_PHAN_HOI_PHAN_MEM/PutHT_PHAN_HOI_PHAN_MEM',
             data: {
+                ID: $scope.item.ID,
                 NHAN_VIEN_PHAN_HOI: $scope.item.NHAN_VIEN_PHAN_HOI,
                 THONG_TIN_PHAN_HOI:phanhoi,
                 THONG_TIN_PHAN_HOI_TOT: $scope.item.Tot,
                 THONG_TIN_PHAN_HOI_TRUNG_BINH: $scope.item.TB,
                 THONG_TIN_PHAN_HOI_KHONG_TOT: $scope.item.KhongTot,
                 THONG_TIN_PHAN_HOI_LUNG_TUNG: $scope.item.Kem,
-                NGUOI_DUYET: nguoiduyet,
+                NGUOI_DUYET: usernamenguoiduyet,
                 TINH_DIEM: $scope.item.TINH_DIEM
 
             }
