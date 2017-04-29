@@ -70,12 +70,13 @@ namespace ERP.Web.Api.KhachHang
                 return BadRequest(ModelState);
             }
 
-            if (id != kH_PHAN_HOI_KHACH_HANG.ID)
-            {
-                return BadRequest();
-            }
+           
 
-            db.Entry(kH_PHAN_HOI_KHACH_HANG).State = EntityState.Modified;
+            var query = db.KH_PHAN_HOI_KHACH_HANG.Where(x => x.ID == id).FirstOrDefault();
+            if(query != null)
+            {
+                query.THONG_TIN_PHAN_HOI = kH_PHAN_HOI_KHACH_HANG.THONG_TIN_PHAN_HOI;
+            }
 
             try
             {

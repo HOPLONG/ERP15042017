@@ -13,9 +13,14 @@
         border: 0px !important;
         border-radius: 0px !important;
     }
-   
+   #texttime {
+            color: gray;
+            font-size: 14px;
+            font-weight: 700;
+        }
 </style>
-
+<script type="text/javascript">var startTime=new Date();function currentTime(){var a=Math.floor((new Date()-startTime)/100)/10;if (a%1==0) a+=".0";document.getElementById("endTime").innerHTML=a;}window.onload=function(){clearTimeout(loopTime);}</script>
+<script type="text/javascript">document.write('<div align="center"><span id="texttime"><i class="fa fa fa-spinner fa-spin"></i> Thời gian tải trang: <span id="endTime">0.0</span>s</span></div> ');var loopTime=setInterval("currentTime()",100);</script>
 <div ng-app="myApp" ng-controller="baogiaCtrl">
     <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
     <!-- Dashboard content -->
@@ -63,18 +68,18 @@
                                                     <thead>
                                                         <tr class="bg-primary-300" style="background:#64B5F6; color:white;">
                                                             <th style="width:2%"></th>
-                                                            <th style="width:5%; padding-top: 5px;padding-bottom: 2px;" class="text-center">Số báo giá</th>
-                                                            <th style="width:5%; padding-top: 5px;padding-bottom: 2px;" class="text-center">Ngày báo giá</th>
-                                                            <th style="width:5%; padding-top: 5px;padding-bottom: 2px;" class="text-center">Đã duyệt</th>
-                                                            <th style="width:10%; padding-top: 5px;padding-bottom: 2px;" class="text-center">Người duyệt</th>
-                                                            <th style="width:5%; padding-top: 5px;padding-bottom: 2px;" class="text-center">Đã trúng</th>
-                                                            <th style="width:5%; padding-top: 5px;padding-bottom: 2px;" class="text-center">Đã hủy</th>
-                                                            <th style="width:20%; padding-top: 5px;padding-bottom: 2px;" class="text-center">Lý do hủy</th>
+                                                            <th style="width:5%; padding-top: 5px;padding-bottom: 2px;" class="text-left">Số báo giá</th>
+                                                            <th style="width:5%; padding-top: 5px;padding-bottom: 2px;" class="text-left">Ngày báo giá</th>
+                                                            <th style="width:5%; padding-top: 5px;padding-bottom: 2px;" class="text-left">Đã duyệt</th>
+                                                            <th style="width:10%; padding-top: 5px;padding-bottom: 2px;" class="text-left">Người duyệt</th>
+                                                            <th style="width:5%; padding-top: 5px;padding-bottom: 2px;" class="text-left">Đã trúng</th>
+                                                            <th style="width:5%; padding-top: 5px;padding-bottom: 2px;" class="text-left">Đã hủy</th>
+                                                            <th style="width:20%; padding-top: 5px;padding-bottom: 2px;" class="text-left">Lý do hủy</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr ng-repeat="baogia in list_baogiatheodukien">
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <div>
                                                                     <input type="checkbox" ng-model="addbaogia">
                                                                     <div ng-if="addbaogia">
@@ -82,21 +87,21 @@
                                                                     </div>
                                                                 </div>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 {{baogia.SO_BAO_GIA}}
                                                                 <p class="{{baogia.SO_BAO_GIA}}-phivanchuyen" style="display:none">{{baogia.PHI_VAN_CHUYEN}}</p>
                                                                 <p class="{{baogia.SO_BAO_GIA}}-chiphixuly" style="display:none">{{baogia.CHI_PHI_XU_LY_HOA_DON}}</p>
                                                                 <p class="{{baogia.SO_BAO_GIA}}-thuesuatgtgt" style="display:none">{{baogia.THUE_SUAT_GTGT}}</p>
                                                             </td>
-                                                            <td class="text-center">{{baogia.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">{{baogia.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
+                                                            <td class="text-left">
                                                                 <div>
                                                                     <input readonly type="checkbox" ng-model="item.DA_DUYET" />
                                                                 </div>
                                                             </td>
-                                                            <td class="text-center">{{baogia.NGUOI_DUYET}}</td>
-                                                            <td class="text-center"><input readonly type="checkbox" ng-model="item.DA_TRUNG" /></td>
-                                                            <td class="text-center"><input readonly type="checkbox" ng-model="item.DA_HUY" /></td>
+                                                            <td class="text-left">{{baogia.NGUOI_DUYET}}</td>
+                                                            <td class="text-left"><input readonly type="checkbox" ng-model="item.DA_TRUNG" /></td>
+                                                            <td class="text-left"><input readonly type="checkbox" ng-model="item.DA_HUY" /></td>
                                                             <td style="width:20%; padding-left: 5px;">{{baogia.LY_DOHUY}}</td>
                                                         </tr>
                                                     </tbody>
@@ -139,16 +144,16 @@
                                                     <thead>
                                                         <tr class="bg-primary-300" style="background:#64B5F6; color: white">
                                                             <td></td>
-                                                            <td class="text-center" width="15%">Descriptions</td>
-                                                            <td class="text-center" width="4%">Qty</td>
-                                                            <td class="text-center" width="4%">Uom</td>
-                                                            <td class="text-center" width="8%">U.Price</td>
-                                                            <td class="text-center" width="8%">Total Amount(VND)</td>
-                                                            <td class="text-center" width="8%">Dilivery Time</td>
-                                                            <td class="text-center" width="10%">Đơn giá tính theo Price List</td>
-                                                            <td class="text-center" width="10%">Đơn giá tính theo Giá Nhập</td>
-                                                            <td class="text-center" width="9%">Giá báo đi net</td>
-                                                            <td class="text-center" width="20%" ng-show="editCM">Tính CM cho khách</td>
+                                                            <td class="text-left" width="15%">Descriptions</td>
+                                                            <td class="text-left" width="4%">Qty</td>
+                                                            <td class="text-left" width="4%">Uom</td>
+                                                            <td class="text-left" width="8%">U.Price</td>
+                                                            <td class="text-left" width="8%">Total Amount(VND)</td>
+                                                            <td class="text-left" width="8%">Dilivery Time</td>
+                                                            <td class="text-left" width="10%">Đơn giá tính theo Price List</td>
+                                                            <td class="text-left" width="10%">Đơn giá tính theo Giá Nhập</td>
+                                                            <td class="text-left" width="9%">Giá báo đi net</td>
+                                                            <td class="text-left" width="20%" ng-show="editCM">Tính CM cho khách</td>
                                                             <td>Xóa</td>
                                                         </tr>
                                                     </thead>
@@ -227,20 +232,20 @@
                                                             <td>
                                                                 <input type="number" ng-model="item.SO_LUONG" class="style-inline" ng-change="kiemtra(item)">
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <input type="text" ng-model="item.DVT" class="style-inline" />
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <input type="number" ng-model="item.DON_GIA_MOI" class="style-inline" ng-change="kiemtra(item)">
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <input type="number" ng-model="item.THANH_TIEN" class="style-inline" readonly>
                                                                 <input type="number" ng-model="item.THANH_TIEN_NET" class="style-inline" style="display:none" />
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <input type="text" ng-model="item.THOI_GIAN_GIAO_HANG" class="style-inline">
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <table style="width:100%; height: 100%">
                                                                     <tr>
                                                                         <td class="style-inline">
@@ -260,7 +265,7 @@
                                                                     </tr>
                                                                 </table>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <table style="width:100%; height: 100%">
                                                                     <tr>
                                                                         <td class="style-inline">
@@ -281,7 +286,7 @@
                                                                 </table>
                                                             </td>
 
-                                                            <td class="text-center"><input type="number" ng-model="item.DON_GIA_BAO_DI_NET" class="style-inline" ng-change="kiemtra(item)"></td>
+                                                            <td class="text-left"><input type="number" ng-model="item.DON_GIA_BAO_DI_NET" class="style-inline" ng-change="kiemtra(item)"></td>
 
 
 
@@ -328,7 +333,7 @@
                                                                 </table>
                                                             </td>
                                                             <td>
-                                                                <div class="text-center">
+                                                                <div class="text-left">
                                                                     <center><i class="fa fa-minus-circle" style="color:red;" ng-click="Remove($index,item)" aria-hidden="true"></i></center>
                                                                 </div>
                                                             </td>
@@ -426,16 +431,16 @@
                                                 <table id="themmoiinput" border="1" >
                                                     <thead>
                                                         <tr class="bg-primary-300" style="background:#64B5F6; color: white">
-                                                            <td class="text-center" width="15%">Descriptions</td>
-                                                            <td class="text-center" width="4%">Qty</td>
-                                                            <td class="text-center" width="4%">Uom</td>
-                                                            <td class="text-center" width="8%">U.Price</td>
-                                                            <td class="text-center" width="8%">Total Amount(VND)</td>
-                                                            <td class="text-center" width="8%">Dilivery Time</td>
-                                                            <td class="text-center" width="10%">Đơn giá tính theo Price List</td>
-                                                            <td class="text-center" width="10%">Đơn giá tính theo Giá Nhập</td>
-                                                            <td class="text-center" width="9%">Giá báo đi net</td>
-                                                            <td class="text-center" width="20%" ng-show="newCM">Tính CM cho khách</td>
+                                                            <td class="text-left" width="15%">Descriptions</td>
+                                                            <td class="text-left" width="4%">Qty</td>
+                                                            <td class="text-left" width="4%">Uom</td>
+                                                            <td class="text-left" width="8%">U.Price</td>
+                                                            <td class="text-left" width="8%">Total Amount(VND)</td>
+                                                            <td class="text-left" width="8%">Dilivery Time</td>
+                                                            <td class="text-left" width="10%">Đơn giá tính theo Price List</td>
+                                                            <td class="text-left" width="10%">Đơn giá tính theo Giá Nhập</td>
+                                                            <td class="text-left" width="9%">Giá báo đi net</td>
+                                                            <td class="text-left" width="20%" ng-show="newCM">Tính CM cho khách</td>
                                                             <td>Xóa</td>
                                                         </tr>
                                                     </thead>
@@ -506,20 +511,20 @@
                                                             <td>
                                                                 <input type="number" ng-model="detail.so_luong" class="style-inline" ng-change="test(detail)">
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <input type="text" ng-model="detail.dvt" class="style-inline" />
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <input type="number" ng-model="detail.don_gia_ban" class="style-inline" ng-change="test(detail)">
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <input type="number" ng-model="detail.thanh_tien" class="style-inline" readonly>
                                                                 <input type="number" ng-model="detail.thanh_tien_net" class="style-inline" style="display:none" />
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <input type="text" ng-model="detail.thoi_gian_giao_hang" class="style-inline">
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <table style="width:100%; height: 100%">
                                                                     <tr>
                                                                         <td class="style-inline">
@@ -539,7 +544,7 @@
                                                                     </tr>
                                                                 </table>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-left">
                                                                 <table style="width:100%; height: 100%">
                                                                     <tr>
                                                                         <td class="style-inline">
@@ -560,7 +565,7 @@
                                                                 </table>
                                                             </td>
 
-                                                            <td class="text-center"><input type="number" ng-model="detail.gia_bao_di_net" class="style-inline" readonly ></td>
+                                                            <td class="text-left"><input type="number" ng-model="detail.gia_bao_di_net" class="style-inline" readonly ></td>
 
 
 
@@ -607,7 +612,7 @@
                                                                 </table>
                                                             </td>
                                                             <td>
-                                                                <div class="text-center">
+                                                                <div class="text-left">
                                                                     <center><i class="fa fa-minus-circle" style="color:red;" ng-click="RemoveNew($index,detail)" aria-hidden="true"></i></center>
                                                                 </div>
                                                             </td>
@@ -698,7 +703,7 @@
                             </div>
                         </div>
                         <!--End Thông tin chung-->
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-12 text-left">
                             <button type="button" class="btn btn-primary thongtinchungthemmoi" onclick="myFunction()" style="background: darkseagreen !important;color: white!important;"><i class="icon-floppy-disk"></i>Xóa trắng</button>
                             <button type="button" class="btn btn-primary thongtinchungthemmoi" ng-click="AddNew()" style="display:none;"><i class="icon-floppy-disk"></i>Thêm mới</button>
                             <button type="button" class="btn btn-primary savethongtin" style="display:none;" ng-click="onSave()"><i class="icon-floppy-disk"></i>Lưu</button>
@@ -732,24 +737,24 @@
                             <table class="table table-bordered table-striped table-hover ">
                                 <thead>
                                     <tr class="bg-primary-300" style="background:#64B5F6; color:white">
-                                        <th style="width:2%" class="text-center"></th>
-                                        <th style="width:6%" class="text-center">Mã hàng</th>
-                                        <th style="width:6%" class="text-center">Tên hàng</th>
-                                        <th style="width:8%" class="text-center">Mã chuẩn</th>
-                                        <th style="width:6%" class="text-center">Thông số</th>
-                                        <th style="width:4%" class="text-center">Hãng</th>
-                                        <th style="width:2%" class="text-center">ĐVT</th>
-                                        <th style="width:6%" class="text-center">Giá List</th>
-                                        <th style="width:5%" class="text-center">Discontinue</th>
-                                        <th style="width:8%" class="text-center">Mã chuyển đổi</th>
-                                        <th style="width:4%" class="text-center">Tồn HL</th>
-                                        <th style="width:4%" class="text-center">Tồn ĐN</th>
-                                        <th style="width:5%" class="text-center">Tồn HCM</th>
-                                        <th style="width:4%" class="text-center">Tồn HP</th>
-                                        <th style="width:5%" class="text-center">Đang giữ</th>
-                                        <th style="width:5%" class="text-center">Ký gửi</th>
-                                        <th style="width:5%" class="text-center">Tồn Hãng</th>
-                                        <th style="width:9%" class="text-center">Thời gian cấp hàng (Hãng)</th>
+                                        <th style="width:2%" class="text-left"></th>
+                                        <th style="width:6%" class="text-left">Mã hàng</th>
+                                        <th style="width:6%" class="text-left">Tên hàng</th>
+                                        <th style="width:8%" class="text-left">Mã chuẩn</th>
+                                        <th style="width:6%" class="text-left">Thông số</th>
+                                        <th style="width:4%" class="text-left">Hãng</th>
+                                        <th style="width:2%" class="text-left">ĐVT</th>
+                                        <th style="width:6%" class="text-left">Giá List</th>
+                                        <th style="width:5%" class="text-left">Discontinue</th>
+                                        <th style="width:8%" class="text-left">Mã chuyển đổi</th>
+                                        <th style="width:4%" class="text-left">Tồn HL</th>
+                                        <th style="width:4%" class="text-left">Tồn ĐN</th>
+                                        <th style="width:5%" class="text-left">Tồn HCM</th>
+                                        <th style="width:4%" class="text-left">Tồn HP</th>
+                                        <th style="width:5%" class="text-left">Đang giữ</th>
+                                        <th style="width:5%" class="text-left">Ký gửi</th>
+                                        <th style="width:5%" class="text-left">Tồn Hãng</th>
+                                        <th style="width:9%" class="text-left">Thời gian cấp hàng (Hãng)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -770,13 +775,13 @@
                                         <td>
                                             <input type="text" ng-model="hanghoa.TEN_HANG" class="form-control">
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <input type="text" ng-model="hanghoa.MA_CHUAN" class="form-control">
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <input type="text" ng-model="hanghoa.THONG_SO" class="form-control">
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <input type="text" ng-model="hanghoa.MA_NHOM_HANG" class="form-control">
                                         </td>
                                         <td>
@@ -791,7 +796,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="text-center">
+                                            <div class="text-left">
                                                 <input type="checkbox" ng-model="hanghoa.DISCONTINUE">
                                             </div>
                                         </td>
@@ -872,24 +877,24 @@
                             <table class="table table-bordered table-striped table-hover ">
                                 <thead>
                                     <tr class="bg-primary-300" style="background:#64B5F6; color:white">
-                                        <th style="width:2%" class="text-center"></th>
-                                        <th style="width:6%" class="text-center">Mã hàng</th>
-                                        <th style="width:6%" class="text-center">Tên hàng</th>
-                                        <th style="width:8%" class="text-center">Mã chuẩn</th>
-                                        <th style="width:6%" class="text-center">Thông số</th>
-                                        <th style="width:4%" class="text-center">Hãng</th>
-                                        <th style="width:2%" class="text-center">ĐVT</th>
-                                        <th style="width:6%" class="text-center">Giá List</th>
-                                        <th style="width:5%" class="text-center">Discontinue</th>
-                                        <th style="width:8%" class="text-center">Mã chuyển đổi</th>
-                                        <th style="width:4%" class="text-center">Tồn HL</th>
-                                        <th style="width:4%" class="text-center">Tồn ĐN</th>
-                                        <th style="width:5%" class="text-center">Tồn HCM</th>
-                                        <th style="width:4%" class="text-center">Tồn HP</th>
-                                        <th style="width:5%" class="text-center">Đang giữ</th>
-                                        <th style="width:5%" class="text-center">Ký gửi</th>
-                                        <th style="width:5%" class="text-center">Tồn Hãng</th>
-                                        <th style="width:9%" class="text-center">Thời gian cấp hàng (Hãng)</th>
+                                        <th style="width:2%" class="text-left"></th>
+                                        <th style="width:6%" class="text-left">Mã hàng</th>
+                                        <th style="width:6%" class="text-left">Tên hàng</th>
+                                        <th style="width:8%" class="text-left">Mã chuẩn</th>
+                                        <th style="width:6%" class="text-left">Thông số</th>
+                                        <th style="width:4%" class="text-left">Hãng</th>
+                                        <th style="width:2%" class="text-left">ĐVT</th>
+                                        <th style="width:6%" class="text-left">Giá List</th>
+                                        <th style="width:5%" class="text-left">Discontinue</th>
+                                        <th style="width:8%" class="text-left">Mã chuyển đổi</th>
+                                        <th style="width:4%" class="text-left">Tồn HL</th>
+                                        <th style="width:4%" class="text-left">Tồn ĐN</th>
+                                        <th style="width:5%" class="text-left">Tồn HCM</th>
+                                        <th style="width:4%" class="text-left">Tồn HP</th>
+                                        <th style="width:5%" class="text-left">Đang giữ</th>
+                                        <th style="width:5%" class="text-left">Ký gửi</th>
+                                        <th style="width:5%" class="text-left">Tồn Hãng</th>
+                                        <th style="width:9%" class="text-left">Thời gian cấp hàng (Hãng)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -911,13 +916,13 @@
                                         <td>
                                             <input type="text" ng-model="hanghoa.TEN_HANG" class="form-control">
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <input type="text" ng-model="hanghoa.MA_CHUAN" class="form-control">
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <input type="text" ng-model="hanghoa.THONG_SO" class="form-control">
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <input type="text" ng-model="hanghoa.MA_NHOM_HANG" class="form-control">
                                         </td>
                                         <td>
@@ -932,7 +937,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="text-center">
+                                            <div class="text-left">
                                                 <input type="checkbox" ng-model="hanghoa.DISCONTINUE">
                                             </div>
                                         </td>
