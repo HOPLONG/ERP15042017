@@ -7,6 +7,7 @@ namespace ERP.Web.Models.NewModels
 {
     public class PhanHoi
     {
+        public int ID { set; get; }
         public string NHAN_VIEN_PHAN_HOI { set; get; }
         public string NGAY_PHAN_HOI { set; get; }
         public string THONG_TIN_PHAN_HOI { set; get; }

@@ -12,7 +12,7 @@
     <div class="class="content"">
         <!-- Modal Update -->
         <div class="modal fade" id="myEdit" role="dialog" tabindex="-1">
-            <div class="modal-dialog modal-lg" style="width: 90%">
+            <div class="modal-dialog modal-sm" style="width: 50%">
                 <div class="modal-content" style="height: 100%">
 
                     <div class="modal-body">
@@ -24,28 +24,19 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div>Người phản hồi</div>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text"  class="form-control input-md" ng-model="item.NHAN_VIEN_PHAN_HOI">
+                                                        <input type="hidden" id="nguoiduyet" value="@Session["IS_AMIN"]" />
+                                                        <input type="hidden" id="usernamenguoiduyet" value="@Session["USERNAME"]" />
+                                                        <input type="text"  class="form-control input-md" ng-model="item.NHAN_VIEN_PHAN_HOI" readonly>
                                                     </div>  
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div>Người duyệt</div>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="hidden" id="nguoiduyet" value="@Session["IS_AMIN"]" />
-                                                        <input type="text" class="form-control input-md" ng-model="item.NGUOI_DUYET">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div>Điểm</div>
@@ -63,23 +54,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div>Ngày phản hồi</div>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control input-md" ng-model="item.NGAY_PHAN_HOI">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div>Ngày duyệt</div>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" datepicker class="form-control datetimepickerKT" ng-model="item.NGAY_DUYET">
+                                                        <input type="text" class="form-control input-md" ng-model="item.NGAY_PHAN_HOI" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -97,28 +78,28 @@
                                                         <label class="checkbox-inline">Đánh giá</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="checkbox" ng-model="Tot">Tốt
+                                                        <input type="checkbox" ng-model="item.Tot">Tốt
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <input type="checkbox" ng-model="TB">Trung Bình
+                                                        <input type="checkbox" ng-model="item.TB">Trung Bình
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <input type="checkbox" ng-model="KhongTot">Không Tốt
+                                                        <input type="checkbox" ng-model="item.KhongTot">Không Tốt
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <input type="checkbox" ng-model="Kem">Kém
+                                                        <input type="checkbox" ng-model="item.Kem">Kém
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,7 +159,7 @@
                             <th>Người duyệt</th>
                             <th>Điểm</th>
                             <th></th>
-                            <th></th>
+            
                         </tr>
 
                     </thead>
@@ -188,6 +169,7 @@
                             <td class="text-left">{{item.TEN_NHAN_VIEN_PHAN_HOI}}</td>
                             <td class="text-left">{{item.NGUOI_DUYET}}</td>
                             <td class="text-left">{{item.TINH_DIEM}}</td>
+                            <td class="text-left" style="display: none">{{item.ID}}</td>
                             <td class="thongtinphanhoi-{{$index}}" ng-bind-html="item.THONG_TIN_PHAN_HOI | unsafe" style="display:none"></td>
                             <td>
                                 <button class="btn  btn-circle" ng-click="edit(item,$index)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit">Chấm điểm</button>
