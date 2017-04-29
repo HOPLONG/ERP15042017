@@ -49,10 +49,10 @@ namespace ERP.Web.Api.HeThong
             return kq;
         }
 
-        [Route("api/Api_KH/KH_THEO_SALES")]
-        public List<HopLong_LocKHTheoSale_Result> KH_THEO_SALES( ThongTinTimKiem thongtintimkiem)
+        [Route("api/Api_KH/KH_THEO_SALES/{page}")]
+        public List<HopLong_LocKHTheoSale_Result> KH_THEO_SALES(int page, ThongTinTimKiem timkiem)
         {
-            var query = db.Database.SqlQuery<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale, @macongty, @isadmin, @tukhoa", new SqlParameter("sale", thongtintimkiem.sales), new SqlParameter("macongty", thongtintimkiem.macongty), new SqlParameter("isadmin", thongtintimkiem.isadmin), new SqlParameter("tukhoa", thongtintimkiem.tukhoa));
+            var query = db.Database.SqlQuery<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale, @macongty, @isadmin, @tukhoa, @sotrang", new SqlParameter("sale", timkiem.sales), new SqlParameter("macongty", timkiem.macongty), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("tukhoa", timkiem.tukhoa), new SqlParameter("sotrang", page));
             var result = query.ToList();
 
             var kq = result.Take(10).ToList();
@@ -60,15 +60,24 @@ namespace ERP.Web.Api.HeThong
 
 
         }
-        [Route("api/Api_KH/LOC_KH")]
-        public List<HopLong_LocKHTheoSale_Result> LOC_KH(ThongTinTimKiem thongtintimkiem)
+        [Route("api/Api_KH/LOC_KH/{page}")]
+        public List<HopLong_LocKHTheoSale_Result> LOC_KH(int page, ThongTinTimKiem timkiem)
         {
-            var query = db.Database.SqlQuery<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale, @macongty, @isadmin, @tukhoa", new SqlParameter("sale", thongtintimkiem.sales), new SqlParameter("macongty", thongtintimkiem.macongty), new SqlParameter("isadmin", thongtintimkiem.isadmin), new SqlParameter("tukhoa", thongtintimkiem.tukhoa));
+            var query = db.Database.SqlQuery<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale, @macongty, @isadmin, @tukhoa, @sotrang", new SqlParameter("sale", timkiem.sales), new SqlParameter("macongty", timkiem.macongty), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("tukhoa", timkiem.tukhoa), new SqlParameter("sotrang", page));
             var result = query.ToList();
             return result;
 
-
         }
+        [Route("api/Api_KH/SoTrangTimKiem")]
+        public int SoTrangTimKiem(ThongTinTimKiem timkiem)
+        {
+
+            var query = db.Database.SqlQuery<int>("HopLong_LocKHTheoSale_Tongsotrang @sale, @macongty, @isadmin, @tukhoa", new SqlParameter("sale", timkiem.sales), new SqlParameter("macongty", timkiem.macongty), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("tukhoa", timkiem.tukhoa));
+            int kq = query.FirstOrDefault();
+
+            return kq;
+        }
+
 
         [Route("api/Api_KH/ThongKeMuaHang/{makhach}/{page}")]
         public List<KH_GetThongKeMuaHang_Result> ThongKeMuaHang(string makhach,int page)
@@ -95,20 +104,14 @@ namespace ERP.Web.Api.HeThong
             return result;
         }
 
-        [Route("api/Api_KH/TongSoTrang")]
-        public List<DSTrang> TongSoTrang(ThongTinTimKiem timkiem)
+        [Route("api/Api_KH/TongSoTrang/{macongty}")]
+        public int TongSoTrang(string macongty)
         {
-            List<DSTrang> danhsachtrang = new List<DSTrang>();
+
+            var query = db.Database.SqlQuery<int>("Prod_KH_GetTongSoKhach @macongty", new SqlParameter("macongty", macongty));
+            int kq = query.FirstOrDefault();
             
-            var query = db.Database.SqlQuery<HopLong_PhanTrangKhachHang_Result>("HopLong_PhanTrangKhachHang @macongty, @sale, @isadmin", new SqlParameter("macongty", timkiem.macongty), new SqlParameter("sale", timkiem.sales), new SqlParameter("isadmin", timkiem.isadmin));
-            var result = query.ToList();
-            for(int i=1; i< result.Count/15; i++)
-            {
-                DSTrang trang = new DSTrang();
-                trang.trangso = i;
-                danhsachtrang.Add(trang);
-            }
-            return danhsachtrang.ToList();
+            return kq;
         }
 
         [Route("api/Api_KH/GET_KHACH_CUA_SALE/{username}")]

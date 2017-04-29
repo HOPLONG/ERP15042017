@@ -100,10 +100,14 @@
                     <span class="sr-only">Toggle navigation</span>
                 </a>
                 <!-- DANH SÁCH MENU TRÊN-->
-                <div class="navbar-custom-menu pull-left col-md-8">
+                <div class="navbar-custom-menu pull-left">
                     <input type="hidden" value="@Session["MA_PHONG_BAN"]" id="maphongban" />
                     <input type="hidden" value="@Session["USERNAME"]" id="username" />
-                    <h4 class="text-center" style="color: white">BẠN ĐANG TRONG KHU VỰC KHO</h4>
+                    <ul class="nav navbar-nav" ng-repeat="menu in danhsachmenu" ng-class="get(menu.USERNAME)">
+                        <li ng-class="check(menu.TRANG_THAI)">
+                            <a href="{{menu.LINK}}" class="dropdown-toggle" ng-mouseup="edit(menu.MA_MENU)">{{menu.TEN_MENU}}</a>
+                        </li>
+                    </ul>
                 </div><!-- /end menu bar -->
 
 

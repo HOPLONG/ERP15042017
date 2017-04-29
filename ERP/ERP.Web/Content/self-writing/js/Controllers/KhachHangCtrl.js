@@ -5,35 +5,51 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     var macongty = $('#macongty').val();
     var isadmin = $('#isadmin').val();
     var phongban = $('#maphongban').val();
-    //Phan trang kh
-    //function pageClick2(pageNumber) {
-    //    $("#page-number-2").text(pageNumber);
+
+    //tìm kiếm khách
+    $scope.load_khachhang = function (page, tukhoa) {
+        var thongtintimkiem = {
+            sales: salehienthoi,
+            macongty: macongty,
+            isadmin: isadmin,
+            tukhoa: tukhoa
+        }
+        khachhangService.get_khachhang(page,thongtintimkiem).then(function (a) {
+            $scope.filtered = a;
+
+        });
+       
+    };
+    $scope.TimKiemPhanTrang = function(tukhoa)
+    {
+        var thongtintimkiem = {
+            sales: salehienthoi,
+            macongty: macongty,
+            isadmin: isadmin,
+            tukhoa: tukhoa
+        }
+        $http.post('/api/Api_KH/SoTrangTimKiem', thongtintimkiem)
+          .then(function successCallback(response) {
+              $scope.tongsodong = response.data;
+              $scope.tongsotrang = $scope.tongsodong / 15;
+              while ($scope.tongsotrang > $scope.tranghienthoi) {
+                  $scope.danhsachtrang.push($scope.tranghienthoi);
+                  $scope.tranghienthoi++;
+              }
+
+          }, function errorCallback(response1) {
+              ErrorSystem("Lỗi đường truyền: không lấy được Số Trang tìm kiếm");
+              //alert('Chưa thêm được tài khoản khách hàng');
+          });
+    }
+
+    //----------------------------------------------------------
 
 
-
-    //    //var datas = {
-    //    //    macongty: 'HOPLONG',
-    //    //    sotrang: pageNumber,
-    //    //    ma: salehienthoi,
-    //    //    isadmin: isadmin,
-    //    //    maphongban: phongban,
-    //    //}
-
-    //    var datas = {
-    //        macongty: macongty,
-    //        sales: salehienthoi,
-    //        isadmin: isadmin
-    //    }
-    //    $http.post('api/Api_KH/PhantrangKH/' + pageNumber, datas)
-    //        .then(function successCallback(response) {
-    //            $scope.filtered = response.data;
-    //        });
-    //}
-
-
-
+    //load khách hàng phân trang
     $scope.phantrangkh = function (index) {
-        var pageNumber = index + 1;
+
+        var pageNumber = parseInt(index) + 1;
         var datas = {
             macongty: macongty,
             sales: salehienthoi,
@@ -52,22 +68,33 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 //alert('Chưa thêm được tài khoản khách hàng');
             });
     }
-    $scope.phantrangkh(0);
+    //---------------------------------------
+    $scope.tranghienthoi = 0;
+    $scope.phantrangkh($scope.tranghienthoi);
     //Lấy tổng số trang
-    $scope.TongSoTrang = function () {
-        var datas = {
-            macongty: macongty,
-            sales: salehienthoi,
-            isadmin: isadmin
-        }
-        $http.post('/api/Api_KH/TongSoTrang', datas)
+    $scope.danhsachtrang = [];
+    $scope.tranghienthoi = 0;
+    //phân trang toàn bộ khách
+    $scope.TongSoDong = function () {
+        
+        $http.post('/api/Api_KH/TongSoTrang/'+ macongty)
             .then(function successCallback(response) {
-                $scope.DanhSachSoTrang = response.data;
+                $scope.tongsodong = response.data;
+                $scope.tongsotrang = $scope.tongsodong / 15;
+                while ($scope.tongsotrang > $scope.tranghienthoi) {
+                    $scope.danhsachtrang.push($scope.tranghienthoi);
+                    $scope.tranghienthoi++;
+                }
+
             }, function errorCallback(response1) {
-                ErrorSystem("Lỗi đường truyền: không lấy được toàn bộ danh sách khách hàng, Bạn vui lòng kiểm tra lại kết nối Internet trên máy");
+                ErrorSystem("Lỗi đường truyền: không lấy được Tổng Số Trang");
                 //alert('Chưa thêm được tài khoản khách hàng');
             });
     }
+    $scope.TongSoDong();
+    //----------------------------------------
+
+
 
     //$scope.phantrangkh(1)
     //var itemsCount = 2000;
@@ -83,6 +110,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     //});
     //pagination2.make(itemsCount, itemsOnPage);
     //End phan trang kh
+
+
 
     //Phan trang thong ke mua hang
     function pageClick3(pageNumber) {
@@ -308,24 +337,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         });
     };
 
-    //Load khách Hàng
-   
-
-    $scope.load_khachhang = function (tukhoa) {
-        var thongtintimkiem = {
-            sales : salehienthoi,
-            macongty: macongty,
-            isadmin: isadmin,
-            tukhoa: tukhoa,
-        }
-        khachhangService.get_khachhang(thongtintimkiem).then(function (a) {
-            $scope.filtered = a;
-            
-        });
-    };
-
-   
-
+ 
     $scope.load_phanloaikhach = function () {
         khachhangService.get_phanloaikhach().then(function (b) {
             $scope.list_phanloai = b;
@@ -1002,14 +1014,14 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     }
     // End Lọc nhóm vật tư hh
 
-    $scope.LocKH = function (tukhoa) {
+    $scope.LocKH = function (page,tukhoa) {
         var thongtin = {
             sales: salehienthoi,
             macongty: macongty,
             isadmin: isadmin,
             tukhoa: tukhoa,
         }
-        khachhangService.Loc_KH(thongtin).then(function (a) {
+        khachhangService.Loc_KH(page,thongtin).then(function (a) {
             $scope.filtered = a;
 
         });
@@ -1025,7 +1037,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     }
 
     $scope.SelectDataSales = function (item) {
-        $scope.LocKH(item);
+        $scope.LocKH(1, item);
+        $scope.TimKiemPhanTrang(item);
         $("#DataSales").css({ "display": "none" });
     }
     

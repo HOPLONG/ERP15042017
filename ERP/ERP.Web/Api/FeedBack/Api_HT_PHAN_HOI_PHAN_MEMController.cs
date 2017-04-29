@@ -52,8 +52,8 @@ namespace ERP.Web.Api.FeedBack
                 return BadRequest(ModelState);
             }
             //Lưu thông tin nhập kho
-            HT_PHAN_HOI_PHAN_MEM ph = new HT_PHAN_HOI_PHAN_MEM();
-            ph.NGAY_PHAN_HOI = DateTime.Today.Date;
+            //HT_PHAN_HOI_PHAN_MEM ph = new HT_PHAN_HOI_PHAN_MEM();
+            var ph = db.HT_PHAN_HOI_PHAN_MEM.Where(x => x.ID == phanhoi.ID).FirstOrDefault();          
             ph.NHAN_VIEN_PHAN_HOI = phanhoi.NHAN_VIEN_PHAN_HOI;
             ph.THONG_TIN_PHAN_HOI = phanhoi.THONG_TIN_PHAN_HOI;
             ph.THONG_TIN_PHAN_HOI_TOT = phanhoi.THONG_TIN_PHAN_TOT;
