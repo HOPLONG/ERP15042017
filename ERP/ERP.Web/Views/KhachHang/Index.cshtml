@@ -121,7 +121,7 @@ input:-ms-input-placeholder {
         <input type="button" class="btn btn-info" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
         <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
         <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/KhachChuaGiaoDich';" value="Danh sách khách chưa có giao dịch" />
-
+        <input type="button" class="btn btn-info" value="Hủy lọc" style="float:right" ng-click="cancel_locKH()"/>
         <!-- Modal Add New khách hàng -->
         <div class="modal fade" id="myModal" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-lg" style="width: 90%">
@@ -1259,9 +1259,8 @@ input:-ms-input-placeholder {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="item in list_nhanvienkd| filter:NguoiGiaoHang.Search" ng-click="SelectDataSales(item.HO_VA_TEN)">
-                                        
-                                                <td class="text-left">{{item.HO_VA_TEN}}</td>
+                                            <tr ng-repeat="nhanvienkd in list_nhanvienkd| filter:NguoiGiaoHang.Search" ng-click="SelectDataSales(nhanvienkd)">
+                                                <td class="text-left">{{nhanvienkd.HO_VA_TEN}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
