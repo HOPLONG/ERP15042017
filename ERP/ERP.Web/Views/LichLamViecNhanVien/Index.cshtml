@@ -17,35 +17,35 @@
             <div class="panel-heading" style="height: 40px;">
                 <div class="panel-title">
                     <div style="float: left">Lịch Làm việc của nhân viên</div>
-                    <div style="float: right">@Html.ActionLink("Tạo lịch mới", "Create")</div>
+                    <div style="float: right"><a href="/LichLamViecNhanVien/Create">Tạo lịch làm việc mới</a></div>                    
                 </div>
             </div>
             <div class="panel-body">
                 <div class="form-horizontal">
-
+                   
 
                     <!-- Table expand row -->
                     <div class="collapse-custom">
                        
                         <!-- ROW 1 -->
                         <nav class="navbar navbar-default" role="navigation">
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" data-toggle="collapse" href="#collapseOne">
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav" ng-repeat="item in DataPhongBan">
-                                    <li class="one" ng-click="get_datanhanvienphongban(item.MA_PHONG_BAN)"><a>{{item.TEN_PHONG_BAN}}</a></li>
+                                    <li class="one" ng-mouseup="get_datanhanvienphongban(item.MA_PHONG_BAN)" data-toggle="collapse" href="#collapse{{$index}}"><a>{{item.TEN_PHONG_BAN}}</a></li>
                                 </ul>
                             </div>
                         </nav>
                         <!-- HIDDING CONTANT -->
-                        <div id="collapseOne" class="collapse" data-parent="bs-example-navbar-collapse-1">
+                        <div id="collapseOne" class="collapse">
                             <div class="panel-body">
                                 <!-- LISTE-->
                                 <div class="row">
-                                    <div class="col-md-3 collapse navbar-collapse" data-toggle="collapse" href="#collapseTwo" style="box-shadow: 3px 3px 3px #ddd;margin-right: 30px;padding-right: 67px;margin-left: 26px; padding-bottom:20px">
-                                        <ul ng-repeat="item in DataNhanVienPhongBan">
-                                            <li ng-click="get_datalichlamviec(item.USERNAME)"><a>{{item.HO_VA_TEN}}</a></li>
+                                    <div class="col-md-3 collapse navbar-collapse" style="box-shadow: 3px 3px 3px #ddd;margin-right: 30px;padding-right: 67px;margin-left: 26px; padding-bottom:20px">
+                                        <ul ng-repeat="item in DataNhanVienPhongBan" id="collapse{{$index}}">
+                                            <li ng-mouseup="get_datalichlamviec(item.USERNAME)"  data-toggle="collapse" href="#collapseTwo{{$index}}" ><a>{{item.HO_VA_TEN}}</a></li>
                                         </ul>
                                     </div>
-                                    <div class="col-md-9 collapse navbar-collapse table-responsive content-group" data-toggle="collapse" id="collapseTwo">
+                                    <div class="col-md-9 collapse navbar-collapse" data-toggle="collapse" id="collapseTwo">
                                         <!-- HIDDING CONTANT2 -->
                                                         <table style="border-color: #ddd" border="1" class="table table-bordered table-striped table-hover">
                                                             <thead class="bg-primary-300">
@@ -81,7 +81,7 @@
                                                                 </tr>
                                                                 </thead>
                                                             <tbody>
-                                                                <tr ng-repeat="kq in DataLichLamViec">
+                                                                <tr ng-repeat="kq in DataLichLamViec" id="collapseTwo{{$index}}">
                                                                     <td>
                                                                         {{kq.TEN_NGUOI_THUC_HIEN}}
                                                                     </td>
@@ -111,9 +111,9 @@
                                                                         
                                                                     </td>
                                                                     <td>
-                                                                        <a href="/LichLamViecNhanVien/Edit/{{item.ID}}">Sửa</a>
-                                                                        <a href="/LichLamViecNhanVien/Details/{{item.ID}}">Chi tiết</a>
-                                                                        <a href="/LichLamViecNhanVien/Delete/{{item.ID}}">Xóa</a>
+                                                                        <a ng-click="MovetoEdit(kq.ID)">Sửa</a>
+                                                                        <a ng-click="MovetoDetails(kq.ID)">Chi tiết</a>
+                                                                        <a ng-click="MovetoDelete(kq.ID)">Xóa</a>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>    
