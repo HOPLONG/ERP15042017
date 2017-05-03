@@ -44,16 +44,16 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     }
 
     //----------------------------------------------------------
-
+    var tukhoa = '';
 
     //load khách hàng phân trang
     $scope.phantrangkh = function (index) {
-
         var pageNumber = parseInt(index) + 1;
         var datas = {
             macongty: macongty,
             sales: salehienthoi,
-            isadmin: isadmin
+            isadmin: isadmin,
+            tukhoa: tukhoa
         }
         $http.post('/api/Api_KH/PhantrangKH/' + pageNumber, datas)
             .then(function successCallback(response) {
@@ -69,6 +69,11 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             });
     }
     //---------------------------------------
+    $scope.cancel_locKH = function () {
+        tukhoa = '';
+        $scope.phantrangkh(0);
+    }
+
     $scope.tranghienthoi = 0;
     $scope.phantrangkh($scope.tranghienthoi);
     //Lấy tổng số trang
@@ -1036,9 +1041,11 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         }
     }
 
-    $scope.SelectDataSales = function (item) {
-        $scope.LocKH(1, item);
-        $scope.TimKiemPhanTrang(item);
+    $scope.SelectDataSales = function (nhanvienkd) {
+        $scope.nhanvienkd = nhanvienkd;
+        tukhoa = nhanvienkd.USERNAME;
+        $scope.LocKH(1, nhanvienkd.HO_VA_TEN);
+        $scope.TimKiemPhanTrang(nhanvienkd.HO_VA_TEN);
         $("#DataSales").css({ "display": "none" });
     }
     

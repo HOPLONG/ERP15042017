@@ -99,7 +99,7 @@ namespace ERP.Web.Api.HeThong
         [Route("api/Api_KH/PhantrangKH/{page}")]
         public List<HopLong_PhanTrangKhachHang_Result> PhantrangKH(int page, ThongTinTimKiem timkiem)
         {
-            var query = db.Database.SqlQuery<HopLong_PhanTrangKhachHang_Result>("HopLong_PhanTrangKhachHang @macongty, @sale, @isadmin, @sotrang", new SqlParameter("macongty", timkiem.macongty), new SqlParameter("sale", timkiem.sales), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("sotrang", page));
+            var query = db.Database.SqlQuery<HopLong_PhanTrangKhachHang_Result>("HopLong_PhanTrangKhachHang @macongty, @sale, @isadmin, @sotrang,@tukhoa", new SqlParameter("macongty", timkiem.macongty), new SqlParameter("sale", timkiem.sales), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("sotrang", page), new SqlParameter("tukhoa", timkiem.tukhoa));
             var result = query.ToList();
             return result;
         }
