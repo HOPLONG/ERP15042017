@@ -13,7 +13,7 @@ app.controller('LichLamViecNhanVienCtrl', function ($scope, $http) {
          }, function (error) {
              alert("Lỗi kết nối không thể lấy được dữ liệu lịch làm việc của nhân viên");
          });
-
+        $('#collapseTwo').addClass("navbar-collapse");
     }
     //End get data lịch làm việc
 
@@ -47,17 +47,21 @@ app.controller('LichLamViecNhanVienCtrl', function ($scope, $http) {
          }, function (error) {
              alert("Lỗi kết nối không thể lấy được danh sách nhân viên phòng ban");
          });
-
+        $('#collapseOne').addClass("in");
+        $('#collapseTwo').removeClass("navbar-collapse");
     }
     //end get data nhân viên phòng ban
 
 
-
-
-
-
-
-
+    $scope.MovetoEdit = function (id) {
+        window.location.href = "/LichLamViecNhanvien/Edit/" + id ;
+    }
+    $scope.MovetoDetails = function (id) {
+        window.location.href = "/LichLamViecNhanvien/Details/" + id;
+    }
+    $scope.MovetoDelete = function (id) {
+        window.location.href = "/LichLamViecNhanvien/Delete/" + id;
+    }
 
 
 
