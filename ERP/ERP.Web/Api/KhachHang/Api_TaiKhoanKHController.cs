@@ -183,6 +183,97 @@ namespace ERP.Web.Api.KhachHang
             return Ok(kH_TK_NGAN_HANG);
         }
 
+
+        // PUT: api/LichLamViec/5
+        [Route("api/Api_TaiKhoanKH/PutLichLamViec/{id}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutLichLamViec(int id, NV_LICH_LAM_VIEC nV_LICH_LAM_VIEC)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            
+            using (var db = new ERP_DATABASEEntities())
+            {
+                var query = db.NV_LICH_LAM_VIEC.Where(x => x.ID == id).FirstOrDefault();
+                if(query != null)
+                {
+                    query.TIEU_DE_CONG_VIEC = nV_LICH_LAM_VIEC.TIEU_DE_CONG_VIEC;
+                    query.NOI_DUNG_CONG_VIEC = nV_LICH_LAM_VIEC.NOI_DUNG_CONG_VIEC;
+                    query.DIA_DIEM_LAM_VIEC = nV_LICH_LAM_VIEC.DIA_DIEM_LAM_VIEC;
+                    query.THOI_GIAN_BAT_DAU = nV_LICH_LAM_VIEC.THOI_GIAN_BAT_DAU;
+                    query.THOI_GIAN_KET_THUC = nV_LICH_LAM_VIEC.THOI_GIAN_KET_THUC;
+                    query.HUY_CONG_VIEC = nV_LICH_LAM_VIEC.HUY_CONG_VIEC;
+                    query.TRANG_THAI = nV_LICH_LAM_VIEC.TRANG_THAI;
+                    query.GHI_CHU = nV_LICH_LAM_VIEC.GHI_CHU;
+                }
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    
+                        throw;
+                    
+                }
+
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+        // DELETE: api/LichLamViec/5
+        [Route("api/Api_TaiKhoanKH/DeleteLichLamViec/{id}")]
+        [ResponseType(typeof(NV_LICH_LAM_VIEC))]
+        public IHttpActionResult DeleteLichLamViec(int id)
+        {
+            using (var db = new ERP_DATABASEEntities())
+            {
+                var query = db.NV_LICH_LAM_VIEC.Where(x => x.ID == id).FirstOrDefault();
+                if(query != null)
+                {
+                    db.NV_LICH_LAM_VIEC.Remove(query);
+                }
+                db.SaveChanges();
+
+                return Ok(id);
+            }
+        }
+
+        // POST: api/LichLamViec
+        [Route("api/Api_TaiKhoanKH/PostLichLamViec")]
+        [ResponseType(typeof(NV_LICH_LAM_VIEC))]
+        public IHttpActionResult PostLichLamViec(NV_LICH_LAM_VIEC nV_LICH_LAM_VIEC)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            using (var db = new ERP_DATABASEEntities())
+            {
+                NV_LICH_LAM_VIEC newlich = new NV_LICH_LAM_VIEC();
+                newlich.TIEU_DE_CONG_VIEC = nV_LICH_LAM_VIEC.TIEU_DE_CONG_VIEC;
+                newlich.NGAY_THUC_HIEN = DateTime.Today.Date;
+                newlich.NOI_DUNG_CONG_VIEC = nV_LICH_LAM_VIEC.NOI_DUNG_CONG_VIEC;
+                newlich.DIA_DIEM_LAM_VIEC = nV_LICH_LAM_VIEC.DIA_DIEM_LAM_VIEC;
+                newlich.THOI_GIAN_BAT_DAU = nV_LICH_LAM_VIEC.THOI_GIAN_BAT_DAU;
+                newlich.THOI_GIAN_KET_THUC = nV_LICH_LAM_VIEC.THOI_GIAN_KET_THUC;
+                newlich.NHAN_VIEN_THUC_HIEN = nV_LICH_LAM_VIEC.NHAN_VIEN_THUC_HIEN;
+                newlich.TRANG_THAI = nV_LICH_LAM_VIEC.TRANG_THAI;
+                newlich.GHI_CHU = nV_LICH_LAM_VIEC.GHI_CHU;
+                db.NV_LICH_LAM_VIEC.Add(newlich);
+                db.SaveChanges();
+
+                return Ok(newlich);
+            }
+        }
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
