@@ -5,20 +5,28 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     var macongty = $('#macongty').val();
     var isadmin = $('#isadmin').val();
     var phongban = $('#maphongban').val();
-
+    $scope.danhsachtrang = [];
+    $scope.tranghienthoi = 0;
+    var a = [];
     //tìm kiếm khách
     $scope.load_khachhang = function (page, tukhoa) {
-        var thongtintimkiem = {
-            sales: salehienthoi,
-            macongty: macongty,
-            isadmin: isadmin,
-            tukhoa: tukhoa
+        if (tukhoa == "") {
+            $scope.phantrangkh(0);
+            $scope.danhsachtrang = a;
+        } else {
+            $scope.danhsachtrang = [];
+            var thongtintimkiem = {
+                sales: salehienthoi,
+                macongty: macongty,
+                isadmin: isadmin,
+                tukhoa: tukhoa
+            }
+            khachhangService.get_khachhang(page, thongtintimkiem).then(function (a) {
+                $scope.filtered = a;
+            });
         }
-        khachhangService.get_khachhang(page,thongtintimkiem).then(function (a) {
-            $scope.filtered = a;
-
-        });
-       
+        
+           
     };
     $scope.TimKiemPhanTrang = function(tukhoa)
     {
@@ -75,11 +83,10 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         $scope.huyloc = false;
     }
 
-    $scope.tranghienthoi = 0;
+    
     $scope.phantrangkh($scope.tranghienthoi);
     //Lấy tổng số trang
-    $scope.danhsachtrang = [];
-    $scope.tranghienthoi = 0;
+
     //phân trang toàn bộ khách
     $scope.TongSoDong = function () {
         
@@ -88,9 +95,10 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 $scope.tongsodong = response.data;
                 $scope.tongsotrang = $scope.tongsodong / 15;
                 while ($scope.tongsotrang > $scope.tranghienthoi) {
-                    $scope.danhsachtrang.push($scope.tranghienthoi);
+                    $scope.danhsachtrang.push($scope.tranghienthoi);                    
                     $scope.tranghienthoi++;
                 }
+                a = $scope.danhsachtrang;
 
             }, function errorCallback(response1) {
                 ErrorSystem("Lỗi đường truyền: không lấy được Tổng Số Trang");
