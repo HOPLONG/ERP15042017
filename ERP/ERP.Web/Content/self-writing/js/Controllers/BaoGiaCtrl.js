@@ -24,6 +24,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         });
         
     };
+
     $scope.load_baogiatheodukien();
 
     $scope.Remove = function (index,item) {
@@ -1397,7 +1398,9 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             detail.thoi_gian_giao_hang = '';
             detail.ghi_chu = '';
             detail.hoa_hong = 0;
+
         }
+        detail.showtable_hanghoa = false;
     }
     //End lọc hàng hóa----------------------------------------------------------------------------------------------------------------------
 
@@ -1413,6 +1416,9 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
     //get data khách hàng
 
     var inputChangedPromise;
+
+
+    
     //hàm tìm kiếm
     $scope.onHHEditFind = function (mh) {
         $http.get(window.location.origin + '/api/Api_HanghoaHL/GetAllHHBaoGia/' + mh)
@@ -1427,8 +1433,11 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
              console.log(error);
          })
     }
+
+
     // hiển thị danh sách đổi tượng(LẤY THEO MÃ)
     $scope.inputstaff_edit = function (kh, index, item) {
+        
         if (kh.SO_LUONG > 0) {
             item.MA_HANG = kh.MA_HANG;
             item.MA_CHUAN = kh.MA_CHUAN;
@@ -1448,6 +1457,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             item.THOI_GIAN_GIAO_HANG = 'Có sẵn';
             item.GHI_CHU = '';
             item.CM = 0;
+
         } else {
             item.MA_HANG = kh.MA_HANG;
             item.MA_CHUAN = kh.MA_CHUAN;
@@ -1468,8 +1478,11 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             item.GHI_CHU = '';
             item.CM = 0;
         }
-        $scope.showtable_hanghoa_edit = false;
-    }
+        item.showtable_hanghoa_edit = false;
+
+        //$(".tableselect").css({ "display": "none" });
+    };
+    
     //End lọc hàng hóa----------------------------------------------------------------------------------------------------------------------
 
 
