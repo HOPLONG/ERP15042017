@@ -72,6 +72,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.cancel_locKH = function () {
         tukhoa = '';
         $scope.phantrangkh(0);
+        $scope.huyloc = false;
     }
 
     $scope.tranghienthoi = 0;
@@ -1047,6 +1048,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         $scope.LocKH(1, nhanvienkd.HO_VA_TEN);
         $scope.TimKiemPhanTrang(nhanvienkd.HO_VA_TEN);
         $("#DataSales").css({ "display": "none" });
+        $scope.huyloc = true;
     }
     
     //End Lọc danh sách theo điều kiện

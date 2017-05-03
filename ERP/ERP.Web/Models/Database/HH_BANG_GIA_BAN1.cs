@@ -23,9 +23,13 @@ namespace ERP.Web.Models.Database
         public decimal CHIET_KHAU { get; set; }
         public decimal GIA_SPECIAL { get; set; }
         public string GHI_CHU { get; set; }
+        public string MA_NHOM_KHACH { get; set; }
+        public Nullable<int> SL_MOQ { get; set; }
+        public Nullable<decimal> GIA_BAN_MOQ { get; set; }
     
         public virtual HH HH { get; set; }
         public virtual HH_NHOM_VTHH HH_NHOM_VTHH { get; set; }
         public virtual HH_NHOM_VTHH HH_NHOM_VTHH1 { get; set; }
+        public virtual KH_LOAI KH_LOAI { get; set; }
     }
 }
