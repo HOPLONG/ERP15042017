@@ -25,7 +25,7 @@ app.service('khachhangService', function ($http) {
         });
     };
     this.get_lienhekh = function (makh) {
-        return $http.get('/api/Api_LienHeKhachHang/' + makh).then(function (response) {
+        return $http.post('/api/Api_LienHeKhachHang/' + makh).then(function (response) {
             return response.data;
         });
     };

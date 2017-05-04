@@ -104,7 +104,7 @@ input:-ms-input-placeholder {
         <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
         <input type="hidden" id="maphongban" name="maphongban" value="@Session["MA_PHONG_BAN"]" />
         <input type="hidden" id="macongty" name="macongty" value="@Session["MA_CONG_TY"]" />
-        <input type="hidden" id="isadmin" name="isadmin" value="@Session["IS_AMIN"]" />
+        <input type="hidden" id="isadmin" name="isadmin" value="@Session["IS_AMIN"]"/>
 
         <!--Form tìm kiếm-->
         <div id="quick-access">
@@ -1219,9 +1219,30 @@ input:-ms-input-placeholder {
 
         </div>
         <!--End update phản hồi-->
+        <div class="col-md-4">
+            <div class="col-md-3">Chú thích</div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <i class="fa fa-check" aria-hidden="true"></i> : Khách đặc biệt
+                </div>
+                <div class="col-md-12">
+                    <i class="fa fa-search" aria-hidden="true"></i> : Khách do marketing tìm kiếm
+                </div>
+                <div class="col-md-12">
+                    <i class="fa fa-money" aria-hidden="true"></i> : Khách mua doanh số cao
+                </div>
+                <div class="col-md-12">
+                    <i class="fa fa-cubes" aria-hidden="true"></i> : Khách mua số lượng nhiều
+                </div>
+                <div class="col-md-12">
+                    <i class="fa fa-star-o" aria-hidden="true"></i> : Thông tin khách hàng đầy đủ
+                </div>
+            </div>
+        </div>
         <table id="example" class="table" cellspacing="0">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Mã khách hàng</th>
                     <th>Tên công ty</th>
                     <th>Email</th>
@@ -1232,8 +1253,11 @@ input:-ms-input-placeholder {
                     <th>Sales phụ trách</th>
                     <th>Sửa</th>
                     <th>Tạo đơn dự kiến</th>
+                    <th ng-show="isadmin">Xóa</th>
+                    <th ng-show="isadmin"></th>
                 </tr>
                 <tr>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -1270,10 +1294,28 @@ input:-ms-input-placeholder {
                     </th>
                     <th></th>
                     <th></th>
+                    <th ng-show="isadmin"></th>
+                    <th ng-show="isadmin"></th>
                 </tr>
             </thead>
             <tbody id="myTable">
                 <tr ng-repeat="item in filtered" ng-click="transfer(item);get_lienhe(item.MA_KHACH_HANG);get_taikhoan(item.MA_KHACH_HANG);get_phanhoi(item.MA_KHACH_HANG);get_thongkemuahang(item.MA_KHACH_HANG);get_policy(item.MA_KHACH_HANG)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                    <td>
+                        <input type="checkbox" ng-model="item.KHACH_DAC_BIET" style="display:none"/>
+                        <i class="fa fa-check" aria-hidden="true" ng-show="item.KHACH_DAC_BIET"></i>
+
+                        <input type="checkbox" ng-model="item.KHACH_MUA_DOANH_SO_CAO" style="display:none"/>
+                        <i class="fa fa-money" aria-hidden="true" ng-show="item.KHACH_MUA_DOANH_SO_CAO"></i>
+
+                        <input type="checkbox" ng-model="item.KHACH_MUA_SO_LUONG_NHIEU" style="display:none"/>
+                        <i class="fa fa-cubes" aria-hidden="true" ng-show="item.KHACH_MUA_SO_LUONG_NHIEU"></i>
+
+                        <input type="checkbox" ng-model="item.KHACH_DO_MARKETING_TIM_KIEM" style="display:none"/>
+                        <i class="fa fa-search" aria-hidden="true" ng-show="item.KHACH_DO_MARKETING_TIM_KIEM"></i>
+
+                        <input type="checkbox" ng-model="item.THONG_TIN_DA_DAY_DU" style="display:none" />
+                        <i class="fa fa-star-o" aria-hidden="true" ng-show="item.THONG_TIN_DA_DAY_DU"></i>
+                    </td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.MA_KHACH_HANG}}</td>
                     <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_CONG_TY}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.EMAIL}}</td>
@@ -1299,6 +1341,8 @@ input:-ms-input-placeholder {
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button> 
                     </td>
                     <td><a href="/KinhDoanh/Donhangdukien/TaoDuKienMoi/{{item.MA_KHACH_HANG}}">Tạo đơn dự kiến</a></td>
+                    <td data-toggle="modal" data-target="#delete_item" ng-click="transfer(item)" ng-show="isadmin">Xóa khách hàng</td>
+                    <td data-toggle="modal" data-target="#copy_kh" ng-click="transfer(item)" ng-show="isadmin">Copy khách hàng</td>
                 </tr>
                 <!--Detail row-->
 
@@ -1322,6 +1366,86 @@ input:-ms-input-placeholder {
  
         </div>
 
+        <div class="modal fade" id="delete_item" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <form class="form-horizontal" name="myForm" novalidate>
+                            <fieldset>
+                                <!-- Form Name -->
+                                <legend>Xóa khách hàng</legend>
+                                <center>Bạn có chắc là muốn xóa <b>{{item.TEN_CONG_TY}}</b> ?</center>
+                                <p></p>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="delete"></label>
+                                    <div class="col-md-8">
+                                        <button id="delete" name="delete" class="btn" ng-click="Xoa_KH(item.MA_KHACH_HANG)" data-dismiss="modal">Delete</button>
+                                        <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="copy_kh" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" >
+                    <div class="modal-body" style="height: 100px;">
+                        <div class="col-md-12">
+                            <label class="col-md-2">Công ty</label>
+                            <div class="col-md-4">
+                                <select ng-model="ma_cong_ty_copy" ng-change="get_dsnhanvien_TA(ma_cong_ty_copy)" class="form-control input-md" style="height: 100%;padding-left: 5px;">
+                                    <option ng-repeat="congty in list_congty_copy" value="{{congty.MA_CONG_TY}}">{{congty.TEN_CONG_TY}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="col-md-2">Nhân viên phụ trách</label>
+                            <div class="col-md-6">
+                                <input type="hidden" class="form-control" ng-model="username_copy">
+                                <div class="col-md-10"><input type="text" class="form-control" ng-model="hovaten_copy" value="{{hovaten_copy}}" ng-change="on_sale_chi_nhanh_Find()" style="border: 1px solid black" ng-focus="showtable_sale_chi_nhanh = true"></div>
+                                
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_sale_chi_nhanh = !showtable_sale_chi_nhanh" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_sale_chi_nhanh">
+                                        <div class="table-responsive" style="max-height: 280px">
+                                            <table class="table table-striped table-hover" st-pagination-scroll st-table="Sale_chi_nhanh" st-safe-src="array_sale_chi_nhanh_Finded">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>USERNAME</td>
+                                                        <td>Họ và tên</td>
+                                                    </tr>
+                                                    <tr ng-repeat="vthh in Sale_chi_nhanh" style="cursor:pointer" ng-click="showInfoStaff_CHI_NHANH(vthh)">
+                                                        <td>{{vthh.USERNAME}}</td>
+                                                        <td>{{vthh.HO_VA_TEN}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="anmelden"></label>
+                            <div class="col-md-8 addnew" style="text-align: left;margin-top: 30px;">
+                                <button id="addnew" name="addnew" class="btn" ng-click="CopyKhachHang(item.MA_KHACH_HANG)" data-dismiss="modal">Copy</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <style>

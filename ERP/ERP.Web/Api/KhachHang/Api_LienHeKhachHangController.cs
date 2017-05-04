@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using ERP.Web.Models.NewModels;
 using ERP.Web.Models.BusinessModel;
+using System.Data.SqlClient;
 
 namespace ERP.Web.Api.KhachHang
 {
@@ -20,70 +21,77 @@ namespace ERP.Web.Api.KhachHang
         XuLyNgayThang xlnt = new XuLyNgayThang();
         // GET: api/Api_LienHeKhachHang
         [Route("api/Api_LienHeKhachHang/{makh}")]
-        public List<LienHeKH> GetLienHeKH(string makh)
+        public List<Prod_KH_ShowLienHe_Result> LocKH(string makh)
         {
-            var vData = (from t1 in db.KH_LIEN_HE
-                         join t2 in db.KH_SALES_PHU_TRACH on t1.ID_LIEN_HE equals t2.ID_LIEN_HE
-                         join t3 in db.HT_NGUOI_DUNG on t2.SALES_PHU_TRACH equals t3.USERNAME
-                         join t4 in db.KHs on t1.MA_KHACH_HANG equals t4.MA_KHACH_HANG
-                         where t1.MA_KHACH_HANG == makh
-                         select new
-                         {
-                             t1.MA_KHACH_HANG,
-                             t1.NGUOI_LIEN_HE,
-                             t1.CHUC_VU,
-                             t1.PHONG_BAN,
-                             t1.NGAY_SINH,
-                             t1.GIOI_TINH,
-                             t1.EMAIL_CA_NHAN,
-                             t1.EMAIL_CONG_TY,
-                             t1.SKYPE,
-                             t1.SDT1,
-                             t1.SDT2,
-                             t1.GHI_CHU,
-                             t1.FACEBOOK,
-                             t1.TINH_TRANG_LAM_VIEC
-                         ,
-                             t2.ID,
-                             t2.ID_LIEN_HE,
-                             t2.SALES_PHU_TRACH,
-                             t2.NGAY_BAT_DAU_PHU_TRACH,
-                             t2.NGAY_KET_THUC_PHU_TRACH,
-                             t2.TRANG_THAI,
-                             t2.SALES_MOI,
-                             t2.SALES_CU,
-                             t3.HO_VA_TEN,
-                             t4.TEN_CONG_TY
-                         });
-            var result = vData.ToList().Select(x => new LienHeKH()
-            {
-                ID_LIEN_HE = x.ID_LIEN_HE,
-                HO_VA_TEN = x.HO_VA_TEN,
-                MA_KHACH_HANG = x.MA_KHACH_HANG,
-                NGUOI_LIEN_HE = x.NGUOI_LIEN_HE,
-                CHUC_VU = x.CHUC_VU,
-                PHONG_BAN = x.PHONG_BAN,
-                NGAY_SINH = x.NGAY_SINH.ToString(),
-                GIOI_TINH = x.GIOI_TINH,
-                EMAIL_CA_NHAN = x.EMAIL_CA_NHAN,
-                EMAIL_CONG_TY = x.EMAIL_CONG_TY,
-                SKYPE = x.SKYPE,
-                FACEBOOK = x.FACEBOOK,
-                TINH_TRANG_LAM_VIEC = x.TINH_TRANG_LAM_VIEC,
-                SDT1 = x.SDT1,
-                SDT2 = x.SDT2,
-                GHI_CHU = x.GHI_CHU,
-                ID = x.ID,
-                SALES_PHU_TRACH = x.SALES_PHU_TRACH,
-                TRANG_THAI = x.TRANG_THAI,
-                NGAY_KET_THUC_PHU_TRACH = x.NGAY_KET_THUC_PHU_TRACH,
-                NGAY_BAT_DAU_PHU_TRACH = x.NGAY_BAT_DAU_PHU_TRACH,
-                TEN_CONG_TY = x.TEN_CONG_TY,
-                SALES_CU = x.SALES_CU,
-                SALES_MOI = x.SALES_MOI,
-            }).ToList();
+            var query = db.Database.SqlQuery<Prod_KH_ShowLienHe_Result>("Prod_KH_ShowLienHe @makhachhang", new SqlParameter("makhachhang", makh));
+            var result = query.ToList();
             return result;
         }
+
+        //public List<LienHeKH> GetLienHeKH(string makh)
+        //{
+        //    var vData = (from t1 in db.KH_LIEN_HE
+        //                 join t2 in db.KH_SALES_PHU_TRACH on t1.ID_LIEN_HE equals t2.ID_LIEN_HE
+        //                 join t3 in db.HT_NGUOI_DUNG on t2.SALES_PHU_TRACH equals t3.USERNAME
+        //                 join t4 in db.KHs on t1.MA_KHACH_HANG equals t4.MA_KHACH_HANG
+        //                 where t1.MA_KHACH_HANG == makh
+        //                 select new
+        //                 {
+        //                     t1.MA_KHACH_HANG,
+        //                     t1.NGUOI_LIEN_HE,
+        //                     t1.CHUC_VU,
+        //                     t1.PHONG_BAN,
+        //                     t1.NGAY_SINH,
+        //                     t1.GIOI_TINH,
+        //                     t1.EMAIL_CA_NHAN,
+        //                     t1.EMAIL_CONG_TY,
+        //                     t1.SKYPE,
+        //                     t1.SDT1,
+        //                     t1.SDT2,
+        //                     t1.GHI_CHU,
+        //                     t1.FACEBOOK,
+        //                     t1.TINH_TRANG_LAM_VIEC
+        //                 ,
+        //                     t2.ID,
+        //                     t2.ID_LIEN_HE,
+        //                     t2.SALES_PHU_TRACH,
+        //                     t2.NGAY_BAT_DAU_PHU_TRACH,
+        //                     t2.NGAY_KET_THUC_PHU_TRACH,
+        //                     t2.TRANG_THAI,
+        //                     t2.SALES_MOI,
+        //                     t2.SALES_CU,
+        //                     t3.HO_VA_TEN,
+        //                     t4.TEN_CONG_TY
+        //                 });
+        //    var result = vData.ToList().Select(x => new LienHeKH()
+        //    {
+        //        ID_LIEN_HE = x.ID_LIEN_HE,
+        //        HO_VA_TEN = x.HO_VA_TEN,
+        //        MA_KHACH_HANG = x.MA_KHACH_HANG,
+        //        NGUOI_LIEN_HE = x.NGUOI_LIEN_HE,
+        //        CHUC_VU = x.CHUC_VU,
+        //        PHONG_BAN = x.PHONG_BAN,
+        //        NGAY_SINH = x.NGAY_SINH.ToString(),
+        //        GIOI_TINH = x.GIOI_TINH,
+        //        EMAIL_CA_NHAN = x.EMAIL_CA_NHAN,
+        //        EMAIL_CONG_TY = x.EMAIL_CONG_TY,
+        //        SKYPE = x.SKYPE,
+        //        FACEBOOK = x.FACEBOOK,
+        //        TINH_TRANG_LAM_VIEC = x.TINH_TRANG_LAM_VIEC,
+        //        SDT1 = x.SDT1,
+        //        SDT2 = x.SDT2,
+        //        GHI_CHU = x.GHI_CHU,
+        //        ID = x.ID,
+        //        SALES_PHU_TRACH = x.SALES_PHU_TRACH,
+        //        TRANG_THAI = x.TRANG_THAI,
+        //        NGAY_KET_THUC_PHU_TRACH = x.NGAY_KET_THUC_PHU_TRACH,
+        //        NGAY_BAT_DAU_PHU_TRACH = x.NGAY_BAT_DAU_PHU_TRACH,
+        //        TEN_CONG_TY = x.TEN_CONG_TY,
+        //        SALES_CU = x.SALES_CU,
+        //        SALES_MOI = x.SALES_MOI,
+        //    }).ToList();
+        //    return result;
+        //}
 
 
         // PUT: api/Api_LienHeKhachHang/5
