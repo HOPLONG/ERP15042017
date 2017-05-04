@@ -6,15 +6,13 @@
 
 <link href="~/Content/self-writing/css/KhachHang.css" rel="stylesheet" />
 <link href="~/Content/assets/css/components.css" rel="stylesheet" />
-<script src="~/Content/download/pnotify.custom.min.js"></script>
-@*<script src="~/Content/self-writing/js/Services/KhachHangServices.js"></script>
-    @*<script src="~/Content/self-writing/js/Controllers/KhachHangCtrl.js"></script>*@
-<script src="http://malsup.github.com/jquery.form.js"></script>
-<script src="~/Content/self-writing/pagination.js"></script>
 <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
+<link href="~/Content/assets/css/core.css" rel="stylesheet" />
+
+
 <script src="~/Content/self-writing/js/Services/KhachHangServices.js"></script>
 <script src="~/Content/self-writing/js/Controllers/KhachHangCtrl.js"></script>
-<link href="~/Content/assets/css/core.css" rel="stylesheet" />
+
 
 <style>
 
@@ -123,7 +121,7 @@ input:-ms-input-placeholder {
         <input type="button" class="btn btn-info" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
         <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
         <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/KhachChuaGiaoDich';" value="Danh sách khách chưa có giao dịch" />
-        <input type="button" class="btn btn-info" value="Hủy lọc" style="float:right" ng-click="cancel_locKH()"/>
+        <input type="button" class="btn btn-info" value="Hủy lọc" ng-show="huyloc" style="float:right" ng-click="cancel_locKH()"/>
         <!-- Modal Add New khách hàng -->
         <div class="modal fade" id="myModal" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-lg" style="width: 90%">
@@ -1333,9 +1331,13 @@ input:-ms-input-placeholder {
             font-weight: 700;
         }
     </style>
+
     <script type="text/javascript">var startTime=new Date();function currentTime(){var a=Math.floor((new Date()-startTime)/100)/10;if (a%1==0) a+=".0";document.getElementById("endTime").innerHTML=a;}window.onload=function(){clearTimeout(loopTime);}</script>
     <script type="text/javascript">document.write('<div align="center"><span id="texttime"><i class="fa fa fa-spinner fa-spin"></i> Thời gian tải trang: <span id="endTime">0.0</span>s</span></div> ');var loopTime=setInterval("currentTime()",100);</script>
-
+    
+    <script src="~/Content/download/pnotify.custom.min.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script src="~/Content/self-writing/pagination.js"></script>
 
     <script>
     (function () {
