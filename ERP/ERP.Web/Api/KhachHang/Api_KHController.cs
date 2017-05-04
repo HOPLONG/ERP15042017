@@ -234,7 +234,7 @@ namespace ERP.Web.Api.HeThong
             {
                 return BadRequest(ModelState);
             }
-            
+
 
             KH khach = new KH();
             khach.MA_KHACH_HANG = GenerateMAKH();
@@ -264,6 +264,7 @@ namespace ERP.Web.Api.HeThong
             khach.KHACH_DAC_BIET = kH.KHACH_DAC_BIET;
             db.KHs.Add(khach);
             
+
             try
             {
                 db.SaveChanges();

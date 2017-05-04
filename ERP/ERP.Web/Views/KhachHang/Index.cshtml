@@ -900,100 +900,72 @@ input:-ms-input-placeholder {
         <div class="modal fade" id="newlienhe" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-lg" style="width: 90%">
                 <div class="modal-content" style="height: 100%;overflow:scroll">
-
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="addtencongty" class="col-sm-2 control-label">Người liên hệ</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="addtencongty" ng-model="nguoi_lien_he">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="addvpgiaodich" class="col-sm-2 control-label">Chức vụ</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="addvpgiaodich" ng-model="chuc_vu">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="adddiachixuathoadon" class="col-sm-2 control-label">Phòng ban</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="adddiachixuathoadon" ng-model="phong_ban">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="addmasothue" class="col-sm-2 control-label">Ngày sinh</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" ng-model="ngay_sinh">
-                            </div>
-                            <label for="addwebsite" class="col-sm-1 control-label">Giới tính</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" id="addwebsite" ng-model="gioi_tinh">
-                            </div>
-                            <label for="addsomayban" class="col-sm-1 control-label">Email cá nhân</label>
-                            <div class="col-sm-2">
-                                <input type="tel" class="form-control" id="addsomayban" ng-model="email_ca_nhan">
-                            </div>
-                            <label for="addemail" class="col-sm-1 control-label">Số điện thoại 1</label>
-                            <div class="col-sm-1">
-                                <input type="text" class="form-control" id="addemail" ng-model="so_dien_thoai1">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="addsongayduocno" class="col-sm-2 control-label">Skype</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" id="addsongayduocno" ng-model="skype">
-                            </div>
-                            <label for="addsonotoida" class="col-sm-1 control-label">Facebook</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" id="addsonotoida" ng-model="facebook">
-                            </div>
-                            <label for="addfax" class="col-sm-1 control-label">Email công ty</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" id="addfax" ng-model="email_cong_ty">
-                            </div>
-                            <label for="addemail" class="col-sm-1 control-label">Số điện thoại 2</label>
-                            <div class="col-sm-1">
-                                <input type="text" class="form-control" id="addemail" ng-model="so_dien_thoai2">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Sales phụ trách</label>
-                            <div class="col-sm-2">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="nvkd.HO_VA_TEN" value="{{nvkd.HO_VA_TEN}}" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
-                                    <input type="hidden" class="form-control" ng-model="nvkd.USERNAME" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
-                                    <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_ho_va_ten = !showtable_ho_va_ten" aria-haspopup="true" aria-expanded="false">
-                                            <span class="caret"></span>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_ho_va_ten">
-                                            <div class="table-responsive" style="max-height: 280px">
-                                                <table class="table table-striped table-hover" st-pagination-scroll st-table="staffsCollection" st-safe-src="arrayNVFinded">
-                                                    <tbody>
-                                                        <tr ng-repeat="staff in staffsCollection" style="cursor:pointer" ng-click="showInfoSaleKD(staff)">
-                                                            <td>{{staff.USERNAME}}</td>
-                                                            <td>{{staff.HO_VA_TEN}}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                        <table border='1' style="width:100%" id="themmoikhach">
+                            <tr>
+                                <td colspan="11"><input type="text" class="form-control" id="addtencongty" placeholder="Người liên hệ" ng-model="nguoi_lien_he"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="11"><input type="text" class="form-control" id="addvpgiaodich" placeholder="Chức vụ" ng-model="chuc_vu"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="11"><input type="text" class="form-control" id="adddiachixuathoadon" placeholder="Phòng ban" ng-model="phong_ban"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><input type="text" class="form-control" placeholder="Ngày sinh" ng-model="ngay_sinh"></td>
+                                <td colspan="3"><input type="text" class="form-control" id="addwebsite" placeholder="Giới tính" ng-model="gioi_tinh"></td>
+                                <td colspan="3"><input type="tel" class="form-control" id="addsomayban" placeholder="Email cá nhân" ng-model="email_ca_nhan"></td>
+                                <td colspan="3"><input type="text" class="form-control" id="addemail" placeholder="Số điện thoại 1" ng-model="so_dien_thoai1"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><input type="text" class="form-control" id="addsongayduocno" placeholder="Skype" ng-model="skype"></td>
+                                <td colspan="3"><input type="text" class="form-control" id="addsonotoida" placeholder="Facebook" ng-model="facebook"></td>
+                                <td colspan="3"><input type="text" class="form-control" id="addfax" placeholder="Email công ty" ng-model="email_cong_ty"></td>
+                                <td colspan="3"><input type="text" class="form-control" id="addemail" placeholder="số điện thoại 2" ng-model="so_dien_thoai2"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" colspan="2"><label class="control-label">Sales phụ trách</label></td>
+                                <td colspan="3">
+                                    <div class="input-group" style="width:100%">
+                                        <input type="text" class="form-control" ng-model="nvkd.HO_VA_TEN" value="{{nvkd.HO_VA_TEN}}" ng-change="onNhanVienFind()" ng-focus="item.showtable_ho_va_ten = true">
+                                        <input type="hidden" class="form-control" ng-model="nvkd.USERNAME" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_ho_va_ten = !showtable_ho_va_ten" aria-haspopup="true" aria-expanded="false" style="background: transparent !important; color: black !important;">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="item.showtable_ho_va_ten">
+                                                <div class="table-responsive" style="max-height: 280px">
+                                                    <table class="table table-striped table-hover" st-pagination-scroll st-table="staffsCollection" st-safe-src="arrayNVFinded">
+                                                        <tbody>
+                                                            <tr ng-repeat="staff in staffsCollection" style="cursor:pointer" ng-click="showInfoSaleKD(staff,item)">
+                                                                <td>{{staff.USERNAME}}</td>
+                                                                <td>{{staff.HO_VA_TEN}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <label class="col-sm-2 control-label">Tình trạng làm việc</label>
-                            <div class="col-sm-3">
-                                <select ng-model="tinh_trang_lam_viec" id="adddieukhoanthanhtoan" style="height: 27px;padding-left: 5px;width:100%" data-ng-options="item as item for item in tinh_trang"></select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="addghichu" class="col-sm-2 control-label">Ghi chú</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="3" id="addghichu" ng-model="ghi_chu_lh"></textarea>
-                            </div>
-                        </div>
+                                </td>
+                                <td class="text-left" colspan="3"><label class="control-label">Tình trạng làm việc</label></td>
+                                <td colspan="3"><select ng-model="tinh_trang_lam_viec" id="adddieukhoanthanhtoan" style="height: 27px;padding-left: 5px;width:100%" data-ng-options="item as item for item in tinh_trang"></select></td>
+
+                            </tr>
+
+                            <tr>
+                                <td class="text-left" colspan="2"><label class="control-label">Ghi chú</label></td>
+                                <td colspan="9"><textarea id="ghichu" name="ghichu" placeholder="Ghi chú" class="form-control input-md" ng-model="ghi_chu_lh"></textarea></td>
+                                
+                            </tr>
+                        </table>
+                        <script>
+                                CKEDITOR.replace('ghichu', {
+                                        height: 100
+                                    });
+                        </script>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer" style="text-align: center;">
                         <button id="save" name="save" class="btn btn-default" data-dismiss="modal" ng-click="addnew(item.MA_KHACH_HANG)">Thêm</button>
                         <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
                     </div>
