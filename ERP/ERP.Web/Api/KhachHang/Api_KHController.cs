@@ -233,65 +233,73 @@ namespace ERP.Web.Api.HeThong
             {
                 return BadRequest(ModelState);
             }
-            
-            String nam = DateTime.Today.Year.ToString();
-            String nam2so = nam.Substring(2);
-            var query = db.Database.SqlQuery<string>("XL_LayMaKhachMoiNhat");
-
-
-            if (query.Count()>0)
+            var data1 = db.KHs.Where(x => x.MST == kH.MST && x.TRUC_THUOC == kH.TRUC_THUOC).FirstOrDefault();
+            if(data1 == null)
             {
-                string prefixID = "KH"+nam2so;
-                var data = query.FirstOrDefault();
-                string LastID = data;
+                String nam = DateTime.Today.Year.ToString();
+                String nam2so = nam.Substring(2);
+                var query = db.Database.SqlQuery<string>("XL_LayMaKhachMoiNhat");
 
-                int nextID = int.Parse(LastID.Remove(0, prefixID.Length)) + 1;
-                int lengthNumerID = LastID.Length - prefixID.Length;
-                string zeroNumber = "";
-                for (int i = 1; i <= lengthNumerID; i++)
+
+                if (query.Count() > 0)
                 {
-                    if (nextID < Math.Pow(10, i))
+                    string prefixID = "KH" + nam2so;
+                    var data = query.FirstOrDefault();
+                    string LastID = data;
+
+                    int nextID = int.Parse(LastID.Remove(0, prefixID.Length)) + 1;
+                    int lengthNumerID = LastID.Length - prefixID.Length;
+                    string zeroNumber = "";
+                    for (int i = 1; i <= lengthNumerID; i++)
                     {
-                        for (int j = 1; j <= lengthNumerID - i; i++)
+                        if (nextID < Math.Pow(10, i))
                         {
-                            zeroNumber += "0";
+                            for (int j = 1; j <= lengthNumerID - i; i++)
+                            {
+                                zeroNumber += "0";
+                            }
                         }
                     }
+                    // int ma = Convert.ToInt32(makhach.Substring(4));
+                    makhachhang = prefixID + zeroNumber + nextID.ToString();
                 }
-               // int ma = Convert.ToInt32(makhach.Substring(4));
-                makhachhang = prefixID + zeroNumber + nextID.ToString();
-            }
-            else
-                makhachhang = "KH" + nam2so + "0001";
+                else
+                    makhachhang = "KH" + nam2so + "0001";
 
-            KH khach = new KH();
-            khach.MA_KHACH_HANG = makhachhang;
-            khach.TEN_CONG_TY = kH.TEN_CONG_TY;
-            khach.VAN_PHONG_GIAO_DICH = kH.VAN_PHONG_GIAO_DICH;
-            khach.DIA_CHI_XUAT_HOA_DON = kH.DIA_CHI_XUAT_HOA_DON;
-            khach.TINH = kH.TINH;
-            khach.QUOC_GIA = kH.QUOC_GIA;
-            khach.MST = kH.MST;
-            khach.HOTLINE = kH.HOTLINE;
-            khach.EMAIL = kH.EMAIL;
-            khach.FAX = kH.FAX;
-            khach.LOGO = kH.LOGO;
-            khach.WEBSITE = kH.WEBSITE;
-            khach.DIEU_KHOAN_THANH_TOAN = kH.DIEU_KHOAN_THANH_TOAN;
-            khach.SO_NGAY_DUOC_NO = kH.SO_NGAY_DUOC_NO;
-            khach.SO_NO_TOI_DA = kH.SO_NO_TOI_DA;
-            khach.TINH_TRANG_HOAT_DONG = kH.TINH_TRANG_HOAT_DONG;
-            khach.GHI_CHU = kH.GHI_CHU;
-            khach.HO_SO_THANH_TOAN = kH.HO_SO_THANH_TOAN;
-            khach.TRUC_THUOC = kH.TRUC_THUOC;
-            khach.SALES_TAO = kH.SALES_TAO;
-            khach.KHACH_DO_MARKETING_TIM_KIEM = kH.KHACH_DO_MARKETING_TIM_KIEM;
-            khach.THONG_TIN_DA_DAY_DU = kH.THONG_TIN_DA_DAY_DU;
-            khach.KHACH_MUA_SO_LUONG_NHIEU = kH.KHACH_MUA_SO_LUONG_NHIEU;
-            khach.KHACH_MUA_DOANH_SO_CAO = kH.KHACH_MUA_DOANH_SO_CAO;
-            khach.KHACH_DAC_BIET = kH.KHACH_DAC_BIET;
-            db.KHs.Add(khach);
-            
+                KH khach = new KH();
+                khach.MA_KHACH_HANG = makhachhang;
+                khach.TEN_CONG_TY = kH.TEN_CONG_TY;
+                khach.VAN_PHONG_GIAO_DICH = kH.VAN_PHONG_GIAO_DICH;
+                khach.DIA_CHI_XUAT_HOA_DON = kH.DIA_CHI_XUAT_HOA_DON;
+                khach.TINH = kH.TINH;
+                khach.QUOC_GIA = kH.QUOC_GIA;
+                khach.MST = kH.MST;
+                khach.HOTLINE = kH.HOTLINE;
+                khach.EMAIL = kH.EMAIL;
+                khach.FAX = kH.FAX;
+                khach.LOGO = kH.LOGO;
+                khach.WEBSITE = kH.WEBSITE;
+                khach.DIEU_KHOAN_THANH_TOAN = kH.DIEU_KHOAN_THANH_TOAN;
+                khach.SO_NGAY_DUOC_NO = kH.SO_NGAY_DUOC_NO;
+                khach.SO_NO_TOI_DA = kH.SO_NO_TOI_DA;
+                khach.TINH_TRANG_HOAT_DONG = kH.TINH_TRANG_HOAT_DONG;
+                khach.GHI_CHU = kH.GHI_CHU;
+                khach.HO_SO_THANH_TOAN = kH.HO_SO_THANH_TOAN;
+                khach.TRUC_THUOC = kH.TRUC_THUOC;
+                khach.SALES_TAO = kH.SALES_TAO;
+                khach.KHACH_DO_MARKETING_TIM_KIEM = kH.KHACH_DO_MARKETING_TIM_KIEM;
+                khach.THONG_TIN_DA_DAY_DU = kH.THONG_TIN_DA_DAY_DU;
+                khach.KHACH_MUA_SO_LUONG_NHIEU = kH.KHACH_MUA_SO_LUONG_NHIEU;
+                khach.KHACH_MUA_DOANH_SO_CAO = kH.KHACH_MUA_DOANH_SO_CAO;
+                khach.KHACH_DAC_BIET = kH.KHACH_DAC_BIET;
+                db.KHs.Add(khach);
+
+
+            }
+
+
+
+
             try
             {
                 db.SaveChanges();

@@ -15,7 +15,7 @@ function SuccessSystem(errorString) {
     new PNotify({
         title: 'Thành Công',
         text: errorString,
-        addclass: 'bg-danger'
+        addclass: 'bg-info'
     });
 }
 
