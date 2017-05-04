@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using ERP.Web.Models.BusinessModel;
 using ERP.Web.Models;
+using System.Data.SqlClient;
 
 namespace ERP.Web.Api.Congty
 {
@@ -42,16 +43,21 @@ namespace ERP.Web.Api.Congty
         }
 
         // GET: api/Api_CCTC_CongTy/5
-        [ResponseType(typeof(CCTC_CONG_TY))]
-        public IHttpActionResult GetCCTC_CONG_TY(string id)
+        [Route("api/Api_CCTC_CongTy/DanhsachCongty")]
+        public List<GetAll_CongTy_Result> DanhsachCongty()
         {
-            CCTC_CONG_TY cCTC_CONG_TY = db.CCTC_CONG_TY.Find(id);
-            if (cCTC_CONG_TY == null)
-            {
-                return NotFound();
-            }
+            var query = db.Database.SqlQuery<GetAll_CongTy_Result>("GetAll_CongTy");
+            var result = query.ToList();
+            return result;
+        }
 
-            return Ok(cCTC_CONG_TY);
+        [HttpPost]
+        [Route("api/Api_CCTC_CongTy/Get_SALE_CHI_NHANH/{macongty}")]
+        public List<Prod_CCTC_GetAllSale_Result> Get_SALE_CHI_NHANH(string macongty)
+        {
+            var query = db.Database.SqlQuery<Prod_CCTC_GetAllSale_Result>("Prod_CCTC_GetAllSale  @macongty", new SqlParameter("macongty", macongty));
+            var result = query.ToList();
+            return result;
         }
 
         // PUT: api/Api_CCTC_CongTy/5

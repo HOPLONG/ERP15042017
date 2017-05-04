@@ -5,6 +5,11 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     var macongty = $('#macongty').val();
     var isadmin = $('#isadmin').val();
     var phongban = $('#maphongban').val();
+
+    if (isadmin == "True") {
+        $scope.isadmin = true;
+    }
+
     $scope.danhsachtrang = [];
     $scope.tranghienthoi = 0;
     var a = [];
@@ -1093,9 +1098,83 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             $("#DataCustomer").css({ "display": "none" });
         }
     }
-
-
     //End Lọc khách hàng theo tên
+
+    $scope.Xoa_KH = function (makh) {
+        $http.delete('/api/Api_KH/DeleteKH/' + makh).then(function (response) {
+            SuccessSystem('Xóa thành công');
+            reload();
+        }, function errorCallback(response) {
+            ErrorSystem('Lỗi khi xóa');
+
+        });
+    };
+
+    $scope.danhsachcongty = function () {
+        $http.post('/api/Api_CCTC_CongTy/DanhsachCongty').then(function (response) {
+            $scope.list_congty_copy = response.data;
+        });
+    };
+    $scope.danhsachcongty();
+
+
+
+    //Lọc sale chi nhanh
+    $scope.array_sale_chi_nhanh_Finded = [];
+    $scope.array_sale_chi_nhanh = [];
+    $scope.showtable_sale_chi_nhanh = false;
+
+
+    $scope.get_dsnhanvien_TA = function (macongty) {
+        $scope.hovaten_copy = '';
+        $http.post('/api/Api_CCTC_CongTy/Get_SALE_CHI_NHANH/' + macongty)
+        .then(function (response) {
+            if (response.data) {
+                $scope.array_sale_chi_nhanh = response.data;
+                $scope.array_sale_chi_nhanh_Finded = $scope.array_sale_chi_nhanh.map(function (item) {
+                    return item;
+                });
+            }
+        }, function (error) {
+            console.log(error);
+        });
+    };
+
+    $scope.on_sale_chi_nhanh_Find = function () {
+        if (!$scope.HO_VA_TEN) {
+            $scope.array_sale_chi_nhanh_Finded = $scope.array_sale_chi_nhanh.map(function (item) {
+                return item;
+            });
+        }
+        $scope.array_sale_chi_nhanh_Finded = $scope.array_sale_chi_nhanh.filter(function (item) {
+            if (item.HO_VA_TEN.toLowerCase().indexOf($scope.hovaten_copy.toLowerCase()) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+    $scope.showInfoStaff_CHI_NHANH = function (staff) {
+        $scope.username_copy = staff.USERNAME;
+        $scope.hovaten_copy = staff.HO_VA_TEN;
+        $scope.showtable_sale_chi_nhanh = false;
+    }
+    // End Lọc sale chi nhanh
+
+    $scope.CopyKhachHang = function (makh) {
+        var data_add = {
+            TRUC_THUOC: $scope.ma_cong_ty_copy,
+            SALES_PHU_TRACH: $scope.username_copy,
+        }
+
+        $http.post('/api/Api_KH/CopyNewKH/' + makh,data_add).then(function (response) {
+            SuccessSystem('Chuyển thành công với mã khách hàng mới là ' + response.data);
+        }, function errorCallback(response) {
+            ErrorSystem('Lỗi khi chuyển');
+
+        });
+    };
 });
 
 
