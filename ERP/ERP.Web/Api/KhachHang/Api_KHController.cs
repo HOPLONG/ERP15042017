@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using ERP.Web.Models.NewModels;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace ERP.Web.Api.HeThong
 {
@@ -233,39 +234,10 @@ namespace ERP.Web.Api.HeThong
             {
                 return BadRequest(ModelState);
             }
-            
-            String nam = DateTime.Today.Year.ToString();
-            String nam2so = nam.Substring(2);
-            var query = db.Database.SqlQuery<string>("XL_LayMaKhachMoiNhat");
 
-
-            if (query.Count()>0)
-            {
-                string prefixID = "KH"+nam2so;
-                var data = query.FirstOrDefault();
-                string LastID = data;
-
-                int nextID = int.Parse(LastID.Remove(0, prefixID.Length)) + 1;
-                int lengthNumerID = LastID.Length - prefixID.Length;
-                string zeroNumber = "";
-                for (int i = 1; i <= lengthNumerID; i++)
-                {
-                    if (nextID < Math.Pow(10, i))
-                    {
-                        for (int j = 1; j <= lengthNumerID - i; i++)
-                        {
-                            zeroNumber += "0";
-                        }
-                    }
-                }
-               // int ma = Convert.ToInt32(makhach.Substring(4));
-                makhachhang = prefixID + zeroNumber + nextID.ToString();
-            }
-            else
-                makhachhang = "KH" + nam2so + "0001";
 
             KH khach = new KH();
-            khach.MA_KHACH_HANG = makhachhang;
+            khach.MA_KHACH_HANG = GenerateMAKH();
             khach.TEN_CONG_TY = kH.TEN_CONG_TY;
             khach.VAN_PHONG_GIAO_DICH = kH.VAN_PHONG_GIAO_DICH;
             khach.DIA_CHI_XUAT_HOA_DON = kH.DIA_CHI_XUAT_HOA_DON;
@@ -292,6 +264,7 @@ namespace ERP.Web.Api.HeThong
             khach.KHACH_DAC_BIET = kH.KHACH_DAC_BIET;
             db.KHs.Add(khach);
             
+
             try
             {
                 db.SaveChanges();
@@ -312,20 +285,297 @@ namespace ERP.Web.Api.HeThong
         }
 
         // DELETE: api/Api_KH/5
+        [Route("api/Api_KH/DeleteKH/{id}")]
         [ResponseType(typeof(KH))]
         public IHttpActionResult DeleteKH(string id)
         {
-            KH kH = db.KHs.Find(id);
-            if (kH == null)
+            KH khachhang = db.KHs.Find(id);
+            if (khachhang == null)
             {
                 return NotFound();
             }
+            List<KH_TK_NGAN_HANG> tknganhang = new List<KH_TK_NGAN_HANG>();
 
-            db.KHs.Remove(kH);
+            tknganhang = db.KH_TK_NGAN_HANG.Where(x => x.MA_KHACH_HANG == id).ToList();
+
+            foreach (var item in tknganhang)
+            {
+                db.KH_TK_NGAN_HANG.Remove(item);
+            }
+
+            List<KH_THONG_KE_MUA_HANG> thongke = new List<KH_THONG_KE_MUA_HANG>();
+
+            thongke = db.KH_THONG_KE_MUA_HANG.Where(x => x.MA_KHACH_HANG == id).ToList();
+
+            foreach (var item in thongke)
+            {
+                db.KH_THONG_KE_MUA_HANG.Remove(item);
+            }
+
+            List<KH_LIEN_HE> lienhe = new List<KH_LIEN_HE>();
+
+            lienhe = db.KH_LIEN_HE.Where(x => x.MA_KHACH_HANG == id).ToList();
+
+            foreach (var item in lienhe)
+            {
+                var query = db.KH_SALES_PHU_TRACH.Where(x => x.ID_LIEN_HE == item.ID_LIEN_HE).FirstOrDefault();
+                if(query != null)
+                {
+                    db.KH_SALES_PHU_TRACH.Remove(query);
+                }
+                db.KH_LIEN_HE.Remove(item);
+            }
+
+            List<KH_POLICY> policy = new List<KH_POLICY>();
+
+            policy = db.KH_POLICY.Where(x => x.MA_KHACH_HANG == id).ToList();
+
+            foreach (var item in policy)
+            {
+                db.KH_POLICY.Remove(item);
+            }
+
+            List<KH_PHAN_LOAI_KHACH> phanloai = new List<KH_PHAN_LOAI_KHACH>();
+
+            phanloai = db.KH_PHAN_LOAI_KHACH.Where(x => x.MA_KHACH_HANG == id).ToList();
+
+            foreach (var item in phanloai)
+            {
+                db.KH_PHAN_LOAI_KHACH.Remove(item);
+            }
+
+            List<KH_CHUYEN_SALES> chuyensale = new List<KH_CHUYEN_SALES>();
+
+            chuyensale = db.KH_CHUYEN_SALES.Where(x => x.MA_KHACH_HANG == id).ToList();
+
+            foreach (var item in chuyensale)
+            {
+                db.KH_CHUYEN_SALES.Remove(item);
+            }
+
+            List<KH_PHAN_HOI_KHACH_HANG> phanhoi = new List<KH_PHAN_HOI_KHACH_HANG>();
+
+            phanhoi = db.KH_PHAN_HOI_KHACH_HANG.Where(x => x.MA_KHACH_HANG == id).ToList();
+
+            foreach (var item in phanhoi)
+            {
+                db.KH_PHAN_HOI_KHACH_HANG.Remove(item);
+            }
+
+            List<KH_DC_XUAT_HANG> diachi = new List<KH_DC_XUAT_HANG>();
+
+            diachi = db.KH_DC_XUAT_HANG.Where(x => x.MA_KHACH_HANG == id).ToList();
+
+            foreach (var item in diachi)
+            {
+                db.KH_DC_XUAT_HANG.Remove(item);
+            }
+
+            db.KHs.Remove(khachhang);
             db.SaveChanges();
 
-            return Ok(kH);
+            return Ok(khachhang);
         }
+
+        public string GenerateMAKH()
+        {
+            Regex digitsOnly = new Regex(@"[^\d]");
+            string year = DateTime.Now.Year.ToString().Substring(2, 2);
+            
+            string prefixNumber = "KH" + year.ToString();
+            string SoChungTu = (from nhapkho in db.KHs where nhapkho.MA_KHACH_HANG.Contains(prefixNumber) select nhapkho.MA_KHACH_HANG).Max();
+
+
+            if (SoChungTu == null)
+            {
+                return "KH" + year + "0001";
+            }
+            SoChungTu = SoChungTu.Substring(4, SoChungTu.Length - 4);
+            string number = (Convert.ToInt32(digitsOnly.Replace(SoChungTu, "")) + 1).ToString();
+            string result = number.ToString();
+            int count = 4 - number.ToString().Length;
+            for (int i = 0; i < count; i++)
+            {
+                result = "0" + result;
+            }
+            return "KH" + year + result;
+        }
+
+        [HttpPost]
+        [Route("api/Api_KH/CopyNewKH/{mkh}")]
+        public IHttpActionResult CopyNewKH(string mkh,KhachHanghl thongtinmoi)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            string makhachhang;
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+
+            var thongtinchung = db.KHs.Where(x => x.MA_KHACH_HANG == mkh).FirstOrDefault();
+            var diachixuathang = db.KH_DC_XUAT_HANG.Where(x => x.MA_KHACH_HANG == mkh).ToList();
+            var lienhe = db.KH_LIEN_HE.Where(x => x.MA_KHACH_HANG == mkh).ToList();
+            var phanloai = db.KH_PHAN_LOAI_KHACH.Where(x => x.MA_KHACH_HANG == mkh).FirstOrDefault();
+            var taikhoan = db.KH_TK_NGAN_HANG.Where(x => x.MA_KHACH_HANG == mkh).ToList();
+            var policy = db.KH_POLICY.Where(x => x.MA_KHACH_HANG == mkh).ToList();
+            var phanhoi = db.KH_PHAN_HOI_KHACH_HANG.Where(x => x.MA_KHACH_HANG == mkh).ToList();
+            var thongke = db.KH_THONG_KE_MUA_HANG.Where(x => x.MA_KHACH_HANG == mkh).ToList();
+
+            KH newkhachhang = new KH();
+            newkhachhang.MA_KHACH_HANG = GenerateMAKH();
+            newkhachhang.TEN_CONG_TY = thongtinchung.TEN_CONG_TY;
+            newkhachhang.VAN_PHONG_GIAO_DICH = thongtinchung.VAN_PHONG_GIAO_DICH;
+            newkhachhang.DIA_CHI_XUAT_HOA_DON = thongtinchung.DIA_CHI_XUAT_HOA_DON;
+            newkhachhang.TINH = thongtinchung.TINH;
+            newkhachhang.QUOC_GIA = thongtinchung.QUOC_GIA;
+            newkhachhang.MST = thongtinchung.MST;
+            newkhachhang.HOTLINE = thongtinchung.HOTLINE;
+            newkhachhang.EMAIL = thongtinchung.EMAIL;
+            newkhachhang.FAX = thongtinchung.FAX;
+            newkhachhang.LOGO = thongtinchung.LOGO;
+            newkhachhang.WEBSITE = thongtinchung.WEBSITE;
+            newkhachhang.DIEU_KHOAN_THANH_TOAN = thongtinchung.DIEU_KHOAN_THANH_TOAN;
+            newkhachhang.TINH_TRANG_HOAT_DONG = thongtinchung.TINH_TRANG_HOAT_DONG;
+            newkhachhang.SO_NGAY_DUOC_NO = thongtinchung.SO_NGAY_DUOC_NO;
+            newkhachhang.SO_NO_TOI_DA = thongtinchung.SO_NO_TOI_DA;
+            newkhachhang.GHI_CHU = thongtinchung.GHI_CHU;
+            newkhachhang.TRUC_THUOC = thongtinmoi.TRUC_THUOC;
+            newkhachhang.SALES_TAO = thongtinmoi.SALES_PHU_TRACH;
+            newkhachhang.KHACH_DO_MARKETING_TIM_KIEM = thongtinchung.KHACH_DO_MARKETING_TIM_KIEM;
+            newkhachhang.KHACH_MUA_DOANH_SO_CAO = thongtinchung.KHACH_MUA_DOANH_SO_CAO;
+            newkhachhang.KHACH_MUA_SO_LUONG_NHIEU = thongtinchung.KHACH_MUA_SO_LUONG_NHIEU;
+            newkhachhang.KHACH_DAC_BIET = thongtinchung.KHACH_DAC_BIET;
+            newkhachhang.THONG_TIN_DA_DAY_DU = thongtinchung.THONG_TIN_DA_DAY_DU;
+            newkhachhang.HO_SO_THANH_TOAN = thongtinchung.HO_SO_THANH_TOAN;
+            db.KHs.Add(newkhachhang);
+            db.SaveChanges();
+
+            
+            KH_CHUYEN_SALES newchuyensale = new KH_CHUYEN_SALES();
+            newchuyensale.MA_KHACH_HANG = newkhachhang.MA_KHACH_HANG;
+            newchuyensale.SALE_HIEN_THOI = thongtinmoi.SALES_PHU_TRACH;
+            db.KH_CHUYEN_SALES.Add(newchuyensale);
+            db.SaveChanges();
+
+            foreach (var item in diachixuathang)
+            {
+                KH_DC_XUAT_HANG newdiachi = new KH_DC_XUAT_HANG();
+                newdiachi.MA_KHACH_HANG = newkhachhang.MA_KHACH_HANG;
+                newdiachi.DIA_CHI_XUAT_HANG = item.DIA_CHI_XUAT_HANG;
+                newdiachi.GHI_CHU = item.GHI_CHU;
+                db.KH_DC_XUAT_HANG.Add(newdiachi);
+                db.SaveChanges();
+            }
+
+            foreach (var item in diachixuathang)
+            {
+                KH_DC_XUAT_HANG newdiachi = new KH_DC_XUAT_HANG();
+                newdiachi.MA_KHACH_HANG = newkhachhang.MA_KHACH_HANG;
+                newdiachi.DIA_CHI_XUAT_HANG = item.DIA_CHI_XUAT_HANG;
+                newdiachi.GHI_CHU = item.GHI_CHU;
+                db.KH_DC_XUAT_HANG.Add(newdiachi);
+                db.SaveChanges();
+            }
+
+            foreach (var item in lienhe)
+            {
+                KH_LIEN_HE newlienhe = new KH_LIEN_HE();
+                newlienhe.MA_KHACH_HANG = newkhachhang.MA_KHACH_HANG;
+                newlienhe.NGUOI_LIEN_HE = item.NGUOI_LIEN_HE;
+                newlienhe.CHUC_VU = item.CHUC_VU;
+                newlienhe.PHONG_BAN = item.PHONG_BAN;
+                newlienhe.NGAY_SINH = item.NGAY_SINH;
+                newlienhe.GIOI_TINH = item.GIOI_TINH;
+                newlienhe.EMAIL_CA_NHAN = item.EMAIL_CA_NHAN;
+                newlienhe.EMAIL_CONG_TY = item.EMAIL_CONG_TY;
+                newlienhe.SKYPE = item.SKYPE;
+                newlienhe.FACEBOOK = item.FACEBOOK;
+                newlienhe.GHI_CHU = item.GHI_CHU;
+                newlienhe.SDT1 = item.SDT1;
+                newlienhe.SDT2 = item.SDT2;
+                newlienhe.TINH_TRANG_LAM_VIEC = item.TINH_TRANG_LAM_VIEC;
+                db.KH_LIEN_HE.Add(newlienhe);
+                db.SaveChanges();
+            }
+
+            KH_PHAN_LOAI_KHACH newphanloai = new KH_PHAN_LOAI_KHACH();
+            newphanloai.MA_KHACH_HANG = newkhachhang.MA_KHACH_HANG;
+            newphanloai.MA_LOAI_KHACH = phanloai.MA_LOAI_KHACH;
+            newphanloai.NHOM_NGANH = phanloai.NHOM_NGANH;
+            db.KH_PHAN_LOAI_KHACH.Add(newphanloai);
+            db.SaveChanges();
+
+            foreach (var item in taikhoan)
+            {
+                KH_TK_NGAN_HANG newtaikhoan = new KH_TK_NGAN_HANG();
+                newtaikhoan.MA_KHACH_HANG = newkhachhang.MA_KHACH_HANG;
+                newtaikhoan.SO_TAI_KHOAN = item.SO_TAI_KHOAN;
+                newtaikhoan.TEN_TAI_KHOAN = item.TEN_TAI_KHOAN;
+                newtaikhoan.TEN_NGAN_HANG = item.TEN_NGAN_HANG;
+                newtaikhoan.CHI_NHANH = item.CHI_NHANH;
+                newtaikhoan.TINH_TP = item.TINH_TP;
+                newtaikhoan.LOAI_TAI_KHOAN = item.LOAI_TAI_KHOAN;
+                newtaikhoan.GHI_CHU = item.GHI_CHU;
+                db.KH_TK_NGAN_HANG.Add(newtaikhoan);
+                db.SaveChanges();
+            }
+
+            foreach (var item in policy)
+            {
+                KH_POLICY newpolicy = new KH_POLICY();
+                newpolicy.MA_KHACH_HANG = newkhachhang.MA_KHACH_HANG;
+                newpolicy.MA_NHOM_HANG = item.MA_NHOM_HANG;
+                newpolicy.GIA_BAN = item.GIA_BAN;
+                newpolicy.CHIET_KHAU_CM = item.CHIET_KHAU_CM;
+                newpolicy.THOI_GIAN_AP_DUNG = item.THOI_GIAN_AP_DUNG;
+                newpolicy.GHI_CHU = item.GHI_CHU;
+                db.KH_POLICY.Add(newpolicy);
+                db.SaveChanges();
+            }
+
+            foreach (var item in phanhoi)
+            {
+                KH_PHAN_HOI_KHACH_HANG newphanhoi = new KH_PHAN_HOI_KHACH_HANG();
+                newphanhoi.MA_KHACH_HANG = newkhachhang.MA_KHACH_HANG;
+                newphanhoi.NGUOI_PHAN_HOI = item.NGUOI_PHAN_HOI;
+                newphanhoi.NGAY_PHAN_HOI = item.NGAY_PHAN_HOI;
+                newphanhoi.THONG_TIN_PHAN_HOI = item.THONG_TIN_PHAN_HOI;
+                db.KH_PHAN_HOI_KHACH_HANG.Add(newphanhoi);
+                db.SaveChanges();
+            }
+
+            foreach (var item in thongke)
+            {
+                KH_THONG_KE_MUA_HANG newthongke = new KH_THONG_KE_MUA_HANG();
+                newthongke.MA_KHACH_HANG = newkhachhang.MA_KHACH_HANG;
+                newthongke.MA_HANG = item.MA_HANG;
+                newthongke.SL_MUA = item.SL_MUA;
+                newthongke.DON_GIA_MUA = item.DON_GIA_MUA;
+                newthongke.NHAN_VIEN_BAN_HANG = item.NHAN_VIEN_BAN_HANG;
+                db.KH_THONG_KE_MUA_HANG.Add(newthongke);
+                db.SaveChanges();
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+
+            return Ok(newkhachhang.MA_KHACH_HANG);
+        }
+
+
+
 
         protected override void Dispose(bool disposing)
         {

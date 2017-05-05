@@ -4,10 +4,12 @@
 
 <link href="~/Content/self-writing/css/KhachHang.css" rel="stylesheet" />
 <link href="~/Content/assets/css/components.css" rel="stylesheet" />
+
 <link href="~/Content/assets/css/core.css" rel="stylesheet" />
 <link href="~/Content/assets/css/colors.css" rel="stylesheet" />
 <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
 <link href="~/Content/assets/css/icons/icomoon/styles.css" rel="stylesheet" />
+
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="~/Content/self-writing/js/Controllers/NhaCungCap/NhaCungCapCtrl.js"></script>
 <style>
@@ -16,6 +18,7 @@
     }
 
     input::-webkit-input-placeholder {
+
     font-style:italic;
     font-size:9px;
 }
@@ -29,10 +32,11 @@ input:-ms-input-placeholder {
 }
 
 
+
     .ng-pristine {
         border: none;
     }
-    
+
 </style>
 <div ng-app="myApp" ng-controller="nhacungcapCtrl">
     <div class="content" style="min-height:0px;">
@@ -53,7 +57,9 @@ input:-ms-input-placeholder {
                     <div class="modal-body">
                         <form class="form-horizontal" action="/NhaCungCap/Index" method="post">
                             <p style="text-shadow: 1px 1px 5px #91DDFD; font-style:italic; font-size: 20px;float:left; color: #64B5F6; margin-left:10px; margin-top:5px;margin-bottom:5px; font-weight: bold">THÔNG TIN CHUNG</p>
+
                             <table border='1' style="width:100%" id="themmoikhach">
+
                                 <tr>
                                     <td colspan="7"><input type="text" class="form-control" id="addtencongty" placeholder="Mã nhà cung cấp" ng-model="arraythongtin.ma_nha_cung_cap"></td>
                                     <td rowspan='2' colspan='1'>
@@ -80,6 +86,7 @@ input:-ms-input-placeholder {
                                 </tr>
                                 <tr>
                                     <td><label class="control-label">Phân loại nhà cung cấp</label></td>
+
                                     <td colspan="1">
                                         <select ng-model="arraythongtin.ma_loai_ncc" class="form-control col-sm-3 input-md" style="width: 100% !important">
                                             <option ng-repeat="phanloai in list_phanloai" value="{{phanloai.MA_LOAI_NCC}}">{{phanloai.TEN_LOAI_NCC}}</option>
@@ -103,12 +110,14 @@ input:-ms-input-placeholder {
                                     @*<td colspan="4" ng-repeat="vthh in list_nhomvthh">
                                 <input type='checkbox' value="{{vthh.MA_NHOM_HANG_CHI_TIET}}" check-list='checked_fruits' /><span>{{vthh.CHUNG_LOAI_HANG}}</span>
                             </td>*@
+
                                 <tr>
                                     <td></td>
                                     <td colspan="2"><input type="text" class="form-control" placeholder="Mã số thuế" id="addmasothue" ng-model="arraythongtin.ma_so_thue"></td>
                                     <td colspan="2"><input type="text" class="form-control" placeholder="Website" id="addwebsite" ng-model="arraythongtin.website"></td>
                                     <td colspan="2"><input type="tel" class="form-control" placeholder="Số điện thoại" id="addsomayban" ng-model="arraythongtin.sdt"></td>
                                     <td colspan="3"><input type="text" class="form-control" placeholder="Fax" id="addfax" ng-model="arraythongtin.fax"></td>
+
                                    
                                 </tr>
                                 <tr>
@@ -141,6 +150,7 @@ input:-ms-input-placeholder {
                                     <th style="background: #64B5F6;color: white;">Tỉnh thành phố</th>
                                     <th style="background: #64B5F6;color: white;" colspan="2">Loại tài khoản</th>
                                 </tr>
+
 
                                 <tr ng-repeat="i in range(0,2)">
                                     <td><input type="text" class="form-control" ng-model="arraytaikhoan[$index].so_tai_khoan"></td>
@@ -216,6 +226,7 @@ input:-ms-input-placeholder {
             </div>
         </div>
     </div>
+
 
     <div id="modal_theme_primary" class="modal fade" style="display: none;" data-backdrop="static">
         <div class="modal-dialog modal-lg">
@@ -366,6 +377,7 @@ input:-ms-input-placeholder {
                             <div class="col-sm-10">
                                 <textarea class="form-control" rows="3" id="addghichu" ng-model="ncc.DANH_GIA"></textarea>
                             </div>
+
                         </div>
                     </form>
                 </div>
@@ -450,6 +462,7 @@ input:-ms-input-placeholder {
                             </table>
                         </div>
                     </div>
+
                     <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#myEditLienHe" ng-click="EditLienHe(lienhe)" class="btn btn-default" style="padding-top:15px;">Sửa</button>
                 </div>
             </div>
@@ -536,6 +549,7 @@ input:-ms-input-placeholder {
                                 <option ng-repeat="abc in list_nhanvienmua" value="{{abc.USERNAME}}">{{abc.HO_VA_TEN}}</option>
                             </select>
                         </div>
+
                     </div>
                     <div class="form-group">
                         <label for="addghichu" class="col-sm-2 control-label">Ghi chú</label>
@@ -548,9 +562,11 @@ input:-ms-input-placeholder {
                     <button id="save" name="save" class="btn" data-dismiss="modal" ng-click="savelienhencc(editlh.ID_LIEN_HE)">Lưu</button>
                     <button id="exit" name="exit" class="btn" data-dismiss="modal">Thoát</button>
                 </div>
+                <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#myEditLienHe" ng-click="EditLienHe(lienhe)" class="btn btn-default" style="padding-top:15px;">Sửa</button>
             </div>
         </div>
     </div>
+
     <!--end modal-->
     <!-- Modal chi tiet nha cung cap -->
     <div class="modal fade chitietkhachhang" id="chitietkhachhang" role="dialog" tabindex="-1">
@@ -634,6 +650,7 @@ input:-ms-input-placeholder {
                                                 </tr>
                                             </table>
                                         </div>
+
                                     </div>
                                     <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#myEdit" ng-click="edit(item)" class="btn btn-default">Sửa</button>
                                 </div>
@@ -662,6 +679,7 @@ input:-ms-input-placeholder {
                                     </table>
                                     <button type="button" ng-click="trasnfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newlienhe">Thêm mới</button>
                                 </div>
+
 
                                 <div id="taikhoan" class="tab-pane fade">
                                     <table class="table">
@@ -717,10 +735,12 @@ input:-ms-input-placeholder {
                                         </tfoot>
                                     </table>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <hr />
                     <button id="exit" name="exit" class="btn" data-dismiss="modal">Thoát</button>
@@ -868,6 +888,7 @@ input:-ms-input-placeholder {
                                         <option ng-repeat="loaitaikhoan in list_loaitaikhoan" value="{{loaitaikhoan.MA_LOAI}}">{{loaitaikhoan.TEN_LOAI}}</option>
                                     </select>
                                 </div>
+
                             </div>
                             <!-- Button (Double) -->
                         </fieldset>
@@ -880,6 +901,16 @@ input:-ms-input-placeholder {
                             <button id="addnew" name="addnew" class="btn" ng-click="addnewtk(item.MA_NHA_CUNG_CAP)" data-dismiss="modal">Lưu</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button id="exit" name="exit" class="btn" data-dismiss="modal">Thoát</button>
                         </div>
+                        <!-- Button (Double) -->
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="anmelden"></label>
+                    <div class="col-md-8 addnew">
+                        <button id="addnew" name="addnew" class="btn" ng-click="addnewtk(item.MA_NHA_CUNG_CAP)" data-dismiss="modal">Lưu</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button id="exit" name="exit" class="btn" data-dismiss="modal">Thoát</button>
                     </div>
                 </div>
             </div>
@@ -925,6 +956,7 @@ input:-ms-input-placeholder {
 <!--Modal thêm mới loại hàng cung cấp-->
 
 <!--end modal-->
+
 
 
 <script>

@@ -18,7 +18,7 @@ namespace ERP.Web.Api.HeThong
         {
             var vData = (from t1 in db.MENUs
                          join t2 in db.MENU_USER on t1.MA_MENU equals t2.MA_MENU
-                         where t2.USERNAME == id && t1.MENU_CHA == null
+                         where t2.USERNAME == id
                          select new { t1.MA_MENU, t1.TEN_MENU,t1.MENU_CHA, t1.LINK, t2.MA_PHONG_BAN, t2.USERNAME, t2.TRANG_THAI});
             var result = vData.ToList().Select(x => new MenuHienThi()
             {
