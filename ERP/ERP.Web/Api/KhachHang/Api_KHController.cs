@@ -144,6 +144,31 @@ namespace ERP.Web.Api.HeThong
             return result;
         }
 
+        public string GenerateMAKH()
+        {
+            Regex digitsOnly = new Regex(@"[^\d]");
+            string year = DateTime.Now.Year.ToString().Substring(2, 2);
+
+            string prefixNumber = "KH" + year.ToString();
+            string SoChungTu = (from nhapkho in db.KHs where nhapkho.MA_KHACH_HANG.Contains(prefixNumber) select nhapkho.MA_KHACH_HANG).Max();
+
+
+            if (SoChungTu == null)
+            {
+                return "KH" + year + "0001";
+            }
+            SoChungTu = SoChungTu.Substring(4, SoChungTu.Length - 4);
+            string number = (Convert.ToInt32(digitsOnly.Replace(SoChungTu, "")) + 1).ToString();
+            string result = number.ToString();
+            int count = 4 - number.ToString().Length;
+            for (int i = 0; i < count; i++)
+            {
+                result = "0" + result;
+            }
+            return "KH" + year + result;
+        }
+
+
         // PUT: api/Api_KH/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutKH(string id, KH kH)
@@ -225,10 +250,10 @@ namespace ERP.Web.Api.HeThong
         }
 
         // POST: api/Api_KH
-        [ResponseType(typeof(KH))]
-        public IHttpActionResult PostKH(KH kH)
+        [HttpPost]
+        [Route("api/Api_KH/ThemMoiKH")]
+        public IHttpActionResult ThemMoiKH(KH kH)
         {
-            string makhachhang;
 
             if (!ModelState.IsValid)
             {
@@ -281,7 +306,7 @@ namespace ERP.Web.Api.HeThong
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = kH.MA_KHACH_HANG }, kH);
+            return Ok(khach);
         }
 
         // DELETE: api/Api_KH/5
@@ -377,29 +402,6 @@ namespace ERP.Web.Api.HeThong
             return Ok(khachhang);
         }
 
-        public string GenerateMAKH()
-        {
-            Regex digitsOnly = new Regex(@"[^\d]");
-            string year = DateTime.Now.Year.ToString().Substring(2, 2);
-            
-            string prefixNumber = "KH" + year.ToString();
-            string SoChungTu = (from nhapkho in db.KHs where nhapkho.MA_KHACH_HANG.Contains(prefixNumber) select nhapkho.MA_KHACH_HANG).Max();
-
-
-            if (SoChungTu == null)
-            {
-                return "KH" + year + "0001";
-            }
-            SoChungTu = SoChungTu.Substring(4, SoChungTu.Length - 4);
-            string number = (Convert.ToInt32(digitsOnly.Replace(SoChungTu, "")) + 1).ToString();
-            string result = number.ToString();
-            int count = 4 - number.ToString().Length;
-            for (int i = 0; i < count; i++)
-            {
-                result = "0" + result;
-            }
-            return "KH" + year + result;
-        }
 
         [HttpPost]
         [Route("api/Api_KH/CopyNewKH/{mkh}")]
@@ -410,7 +412,7 @@ namespace ERP.Web.Api.HeThong
                 return BadRequest(ModelState);
             }
 
-            string makhachhang;
+            
 
             if (!ModelState.IsValid)
             {

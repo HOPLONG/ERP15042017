@@ -45,12 +45,11 @@ namespace ERP.Web.Api.KhachHang
                 return BadRequest(ModelState);
             }
 
-            if (id != kH_PHAN_LOAI_KHACH.ID)
-            {
-                return BadRequest();
+            var query = db.KH_PHAN_LOAI_KHACH.Where(x => x.ID == id).FirstOrDefault();
+            if (query != null) {
+                query.MA_LOAI_KHACH = kH_PHAN_LOAI_KHACH.MA_LOAI_KHACH;
+                query.NHOM_NGANH = kH_PHAN_LOAI_KHACH.NHOM_NGANH;
             }
-
-            db.Entry(kH_PHAN_LOAI_KHACH).State = EntityState.Modified;
 
             try
             {
