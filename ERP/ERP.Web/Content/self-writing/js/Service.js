@@ -782,9 +782,6 @@ app.service('nhacungcapService', function ($http) {
         return $http.post('/api/Api_PhanLoaiKH', phanloaikh_add);
     };
 
-    this.save_nhacungcap = function (mancc, kh_save) {
-        return $http.put('/api/Api_NhaCungCap/' + mancc, kh_save);
-    };
 
     this.save_lienhencc = function (idlienhe, data_save) {
         return $http.put('/api/Api_LienHeNhaCungCap/' + idlienhe, data_save);

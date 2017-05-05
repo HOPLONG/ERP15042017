@@ -19,5 +19,14 @@ namespace ERP.Web.Api.BaiViet
             var data = query.ToList();
             return data;
         }
+
+        [HttpPost]
+        [Route("api/Api_BaiViet_TongHop/GetTongHopBaiViet")]
+        public List<GetAll_HomeSales_Result> GetTongHopBaiViet()
+        {
+            var query = db.Database.SqlQuery<GetAll_HomeSales_Result>("GetAll_HomeSales");
+            var result = query.ToList();
+            return result;
+        }
     }
 }
