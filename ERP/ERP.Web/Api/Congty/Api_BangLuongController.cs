@@ -8,9 +8,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using ERP.Web.Models.Database;
-using ERP.Web.Models.NewModels;
 using ERP.Web.Models;
+using ERP.Web.Models.Database;
 
 namespace ERP.Web.Api.HeThong
 {
@@ -22,7 +21,7 @@ namespace ERP.Web.Api.HeThong
 
         #region "TÍNH LƯƠNG TỪ BẢNG CHẤM CÔNG"
         [HttpPost]
-        [Route("/api/Api_BangLuong/TinhLuong")]
+        [Route("api/Api_BangLuong/TinhLuong")]
         public String TinhLuong(string thangchamcong)
         {
             var query = db.CCTC_BANG_CHAM_CONG.Where(x => x.THANG_CHAM_CONG == thangchamcong).ToList();
@@ -132,8 +131,11 @@ namespace ERP.Web.Api.HeThong
                 bl.VAY_TIN_DUNG = String.Format("{0:#,##0.##}", item.VAY_TIN_DUNG);
                 bl.GIO_DI_TRE = String.Format("{0:N2}", item.GIO_DI_TRE);
                 bl.PHAT_DI_TRE = String.Format("{0:#,##0.##}", item.PHAT_DI_TRE);
+                bl.PHAT_QUEN_DONG_PHUC = String.Format("{0:#,##0.##}", item.PHAT_QUEN_DONG_PHUC);
+                bl.PHU_CAP_THEM = String.Format("{0:#,##0.##}", item.PHU_CAP_THEM);
                 bl.CONG_DOAN = String.Format("{0:#,##0.##}", item.CONG_DOAN);
                 bl.LUONG_LAO_CONG = String.Format("{0:#,##0.##}", item.LUONG_LAO_CONG);
+                
                 bl.THUC_LINH = String.Format("{0:#,##0.##}", item.THUC_LINH);
                 listbangluong.Add(bl);
             }

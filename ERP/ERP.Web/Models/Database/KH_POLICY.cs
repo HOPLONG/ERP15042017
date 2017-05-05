@@ -10,20 +10,19 @@
 namespace ERP.Web.Models.Database
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class GetAll_ChiTietBaoGia_Result
+    public partial class KH_POLICY
     {
         public int ID { get; set; }
-        public string SO_BAO_GIA { get; set; }
-        public string MA_HANG { get; set; }
-        public int SO_LUONG { get; set; }
-        public decimal DON_GIA { get; set; }
-        public double CHIET_KHAU { get; set; }
-        public decimal THANH_TIEN { get; set; }
-        public string THOI_GIAN_GIAO_HANG { get; set; }
+        public string MA_KHACH_HANG { get; set; }
+        public string MA_NHOM_HANG { get; set; }
+        public Nullable<decimal> GIA_BAN { get; set; }
+        public Nullable<decimal> CHIET_KHAU_CM { get; set; }
         public string GHI_CHU { get; set; }
-        public Nullable<decimal> DON_GIA_NHAP { get; set; }
-        public Nullable<double> HE_SO_LOI_NHUAN { get; set; }
-        public Nullable<decimal> GIA_LIST { get; set; }
+        public string THOI_GIAN_AP_DUNG { get; set; }
+    
+        public virtual HH_NHOM_VTHH HH_NHOM_VTHH { get; set; }
+        public virtual KH KH { get; set; }
     }
 }

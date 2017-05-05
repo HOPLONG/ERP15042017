@@ -348,6 +348,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
         $scope.tong_gia_tri_thu_cua_khach_new = parseFloat($scope.tong_gia_tri_thuc_te_new + $scope.tong_chi_phi_hoa_don_new + $scope.thue_vat_new + $scope.tong_khach_nhan_new);
 
+
         tong_gia_tri_thuc_te_tinh_cm_new = $scope.tong_gia_tri_thuc_te_new;
         tong_gia_tri_theo_hop_dong_tinh_cm_new = $scope.tong_gia_tri_theo_hop_dong_new;
         tong_chi_phi_hoa_don_tinh_cm_new = $scope.tong_chi_phi_hoa_don_new;
@@ -482,6 +483,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         $scope.gia_tri_chenh_lech_edit = parseFloat($scope.tong_gia_tri_theo_hop_dong_edit - $scope.tong_gia_tri_thuc_te_edit);
 
         $scope.thue_vat_edit = parseFloat($scope.tong_gia_tri_theo_hop_dong_edit * (thue_suat_gtgt / 100));
+
 
 
         $scope.tong_gia_tri_thu_cua_khach_edit = parseFloat($scope.tong_gia_tri_thuc_te_edit + $scope.tong_chi_phi_hoa_don_edit + $scope.thue_vat_edit + $scope.tong_khach_nhan_edit);
