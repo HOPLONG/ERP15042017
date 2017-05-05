@@ -225,6 +225,9 @@ namespace ERP.Web.Api.BaoGia
         }
 
         // DELETE: api/Api_ChiTietBaoGia/5
+
+
+        // Tach bao gia
         [HttpPost]
         [Route("api/Api_ChiTietBaoGia/TachBaoGia/{SoBaoGia}")]
         public IHttpActionResult DeleteCT_BAO_GIA(String SoBaoGia, List<ChiTietBaoGia> chitiet)
@@ -295,7 +298,7 @@ namespace ERP.Web.Api.BaoGia
             baogia.THUC_NHAN_CUA_KHACH = tong_khach_nhan_edit;
             baogia.TONG_GIA_TRI_CHENH_LECH = tong_gia_tri_theo_hop_dong_edit - tong_gia_tri_thuc_te_edit;
             baogia.TIEN_THUE_GTGT = tong_gia_tri_theo_hop_dong_edit * (Convert.ToDecimal(thongtinchung.THUE_SUAT_GTGT) / 100);
-            baogia.GIA_TRI_THUC_THU_TU_KHACH = tong_gia_tri_thuc_te_edit + tong_chi_phi_hoa_don_edit + thongtinchung.TIEN_THUE_GTGT;
+            baogia.GIA_TRI_THUC_THU_TU_KHACH = tong_gia_tri_thuc_te_edit + tong_chi_phi_hoa_don_edit + thongtinchung.TIEN_THUE_GTGT + tong_khach_nhan_edit;
 
             db.BH_BAO_GIA.Add(baogia);
             db.SaveChanges();

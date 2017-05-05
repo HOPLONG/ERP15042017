@@ -207,6 +207,10 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
 
     $scope.edit = function (item) {
         $scope.ncc = item;
+        var ghichuvalue = $('.' + item.MA_NHA_CUNG_CAP + '-1').html();
+        CKEDITOR.instances.editghichu.setData(ghichuvalue);
+        var ho_so_thanh_toan_value = $('.' + item.MA_NHA_CUNG_CAP + '-2').html();
+        CKEDITOR.instances.editdanh_gia.setData(ho_so_thanh_toan_value);
     };
 
     $scope.details = function (lienhe) {
@@ -218,9 +222,13 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
     };
 
     $scope.save = function (mancc) {
+        $("textarea[name=editghichu]").val(CKEDITOR.instances.editghichu.getData());
+        var editghichu = $("[name=editghichu]").val();
+        $("textarea[name=editdanh_gia]").val(CKEDITOR.instances.editdanh_gia.getData());
+        var editdanh_gia = $("[name=editdanh_gia]").val();
         var logo = $('#imgEdit').val();
         var name_without_ext = (logo.split('\\').pop().split('/').pop().split())[0];
-        var kh_save = {
+        $scope.kh_save = {
             MA_NHA_CUNG_CAP: mancc,
             TEN_NHA_CUNG_CAP: $scope.ncc.TEN_NHA_CUNG_CAP,
             VAN_PHONG_GIAO_DICH: $scope.ncc.VAN_PHONG_GIAO_DICH,
@@ -235,13 +243,25 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
             DIEU_KHOAN_THANH_TOAN: $scope.ncc.DIEU_KHOAN_THANH_TOAN,
             SO_NGAY_DUOC_NO: $scope.ncc.SO_NGAY_DUOC_NO,
             SO_NO_TOI_DA: $scope.ncc.SO_NO_TOI_DA,
-            GHI_CHU: $scope.ncc.GHI_CHU,
-            DANH_GIA: $scope.ncc.DANH_GIA,
+            GHI_CHU: editghichu,
+            DANH_GIA: editdanh_gia,
         }
-        nhacungcapService.save_nhacungcap(mancc, kh_save).then(function (response) {
-            $scope.load_nhacungcap();
-        });
+     
+            $http({
+                method: 'PUT',
+                data: $scope.kh_save, mancc,
+                url: window.location.origin + '/api/Api_NhaCungCap/' + mancc
+            }).then(function successCallback(response1) {
+                SuccessSystem('Sửa nhà cung cấp thành công');
+                $scope.load_nhacungcap();
+            }, function errorCallback(response1) {
+                ErrorSystem('Sửa nhà cung cấp lỗi');
+            });
+
+            
+        
     };
+    
 
     $scope.savelienhencc = function (idlienhe) {
         var data_save = {
