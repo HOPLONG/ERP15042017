@@ -474,17 +474,24 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 MA_LOAI_KHACH: $scope.kh.MA_LOAI_KHACH
             }
             if (id != null) {
-                khachhangService.save_phanloaikh(id, phanloai_save).then(function (response) {
-                    //$scope.phantrangkh(0);
-                   $scope.phantrangkh(0);
+                khachhangService.save_phanloaikh(id, phanloai_save).then(function successCallback(response) {
+                    $scope.phantrangkh(0);
                     $scope.new_ct_khachhang();
+                    $scope.tranghienthoi = 0;
+                    SuccessSystem("Thành công!");
+                }, function errorCallback(response) {
+                    ErrorSystem("Đã xảy ra lỗi");
                 });
             } else if (id == null && $scope.kh.MA_LOAI_KHACH != null) {
-                khachhangService.add_phanloaikh(phanloai_add).then(function (response) {
-                    // $scope.phantrangkh(0);
-                   $scope.phantrangkh(0);
+                khachhangService.add_phanloaikh(phanloai_add).then(function successCallback(response) {
+                    $scope.phantrangkh(0);
                     $scope.new_ct_khachhang();
+                    $scope.tranghienthoi = 0;
+                    SuccessSystem("Thành công!");
+                }, function errorCallback(response) {
+                    ErrorSystem("Đã xảy ra lỗi");
                 });
+
             }
 
         });
@@ -519,16 +526,22 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 NGAY_KET_THUC_PHU_TRACH: $scope.editlh.NGAY_KET_THUC_PHU_TRACH,
                 TRANG_THAI: $scope.editlh.TRANG_THAI,
             }
-            khachhangService.save_salesphutrach($scope.editlh.SALES_PHU_TRACH, idlienhe, data_savesalesphutrach).then(function (response) {
-                //$scope.phantrangkh(1);
-               $scope.phantrangkh(0);
+            khachhangService.save_salesphutrach($scope.editlh.SALES_PHU_TRACH, idlienhe, data_savesalesphutrach).then(function successCallback(response) {
+                $scope.phantrangkh(0);
                 $scope.new_ct_khachhang();
+                SuccessSystem("Thành công!");
+            }, function errorCallback(response) {
+                ErrorSystem("Đã xảy ra lỗi");
             });
 
         });
     };
 
     $scope.addnew = function (makh) {
+
+        $("textarea[name=ghichu]").val(CKEDITOR.instances.ghichu.getData());
+        var danhmuc = $("[name=ghichu]").val();
+
         var url = document.location.href;
         //this removes the anchor at the end, if there is one
         url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
@@ -547,7 +560,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             EMAIL_CONG_TY: $scope.email_cong_ty,
             SKYPE: $scope.skype,
             FACEBOOK: $scope.facebook,
-            GHI_CHU: $scope.ghi_chu_lh,
+            GHI_CHU: danhmuc,
             SDT1: $scope.so_dien_thoai1,
             TINH_TRANG_LAM_VIEC: $scope.tinh_trang_lam_viec,
             SDT2: $scope.so_dien_thoai2,
@@ -555,10 +568,12 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             SALES_MOI: $scope.sales_moi,
             SALES_CU: $scope.sales_cu,
         }
-        khachhangService.add_lienhe(data_add).then(function (response) {
-            //$scope.phantrangkh(1);
-           $scope.phantrangkh(0);
+        khachhangService.add_lienhe(data_add).then(function successCallback(response) {
+            $scope.phantrangkh(0);
             $scope.new_ct_khachhang();
+            SuccessSystem("Bạn đã thêm thành công 1 liên hệ của khách hàng");
+        }, function errorCallback(response) {
+            ErrorSystem("Đã xảy ra lỗi");
         });
     };
 
@@ -573,11 +588,14 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             GHI_CHU: $scope.ghi_chu_tk,
             LOAI_TAI_KHOAN: $scope.loai_tai_khoan
         }
-        khachhangService.add_taikhoan(data_add).then(function (response) {
-            //$scope.phantrangkh(1);
-           $scope.phantrangkh(0);
+        khachhangService.add_taikhoan(data_add).then(function successCallback(response) {
+            $scope.phantrangkh(0);
             $scope.new_ct_khachhang();
+            SuccessSystem("Bạn đã thêm thành công 1 tài khoản của khách hàng");
+        }, function errorCallback(response) {
+            ErrorSystem("Đã xảy ra lỗi");
         });
+
     };
 
     $scope.addnewphanhoi = function (makh) {
@@ -589,11 +607,14 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             NGUOI_PHAN_HOI: username,
             THONG_TIN_PHAN_HOI: phanhoimoi,
         }
-        khachhangService.add_phanhoi(data_add).then(function (response) {
-            //$scope.phantrangkh(1);
-           $scope.phantrangkh(0);
+        khachhangService.add_phanhoi(data_add).then(function successCallback(response) {
+            $scope.phantrangkh(0);
             $scope.new_ct_khachhang();
+            SuccessSystem("Bạn đã thêm thành công 1 phản hồi của khách hàng");
+        }, function errorCallback(response) {
+            ErrorSystem("Đã xảy ra lỗi");
         });
+
     };
 
     $scope.XoaPhanHoi = function (khachphanhoi) {
@@ -770,11 +791,11 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         });
     }
 
-    $scope.showInfoSaleKD = function (staff) {
+    $scope.showInfoSaleKD = function (staff, item) {
         $scope.nvkd = staff;
         $scope.nvkd.HO_VA_TEN = staff.HO_VA_TEN;
         $scope.nvkd.USERNAME = staff.USERNAME;
-        $scope.showtable_ho_va_ten = false;
+        item.showtable_ho_va_ten = false;
     }
     // End Lọc nhân viên
 
@@ -825,7 +846,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         }
         khachhangService.save_listchuyensale(data).then(function () {
             //$scope.phantrangkh(1);
-            $scope.$scope.phantrangkh(1);
+            $scope.phantrangkh(0);
         });
     };
 
