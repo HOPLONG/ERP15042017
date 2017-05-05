@@ -139,7 +139,15 @@
                             <input type="checkbox" ng-model="newCM" />
                         </div>
 
-                        <input type="checkbox" ng-model="editCM" style="display:none" />
+                        <div class="col-md-12 thongtinchungthemmoi" style="margin-bottom: 20px;">
+                            Tiền khách muốn nhận : <input type="number" ng-model="tien_khach_muon_nhan" style="border:1px solid black;"/>
+                            <button ng-click="tinh_cm_khach(tien_khach_muon_nhan)">Tính CM</button>
+                        </div>
+                        
+                        <div class="col-md-12 savethongtin" style="margin-bottom: 20px;">
+                            Tiền khách muốn nhận : <input type="number" ng-model="tien_khach_muon_nhan_edit" style="border:1px solid black;" />
+                            <button ng-click="tinh_cm_khach_edit(tien_khach_muon_nhan_edit)">Tính CM</button>
+                        </div>
 
                         <!--Thông tin chung-->
                         <div class="col-md-12">
