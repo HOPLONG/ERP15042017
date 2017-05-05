@@ -282,7 +282,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         $http({
             method: 'POST',
             data: $scope.Thong_tin_KH,
-            url: window.location.origin + '/api/Api_KH'
+            url: window.location.origin + '/api/Api_KH/ThemMoiKH'
         }).then(function successCallback(response) {
             $scope.Thong_tin_KH = response.data;
 
