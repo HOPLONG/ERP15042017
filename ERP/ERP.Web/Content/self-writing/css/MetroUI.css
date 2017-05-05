@@ -2,50 +2,60 @@
     padding:5px;
 }
 
-.dynamicTile .col-sm-4.col-xs-8{
-    padding:5px;
-}
+
 
 #tile1{
     background: rgb(0,172,238);
 }
 
-#tile2{
-    background: rgb(243,243,243);
+#AUTONICS{
+    background-color: #EE6E01 !important;
 }
 
-#tile3{
-    background: rgb(71,193,228);
+#SCHNEIDER{
+    background-color: #00A650 !important;
+}
+#Omron{
+    background-color: #2A8BF6 !important;
+}
+#IDEC{
+    background-color: #AF251B !important;
+}
+#LS{
+    background-color: #023878 !important;
+}
+#MITSUBISHI{
+    background-color: #ED1B24 !important;
+}
+#PROFACE{
+    background-color: #0066B1 !important;
+}
+#TOSHIBA{
+    background-color: #FE0002 !important;
+}
+#PROFACE{
+    background-color: #0066B1 !important;
+}
+#FUJI{
+    background-color: #0065B5 !important;
+}
+#DECA{
+    background-color: #023562 !important;
+}
+#TEND{
+    background-color: #D3152F !important;
+}
+#SIEMENS{
+    background-color: #009596 !important;
+}
+#SMC{
+    background-color: #0066B1 !important;
 }
 
-#tile4{
-    background-image: url('http://handsontek.net/demoimages/tiles/facebook.png');
-    background-size: cover;
+#YASKAWA{
+    background-color: #0066B1 !important;
 }
 
-#tile5{
-    background: rgb(175,26,63);
-}
-
-#tile6{
-    background: rgb(62,157,215);
-}
-
-#tile7{
-    background: white;
-}
-
-#tile8{
-    background: rgb(209,70,37);
-}
-
-#tile9{
-    background: rgb(0,142,0);
-}
-
-#tile10{
-    background: rgb(0,93,233);
-}
 
 .tilecaption{
     position: relative;
@@ -62,6 +72,7 @@
 .container {
     width: 100%;
 }
+
 
 
 

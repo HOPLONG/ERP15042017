@@ -761,6 +761,12 @@ app.controller('danhmucCtrl', function (danhmucService, $scope) {
             $scope.listpost = z;
         });
     };
+    $scope.transfer1 = function (madanhmuc) {
+        danhmucService.get_post(madanhmuc).then(function (z) {
+            $scope.listpostkd = z;
+        });
+    };
+    $scope.transfer1('11');
     $scope.transfer('01');
     $scope.loadDanhMuc();
     $scope.checked_fruits = [];
@@ -1044,7 +1050,7 @@ app.controller('danhsachnghiepvuCtrl', function (danhsachnghiepvuService, $scope
     }
 });
 
-app.controller('chitietbaivietCtrl', function (chitietbaivietService, $scope) {
+app.controller('chitietbaivietCtrl', function (chitietbaivietService, $scope,$http) {
     $scope.checkid = function (item) {
         var nguoidangbai = item;
         console.log(nguoidangbai);
@@ -1056,6 +1062,13 @@ app.controller('chitietbaivietCtrl', function (chitietbaivietService, $scope) {
         }
     }
     $scope.checkid();
+
+    $scope.load_baiviet = function () {
+        $http.post('/api/Api_BaiViet_TongHop/GetTongHopBaiViet').then(function (response) {
+            $scope.list_baiviet = response.data;
+        });
+    };
+    $scope.load_baiviet();
 
     $scope.load_chitietbaiviet = function () {
 

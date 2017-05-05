@@ -849,7 +849,7 @@ input:-ms-input-placeholder {
                                                 <th style="border: 1px solid #ddd !important">Chiết khấu CM</th>
                                                 <th style="border: 1px solid #ddd !important">Thời gian áp dụng</th>
                                                 <th style="border: 1px solid #ddd !important">Ghi chú</th>
-                                                <th style="border: 1px solid #ddd !important">Sửa</th>
+                                                <th style="border: 1px solid #ddd !important" ng-show="isadmin">Sửa</th>
                                             </tr>
                                             <tr ng-repeat="policy in list_policy">
                                                 <td>{{policy.MA_NHOM_HANG}}</td>
@@ -871,9 +871,10 @@ input:-ms-input-placeholder {
                                                     <p ng-hide="editMode">{{policy.GHI_CHU}}</p>
                                                     <input type="text" ng-model="policy.GHI_CHU" ng-show="editMode" />
                                                 </td>
-                                                <td>
+                                                <td ng-show="isadmin">
                                                     <button type="submit" ng-hide="editMode" ng-click="editMode = true; editpolicy(policy)" class="btn btn-default">Sửa nhanh</button>
                                                     <button type="submit" ng-show="editMode" ng-click="editMode = false; save_policy(policy)" class="btn btn-default">Save</button>
+                                                    <button type="submit" ng-show="editMode" ng-click="editMode = false; delete_policy(policy)" class="btn btn-default">Delete</button>
                                                     <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel_policy(policy)" class="btn btn-default">Cancel</button>
                                                 </td>
                                             </tr>
@@ -1193,23 +1194,21 @@ input:-ms-input-placeholder {
 
         </div>
         <!--End update phản hồi-->
-        <div class="col-md-4">
-            <div class="col-md-3">Chú thích</div>
-            <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="col-md-1">Chú thích</div>
+            <div class="col-md-11">
                 <div class="col-md-12">
-                    <i class="fa fa-check" aria-hidden="true"></i> : Khách đặc biệt
-                </div>
-                <div class="col-md-12">
-                    <i class="fa fa-search" aria-hidden="true"></i> : Khách do marketing tìm kiếm
-                </div>
-                <div class="col-md-12">
-                    <i class="fa fa-money" aria-hidden="true"></i> : Khách mua doanh số cao
-                </div>
-                <div class="col-md-12">
-                    <i class="fa fa-cubes" aria-hidden="true"></i> : Khách mua số lượng nhiều
-                </div>
-                <div class="col-md-12">
-                    <i class="fa fa-star-o" aria-hidden="true"></i> : Thông tin khách hàng đầy đủ
+                    <i class="fa fa-star-o" aria-hidden="true"></i> : Khách đặc biệt | 
+                
+                
+                    <i class="fa fa-search" aria-hidden="true"></i> : Khách do marketing tìm kiếm | 
+                
+                
+                    <i class="fa fa-money" aria-hidden="true"></i> : Khách mua doanh số cao | 
+                
+                    <i class="fa fa-cubes" aria-hidden="true"></i> : Khách mua số lượng nhiều | 
+                
+                    <i class="fa fa-check" aria-hidden="true"></i> : Thông tin khách hàng đầy đủ
                 </div>
             </div>
         </div>
@@ -1276,7 +1275,7 @@ input:-ms-input-placeholder {
                 <tr ng-repeat="item in filtered" ng-click="transfer(item);get_lienhe(item.MA_KHACH_HANG);get_taikhoan(item.MA_KHACH_HANG);get_phanhoi(item.MA_KHACH_HANG);get_thongkemuahang(item.MA_KHACH_HANG);get_policy(item.MA_KHACH_HANG)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
                     <td>
                         <input type="checkbox" ng-model="item.KHACH_DAC_BIET" style="display:none"/>
-                        <i class="fa fa-check" aria-hidden="true" ng-show="item.KHACH_DAC_BIET"></i>
+                        <i class="fa fa-star-o" aria-hidden="true" ng-show="item.KHACH_DAC_BIET"></i>
 
                         <input type="checkbox" ng-model="item.KHACH_MUA_DOANH_SO_CAO" style="display:none"/>
                         <i class="fa fa-money" aria-hidden="true" ng-show="item.KHACH_MUA_DOANH_SO_CAO"></i>
@@ -1288,7 +1287,7 @@ input:-ms-input-placeholder {
                         <i class="fa fa-search" aria-hidden="true" ng-show="item.KHACH_DO_MARKETING_TIM_KIEM"></i>
 
                         <input type="checkbox" ng-model="item.THONG_TIN_DA_DAY_DU" style="display:none" />
-                        <i class="fa fa-star-o" aria-hidden="true" ng-show="item.THONG_TIN_DA_DAY_DU"></i>
+                        <i class="fa fa-check" aria-hidden="true" ng-show="item.THONG_TIN_DA_DAY_DU"></i>
                     </td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.MA_KHACH_HANG}}</td>
                     <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_CONG_TY}}</td>

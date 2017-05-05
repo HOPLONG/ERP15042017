@@ -992,6 +992,16 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         });
     };
 
+    $scope.delete_policy = function (policy) {
+        $scope.policy = policy;
+        $http.delete('/api/Api_KhachHangPolicy/' + $scope.policy.ID).then(function (response) {
+            SuccessSystem('Xóa thành công');
+            $scope.get_policy($scope.policy.MA_KHACH_HANG);
+        }, function errorCallback(response) {
+            ErrorSystem('Xóa thất bại');
+        });
+    };
+
     $scope.cancelpolicy = function (policy) {
         $scope.policy = policy;
         $scope.get_policy($scope.policy.MA_KHACH_HANG);

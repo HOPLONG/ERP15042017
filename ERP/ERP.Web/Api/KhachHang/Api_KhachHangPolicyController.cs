@@ -94,16 +94,14 @@ namespace ERP.Web.Api.KhachHang
         [ResponseType(typeof(KH_POLICY))]
         public IHttpActionResult DeleteKH_POLICY(int id)
         {
-            KH_POLICY kH_POLICY = db.KH_POLICY.Find(id);
-            if (kH_POLICY == null)
+            var query = db.KH_POLICY.Where(x => x.ID == id).FirstOrDefault();
+            if(query != null)
             {
-                return NotFound();
+                db.KH_POLICY.Remove(query);
+                db.SaveChanges();
             }
 
-            db.KH_POLICY.Remove(kH_POLICY);
-            db.SaveChanges();
-
-            return Ok(kH_POLICY);
+            return Ok(query);
         }
 
         protected override void Dispose(bool disposing)
