@@ -330,7 +330,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         $scope.thue_vat_new = parseFloat($scope.tong_gia_tri_theo_hop_dong_new * ($scope.thue_suat_gtgt / 100));
        
 
-        $scope.tong_gia_tri_thu_cua_khach_new =parseFloat( $scope.tong_gia_tri_thuc_te_new + $scope.tong_chi_phi_hoa_don_new + $scope.thue_vat_new);
+        $scope.tong_gia_tri_thu_cua_khach_new = parseFloat($scope.tong_gia_tri_thuc_te_new + $scope.tong_chi_phi_hoa_don_new + $scope.thue_vat_new + $scope.tong_khach_nhan_new);
 
     };
 
