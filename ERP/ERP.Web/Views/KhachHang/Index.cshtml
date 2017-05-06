@@ -138,7 +138,7 @@ input:-ms-input-placeholder {
                                     <td colspan='7'>
                                         <div id="themmoiinput">
                                             <div class="has-feedback" ng-click="ShowDataCustomer()">
-                                                <input type="text" id="addtencongty" placeholder="Tên công ty(*)" class="showtableselect" style="width: 100%;height: 100% ;padding-left: 5px; border:none" ng-model="arraythongtin.ten_cong_ty" ng-change="load_khachhang(arraythongtin.ten_cong_ty)">
+                                                <input type="text" id="addtencongty" placeholder="Tên công ty(*)" class="showtableselect" style="width: 100%;height: 100% ;padding-left: 5px; border:none" ng-model="arraythongtin.ten_cong_ty" ng-change="load_khachhang(1,arraythongtin.ten_cong_ty)">
                                                
                                             </div>
                                             <div class="tableselect" id="DataCustomer" style="display:none;max-width: 1180px;">
@@ -646,7 +646,7 @@ input:-ms-input-placeholder {
         <!--end modal-->
         <!-- Modal chi tiet khach hang -->
         <div class="modal fade chitietkhachhang" id="chitietkhachhang" role="dialog" tabindex="-1">
-            <div class="modal-dialog modal-lg" style="width:80%;">
+            <div class="modal-dialog modal-lg" style="width:100%;">
                 <div class="modal-content" style="height: 100%;">
 
                     <div class="modal-body">
@@ -726,7 +726,8 @@ input:-ms-input-placeholder {
                                                     <tr>
                                                         <th style="text-align: center">Người liên hệ</th>
                                                         <th style="text-align: center">Chức vụ</th>
-                                                        <th style="text-align: center">Email</th>
+                                                        <th style="text-align: center">Email cá nhân</th>
+                                                        <th style="text-align: center">Email công ty</th>
                                                         <th style="text-align: center">SĐT</th>
                                                         <th style="text-align: center">Skype</th>
                                                         <th style="text-align: center">Sale phụ trách</th>
@@ -737,6 +738,7 @@ input:-ms-input-placeholder {
                                                     <tr ng-repeat="lienhe in list_lienhe" ng-click="details(lienhe)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
                                                         <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.NGUOI_LIEN_HE}}</td>
                                                         <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.CHUC_VU}}</td>
+                                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.EMAIL_CA_NHAN}}</td>
                                                         <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.EMAIL_CONG_TY}}</td>
                                                         <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.SDT1}}</td>
                                                         <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.SKYPE}}</td>
