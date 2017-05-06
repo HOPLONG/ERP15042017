@@ -115,7 +115,7 @@ app.service('khachhangService', function ($http) {
     };
 
     this.get_kh_policy = function (makh) {
-        return $http.post('/api/Api_KhachHangPolicy/' + makh).then(function (response) {
+        return $http.get('/api/Api_KhachHangPolicy/' + makh).then(function (response) {
             return response.data;
         });
     };
