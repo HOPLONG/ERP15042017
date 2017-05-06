@@ -110,7 +110,7 @@
                                                                 <p class="{{baogia.SO_BAO_GIA}}-thuesuatgtgt" style="display:none">{{baogia.THUE_SUAT_GTGT}}</p>
                                                             </td>
                                                             <td class="text-center">{{baogia.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
-                                                            <td class="text-center" ">
+                                                            <td class="text-center">
                                                                 <div>
                                                                     <input readonly type="checkbox" ng-model="item.DA_DUYET" />
                                                                 </div>
@@ -140,12 +140,12 @@
                         </div>
 
                         <div class="col-md-12 thongtinchungthemmoi" style="margin-bottom: 20px;">
-                            Tiền khách muốn nhận : <input type="number" ng-model="tien_khach_muon_nhan" style="border:1px solid black;"/>
+                            Tiền khách muốn nhận : <input type="text" ng-model="tien_khach_muon_nhan" style="border:1px solid black;" format="number" />
                             <button ng-click="tinh_cm_khach(tien_khach_muon_nhan)">Tính CM</button>
                         </div>
                         
                         <div class="col-md-12 savethongtin" style="margin-bottom: 20px;">
-                            Tiền khách muốn nhận : <input type="number" ng-model="tien_khach_muon_nhan_edit" style="border:1px solid black;" />
+                            Tiền khách muốn nhận : <input type="text" ng-model="tien_khach_muon_nhan_edit" style="border:1px solid black;" />
                             <button ng-click="tinh_cm_khach_edit(tien_khach_muon_nhan_edit)">Tính CM</button>
                         </div>
 
@@ -238,7 +238,7 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>
-                                                                            <input type="text" ng-model="item.HANG_SP" class="col-md-12 style-inline" style=" border:0px">
+                                                                            <input type="text" ng-model="item.HANG_SP" class="col-md-12 style-inline" style="border:0px">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -257,11 +257,12 @@
                                                                 <input type="text" ng-model="item.DVT" class="style-inline" />
                                                             </td>
                                                             <td class="text-left">
-                                                                <input type="number" style="text-align:right;" ng-model="item.DON_GIA_MOI" class="style-inline" ng-change="kiemtra(item)">
+                                                                <input type="number" style="text-align:right;display:none" ng-model="item.DON_GIA_MOI" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="style-inline" ng-change="kiemtra(item)">
+                                                                <p ng-model="item.DON_GIA_MOI">{{item.DON_GIA_MOI | currency: '' : 0}}</p>
                                                             </td>
                                                             <td class="text-left">
-                                                                <input type="number" style="text-align:right;" ng-model="item.THANH_TIEN" class="style-inline" readonly>
-                                                                <input type="number" ng-model="item.THANH_TIEN_NET" class="style-inline" style="display:none" />
+                                                                <input type="number" style="text-align:right;display:none" ng-model="item.THANH_TIEN" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="style-inline" readonly>
+                                                                <p ng-model="item.THANH_TIEN">{{item.THANH_TIEN | currency: '' : 0}}</p>
                                                             </td>
                                                             <td class="text-left">
                                                                 <input type="text" ng-model="item.THOI_GIAN_GIAO_HANG" class="style-inline">
@@ -273,7 +274,7 @@
                                                                             Giá:
                                                                         </td>
                                                                         <td>
-                                                                            <input type="number" ng-model="item.GIA_LIST" class="col-md-12 style-inline" ng-change="kiemtra(item)">
+                                                                            <input type="text" ng-model="item.GIA_LIST" format="number" class="col-md-12 style-inline" ng-change="kiemtra(item)">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -293,7 +294,7 @@
                                                                             Giá:
                                                                         </td>
                                                                         <td>
-                                                                            <input type="number" ng-model="item.DON_GIA_NHAP" class="col-md-12 style-inline" ng-change="kiemtra(item)">
+                                                                            <input type="text" ng-model="item.DON_GIA_NHAP" format="number" class="col-md-12 style-inline" ng-change="kiemtra(item)">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -332,7 +333,8 @@
                                                                             Đơn giá mới:
                                                                         </td>
                                                                         <td colspan='2'>
-                                                                            <input type="number" ng-model="item.DON_GIA_MOI" class="col-md-12 style-inline" ng-change="kiemtra(item)">
+                                                                            <input type="number" ng-model="item.DON_GIA_MOI" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="col-md-12 style-inline" ng-change="kiemtra(item)" style="display:none">
+                                                                            <p ng-model="item.DON_GIA_MOI">{{item.DON_GIA_MOI | currency : '' : 0}}</p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -340,7 +342,8 @@
                                                                             Tiền thuế TNDN:
                                                                         </td>
                                                                         <td colspan='2'>
-                                                                            <input type="number" ng-model="item.TIEN_THUE_TNDN" class="col-md-12 style-inline" ng-change="kiemtra(item)">
+                                                                            <input type="number" ng-model="item.TIEN_THUE_TNDN" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="col-md-12 style-inline" ng-change="kiemtra(item)" style="display:none">
+                                                                            <p ng-model="item.DON_GIA_MOI">{{item.TIEN_THUE_TNDN  | currency : '' : 0}}</p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -348,7 +351,8 @@
                                                                             Khách nhận:
                                                                         </td>
                                                                         <td colspan='2'>
-                                                                            <input type="number" ng-model="item.KHACH_NHAN_DUOC" class="col-md-12 style-inline" ng-change="kiemtra(item)">
+                                                                            <input type="number" ng-model="item.KHACH_NHAN_DUOC" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="col-md-12 style-inline" ng-change="kiemtra(item)" style="display:none">
+                                                                            <p ng-model="item.DON_GIA_MOI">{{item.KHACH_NHAN_DUOC  | currency : '' : 0}}</p>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -520,7 +524,7 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>
-                                                                            <input type="text" ng-model="detail.hang" class="col-md-12 style-inline" style=" border:0px">
+                                                                            <input type="text" ng-model="detail.hang" class="col-md-12 style-inline" style="border:0px">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -539,11 +543,12 @@
                                                                 <input type="text" ng-model="detail.dvt" class="style-inline" />
                                                             </td>
                                                             <td class="text-right">
-                                                                <input type="number" style="text-align:right;" ng-model="detail.don_gia_ban" class="style-inline" ng-change="test(detail)">
+                                                                <input type="number" style="text-align:right;display:none" ng-model="detail.don_gia_ban" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="style-inline">\
+                                                                <p ng-model="detail.don_gia_ban">{{detail.don_gia_ban | currency: '' : 0}}</p>
                                                             </td>
                                                             <td class="text-right">
-                                                                <input type="number" style="text-align:right;" ng-model="detail.thanh_tien" class="style-inline" readonly>
-                                                                <input type="number" ng-model="detail.thanh_tien_net" class="style-inline" style="display:none" />
+                                                                <input type="number" style="text-align:right;display:none" ng-model="detail.thanh_tien" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="style-inline" readonly>
+                                                                <p ng-model="detail.thanh_tien">{{detail.thanh_tien | currency: '' : 0}}</p>
                                                             </td>
                                                             <td class="text-left">
                                                                 <input type="text" ng-model="detail.thoi_gian_giao_hang" class="style-inline">
@@ -555,7 +560,7 @@
                                                                             Giá:
                                                                         </td>
                                                                         <td>
-                                                                            <input type="text" ng-model="detail.gia_list" class="col-md-12 style-inline" ng-change="test(detail)">
+                                                                            <input type="text" ng-model="detail.gia_list" format="number" class="col-md-12 style-inline" ng-change="test(detail)">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -575,7 +580,7 @@
                                                                             Giá:
                                                                         </td>
                                                                         <td>
-                                                                            <input type="number" ng-model="detail.gia_nhap" class="col-md-12 style-inline" ng-change="test(detail)">
+                                                                            <input type="text" ng-model="detail.gia_nhap" format="number" class="col-md-12 style-inline" ng-change="test(detail)">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -583,13 +588,13 @@
                                                                             LN:
                                                                         </td>
                                                                         <td>
-                                                                            <input type="number" ng-model="detail.he_so_loi_nhuan" ng-init="detail.he_so_loi_nhuan = 0.00" class="col-md-12 style-inline" ng-change="test(detail)">
+                                                                            <input type="number" ng-model="detail.he_so_loi_nhuan"  format="number" ng-init="detail.he_so_loi_nhuan = 0.00" class="col-md-12 style-inline" ng-change="test(detail)">
                                                                         </td>
                                                                     </tr>
                                                                 </table>
                                                             </td>
 
-                                                            <td class="text-right"><input type="number" style="text-align:right;" ng-model="detail.gia_bao_di_net" class="style-inline" readonly></td>
+                                                            <td class="text-right"><input type="text" style="text-align:right;" format="number" ng-model="detail.gia_bao_di_net" class="style-inline" readonly></td>
 
 
 
@@ -614,7 +619,8 @@
                                                                             Đơn giá mới:
                                                                         </td>
                                                                         <td colspan='2'>
-                                                                            <input type="number" ng-model="detail.don_gia_ban" class="col-md-12 style-inline" readonly>
+                                                                            <input type="number" ng-model="detail.don_gia_ban" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="col-md-12 style-inline" style="display:none">
+                                                                            <p ng-model="detail.don_gia_ban">{{detail.don_gia_ban | currency: '' : 0}}</p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -622,7 +628,8 @@
                                                                             Tiền thuế TNDN:
                                                                         </td>
                                                                         <td colspan='2'>
-                                                                            <input type="number" ng-model="detail.tien_thue_tndn" class="col-md-12 style-inline" readonly>
+                                                                            <input type="number" ng-model="detail.tien_thue_tndn" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="col-md-12 style-inline" style="display:none">
+                                                                            <p ng-model="detail.tien_thue_tndn">{{detail.tien_thue_tndn | currency: '' : 0}}</p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -630,7 +637,8 @@
                                                                             Khách nhận:
                                                                         </td>
                                                                         <td colspan='2'>
-                                                                            <input type="number" ng-model="detail.khach_nhan" class="col-md-12 style-inline" readonly>
+                                                                            <input type="number" ng-model="detail.khach_nhan" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="col-md-12 style-inline" style="display:none">
+                                                                            <p ng-model="detail.khach_nhan">{{detail.khach_nhan | currency: '' : 0}}</p>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
