@@ -27,11 +27,18 @@ namespace ERP.Web.Models.Database
         public string THOI_GIAN_GIAO_HANG { get; set; }
         public string GHI_CHU { get; set; }
         public int ID { get; set; }
-        public string TINH_TRANG_HANG { get; set; }
-        public Nullable<System.DateTime> NGAY_GIAO_HANG { get; set; }
-        public string DIA_DIEM_GIAO_HANG { get; set; }
         public Nullable<double> HE_SO_LOI_NHUAN { get; set; }
-        public Nullable<decimal> DON_GIA_LIST { get; set; }
         public Nullable<decimal> DON_GIA_NHAP { get; set; }
+        public Nullable<decimal> GIA_LIST { get; set; }
+        public Nullable<decimal> DON_GIA_BAO_DI_NET { get; set; }
+        public Nullable<decimal> DON_GIA_MOI { get; set; }
+        public Nullable<double> THUE_TNDN { get; set; }
+        public Nullable<decimal> TIEN_THUE_TNDN { get; set; }
+        public Nullable<decimal> KHACH_NHAN_DUOC { get; set; }
+        public Nullable<decimal> CM { get; set; }
+        public string DVT { get; set; }
+        public string HANG_SP { get; set; }
+        public string MA_DIEU_CHINH { get; set; }
+        public Nullable<decimal> THANH_TIEN_NET { get; set; }
     }
 }

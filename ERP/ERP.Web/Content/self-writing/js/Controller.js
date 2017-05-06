@@ -912,6 +912,7 @@ app.controller('bangluongCtrl', function (bangluongService, $scope) {
         });
     };
     $scope.load_bangluong();
+
 });
 
 app.controller('addmenuCtrl', function (addmenuService, menuService, $scope) {

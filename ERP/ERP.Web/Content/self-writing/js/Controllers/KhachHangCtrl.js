@@ -282,7 +282,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         $http({
             method: 'POST',
             data: $scope.Thong_tin_KH,
-            url: window.location.origin + '/api/Api_KH'
+            url: window.location.origin + '/api/Api_KH/ThemMoiKH'
         }).then(function successCallback(response) {
             $scope.Thong_tin_KH = response.data;
 
@@ -989,6 +989,16 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             $scope.get_policy($scope.policy.MA_KHACH_HANG);
         }, function errorCallback(response) {
             ErrorSystem('Sửa thất bại');
+        });
+    };
+
+    $scope.delete_policy = function (policy) {
+        $scope.policy = policy;
+        $http.delete('/api/Api_KhachHangPolicy/' + $scope.policy.ID).then(function (response) {
+            SuccessSystem('Xóa thành công');
+            $scope.get_policy($scope.policy.MA_KHACH_HANG);
+        }, function errorCallback(response) {
+            ErrorSystem('Xóa thất bại');
         });
     };
 
