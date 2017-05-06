@@ -16,7 +16,7 @@
 @*<div ng-app="myApp" ng-controller="chitietbaivietCtrl">
     <div ng-repeat="item in listchitiet">
         <button ng-class="checkid(item.NGUOI_DANG_BAI)" type="button" class="btn col-md-1" style="float:right;margin-top: 20px" data-toggle="modal" data-target="#myEdit" ng-click="edit(item)">Sửa bài viết</button>
-        <input type="hidden" value="@Session["IS_AMIN"]" id="admin" />
+        <input type="hidden" value="@Session["IS_AMIN"]" id="admin" name="admin"/>
         <div class="col-md-8 col-md-offset-2" style="margin-top: 20px; border: 1px solid #DCF5FC;box-shadow: 3px 3px 3px #DCF5FC; border-radius:5px">
             <div class="col-md-12" sstyle="margin: 20px;">
                 <div class="col-md-6"><img ng-src="~/Content/Images/BaiViet/{{item.ANH_BAI_VIET}}" style="width: 100%;height: 100%;" /></div>

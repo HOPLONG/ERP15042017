@@ -18,10 +18,10 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
-        [Route("api/Api_TonKhoHL/GetHH_TON_KHO/{id}")]
-        public List<HopLong_DS_TONKHO_Result> GetHH_TON_KHO(string id)
+        [Route("api/Api_TonKhoHL/GetHH_TON_KHO/{id}/{page}")]
+        public List<HopLong_DS_TONKHO_Result> GetHH_TON_KHO(string id, int page)
         {
-            var query = db.Database.SqlQuery<HopLong_DS_TONKHO_Result>("HopLong_DS_TONKHO @MA_CHUAN", new SqlParameter("MA_CHUAN", id));
+            var query = db.Database.SqlQuery<HopLong_DS_TONKHO_Result>("HopLong_DS_TONKHO @machuan, @trangso", new SqlParameter("machuan", id), new SqlParameter("trangso", page));
             var result = query.ToList();
             return result;
         }

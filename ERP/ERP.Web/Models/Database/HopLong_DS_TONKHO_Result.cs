@@ -18,19 +18,54 @@ namespace ERP.Web.Models.Database
         public string MA_CHUAN { get; set; }
         public string THONG_SO { get; set; }
         public string XUAT_XU { get; set; }
-        public Nullable<decimal> GIA_LIST { get; set; }
         public Nullable<bool> DISCONTINUE { get; set; }
         public string MA_CHUYEN_DOI { get; set; }
-        public Nullable<int> TON_HOPLONG { get; set; }
         public Nullable<int> TON_DANANG { get; set; }
         public Nullable<int> TON_HCM { get; set; }
         public Nullable<int> TON_HAIPHONG { get; set; }
-        public Nullable<int> SL_DANG_GIU { get; set; }
-        public Nullable<int> SL_NHAN_KY_GUI { get; set; }
-        public Nullable<int> SL_KY_GUI_DI { get; set; }
         public Nullable<int> TON_TAI_HANG { get; set; }
-        public string THOI_GIAN_CAP_HANG { get; set; }
         public string MA_NHOM_HANG { get; set; }
         public string DVT { get; set; }
+        public string SERIES { get; set; }
+        public Nullable<int> tonHL { get; set; }
+        public Nullable<int> DANG_GIU_HL { get; set; }
+        public Nullable<int> KY_GUI_DEN_HL { get; set; }
+        public Nullable<int> SL_DANG_VE_HL { get; set; }
+        public Nullable<int> DANG_GIU_HCM { get; set; }
+        public Nullable<int> KY_GUI_DEN_HCM { get; set; }
+        public Nullable<int> SL_DANG_VE_HCM { get; set; }
+        public Nullable<int> DANG_GIU_DN { get; set; }
+        public Nullable<int> KY_GUI_DEN_DN { get; set; }
+        public Nullable<int> SL_DANG_VE_DN { get; set; }
+        public Nullable<int> DANG_GIU_HP { get; set; }
+        public Nullable<int> KY_GUI_DEN_HP { get; set; }
+        public Nullable<int> SL_DANG_VE_HP { get; set; }
+        public Nullable<decimal> CK1 { get; set; }
+        public Nullable<decimal> CK2 { get; set; }
+        public Nullable<decimal> CK3 { get; set; }
+        public Nullable<decimal> CK4 { get; set; }
+        public Nullable<decimal> CK5 { get; set; }
+        public Nullable<decimal> CK6 { get; set; }
+        public Nullable<decimal> CK7 { get; set; }
+        public Nullable<decimal> CK8 { get; set; }
+        public Nullable<decimal> CK9 { get; set; }
+        public Nullable<decimal> CK10 { get; set; }
+        public Nullable<decimal> CK11 { get; set; }
+        public Nullable<decimal> CK12 { get; set; }
+        public Nullable<decimal> GIA1 { get; set; }
+        public Nullable<decimal> GIA2 { get; set; }
+        public Nullable<decimal> GIA3 { get; set; }
+        public Nullable<decimal> GIA4 { get; set; }
+        public Nullable<decimal> GIA5 { get; set; }
+        public Nullable<decimal> GIA6 { get; set; }
+        public Nullable<decimal> GIA7 { get; set; }
+        public Nullable<decimal> GIA8 { get; set; }
+        public Nullable<decimal> GIA9 { get; set; }
+        public Nullable<decimal> GIA10 { get; set; }
+        public Nullable<decimal> GIA11 { get; set; }
+        public Nullable<decimal> GIA12 { get; set; }
+        public Nullable<decimal> SL1 { get; set; }
+        public Nullable<decimal> SL2 { get; set; }
+        public Nullable<decimal> SL3 { get; set; }
     }
 }

@@ -793,9 +793,9 @@ input:-ms-input-placeholder {
                                                 <th style="border: 1px solid #ddd !important">Action</th>
                                             </tr>
                                             <tr ng-repeat="khachphanhoi in list_phanhoi">
-                                                <td style="width: 10%;">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
-                                                <td style="width: 20%;">{{khachphanhoi.HO_VA_TEN}}</td>
-                                                <td style="width: 64%;">
+                                                <td class="text-left" style="width: 10%;">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
+                                                <td class="text-left" style="width: 20%;">{{khachphanhoi.HO_VA_TEN}}</td>
+                                                <td class="text-left" style="width: 64%;">
                                                     <p ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" class="thongtinphanhoi-{{khachphanhoi.ID}}"></p>                                                    
                                                 </td>                                                
                                                 <td>
