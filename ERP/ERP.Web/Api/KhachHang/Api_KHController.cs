@@ -144,6 +144,16 @@ namespace ERP.Web.Api.HeThong
             return result;
         }
 
+        //Tim kiem thong ke mua hang
+        [HttpPost]
+        [Route("api/Api_KH/TimKiemThongKeMuaHang/{makhach}/{mahang}")]
+        public List<Prod_KH_FindThongKeMuaHang_Result> TimKiemThongKeMuaHang(string makhach,string mahang)
+        {
+            var query = db.Database.SqlQuery<Prod_KH_FindThongKeMuaHang_Result>("Prod_KH_FindThongKeMuaHang @makhach, @mahang", new SqlParameter("makhach", makhach), new SqlParameter("mahang", mahang));
+            var result = query.ToList();
+            return result;
+        }
+
         public string GenerateMAKH()
         {
             Regex digitsOnly = new Regex(@"[^\d]");
@@ -534,9 +544,13 @@ namespace ERP.Web.Api.HeThong
                 newpolicy.MA_KHACH_HANG = newkhachhang.MA_KHACH_HANG;
                 newpolicy.MA_NHOM_HANG = item.MA_NHOM_HANG;
                 newpolicy.GIA_BAN = item.GIA_BAN;
-                newpolicy.CHIET_KHAU_CM = item.CHIET_KHAU_CM;
-                newpolicy.THOI_GIAN_AP_DUNG = item.THOI_GIAN_AP_DUNG;
-                newpolicy.GHI_CHU = item.GHI_CHU;
+                newpolicy.CK = item.CK;
+                newpolicy.CK_HISTORY_1 = item.CK_HISTORY_1;
+                newpolicy.GIA_HISTORY_1 = item.GIA_HISTORY_1;
+                newpolicy.CK_HISTORY_2 = item.CK_HISTORY_2;
+                newpolicy.GIA_HISTORY_2 = item.GIA_HISTORY_2;
+                newpolicy.CK_HISTORY_3 = item.CK_HISTORY_3;
+                newpolicy.GIA_HISTORY_3 = item.GIA_HISTORY_3;
                 db.KH_POLICY.Add(newpolicy);
                 db.SaveChanges();
             }

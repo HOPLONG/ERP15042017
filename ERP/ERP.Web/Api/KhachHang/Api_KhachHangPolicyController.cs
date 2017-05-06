@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
+using System.Data.SqlClient;
+using ERP.Web.Models.NewModels;
 
 namespace ERP.Web.Api.KhachHang
 {
@@ -23,20 +25,11 @@ namespace ERP.Web.Api.KhachHang
         }
 
         // GET: api/Api_KhachHangPolicy/5
-
-        public List<KH_POLICY> KH_POLICY(string id)
+        [Route("api/Api_KhachHangPolicy/{makhachhang}")]
+        public List<Prod_KH_GetPolicy_Result> GetKH(string makhachhang)
         {
-            var vData = db.KH_POLICY.Where(x => x.MA_KHACH_HANG == id);
-            var result = vData.ToList().Select(x => new KH_POLICY()
-            {
-                ID=x.ID,
-                MA_KHACH_HANG = x.MA_KHACH_HANG,
-                MA_NHOM_HANG = x.MA_NHOM_HANG,
-                GIA_BAN = x.GIA_BAN,
-                CHIET_KHAU_CM = x.CHIET_KHAU_CM,
-                THOI_GIAN_AP_DUNG = x.THOI_GIAN_AP_DUNG,
-                GHI_CHU = x.GHI_CHU,
-            }).ToList();
+            var query = db.Database.SqlQuery<Prod_KH_GetPolicy_Result>("Prod_KH_GetPolicy @makhachhang", new SqlParameter("makhachhang", makhachhang));
+            var result = query.ToList();
             return result;
         }
 
@@ -77,17 +70,44 @@ namespace ERP.Web.Api.KhachHang
 
         // POST: api/Api_KhachHangPolicy
         [ResponseType(typeof(KH_POLICY))]
-        public IHttpActionResult PostKH_POLICY(KH_POLICY kH_POLICY)
+        public IHttpActionResult PostKH_POLICY(khachhang_policy kH_POLICY)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.KH_POLICY.Add(kH_POLICY);
-            db.SaveChanges();
+            var query = db.HH_NHOM_VTHH.Where(x => x.MA_NHOM_HANG_CHI_TIET == kH_POLICY.MA_NHOM_HANG).FirstOrDefault();
+            if(query != null)
+            {
+                KH_POLICY newpolicy = new KH_POLICY();
+                newpolicy.MA_NHOM_HANG = kH_POLICY.MA_NHOM_HANG;
+                newpolicy.MA_KHACH_HANG = kH_POLICY.MA_KHACH_HANG;
+                newpolicy.NGAY_CAP_NHAT = DateTime.Today.Date;
+                newpolicy.GIA_BAN = kH_POLICY.GIA_BAN;
+                newpolicy.CK = kH_POLICY.CK;
+                db.KH_POLICY.Add(newpolicy);
+                db.SaveChanges();
+            }
+            else
+            {
+                HH_NHOM_VTHH newvthh = new HH_NHOM_VTHH();
+                newvthh.MA_NHOM_HANG_CHI_TIET = kH_POLICY.MA_NHOM_HANG;
+                newvthh.MA_NHOM_HANG_CHA = kH_POLICY.MA_NHOM_HANG_CHA;
+                db.HH_NHOM_VTHH.Add(newvthh);
+                db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = kH_POLICY.ID }, kH_POLICY);
+                KH_POLICY newpolicy = new KH_POLICY();
+                newpolicy.MA_NHOM_HANG = newvthh.MA_NHOM_HANG_CHI_TIET;
+                newpolicy.MA_KHACH_HANG = kH_POLICY.MA_KHACH_HANG;
+                newpolicy.GIA_BAN = kH_POLICY.GIA_BAN;
+                newpolicy.CK = kH_POLICY.CK;
+                newpolicy.NGAY_CAP_NHAT = DateTime.Today.Date;
+                db.KH_POLICY.Add(newpolicy);
+                db.SaveChanges();
+            }
+
+            return Ok(kH_POLICY);
         }
 
         // DELETE: api/Api_KhachHangPolicy/5
