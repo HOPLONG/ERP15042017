@@ -660,6 +660,16 @@ namespace ERP.Web.Controllers
         #endregion
 
 
+        #region "Bao gia khách hàng"
+
+        public ActionResult BaoGiaKhach(String makhachhang)
+        {
+            ViewBag.makhach = makhachhang;
+            return View();
+        }
+
+        #endregion
+
 
         #region "Tìm Kiếm KHÁCH HÀNG"
 

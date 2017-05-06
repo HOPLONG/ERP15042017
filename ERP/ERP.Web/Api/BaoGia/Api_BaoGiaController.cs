@@ -139,6 +139,39 @@ namespace ERP.Web.Api.BaoGia
             return "BG" + year + month + day + result;
         }
 
+        public string AutoMA_DU_KIEN()
+        {
+            Regex digitsOnly = new Regex(@"[^\d]");
+            string year = DateTime.Now.Year.ToString().Substring(2, 2);
+            string month = DateTime.Now.Month.ToString();
+            string day = DateTime.Now.Day.ToString();
+            if (month.Length == 1)
+            {
+                month = "0" + month;
+            }
+            if (day.Length == 1)
+            {
+                day = "0" + day;
+            }
+            string prefixNumber = "YC" + year.ToString() + month.ToString() + day.ToString();
+            string SoChungTu = (from nhapkho in db.BH_DON_HANG_DU_KIEN where nhapkho.MA_DU_KIEN.Contains(prefixNumber) select nhapkho.MA_DU_KIEN).Max();
+
+
+            if (SoChungTu == null)
+            {
+                return "YC" + year + month + day + "0001";
+            }
+            SoChungTu = SoChungTu.Substring(8, SoChungTu.Length - 8);
+            string number = (Convert.ToInt32(digitsOnly.Replace(SoChungTu, "")) + 1).ToString();
+            string result = number.ToString();
+            int count = 4 - number.ToString().Length;
+            for (int i = 0; i < count; i++)
+            {
+                result = "0" + result;
+            }
+            return "YC" + year + month + day + result;
+        }
+
         // POST: api/Api_BaoGia
         [ResponseType(typeof(BH_BAO_GIA))]
         [Route("api/Api_BaoGia/PostBH_BAO_GIA")]
@@ -289,6 +322,73 @@ namespace ERP.Web.Api.BaoGia
             return Ok(thongtinbg2.SO_BAO_GIA);
         }
 
+        // Tao bao gia tu khach hang
+        [HttpPost]
+        [Route("api/Api_BaoGia/BaoGiaTuKhach")]
+        public IHttpActionResult BaoGiaTuKhach(CopyBaoGia bH_BAO_GIA)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            BH_DON_HANG_DU_KIEN newdondukien = new BH_DON_HANG_DU_KIEN();
+            newdondukien.MA_DU_KIEN = AutoMA_DU_KIEN();
+            newdondukien.NGAY_TAO = DateTime.Today.Date;
+            newdondukien.MA_KHACH_HANG = bH_BAO_GIA.MA_KHACH_HANG;
+            newdondukien.TRUC_THUOC = bH_BAO_GIA.TRUC_THUOC;
+            newdondukien.SALES_QUAN_LY = bH_BAO_GIA.SALES_BAO_GIA;
+            newdondukien.ID_LIEN_HE = bH_BAO_GIA.LIEN_HE_KHACH_HANG;
+            db.BH_DON_HANG_DU_KIEN.Add(newdondukien);
+            db.SaveChanges();
+
+            BH_BAO_GIA baogia = new BH_BAO_GIA();
+            baogia.SO_BAO_GIA = GenerateSoBaoGia();
+            baogia.NGAY_BAO_GIA = DateTime.Today.Date;
+            baogia.MA_DU_KIEN = newdondukien.MA_DU_KIEN;
+            baogia.MA_KHACH_HANG = bH_BAO_GIA.MA_KHACH_HANG;
+            baogia.LIEN_HE_KHACH_HANG = bH_BAO_GIA.LIEN_HE_KHACH_HANG;
+            baogia.PHUONG_THUC_THANH_TOAN = bH_BAO_GIA.PHUONG_THUC_THANH_TOAN;
+            baogia.HAN_THANH_TOAN = bH_BAO_GIA.HAN_THANH_TOAN;
+            baogia.HIEU_LUC_BAO_GIA = bH_BAO_GIA.HIEU_LUC_BAO_GIA;
+            baogia.DIEU_KHOAN_THANH_TOAN = bH_BAO_GIA.DIEU_KHOAN_THANH_TOAN;
+            baogia.PHI_VAN_CHUYEN = bH_BAO_GIA.PHI_VAN_CHUYEN;
+            baogia.TONG_TIEN = bH_BAO_GIA.TONG_TIEN;
+            baogia.TONG_GIA_TRI_DON_HANG_THUC_TE = bH_BAO_GIA.TONG_GIA_TRI_DON_HANG_THUC_TE;
+            baogia.GIA_TRI_THUC_THU_TU_KHACH = bH_BAO_GIA.GIA_TRI_THUC_THU_TU_KHACH;
+            baogia.TONG_GIA_TRI_CHENH_LECH = bH_BAO_GIA.TONG_GIA_TRI_CHENH_LECH;
+            baogia.TONG_CHI_PHI_HOA_DON = bH_BAO_GIA.TONG_CHI_PHI_HOA_DON;
+            baogia.THUC_NHAN_CUA_KHACH = bH_BAO_GIA.THUC_NHAN_CUA_KHACH;
+            baogia.DA_DUYET = bH_BAO_GIA.DA_DUYET;
+            baogia.NGUOI_DUYET = bH_BAO_GIA.NGUOI_DUYET;
+            baogia.DA_TRUNG = bH_BAO_GIA.DA_TRUNG;
+            baogia.DA_HUY = bH_BAO_GIA.DA_HUY;
+            baogia.LY_DO_HUY = bH_BAO_GIA.LY_DO_HUY;
+            baogia.SALES_BAO_GIA = bH_BAO_GIA.SALES_BAO_GIA;
+            baogia.TRUC_THUOC = bH_BAO_GIA.TRUC_THUOC;
+            baogia.DANG_CHO_PHAN_HOI = bH_BAO_GIA.DANG_CHO_PHAN_HOI;
+            baogia.THUE_SUAT_GTGT = bH_BAO_GIA.THUE_SUAT_GTGT;
+            baogia.TIEN_THUE_GTGT = bH_BAO_GIA.TIEN_THUE_GTGT;
+            db.BH_BAO_GIA.Add(baogia);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (BH_BAO_GIAExists(bH_BAO_GIA.SO_BAO_GIA))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(baogia);
+        }
 
         protected override void Dispose(bool disposing)
         {
