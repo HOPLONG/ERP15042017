@@ -960,7 +960,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
         });
     };
-
+    //LẤY POLICY KHÁCH HÀNG
     $scope.get_policy = function (makh) {
         khachhangService.get_kh_policy(makh).then(function (policy) {
             $scope.list_policy = policy;

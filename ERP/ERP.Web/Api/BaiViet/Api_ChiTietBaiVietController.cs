@@ -24,7 +24,7 @@ namespace ERP.Web.Api.HeThong
                          join t2 in db.POST_CATEGORIES on t1.MA_BAI_VIET equals t2.MA_BAI_VIET
                          join t3 in db.HT_NGUOI_DUNG on t1.NGUOI_DANG_BAI equals t3.USERNAME
                          where t2.MA_BAI_VIET == id
-                         select new { t1.MA_BAI_VIET, t1.TIEU_DE_BAI_VIET, t1.NGUOI_DANG_BAI, t1.NOI_DUNG_BAI_VIET, t3.HO_VA_TEN, t1.ANH_BAI_VIET, t1.NGAY_DANG_BAI });
+                         select new { t1.MA_BAI_VIET, t1.TIEU_DE_BAI_VIET, t1.NGUOI_DANG_BAI, t1.NOI_DUNG_BAI_VIET, t3.HO_VA_TEN, t1.ANH_BAI_VIET, t1.NGAY_DANG_BAI, t1.NGAY_CAP_NHAT});
             var result = vData.ToList().Select(x => new Post()
             {
                 MA_BAI_VIET = x.MA_BAI_VIET,
@@ -33,6 +33,7 @@ namespace ERP.Web.Api.HeThong
                 NOI_DUNG_BAI_VIET = x.NOI_DUNG_BAI_VIET,
                 HO_VA_TEN = x.HO_VA_TEN,
                 ANH_BAI_VIET = x.ANH_BAI_VIET,
+                NGAY_CAP_NHAT = x.NGAY_CAP_NHAT
             }).ToList();
             return result;
         }
@@ -67,6 +68,7 @@ namespace ERP.Web.Api.HeThong
             var baiviet = db.POSTS.Where(x => x.MA_BAI_VIET == id).FirstOrDefault();
             baiviet.TIEU_DE_BAI_VIET = pOST.TIEU_DE_BAI_VIET;
             baiviet.NOI_DUNG_BAI_VIET = pOST.NOI_DUNG_BAI_VIET;
+            baiviet.NGAY_CAP_NHAT = DateTime.Today.Date;
 
             try
             {
