@@ -87,17 +87,14 @@ namespace ERP.Web.Api.KhachHang
             }
             else
             {
-                if(query.SALE_HIEN_THOI == datachuyensale.SALE_HIEN_THOI)
-                {
-                    query.KHO_PHU_TRACH = datachuyensale.KHO_PHU_TRACH;
-                } else if(query.SALE_HIEN_THOI != datachuyensale.SALE_HIEN_THOI)
-                {
-                    query.SALE_CU_2 = query.SALE_CU;
-                    query.SALE_CU = query.SALE_HIEN_THOI;
-                    query.SALE_HIEN_THOI = datachuyensale.SALE_HIEN_THOI;
-                    query.KHO_PHU_TRACH = datachuyensale.KHO_PHU_TRACH;                  
+
+                        query.SALE_CU_2 = query.SALE_CU;
+                        query.SALE_CU = query.SALE_HIEN_THOI;
+                        query.SALE_HIEN_THOI = datachuyensale.SALE_HIEN_THOI;
+                        query.KHO_PHU_TRACH = datachuyensale.KHO_PHU_TRACH;
+                
                 }
-            }
+
             try
             {
                 await db.SaveChangesAsync();
@@ -130,72 +127,40 @@ namespace ERP.Web.Api.KhachHang
             return Ok(kH_CHUYEN_SALES);
         }
 
-        // PUT: api/Api_ChuyenSale/5
-        //[ResponseType(typeof(void))]
-        //[Route("api/Api_ChuyenSale/{makh}")]
-        //public IHttpActionResult PutKH_CHUYEN_SALES(string makh, KH_CHUYEN_SALES kH_CHUYEN_SALES)
-        //{
-         
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        
+            var query = db.KH_CHUYEN_SALES.Where(x => x.MA_KHACH_HANG == makh).FirstOrDefault();
+            if (query != null)
+            {
+                
+                    query.SALE_CU_2 = query.SALE_CU;
+                    query.SALE_CU = query.SALE_HIEN_THOI;
+                    query.SALE_HIEN_THOI = kH_CHUYEN_SALES.SALE_HIEN_THOI;
+                   
+                        query.KHO_PHU_TRACH = kH_CHUYEN_SALES.KHO_PHU_TRACH;
+                   
+            }
             
-        //    if (makh != kH_CHUYEN_SALES.MA_KHACH_HANG)
-        //    {
-        //        return BadRequest();
-        //    }
+          //  db.Entry(kH_CHUYEN_SALES).State = EntityState.Modified;
 
-        //    var query = db.KH_CHUYEN_SALES.Where(x => x.MA_KHACH_HANG == makh).FirstOrDefault();
-        //    if (query != null)
-        //    {
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!KH_CHUYEN_SALESExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-              
-        //        if (query.SALE_SAP_CHUYEN == kH_CHUYEN_SALES.SALE_HIEN_THOI)
-        //        {
-        //            query.SALE_CU_2 = query.SALE_CU;
-        //            query.SALE_CU = query.SALE_HIEN_THOI;
-        //            query.SALE_HIEN_THOI = kH_CHUYEN_SALES.SALE_HIEN_THOI;
-        //            if (kH_CHUYEN_SALES.SALE_SAP_CHUYEN != query.SALE_SAP_CHUYEN)
-        //            {
-        //                query.SALE_SAP_CHUYEN = kH_CHUYEN_SALES.SALE_SAP_CHUYEN;
-        //            }
-        //            else
-        //            {
-        //                query.SALE_SAP_CHUYEN = null;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (kH_CHUYEN_SALES.SALE_SAP_CHUYEN != "None")
-        //            {
-        //                query.SALE_SAP_CHUYEN = kH_CHUYEN_SALES.SALE_SAP_CHUYEN;
-        //            }
-        //            else
-        //            {
-        //                query.SALE_SAP_CHUYEN = null;
-        //            }
-        //        }
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
-        //    }          
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!KH_CHUYEN_SALESExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
 
         // POST: api/Api_ChuyenSale
         [ResponseType(typeof(KH_CHUYEN_SALES))]
