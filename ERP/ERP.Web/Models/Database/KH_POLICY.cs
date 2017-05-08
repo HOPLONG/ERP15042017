@@ -17,10 +17,15 @@ namespace ERP.Web.Models.Database
         public int ID { get; set; }
         public string MA_KHACH_HANG { get; set; }
         public string MA_NHOM_HANG { get; set; }
+        public Nullable<System.DateTime> NGAY_CAP_NHAT { get; set; }
+        public Nullable<decimal> CK { get; set; }
         public Nullable<decimal> GIA_BAN { get; set; }
-        public Nullable<decimal> CHIET_KHAU_CM { get; set; }
-        public string GHI_CHU { get; set; }
-        public string THOI_GIAN_AP_DUNG { get; set; }
+        public Nullable<decimal> CK_HISTORY_1 { get; set; }
+        public Nullable<decimal> GIA_HISTORY_1 { get; set; }
+        public Nullable<decimal> CK_HISTORY_2 { get; set; }
+        public Nullable<decimal> GIA_HISTORY_2 { get; set; }
+        public Nullable<decimal> CK_HISTORY_3 { get; set; }
+        public Nullable<decimal> GIA_HISTORY_3 { get; set; }
     
         public virtual HH_NHOM_VTHH HH_NHOM_VTHH { get; set; }
         public virtual KH KH { get; set; }

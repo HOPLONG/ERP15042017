@@ -960,7 +960,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
         });
     };
-
+    //LẤY POLICY KHÁCH HÀNG
     $scope.get_policy = function (makh) {
         khachhangService.get_kh_policy(makh).then(function (policy) {
             $scope.list_policy = policy;
@@ -1086,8 +1086,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.SelectDataSales = function (nhanvienkd) {
         $scope.nhanvienkd = nhanvienkd;
         tukhoa = nhanvienkd.USERNAME;
-        $scope.LocKH(1, nhanvienkd.HO_VA_TEN);
-        $scope.TimKiemPhanTrang(nhanvienkd.HO_VA_TEN);
+        $scope.LocKH(1, nhanvienkd.USERNAME);
+        $scope.TimKiemPhanTrang(nhanvienkd.USERNAME);
         $("#DataSales").css({ "display": "none" });
         $scope.huyloc = true;
     }

@@ -1055,7 +1055,9 @@ app.controller('chitietbaivietCtrl', function (chitietbaivietService, $scope,$ht
         var nguoidangbai = item;
         console.log(nguoidangbai);
         var username = $('#username').val();
-        if (username == nguoidangbai || username == "admin") {
+        var isadmin = $('#admin').val();
+
+        if (username == nguoidangbai || isadmin == 'True') {
             return "show";
         } else {
             return "notshow";
