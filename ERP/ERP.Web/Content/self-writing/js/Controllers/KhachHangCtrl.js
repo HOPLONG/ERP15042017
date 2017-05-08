@@ -7,7 +7,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     var phongban = $('#maphongban').val();
 
     if (isadmin == "True") {
-        $scope.isadmin = true;
+        $scope.hienchucnang = true;
     }
 
     $scope.danhsachtrang = [];
@@ -573,6 +573,23 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             $scope.phantrangkh(0);
             $scope.new_ct_khachhang();
             SuccessSystem("Bạn đã thêm thành công 1 liên hệ của khách hàng");
+            $scope.nguoi_lien_he = '';
+            $scope.chuc_vu = '';
+            $scope.phong_ban ='';
+            $scope.ngay_sinh='';
+            $scope.gioi_tinh='';
+            $scope.email_ca_nhan='';
+            $scope.email_cong_ty='';
+            $scope.skype='';
+            $scope.facebook='';
+            CKEDITOR.instances.ghichu.setData('');
+            $scope.so_dien_thoai1='';
+            $scope.tinh_trang_lam_viec='';
+            $scope.so_dien_thoai2='';
+            $scope.nvkd.USERNAME = '';
+            $scope.nvkd.HO_VA_TEN = '';
+            $scope.sales_moi='';
+            $scope.sales_cu = '';
         }, function errorCallback(response) {
             ErrorSystem("Đã xảy ra lỗi");
         });
@@ -593,6 +610,13 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             $scope.phantrangkh(0);
             $scope.new_ct_khachhang();
             SuccessSystem("Bạn đã thêm thành công 1 tài khoản của khách hàng");
+            $scope.so_tai_khoan = '';
+            $scope.ten_tai_khoan = '';
+            $scope.ten_ngan_hang = '';
+            $scope.chi_nhanh = '';
+            $scope.tinh_tp = '';
+            $scope.ghi_chu_tk = '';
+            $scope.loai_tai_khoan = '';
         }, function errorCallback(response) {
             ErrorSystem("Đã xảy ra lỗi");
         });
@@ -669,8 +693,10 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             $scope.phantrangkh(0);
             $scope.new_ct_khachhang();
             SuccessSystem("Bạn đã thêm thành công 1 phản hồi của khách hàng");
-           
-        }, function errorCallback(response1) {
+
+            CKEDITOR.instances.phanhoimoi.setData('');
+        }, function errorCallback(response) {
+
             ErrorSystem("Đã xảy ra lỗi");
         });
 
@@ -910,10 +936,10 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         $scope.item = item;
         var data = {
             MA_KHACH_HANG: $scope.item.MA_KHACH_HANG,
-            SALE_HIEN_THOI: $scope.item.USERNAME,
+            SALE_HIEN_THOI: $scope.item.SALES_PHU_TRACH,
+            KHO_PHU_TRACH: $scope.item.KHO_PHU_TRACH,
         }
         khachhangService.save_listchuyensale(data).then(function () {
-            //$scope.phantrangkh(1);
             $scope.phantrangkh(0);
         });
     };
@@ -1086,6 +1112,12 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         khachhangService.add_kh_policy(data_add).then(function () {
             SuccessSystem('Thêm thành công');
             $scope.get_policy(makh);
+
+            $scope.ma_nhom_hang_policy ='';
+            $scope.gia_ban_policy = '';
+            $scope.ck_policy = '';
+            $scope.ma_nhom_hang_cha = '';
+
             $scope.showrow = false;
         }, function errorCallback(response) {
             ErrorSystem('Thêm thất bại');
@@ -1284,6 +1316,13 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             $('#pagination_thongke').show();
         }
     };
+
+    $scope.load_nhanvienkho = function () {
+        $http.get('/api/Api_NhanvienKD/GetNhanvienKho').then(function (response) {
+            $scope.list_nhanvienkho = response.data;
+        });
+    }
+    $scope.load_nhanvienkho();
 });
 
 

@@ -85,10 +85,12 @@ namespace ERP.Web.Api.KhachHang
                 KH_CHUYEN_SALES chuyensale = new KH_CHUYEN_SALES();
                 chuyensale.MA_KHACH_HANG = datachuyensale.MA_KHACH_HANG;
                 chuyensale.SALE_HIEN_THOI = datachuyensale.SALE_HIEN_THOI;
+                chuyensale.KHO_PHU_TRACH = datachuyensale.KHO_PHU_TRACH;
                 db.KH_CHUYEN_SALES.Add(chuyensale);
             }
             else
             {
+                query.KHO_PHU_TRACH = datachuyensale.KHO_PHU_TRACH;
                 query.SALE_CU_2 = query.SALE_CU;
                 query.SALE_CU = query.SALE_HIEN_THOI;
                 query.SALE_HIEN_THOI = datachuyensale.SALE_HIEN_THOI;

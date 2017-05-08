@@ -1,4 +1,4 @@
-﻿app.controller('chuyensaleCtrl', function (chuyensaleService, khachhangService, $scope) {
+﻿app.controller('chuyensaleCtrl', function (chuyensaleService, khachhangService, $scope,$http) {
     $scope.load_listchuyensale = function () {
         var username = $('#username').val();
         chuyensaleService.get_listchuyensale(username).then(function (a) {
@@ -17,7 +17,7 @@
             ID : $scope.entry.ID,
             MA_KHACH_HANG: $scope.entry.MA_KHACH_HANG,
             SALE_HIEN_THOI: $scope.entry.SALE_HIEN_THOI,
-            SALE_SAP_CHUYEN: $scope.entry.SALE_SAP_CHUYEN,
+            KHO_PHU_TRACH: $scope.entry.KHO_PHU_TRACH,
             SALE_CU: $scope.entry.SALE_CU,
             SALE_CU_2 : $scope.entry.SALE_CU_2,
         }
@@ -80,5 +80,10 @@
     };
     $scope.load_nhanvienkd();
 
-    
+    $scope.load_nhanvienkho = function () {
+        $http.get('/api/Api_NhanvienKD/GetNhanvienKho').then(function (response) {
+            $scope.list_nhanvienkho = response.data;
+        });
+    }
+    $scope.load_nhanvienkho();
 });

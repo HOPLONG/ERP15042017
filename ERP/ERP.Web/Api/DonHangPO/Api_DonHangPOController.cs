@@ -20,11 +20,12 @@ namespace ERP.Web.Api.DonHangPO
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
         XuLyNgayThang xlnt = new XuLyNgayThang();
+        int tongton;
         // GET: api/Api_DonHangPO
-        [Route("api/Api_DonHangPO/GetBH_DON_HANG_PO")]
-        public List<GetAll_DonHangPO_Result> GetBH_DON_HANG_PO()
+        [Route("api/Api_DonHangPO/GetBH_DON_HANG_PO/{isadmin}/{sale}")]
+        public List<GetAll_DonHangPO_Result> GetBH_DON_HANG_PO(bool isadmin,string sale)
         {
-            var query = db.Database.SqlQuery<GetAll_DonHangPO_Result>("GetAll_DonHangPO @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var query = db.Database.SqlQuery<GetAll_DonHangPO_Result>("GetAll_DonHangPO @macongty,@isadmin,@sale", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("isadmin", isadmin), new SqlParameter("sale", sale));
             var result = query.ToList();
             return result;
         }
@@ -233,6 +234,19 @@ namespace ERP.Web.Api.DonHangPO
 
             foreach (var item in thongtinPO.ChiTietPO)
             {
+                var query = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG).ToList();
+                tongton = 0;
+                if (query != null)
+                {
+                    foreach (var tonkho in query)
+                    {
+                        tongton = tongton + tonkho.SL_HOPLONG;
+                    }
+                } else
+                {
+                    tongton = 0;
+                }
+                
                 BH_CT_DON_HANG_PO lienhe = new BH_CT_DON_HANG_PO();
                 lienhe.MA_SO_PO = baogia.MA_SO_PO;
                 lienhe.MA_HANG = item.MA_HANG;
@@ -244,6 +258,15 @@ namespace ERP.Web.Api.DonHangPO
                 lienhe.THUE_GTGT = thongtinPO.THUE_SUAT_GTGT;
                 lienhe.TIEN_THUE_GTGT =( (Convert.ToDouble(item.THANH_TIEN_HANG) * (thongtinPO.THUE_SUAT_GTGT / 100) ));
                 lienhe.TIEN_THANH_TOAN = Convert.ToDouble(lienhe.THANH_TIEN_HANG) + lienhe.TIEN_THUE_GTGT;
+                if(item.SO_LUONG <= tongton)
+                {
+                    lienhe.CAN_GIU_HANG = true;
+                    lienhe.CAN_DAT_HANG = false;
+                } else if(item.SO_LUONG > tongton)
+                {
+                    lienhe.CAN_GIU_HANG = false;
+                    lienhe.CAN_DAT_HANG = true;
+                }
                 db.BH_CT_DON_HANG_PO.Add(lienhe);
             }
 
