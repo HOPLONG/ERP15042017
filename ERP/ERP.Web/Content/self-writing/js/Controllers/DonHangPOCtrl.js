@@ -6,9 +6,10 @@
     $scope.Detail.ListAdd = [{
 
     }];
-
+    var username = $('#username').val();
+    var isadmin = $('#isadmin').val();
     $scope.load_danhsachPO = function () {
-        DonHangPOService.get_danhsachPO().then(function (a) {
+        DonHangPOService.get_danhsachPO(isadmin,username).then(function (a) {
             $scope.list_donhangPO = a;
         });
     };

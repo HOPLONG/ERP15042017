@@ -10,7 +10,7 @@
         <label class="col-md-2 control-label" for="name">Người liên hệ: </label>
         <div class="control-label col-md-4">
             <div class="input-group">
-                <input type="text" class="form-control" ng-model="nguoi_lien_he" ng-change="onLienHeFind()" ng-focus="showtable_id_lien_he = true" id="ID_LIEN_HE" name="ID_LIEN_HE">
+                <input type="text" class="form-control" ng-model="nguoi_lien_he" ng-change="onLienHeFind()" ng-focus="showtable_id_lien_he = true" id="ID_LIEN_HE" name="ID_LIEN_HE" ng-blur="showtable_id_lien_he = false">
                 <input type="text" class="form-control" ng-model="id_lien_he" ng-change="onLienHeFind()" ng-focus="showtable_id_lien_he = true" style="display:none">
                 <div class="input-group-btn">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="showtable_id_lien_he = !showtable_id_lien_he;">
@@ -29,7 +29,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="cursor:pointer" ng-click="showInfoLH(Lh)" ng-repeat="Lh in LhCollection">
+                                    <tr style="cursor:pointer" ng-mousedown="showInfoLH(Lh)" ng-repeat="Lh in LhCollection">
                                         <td>{{Lh.ID_LIEN_HE}}</td>
                                         <td>{{Lh.NGUOI_LIEN_HE}}</td>
                                         <td>{{Lh.EMAIL_CA_NHAN}}</td>
@@ -82,7 +82,7 @@
                                 <table border='1' style="width:100%; height: 100%; border:none;">
                                     <tr>
                                         <td>
-                                            <input type="text" class="form-control" ng-model="detail.ma_chuan" ng-change="onHHFind(detail.ma_chuan)" placeholder="Nhập mã hàng" ng-focus="detail.showtable_hanghoa = true" style="display:inline-block;width:80%; height:20px; font-size:13px; padding-left: 14px;">
+                                            <input type="text" class="form-control" ng-model="detail.ma_chuan" ng-change="onHHFind(detail.ma_chuan)" placeholder="Nhập mã hàng" ng-focus="detail.showtable_hanghoa = true" ng-blur="detail.showtable_hanghoa = false" style="display:inline-block;width:80%; height:20px; font-size:13px; padding-left: 14px;">
                                             <input type="text" class="form-control" ng-model="detail.ma_hang" style="display:none">
                                             <div class="input-group-btn" style="display:inline-block">
                                                 <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0 menuhh" style="display: block" ng-show="detail.showtable_hanghoa">
@@ -101,7 +101,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr style="cursor:pointer" ng-click="inputstaff(kh,index,detail)" ng-repeat="kh in HHCollection">
+                                                                <tr style="cursor:pointer" ng-mousedown="inputstaff(kh,index,detail)" ng-repeat="kh in HHCollection">
                                                                     <td>{{kh.MA_CHUAN}}</td>
                                                                     <td>{{kh.TEN_HANG}}</td>
                                                                     <td>{{kh.MA_NHOM_HANG}}</td>
@@ -144,7 +144,7 @@
                                 <input type="text" ng-model="detail.dvt" class="style-inline" />
                             </td>
                             <td class="text-right">
-                                <input type="number" style="text-align:right;display:none" ng-model="detail.don_gia_ban" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="style-inline">\
+                                <input type="number" style="text-align:right;display:none" ng-model="detail.don_gia_ban" ng-pattern="/^[0-9]+(\.[0-9]{1,10})?$/" step="0.01" class="style-inline">
                                 <p ng-model="detail.don_gia_ban">{{detail.don_gia_ban | currency: '' : 0}}</p>
                             </td>
                             <td class="text-right">
@@ -341,5 +341,48 @@
     </div>
 
     <button type="button" class="btn btn-primary" ng-click="CreateNewFromKH()" style="margin-top: 20px;"><i class="icon-floppy-disk"></i>Thêm mới</button>
+    <button ng-show="createnewPOvalue" type="button" class="btn btn-primary"  style="margin-top: 20px;" data-toggle="modal" data-target="#thongtinPO"><i class="icon-floppy-disk"></i>Tạo đơn PO</button>
+
+    <div class="modal fade" id="thongtinPO" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" style="width:50%">
+            <div class="modal-content" style="border-radius: 15px">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">Thông tin PO</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 form-group">
+                        <label class="col-md-2">Ngày giao hàng</label>
+                        <div class="col-md-2">
+                            <input type="text" ng-model="ngay_giao_hang" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="col-md-2">Địa chỉ giao hàng</label>
+                        <div class="col-md-10">
+                            <input type="text" ng-model="dia_diem_giao_hang" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">Cần xuất ngay</label>
+                            <input type="checkbox" ng-model="can_xuat_ngay" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Cần lấy hóa đơn</label>
+                            <input type="checkbox" ng-model="can_lay_hoa_don" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-default" ng-click="CreateNewPOFromKH()" data-dismiss="modal">Lên PO</button>
+                    <button class="btn" data-dismiss="modal">Exit</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 

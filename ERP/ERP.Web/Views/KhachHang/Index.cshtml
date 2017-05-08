@@ -701,7 +701,7 @@ input:-ms-input-placeholder {
                                                     <td style="font-weight:bold">Email:</td>
                                                     <td>{{item.EMAIL}}</td>
                                                     <td style="font-weight:bold">Số nợ tối đa</td>
-                                                    <td>{{item.SO_NO_TOI_DA}}</td>
+                                                    <td>{{item.SO_NO_TOI_DA | currency: '' : 0}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="font-weight:bold">Fax:</td>
@@ -792,7 +792,7 @@ input:-ms-input-placeholder {
                                                 <th style="border: 1px solid #ddd !important">Thông tin phản hồi</th>
                                                 <th style="border: 1px solid #ddd !important">Action</th>
                                             </tr>
-                                            <tr ng-repeat="khachphanhoi in list_phanhoi">
+                                            <tr ng-repeat="khachphanhoi in list_phanhoi | orderBy:'-NGAY_PHAN_HOI'">
                                                 <td class="text-left" style="width: 10%;">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
                                                 <td class="text-left" style="width: 20%;">{{khachphanhoi.HO_VA_TEN}}</td>
                                                 <td class="text-left" style="width: 64%;">
@@ -840,7 +840,7 @@ input:-ms-input-placeholder {
                                                 </samp>
                                             </div>
                                         </div>
-                                        <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newtaikhoan">Thêm mới</button>
+                                        @*<button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newtaikhoan">Thêm mới</button>*@
                                     </div>
                                     <div id="policy" class="tab-pane fade">
                                         <table class="table">
@@ -1126,7 +1126,7 @@ input:-ms-input-placeholder {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group" ng-show="isadmin">
+                                    <div class="form-group" ng-show="hienchucnang">
                                         <label class="col-md-4">Mã nhóm hàng cha</label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" ng-model="ma_nhom_hang_cha" placeholder="Mã nhóm hàng cha"/>
@@ -1195,7 +1195,7 @@ input:-ms-input-placeholder {
 
         </div>
         <!--End update phản hồi-->
-        <div class="col-md-12">
+        <div class="col-md-9">
             <div class="col-md-1">Chú thích</div>
             <div class="col-md-11">
                 <div class="col-md-12">
@@ -1213,6 +1213,9 @@ input:-ms-input-placeholder {
                 </div>
             </div>
         </div>
+        <div class="col-md-3" ng-show="hienchucnang">
+            Hiện chức năng admin: <input type="checkbox" ng-model="isadmin"/>
+        </div>
         <table id="example" class="table" cellspacing="0">
             <thead>
                 <tr>
@@ -1224,11 +1227,12 @@ input:-ms-input-placeholder {
                     <th>Quốc gia</th>
                     <th>Phân loại khách</th>
                     <th>Tình trạng hoạt động </th>
+                    <th>Nhân viên kho phụ trách</th>
                     <th>Sales phụ trách</th>
                     <th>Sửa</th>
-                    <th>Tạo đơn dự kiến</th>
                     <th ng-show="isadmin">Xóa</th>
-                    <th ng-show="isadmin"></th>
+                    <th ng-show="isadmin">Copy khách hàng</th>
+                    <th>Tạo báo giá</th>
                 </tr>
                 <tr>
                     <th></th>
@@ -1267,6 +1271,7 @@ input:-ms-input-placeholder {
                         </div>
                     </th>
                     <th></th>
+                    <th>
                     <th></th>
                     <th ng-show="isadmin"></th>
                     <th ng-show="isadmin"></th>
@@ -1297,11 +1302,23 @@ input:-ms-input-placeholder {
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.QUOC_GIA}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_LOAI_KHACH}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TINH_TRANG_HOAT_DONG}}</td>
-                    <td class="text-center">{{item.TEN_CUA_SALES_PHU_TRACH}}
-                        <p ng-hide="editMode" ng-model="item.USERNAME">{{item.HO_VA_TEN}}</p>
+                    <td class="text-center">
+                        <p ng-hide="editMode" ng-model="item.KHO_PHU_TRACH">{{item.TEN_CUA_KHO_PHU_TRACH}}</p>
+                        <md-input-container ng-show="editMode">
+                            <label>Kho</label>
+                            <md-select ng-model="item.KHO_PHU_TRACH">
+                                <md-option><em>None</em></md-option>
+                                <md-option ng-repeat="state in list_nhanvienkho" ng-value="state.USERNAME">
+                                    {{state.HO_VA_TEN}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </td>
+                    <td class="text-center">
+                        <p ng-hide="editMode" ng-model="item.SALES_PHU_TRACH">{{item.TEN_CUA_SALES_PHU_TRACH}}</p>
                         <md-input-container ng-show="editMode">
                             <label>Sale</label>
-                            <md-select ng-model="item.USERNAME">
+                            <md-select ng-model="item.SALES_PHU_TRACH">
                                 <md-option><em>None</em></md-option>
                                 <md-option ng-repeat="state in list_nhanvienkd" ng-value="state.USERNAME">
                                     {{state.HO_VA_TEN}}
@@ -1314,9 +1331,9 @@ input:-ms-input-placeholder {
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; chuyensale(item)" class="btn btn-default">Save</button>
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button> 
                     </td>
-                    <td><a href="/KinhDoanh/Donhangdukien/TaoDuKienMoi/{{item.MA_KHACH_HANG}}">Tạo đơn dự kiến</a></td>
                     <td data-toggle="modal" data-target="#delete_item" ng-click="transfer(item)" ng-show="isadmin">Xóa khách hàng</td>
                     <td data-toggle="modal" data-target="#copy_kh" ng-click="transfer(item)" ng-show="isadmin">Copy khách hàng</td>
+                    <td><a href="/KhachHang/BaoGiaKhach/{{item.MA_KHACH_HANG}}">Tạo báo giá</a></td>
                 </tr>
                 <!--Detail row-->
 

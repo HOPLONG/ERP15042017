@@ -2370,6 +2370,8 @@ app.controller('productdetailsCtrl', function (productdetailsService, $scope) {
 
 
 // Các phần bổ trợ,không sửa xóa,viết code js ở trên đoạn này
+
+
 function reload() {
     location.reload();
 }
