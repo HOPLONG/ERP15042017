@@ -25,6 +25,15 @@ namespace ERP.Web.Api.KhachHang
             return result;
         }
 
+
+        [Route("api/Api_NhanvienKD/GetNhanvienKho")]
+        public List<HopLong_GetAll_Nhanvien_Kho_Result> GetNhanvienKho()
+        {
+            var query = db.Database.SqlQuery<HopLong_GetAll_Nhanvien_Kho_Result>("HopLong_GetAll_Nhanvien_Kho");
+            var result = query.ToList();
+            return result;
+        }
+
         // GET: api/Api_NhanvienKD/5
         [ResponseType(typeof(CCTC_NHAN_VIEN))]
         public IHttpActionResult GetCCTC_NHAN_VIEN(string id)

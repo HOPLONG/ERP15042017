@@ -23,7 +23,9 @@ namespace ERP.Web.Areas.Marketing.Controllers
             return View();
         }
 
+
         [HttpPost]
+
         public ActionResult ImportBangGia(HttpPostedFileBase file)
         {
             using (var db = new ERP_DATABASEEntities())
@@ -291,6 +293,7 @@ namespace ERP.Web.Areas.Marketing.Controllers
 
 
 
+
                                     //=======================================
                                     if (workSheet.Cells[rowIterator, 1].Value != null)
                                         cklistncc4_1 = Convert.ToDecimal(workSheet.Cells[rowIterator, 1].Value);
@@ -325,10 +328,12 @@ namespace ERP.Web.Areas.Marketing.Controllers
 
 
 
+
                                     //===============================================
 
 
                                     HH_BANG_GIA_BAN banggia = new HH_BANG_GIA_BAN();
+
                                     banggia.NGAY_CAP_NHAT = DateTime.Today.Date;
                                     banggia.MA_HANG = mahang;
                                     banggia.MA_NHOM_HANG = manhomhang;
@@ -402,6 +407,7 @@ namespace ERP.Web.Areas.Marketing.Controllers
                                     db.SaveChanges();
                                     so_dong_thanh_cong++;
                                     dong = rowIterator - 1;
+
                                 }
 
                             }
@@ -411,19 +417,24 @@ namespace ERP.Web.Areas.Marketing.Controllers
                 catch (Exception Ex)
                 {
                     ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+
                     ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+
 
                 }
                 finally
                 {
+
                     ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
                 }
 
                 return View();
+
             }
                
         }
         #endregion
+
 
 
         #region "Update bảng giá bán"
@@ -832,12 +843,15 @@ namespace ERP.Web.Areas.Marketing.Controllers
 
 
 
+
         #region "IMPORT POLICY"
         public ActionResult ImportPolicy()
         {
             return View();
         }
+
         [HttpPost]
+
         public ActionResult ImportPolicy(HttpPostedFileBase file)
         {
             string makhachhang, manhomhangcha;
@@ -914,6 +928,7 @@ namespace ERP.Web.Areas.Marketing.Controllers
                                     else
                                         giahistory3 = 0;
                                     //=======================================
+
                                     var query = db.HH_NHOM_VTHH.Where(x => x.MA_NHOM_HANG_CHI_TIET == manhomhang).FirstOrDefault();
                                     if (query != null)
                                     {
@@ -969,6 +984,7 @@ namespace ERP.Web.Areas.Marketing.Controllers
 
 
                                     
+
                                 }
 
                             }

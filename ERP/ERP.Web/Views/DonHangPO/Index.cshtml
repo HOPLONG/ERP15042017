@@ -8,6 +8,8 @@
 
 
 <div ng-app="myApp" ng-controller="DonHangPOCtrl">
+    <input type="hidden" value="@Session["USERNAME"]" id="username" />
+    <input type="hidden" id="isadmin" name="isadmin" value="@Session["IS_AMIN"]" />
     <div class="content">
         <table class="table">
             <thead>
