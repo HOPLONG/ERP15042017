@@ -135,7 +135,7 @@ namespace ERP.Web.Areas.Settings.Controllers
                                     tongtiencong = Convert.ToDecimal(workSheet.Cells[rowIterator, 23].Value);
                                 else
                                     tongtiencong = 0;
-                                if (workSheet.Cells[rowIterator, 24].Value.ToString() != "")
+                                if (workSheet.Cells[rowIterator, 24].Value != null)
                                     tamung = Convert.ToDecimal(workSheet.Cells[rowIterator, 24].Value);
                                 else
                                     tamung = 0;
