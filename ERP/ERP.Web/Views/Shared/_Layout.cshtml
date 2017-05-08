@@ -104,7 +104,8 @@
                 <!-- DANH SÁCH MENU TRÊN-->
                 <div class="navbar-custom-menu pull-left">
                         <input type="hidden" value="@Session["MA_PHONG_BAN"]" id="maphongban" />
-                        <input type="hidden" value="@Session["USERNAME"]" id="username" />
+                        <input type="hidden" value="@Session["USERNAME"]" id="username" name="username" />
+                    <input type="hidden" value="@Session["MA_CONG_TY"]" id="macongty" name="macongty" />
                     <ul class="nav navbar-nav" ng-repeat="menu in danhsachmenu" ng-class="get(menu.USERNAME)">                       
                         <li  ng-class="check(menu.TRANG_THAI)">
                             <a href="{{menu.LINK}}" class="dropdown-toggle"  ng-mouseup="edit(menu.MA_MENU)">{{menu.TEN_MENU}}</a>                          
@@ -125,24 +126,24 @@
 
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
-                        <li class="dropdown notifications-menu">
+                        <li class="dropdown notifications-menu" ng-controller="ThongBaoKinhDoanhCtrl">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">10</span>
+                                <span class="label label-warning">{{sothongbao}}</span>
                             </a>
-                            <ul class="dropdown-menu" ng-controller="ThongBaoKinhDoanhCtrl">
-                                <li class="header">You have 10 notifications</li>
+                            <ul class="dropdown-menu">
+
                                 <li>
                                     <!-- inner menu: contains the actual data -->
                                     <ul class="menu">
                                         <li ng-repeat="item in ListThongBao">
-                                            <a href="/Home/Details/{{item.MA_BAI_VIET}}">
-                                                <i class="fa fa-users text-aqua"></i>{{item.TIEU_DE_BAI_VIET}}
+                                            <a href="{{item.LINK_THONG_BAO}}" ng-click="ReadNotification(item.ID)">
+                                                <i class="fa fa-users text-aqua"></i>{{item.NOI_DUNG_THONG_BAO}}
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="footer"><a href="#">View all</a></li>
+                                @*<li class="footer"><a href="#">View all</a></li>*@
                             </ul>
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
