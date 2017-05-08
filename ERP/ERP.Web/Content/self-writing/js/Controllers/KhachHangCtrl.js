@@ -631,7 +631,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.DanhSachNotification = [];
     $scope.danhsachMarketing = [];
     
-    
+    //thêm thông báo
     $scope.AddNotification = function (makh, salephutrach)
     {
         if (salephutrach != null)
@@ -667,13 +667,15 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         
         $http.post(window.location.origin + '/api/Api_BaiViet_TongHop/AddNotification', $scope.DanhSachNotification)
             .then(function successCallback(response2) {
-                SuccessSystem("Thành công Notification");
+                SuccessSystem("Đã thông báo đến Marketing và sale phụ trách khách hàng");
                 $scope.DanhSachNotification = [];
             }, function errorCallback(response2) {
                 ErrorSystem("Đã xảy ra lỗi");
             });
     }
+    //end thêm thông báo
 
+    //thêm mới phản hồi
     $scope.addnewphanhoi = function (makh, salephutrach) {
         $("textarea[name=phanhoimoi]").val(CKEDITOR.instances.phanhoimoi.getData());
         var phanhoimoi = $("[name=phanhoimoi]").val();
@@ -699,7 +701,9 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         });
 
     };
+    //end thêm mới phản hồi
 
+    //xóa phản hồi
     $scope.XoaPhanHoi = function (khachphanhoi) {
         $scope.khachphanhoi = khachphanhoi;
         var ketqua = confirm('Bạn có chắc muốn xóa không?');
@@ -711,14 +715,14 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             $scope.get_phanhoi($scope.khachphanhoi.MA_KHACH_HANG);
         }
     };
-
+    //end xóa phản hồi
     $scope.edit_thongtinphanhoi = function (khachphanhoi) {
         $scope.khachphanhoi = khachphanhoi;
         var phanhoivalue = $('.thongtinphanhoi-' + khachphanhoi.ID).html();
         CKEDITOR.instances.edit_thong_tin_phan_hoi.setData(phanhoivalue);
     }
-
-    $scope.save_thongtinphanhoi = function (id,makh) {
+    //cập nhật phản hồi
+    $scope.save_thongtinphanhoi = function (id, makh, salephutrach) {
         $("textarea[name=edit_thong_tin_phan_hoi]").val(CKEDITOR.instances.edit_thong_tin_phan_hoi.getData());
         var edit_thong_tin_phan_hoi = $("[name=edit_thong_tin_phan_hoi]").val();
 
@@ -726,12 +730,15 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             THONG_TIN_PHAN_HOI: edit_thong_tin_phan_hoi
         }
         
-        $http.put('/api/Api_PhanHoiKhachHang/' + id,data_save).then(function successCallback(response1) {
-            SuccessSystem("Sửa thành công");
+        $http.put('/api/Api_PhanHoiKhachHang/' + id, data_save).then(function successCallback(response1) {
+            SuccessSystem("Sửa phản hồi thành công");
+            $scope.AddNotification(makh, salephutrach);
+            
         }, function errorCallback(response1) {
             ErrorSystem("Lỗi khi sửa");
         });
     };
+    //end cập nhật phản hồi
 
     $scope.cancel_thongtinphanhoi = function (khachphanhoi) {
         $scope.khachphanhoi = khachphanhoi;
@@ -743,7 +750,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
 
 
-    $scope.dieukhoantt = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
+    $scope.dieukhoantt = ['Thanh toán ngay','5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
     $scope.tinhtranghoatdong = ['Cầm chừng', 'Bình thường', 'Sắp phá sản', 'Đã phá sản'];
     $scope.tinh_trang = ['Còn công tác', 'Đã luân chuyển', 'Đã nghỉ việc', 'Chuyển công ty khác'];
     $scope.thoi_gian_ap_dung = ['Hiện tại', 'Trước kia', 'Sau này'];

@@ -13,5 +13,6 @@ namespace ERP.Web.Models.NewModels
         public decimal CK { set; get; }
         public decimal GIA_BAN { set; get; }
         public string NGAY_CAP_NHAT { set; get; }
+        public string NGUOI_CAP_NHAT { set; get; }
     }
 }
