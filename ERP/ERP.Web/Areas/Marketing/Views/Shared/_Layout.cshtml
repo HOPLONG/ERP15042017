@@ -126,11 +126,26 @@
 
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
-                        <li class="dropdown notifications-menu">
+
+                        <li class="dropdown notifications-menu" ng-controller="ThongBaoKinhDoanhCtrl">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <!--<span class="label label-warning">10</span>-->
+                                <span class="label label-warning">{{sothongbao}}</span>
                             </a>
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li ng-repeat="item in ListThongBao">
+                                            <a href="{{item.LINK_THONG_BAO}}" ng-click="ReadNotification(item.ID)">
+                                                <i class="fa fa-users text-aqua"></i>{{item.NOI_DUNG_THONG_BAO}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
 
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
@@ -172,98 +187,15 @@
 
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-cubes"></i>
-                            <span>HÀNG HÓA</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/Inventory/HangHoa/Index"><i class="fa fa-angle-double-right"></i>Danh sách hàng hóa</a></li>
-                            <li><a href="/Inventory/HangSp/Index"><i class="fa fa-angle-double-right"></i>Nhóm vật tư hàng hóa</a></li>
-                            <li><a href="/Inventory/Kho/Index"><i class="fa fa-angle-double-right"></i>Kho</a></li>
-                        </ul>
-                    </li>
 
-
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-cart-plus"></i>
-                            <span>GIỮ HÀNG</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/Inventory/GiuHang/Index"><i class="fa fa-angle-double-right"></i>Danh sách đề nghị giữ</a></li>
-                            <li><a href="/Inventory/GiuHang/Giu_Hang_HL"><i class="fa fa-angle-double-right"></i>Đã giữ</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Chưa giữ</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đang giữ</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-hand-o-right"></i>
-                            <span>ĐỀ NGHỊ XUẤT HÀNG</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Danh sách đề nghị</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đề nghị đã xuất</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đang xuất</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Chưa xuất</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đã giữ</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Chưa giữ</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đang giữ</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="active treeview">
-                        <a href="#">
-                            <i class="fa fa-sign-out"></i>
-                            <span>XUẤT HÀNG</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu ">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Danh sách xuất kho</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Phiếu xuất kho mới</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-sign-in"></i>
-                            <span>NHẬP KHO</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Danh sách nhập kho</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Phiếu nhập kho mới</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-truck"></i>
-                            <span>GIAO HÀNG</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Danh sách đơn hàng</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đơn hàng đang giao</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đơn hàng đã hoàn thành</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Đơn chưa giao</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="treeview">
-                        <a href="#">
                             <i class="fa fa-download"></i>
-                            <span>IMPORT FILE</span>
+                            <span>CHỨC NĂNG</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/Inventory/ImportHangHoa/Import_HangHoa"><i class="fa fa-angle-double-right"></i>Import Hàng Hóa</a></li>
-                            <li><a href="/Inventory/ImportHangHoa/Import_TonKhoHCM"><i class="fa fa-angle-double-right"></i>Import Tồn TAHCM</a></li>
-                            <li><a href="/Inventory/ImportHangHoa/Import_TonKhoDN"><i class="fa fa-angle-double-right"></i>Import Tồn TADN</a></li>
-                            <li><a href="/Inventory/ImportHangHoa/Import_TonKhoHP"><i class="fa fa-angle-double-right"></i>Import Tồn TAHP</a></li>
+                            <li><a href="/Marketing/ImportBangGiaBan/ImportPolicy">Import Policy</a></li>
+                            <li><a href="/Marketing/ImportBangGiaBan/ImportBangGia">Import bảng giá bán</a></li>
+
                         </ul>
                     </li>
 
