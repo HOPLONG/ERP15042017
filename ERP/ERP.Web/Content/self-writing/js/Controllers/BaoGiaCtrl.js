@@ -1777,6 +1777,160 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         } while (so > 0);
         return chuoi;
     }
+
+    var url = document.location.href;
+    //this removes the anchor at the end, if there is one
+    url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+    //this removes the query after the file name, if there is one
+    url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+    //this removes everything before the last slash in the path
+    url = url.substring(url.lastIndexOf("/") + 1, url.length);
+
+    $scope.arrayLHFinded = [];
+    $scope.arrayLH = [];
+    $scope.showtable_id_lien_he = false;
+
+    $scope.lienhekh = function (url) {
+        //get data liên hệ
+        $http.post(window.location.origin + '/api/Api_LienHeKhachHang/' + url)
+             .then(function (response) {
+                 if (response.data) {
+                     $scope.arrayLH = response.data;
+                     $scope.arrayLHFinded = $scope.arrayLH.map(function (item) {
+                         return item;
+                     });
+                 }
+             }, function (error) {
+                 console.log(error);
+             });
+    }
+    $scope.lienhekh(url)
+
+
+    //hàm tìm kiếm
+    $scope.onLienHeFind = function () {
+        if (!$scope.NGUOI_LIEN_HE) {
+            $scope.arrayLHFinded = $scope.arrayLH.map(function (item) {
+                return item;
+            });
+        }
+        $scope.arrayLHFinded = $scope.arrayLH.filter(function (item) {
+            if (item.NGUOI_LIEN_HE.toLowerCase().indexOf($scope.arrayLienHe.nguoi_lien_he.toLowerCase()) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+    // hiển thị danh sách đổi tượng(LẤY THEO MÃ)
+    $scope.showInfoLH = function (p_dt) {
+        $scope.id_lien_he = p_dt.ID_LIEN_HE;
+        $scope.nguoi_lien_he = p_dt.NGUOI_LIEN_HE;
+        $scope.showtable_id_lien_he = false;
+    }
+
+    $scope.CreateNewFromKH = function () {
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+        //return
+        var username = $('#username').val();
+        var tongtien = parseInt($('#tongtienbaogia').text());
+        $scope.BANGBAOGIA = {
+            SALES_BAO_GIA: username,
+            MA_KHACH_HANG: url,
+            LIEN_HE_KHACH_HANG: $scope.id_lien_he,
+            PHUONG_THUC_THANH_TOAN: $scope.phuong_thuc_thanh_toan,
+            HAN_THANH_TOAN: $scope.han_thanh_toan,
+            HIEU_LUC_BAO_GIA: $scope.hieu_luc_bao_gia,
+            DIEU_KHOAN_THANH_TOAN: $scope.dieu_khoan_thanh_toan,
+            PHI_VAN_CHUYEN: $scope.phivanchuyen,
+            TONG_TIEN: $scope.tong_gia_tri_theo_hop_dong_new,
+            TONG_GIA_TRI_DON_HANG_THUC_TE: $scope.tong_gia_tri_thuc_te_new,
+            GIA_TRI_THUC_THU_TU_KHACH: $scope.tong_gia_tri_thu_cua_khach_new,
+            TONG_GIA_TRI_CHENH_LECH: $scope.gia_tri_chenh_lech_new,
+            TONG_CHI_PHI_HOA_DON: $scope.tong_chi_phi_hoa_don_new,
+            THUC_NHAN_CUA_KHACH: $scope.tong_khach_nhan_new,
+            DA_DUYET: false,
+            DA_TRUNG: false,
+            DA_HUY: false,
+            TRUC_THUOC: 'HOPLONG',
+            DANG_CHO_PHAN_HOI: true,
+            THUE_SUAT_GTGT: $scope.thue_suat_gtgt,
+            TIEN_THUE_GTGT: $scope.thue_vat_new,
+        };
+
+        $scope.arrayBaoGiaChiTiet = [];
+
+        for (var i = 0; i < $scope.Detail.ListNew.length; i++) {
+
+
+            var BaoGiaChiTiet = {
+                MA_HANG: $scope.Detail.ListNew[i].ma_hang,
+                MA_DIEU_CHINH: $scope.Detail.ListNew[i].ma_dieu_chinh,
+                TEN_HANG: $scope.Detail.ListNew[i].ten_hang,
+                HANG_SP: $scope.Detail.ListNew[i].hang,
+                SO_LUONG: $scope.Detail.ListNew[i].so_luong,
+                DVT: $scope.Detail.ListNew[i].dvt,
+                DON_GIA: $scope.Detail.ListNew[i].don_gia_ban,
+                THANH_TIEN: $scope.Detail.ListNew[i].thanh_tien,
+                THANH_TIEN_NET: $scope.Detail.ListNew[i].thanh_tien_net,
+                THOI_GIAN_GIAO_HANG: $scope.Detail.ListNew[i].thoi_gian_giao_hang,
+                GIA_LIST: parseFloat($scope.Detail.ListNew[i].gia_list),
+                CHIET_KHAU: $scope.Detail.ListNew[i].chiet_khau,
+                DON_GIA_NHAP: parseFloat($scope.Detail.ListNew[i].gia_nhap),
+                HE_SO_LOI_NHUAN: $scope.Detail.ListNew[i].he_so_loi_nhuan,
+                DON_GIA_BAO_DI_NET: $scope.Detail.ListNew[i].gia_bao_di_net,
+                GHI_CHU: $scope.Detail.ListNew[i].ghi_chu,
+                CM: $scope.Detail.ListNew[i].hoa_hong,
+                DON_GIA_MOI: $scope.Detail.ListNew[i].don_gia_ban,
+                THUE_TNDN: $scope.Detail.ListNew[i].thue_tndn,
+                TIEN_THUE_TNDN: $scope.Detail.ListNew[i].tien_thue_tndn,
+                KHACH_NHAN_DUOC: $scope.Detail.ListNew[i].khach_nhan,
+            }
+            //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
+            $scope.arrayBaoGiaChiTiet.push(BaoGiaChiTiet);
+        }
+
+        //Lưu vào CSDL
+        $http.post("/api/Api_BaoGia/BaoGiaTuKhach", $scope.BANGBAOGIA)
+            .then(function successCallback(response) {
+                $scope.BANGBAOGIA = response.data;
+                if (!$scope.BANGBAOGIA) {
+                    ErrorSystem("Không lưu được thông tin chung của báo giá");
+                    return;
+                }
+                $scope.BANGBAOGIA.SO_BAO_GIA;
+
+                for (var i = 0; i < $scope.arrayBaoGiaChiTiet.length; i++) {
+                    $scope.arrayBaoGiaChiTiet[i].SO_BAO_GIA = $scope.BANGBAOGIA.SO_BAO_GIA;
+                }
+
+
+                if ($scope.arrayBaoGiaChiTiet.length > 0) {
+                    $http.post("/api/ApiChiTietBaoGia/PostKH_LIEN_HE", $scope.arrayBaoGiaChiTiet)
+                        .then(function successCallback(response) {
+                            SuccessSystem("Lưu thành công!");
+                            location.reload();
+                        }, function errorCallback(response) {
+                            ErrorSystem("Không lưu được chi tiết của báo giá");
+                        });
+                    return;
+                }
+
+            }, function errorCallback(response) {
+                console.log(response);
+                ErrorSystem("Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục");
+            });
+    }
+
+
+
 });
 
 app.directive('format', ['$filter', function ($filter) {

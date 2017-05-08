@@ -2293,7 +2293,7 @@ app.controller('DonhangdukienCtrl', function (DonhangdukienService, $scope,$http
 
     $scope.lienhekh = function (url) {
         //get data liên hệ
-        $http.get(window.location.origin + '/api/Api_LienHeKhachHang/' + url)
+        $http.post(window.location.origin + '/api/Api_LienHeKhachHang/' + url)
              .then(function (response) {
                  if (response.data) {
                      $scope.arrayLH = response.data;
