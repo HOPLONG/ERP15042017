@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ERP.Web.Models.NewModels
 {
-    public class BaoGia
+    public class BaoGiaTuKhach
     {
         public int ID_LIEN_HE { set; get; }
         public string SO_BAO_GIA { set; get; }
@@ -23,7 +23,7 @@ namespace ERP.Web.Models.NewModels
         public decimal TIEN_VAT { set; get; }
         public decimal TONG_TIEN { set; get; }
         public bool DA_DUYET { set; get; }
-        public string NGUOI_DUYET { set; get;}
+        public string NGUOI_DUYET { set; get; }
         public bool DA_TRUNG { set; get; }
         public bool DA_HUY { set; get; }
         public string LY_DO_HUY { set; get; }
@@ -34,6 +34,5 @@ namespace ERP.Web.Models.NewModels
         public string NGUOI_LIEN_HE { set; get; }
         public string MA_HANG { set; get; }
         public string TEN_HANG { set; get; }
-
     }
 }
