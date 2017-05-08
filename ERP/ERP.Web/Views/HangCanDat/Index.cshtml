@@ -2,8 +2,11 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<div ng-controller="HangCanXuatCtrl" ng-app="myApp">
+<script src="~/Content/self-writing/js/Services/HangCanDatService.js"></script>
+<script src="~/Content/self-writing/js/Controllers/HangCanDatCtrl.js"></script>
+<div ng-controller="HangCanDatCtrl" ng-app="myApp">
+    <input type="hidden" value="@Session["USERNAME"]" id="username"/>
+    <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
     <div class="content">
         <table class="table">
             <thead>
@@ -23,13 +26,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in list_hangcanxuat">
+                <tr ng-repeat="item in list_hangcandat">
                     <td>{{item.MA_SO_PO}}</td>
                     <td>{{item.MA_DIEU_CHINH}}</td>
                     <td>{{item.MA_KHACH_HANG}}</td>
                     <td>{{item.TEN_CONG_TY}}</td>
                     <td>{{item.TEN_LIEN_HE}}</td>
-                    <td>{{item.NGAY_LEN_PO | date: 'dd/MM/yyyy'}}</td>
                     <td>{{item.DVT}}</td>
                     <td>{{item.SO_LUONG}}</td>
                     <td>{{item.DON_GIA  | currency : '' : 0}}</td>
