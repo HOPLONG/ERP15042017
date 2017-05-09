@@ -1,5 +1,5 @@
 ﻿
-app.controller('StoreInsertController', function ($rootScope, $scope, $http, config) {
+app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, config) {
     $rootScope.PageSetting = {
         PageCount: 0,
         NumberPerPage: 10,
@@ -7,12 +7,13 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
     }
     $rootScope.title = "Nhập kho";
     $rootScope.dashboard = false;
-    $scope.StoreType = 1;
+    $scope.StoreType = 'Xuất kho bán hàng';
+    
     $scope.LoadHangTra = false;
     $scope.LoaiChungTu = null;
     $scope.GiaTriThamChieu = [];
     $scope.Searching = false;
-    $scope.DonHangTra = [];
+    $scope.DonBanHang = [];
     $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
     $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
     $scope.DonHangnumPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
@@ -25,12 +26,13 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         NgayChungTu: null,
         NgayHachToan: null,
         SoChungTu: null,
-        DienGia: null,
+        DienGiai: null,
         KemTheo: null,
         ChiTiet: null,
         TenDoiTuong: null
 
     };
+    $scope.GeneralInfo.DienGiai = $scope.StoreType;
     $scope.ChangeType = function () {
         if ($scope.StoreType != 2) {
             ResetAfterSave();
@@ -52,8 +54,6 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
 
     };
     $scope.ThamChieu = {
-        From: null,
-        To: null,
         ListResult: [],
         ListSelect: [],
         TraHang: null
@@ -61,12 +61,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
     $scope.ChungTu = {
         ListThamChieu: []
     }
-    $scope.NguoiGiaoHang = {
-        List: [],
-        NguoiGiaoHang: null,
-        Search: null,
-        Ten: null
-    };
+    
     $('.datetimepicker').daterangepicker({
         singleDatePicker: true,
         calender_style: "picker_2"
@@ -96,7 +91,6 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         $scope.GeneralInfo.NgayHachToan = null;
         $scope.GeneralInfo.SoChungTu = null;
         $scope.GeneralInfo.DienGiai = null;
-        $scope.GeneralInfo.KemTheo = null;
         $scope.GeneralInfo.ChiTiet = null;
         $scope.Detail.ListHangHoa = [];
         $scope.Detail.ListTaiKhoan = [];
@@ -126,6 +120,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
 
     }
     function ResetAfterSave() {
+        $scope.GeneralInfo.DienGiai = 'Xuất kho bán hàng';
         $scope.GiaTriThamChieu = [];
         $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
         $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
@@ -133,13 +128,14 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         $scope.GiaTriChungTu.Date = null;
         $scope.GeneralInfo.NgayChungTu = null;
         $scope.GeneralInfo.NgayHachToan = null;
+        $("#GeneralInfo_NgayHachToan").val();
+        $("#GeneralInfo_NgayChungTu").val();
         $scope.GeneralInfo.SoChungTu = null;
-        $scope.GeneralInfo.DienGia = null;
+        $scope.GeneralInfo.DienGiai = null;
         $scope.GeneralInfo.KemTheo = null;
-        $scope.GeneralInfo.ChiTiet = null
+        $scope.GeneralInfo.ChiTiet = [];
         $scope.Detail.ListAdd = [];
         $scope.Detail.SearchHang = [];
-        $scope.ValidateGeneral.NguoiGiaoHang = true;
         $scope.ValidateGeneral.NgayHachToan = true;
         $scope.ValidateGeneral.NgayChungTu = true;
         $scope.ValidateGeneral.NgayHachToanLess = true;
@@ -152,11 +148,12 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         $scope.ThamChieu.To = null;
         $scope.ThamChieu.ListResult = [];
         $scope.ThamChieu.ListSelect = [];
-        $scope.ChungTu.ListThamChieu = [];
-        $scope.NguoiGiaoHang.NguoiGiaoHang = null;
-        $scope.NguoiGiaoHang.Search = null;
-        $scope.NguoiGiaoHang.Ten = null;
-
+        $scope.GeneralInfo.NguoiNhan = null;
+        $scope.GeneralInfo.DiaChi = null;
+        $scope.GeneralInfo.KhachHang = null;
+        $scope.GeneralInfo.TenDoiTuong = null;
+        $scope.GeneralInfo.NhanVienBanHang = null;
+        $scope.ThamChieu.DonBanHang = null
     }
 
 
@@ -186,23 +183,24 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
              console.log(error);
          });
     }
-  
+
+    //Lấy dữ liệu khách hàng hợp long
+
+    $scope.SearchKH = function (mkh) {
+        $http.post(window.location.origin + '/api/Search_KH/Search/' + mkh)
+         .then(function (response) {
+             if (typeof (response.data) == "object") {
+                 $scope.KhachHang.KhachHang = response.data;
+             }
+             else {
+                 ErrorSystem();
+             }
+         }, function (error) {
+             console.log(error);
+         });
+    }
 
     function Init() {
-
-        $scope.SearchKH = function (mkh) {
-            $http.post(window.location.origin + '/api/Search_KH/Search/' + mkh)
-             .then(function (response) {
-                 if (typeof (response.data) == "object") {
-                     $scope.KhachHang.KhachHang = response.data;
-                 }
-                 else {
-                     ErrorSystem();
-                 }
-             }, function (error) {
-                 console.log(error);
-             });
-        }
 
         $http({
             method: 'GET',
@@ -237,27 +235,27 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
     Init();
 
     function init() {
-        $http({
-            method: 'GET',
-            url: '/api/Api_NhanvienHL/GetListNhanvien'
-        }).then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.NguoiGiaoHang.List = response.data;
-            }
-            else {
-                ErrorSystem();
-            }
-        }, function (error) {
-            ConnectFail();
-        });
+        //Lấy dữ liệu nhân viên hợp long
+        $http.get("http://27.72.144.148:8003/api/NhanVien/GetAllNhanVien/HOPLONG")
+            .then(function (response) {
+                if (typeof (response.data) == "object") {
+                    $scope.NhanVien = response.data;
+                }
+                else {
+                    ErrorSystem();
+                }
+            }, function (error) {
+                ConnectFail();
+            });
+        //-------------------------------
 
 
         $http({
             method: 'GET',
-            url: '/api/Api_XuatNhapKho/GetCTTra'
+            url: '/api/Api_BanHang/Get_DON_BAN_HANG'
         }).then(function (response) {
             if (typeof (response.data) == "object") {
-                $scope.DonHangTra = response.data;
+                $scope.DonBanHang = response.data;
             }
             else {
                 ErrorSystem();
@@ -270,41 +268,28 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
     init();
     //Thay đổi loại chứng từ
     
-    $scope.ShowDataNguoiGiaoHang = function () {
-        if ($("#DataNguoiGiaoHang").css("display") == "none") {
-            $("#DataNguoiGiaoHang").css({ "display": "block" });
-        }
-        else {
-            $("#DataNguoiGiaoHang").css({ "display": "none" });
-        }
-    }
+  
     $scope.SelectDataGiaTriChungTu = function (item) {
         $scope.GiaTriChungTu.Data = item;
         $scope.GiaTriChungTu.Search = item.tendoituong;
         $("#DataGiaTriChungTu").css({ "display": "none" });
     }
-    $scope.SelectDataNguoiGiaoHang = function (item) {
-        $scope.NguoiGiaoHang.NguoiGiaoHang = item;
-        $scope.NguoiGiaoHang.Search = item.USERNAME;
-        $scope.NguoiGiaoHang.Ten = item.HO_VA_TEN;
-        $("#DataNguoiGiaoHang").css({ "display": "none" });
-    }
-    $("#SlectNguoiGiaoHang").focusout(function () {
-        $("#DataGiaTriChungTu").css({ "display": "none" });
-    });
+   
    
     $scope.AddNew = function () {
         $scope.Detail.ListAdd.push({
             MA_HANG: null,
             MA_CHUAN: null,
+            MA_DIEU_CHINH: null,
             TEN_HANG: null,
-            MA_KHO: null,
-            TK_KHO: null,
+            MA_KHO_CON: null,
+            TK_HACH_TOAN_KHO: null,
             DON_GIA: null,
             SO_LUONG: null,
             DVT: null,
             TK_NO: null,
             TK_CO: null,
+            DON_GIA_VON: null
         });
     }
     $scope.ShowHangHoa = function (index) {
@@ -320,7 +305,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         item.MA_CHUAN = hanghoa.MA_CHUAN;
         item.MA_HANG = hanghoa.MA_HANG;
         item.TEN_HANG = hanghoa.TEN_HANG;
-        item.TK_KHO = hanghoa.TK_KHO;
+        item.MA_KHO_CON = hanghoa.TEN_KHO;
+        item.TK_HACH_TOAN_KHO = hanghoa.TK_KHO;
         item.TK_NO = hanghoa.TK_CHI_PHI;
         item.TK_CO = hanghoa.TK_DOANH_THU;
         //$scope.Detail.ListAdd[index].SearchHang = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
@@ -368,7 +354,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         item.TK_KHO = tkkho.SO_TK;
         $(".tableselect").css({ "display": "none" });
     };
-    //Khách hàng
+    //Hiển thị khách hàng khi click
     $scope.ShowKhachHang = function () {
         if ($("#KhachHang").css("display") == "none") {
             $(".tableselect").css({ "display": "none" });
@@ -378,9 +364,53 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
             $(".tableselect").css({ "display": "none" });
         }
     }
+    //end Hiển thị khách hàng khi click
+
+
+
+    // lựa chọn khách hàng khi click
     $scope.SelectKhachHang = function (item) {
-        $scope.GeneralInfo.DoiTuong = item.MA_KHACH_HANG;
+        $scope.GeneralInfo.KhachHang = item.MA_KHACH_HANG;
         $scope.GeneralInfo.TenDoiTuong = item.TEN_CONG_TY;
+        $(".tableselect").css({ "display": "none" });
+    }
+    //End lựa chọn KH
+
+    //Hiển thị result khách hàng khi click
+    $scope.ShowKhachHangresult = function () {
+        if ($("#KhachHangresult").css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#KhachHangresult").css({ "display": "block" });
+        }
+        else {
+            $(".tableselect").css({ "display": "none" });
+        }
+    }
+    //end Hiển thị khách hàng khi click
+
+
+
+    // lựa chọn khách hàng khi click
+    $scope.SelectKhachHangresult = function (item) {
+        $scope.SearchDonHangTra.KhachHang = item.TEN_CONG_TY;
+        $scope.SearchDonHangTra.MaKhachHang = item.MA_KHACH_HANG;
+        $(".tableselect").css({ "display": "none" });
+    }
+    //End lựa chọn KH
+
+    $scope.ShowDataNhanVien = function () {
+        if ($("#DataNhanVien").css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#DataNhanVien").css({ "display": "block" });
+        }
+        else {
+            $(".tableselect").css({ "display": "none" });
+        }
+    }
+
+    $scope.SelectDataNhanVien = function (item) {
+        $scope.GeneralInfo.NhanVienBanHang = item.HO_VA_TEN;
+        $scope.GeneralInfo.Username = item.USERNAME;
         $(".tableselect").css({ "display": "none" });
     }
     //Kho hàng
@@ -394,7 +424,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         }
     };
     $scope.SelectKho = function (index, item, kho) {
-        item.MA_KHO = kho.MA_KHO;
+        item.MA_KHO_CON = kho.MA_KHO;
         $(".tableselect").css({ "display": "none" });
     };
 
@@ -422,12 +452,11 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         var check = true;
         $scope.GeneralInfo.NgayChungTu = $("#GeneralInfo_NgayChungTu").val();
         $scope.GeneralInfo.NgayHachToan = $("#GeneralInfo_NgayHachToan").val();
-        if ($scope.NguoiGiaoHang.NguoiGiaoHang == null) {
-            $scope.ValidateGeneral.NguoiGiaoHang = false;
+        if ($scope.GeneralInfo.NhanVienBanHang == null) {
+            $scope.ValidateGeneral.NhanVienBanHang = false;
             check = false;
         } else {
-            $scope.ValidateGeneral.NguoiGiaoHang = true;
-            $scope.GeneralInfo.NguoiGiaoHang = $scope.NguoiGiaoHang.NguoiGiaoHang.USERNAME;
+            $scope.ValidateGeneral.NhanVienBanHang = true;
         }
         if ($scope.GeneralInfo.NgayChungTu == null || $scope.GeneralInfo.NgayChungTu == "") {
             $scope.ValidateGeneral.NgayChungTu = false;
@@ -442,13 +471,6 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         else {
             $scope.ValidateGeneral.NgayHachToan = true;
         }
-        if ($scope.GeneralInfo.NguoiGiaoHang == null) {
-            $scope.ValidateGeneral.NguoiGiaoHang = false;
-            check = false;
-        }
-        else {
-            $scope.ValidateGeneral.NguoiGiaoHang = true;
-        }
         if (ConvertToDate($scope.GeneralInfo.NgayHachToan) < ConvertToDate($scope.GeneralInfo.NgayChungTu)) {
             $scope.ValidateGeneral.NgayHachToanLess = false;
             check = false;
@@ -460,37 +482,27 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
     }
     var a = $('#username').val();
     var b = $('#macongty').val();
-    $scope.SaveNhapKho = function () {
+    $scope.SaveXuatKho = function () {
         if (CheckAll() == false) {
             return;
         }
-        var loainhapkho = "";
-        if ($scope.StoreType == 1) {
-            loainhapkho = "Hàng nhập kho";
-        } else if ($scope.StoreType == 2) {
-            loainhapkho = "Hàng trả lại";
+        var data = {
+            SO_CHUNG_TU: $scope.GeneralInfo.SoChungTu,
+            NGAY_CHUNG_TU: $scope.GeneralInfo.NgayChungTu,
+            NGAY_HACH_TOAN: $scope.GeneralInfo.NgayHachToan,
+            ChiTiet: $scope.Detail.ListAdd,
+            ThamChieu: $scope.ThamChieu.ListSelect,
+            LOAI_XUAT_KHO: 'Xuất kho bán hàng',
+            KHACH_HANG: $scope.GeneralInfo.KhachHang,
+            NHAN_VIEN_BAN_HANG: $scope.GeneralInfo.Username,
+            LY_DO_XUAT: $scope.GeneralInfo.DienGiai,
+            NGUOI_NHAN: $scope.GeneralInfo.NguoiNhan,
+            NGUOi_LAP_PHIEU: a,
+            TRUC_THUOC: b,
         }
-        else {
-            loainhapkho = "Khác";
-        }
-        $http({
-            method: 'POST',
-            url: '/api/Api_NhapKho/PostKHO_NHAP_KHO',
-            data: {
-                SO_CHUNG_TU: $scope.GeneralInfo.SoChungTu,
-                NGAY_CHUNG_TU: $scope.GeneralInfo.NgayChungTu,
-                NGAY_HACH_TOAN: $scope.GeneralInfo.NgayHachToan,
-                DIEN_GIAI: $scope.GeneralInfo.DienGiai,
-                ChiTiet: $scope.Detail.ListAdd,
-                ThamChieu: $scope.ThamChieu.ListSelect,
-                NGUOI_GIAO_HANG: $scope.NguoiGiaoHang.Search,
-                MA_DOI_TUONG: $scope.GeneralInfo.DoiTuong,
-                DIEN_GIAI: $scope.GeneralInfo.DienGiai,
-                LOAI_NHAP_KHO: loainhapkho,
-                NGUOI_LAP_PHIEU: a,
-                TRUC_THUOC: b,
-            }
-        }).then(function (response) {
+
+        $http.post("/api/Api_XuatKhoBanHang/PostKHO_XUAT_KHO", data).then(function (response) {
+            //console.log(response);
             $scope.datareturn = response.data;
             //response.data = jQuery.parseJSON(response.data);
             if (response.data == config.INPUT_ERROR) {
@@ -503,7 +515,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
                 ResetAfterSave();
                 new PNotify({
                     title: 'Thành công',
-                    text: 'Chứng từ ' + $scope.datareturn + ' đã được tạo',
+                    text: $scope.datareturn,
                     addclass: 'bg-primary'
                 });
             }
@@ -511,31 +523,15 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
             ConnectFail();
         });
     }
-    function CheckSearchDonHangTra() {
-        var check = true;
-        $scope.SearchDonHangTra.NgayBatDau = $("#SearchDonHangTra_NgayBatDau").val();
-        $scope.SearchDonHangTra.NgayKetThuc = $("#SearchDonHangTra_NgayKetThuc").val();
-        if ($scope.SearchDonHangTra.NgayBatDau != null && $scope.SearchDonHangTra.NgayBatDau != "" && $scope.SearchDonHangTra.NgayKetThuc != null && $scope.SearchDonHangTra.NgayKetThuc != "" && ConvertToDate($scope.SearchDonHangTra.NgayBatDau) > ConvertToDate($scope.SearchDonHangTra.NgayKetThuc)) {
-            $scope.ValidateSearchDonHangTra.NgayKetThucLess = false;
-            check = false;
-        }
-        else {
-            $scope.ValidateSearchDonHangTra.NgayKetThucLess = true;
-        }
-        return check;
-    }
+    
     $scope.SearchDonHangTraSubmit = function () {
-        if (CheckSearchDonHangTra() == false) {
-            return;
-        }
+        
 
         var data = {
-            makh: $scope.SearchDonHangTra.KhachHang,
-            tungay: $scope.SearchDonHangTra.NgayBatDau,
-            denngay: $scope.SearchDonHangTra.NgayKetThuc
-
+            makh: $scope.SearchDonHangTra.MaKhachHang,
+          
         }
-        $http.post('/api/Api_XuatNhapKho/GetCTTraByKhach', data)
+        $http.post('/api/Api_BanHang/GetDBHByKhach', data)
          .then(function (response) {
              console.log(response);
              if (typeof (response.data) == "object") {
@@ -558,17 +554,17 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
     }
     $scope.SetSearchDonHangTra = function () {
         $scope.ThamChieu.ListSelect = [];
-        $scope.ThamChieu.ListSelect.push($scope.SearchDonHangTra.DonHangSelect);
+        $scope.ThamChieu.ListSelect.push({SO_CHUNG_TU:$scope.SearchDonHangTra.DonHangSelect.MA_SO_BH});
         $http({
             method: 'GET',
-            url: '/api/Api_NhapKho/GetDetailKHO_NHAP_KHO/' + $scope.SearchDonHangTra.DonHangSelect.SO_CHUNG_TU,
+            url: '/api/Api_BanHang/GetDetailDON_BAN_HANG/' + $scope.SearchDonHangTra.DonHangSelect.MA_SO_BH,
         }).then(function (response) {
             if (typeof (response.data) == "object") {
-                $scope.Detail.ListAdd = response.data.ctxuatkho;
-                $scope.GeneralInfo.DoiTuong = response.data.xuatkho.KHACH_HANG,
-                $scope.GeneralInfo.TenDoiTuong = response.data.xuatkho.TEN_KHACH_HANG,
-                $scope.GeneralInfo.DienGiai = response.data.xuatkho.LY_DO_XUAT,
-                $scope.GeneralInfo.KemTheo = response.data.xuatkho.KEM_THEO
+                $scope.Detail.ListAdd = response.data.ctdonbanhang;
+                $scope.GeneralInfo.KhachHang = response.data.donbanhang.MA_KHACH_HANG,
+                $scope.GeneralInfo.TenDoiTuong = response.data.donbanhang.TEN_CONG_TY,
+                $scope.GeneralInfo.NhanVienBanHang = response.data.donbanhang.HO_VA_TEN,
+                $scope.GeneralInfo.Username = response.data.donbanhang.NHAN_VIEN_QUAN_LY
                 $scope.LoadHangTra = true;
                 $("#SearchDonHangTra").modal("toggle");
             }
@@ -581,19 +577,19 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
     }
     $scope.SelectDonTraHang = function (item) {
         $scope.ThamChieu.ListSelect = [];
-        $scope.ThamChieu.ListSelect.push({ SO_CHUNG_TU: item.SO_CHUNG_TU });
-        $scope.ThamChieu.TraHang = item.SO_CHUNG_TU;
+        $scope.ThamChieu.ListSelect.push({ SO_CHUNG_TU: item.MA_SO_BH});
+        $scope.ThamChieu.DonBanHang = item.MA_SO_BH;
         $(".tableselect").css({ "display": "none"});
         $http({
             method: 'GET',
-            url: '/api/Api_NhapKho/GetDetailKHO_NHAP_KHO/' + item.SO_CHUNG_TU,
+            url: '/api/Api_BanHang/GetDetailDON_BAN_HANG/' + item.MA_SO_BH,
         }).then(function (response) {
             if (typeof (response.data) == "object") {
-                $scope.Detail.ListAdd = response.data.ctxuatkho;
-                $scope.GeneralInfo.DoiTuong = response.data.xuatkho.KHACH_HANG,
-                $scope.GeneralInfo.TenDoiTuong = response.data.xuatkho.TEN_KHACH_HANG,
-                $scope.GeneralInfo.DienGiai = response.data.xuatkho.LY_DO_XUAT,
-                $scope.GeneralInfo.KemTheo = response.data.xuatkho.KEM_THEO
+                $scope.Detail.ListAdd = response.data.ctdonbanhang;
+                $scope.GeneralInfo.KhachHang = response.data.donbanhang.MA_KHACH_HANG,
+                $scope.GeneralInfo.TenDoiTuong = response.data.donbanhang.TEN_CONG_TY,
+                $scope.GeneralInfo.NhanVienBanHang = response.data.donbanhang.HO_VA_TEN,
+                $scope.GeneralInfo.Username = response.data.donbanhang.NHAN_VIEN_QUAN_LY
                 $scope.LoadHangTra = true;
             }
             else {
