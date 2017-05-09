@@ -21,6 +21,12 @@ namespace ERP.Web.Controllers
             return View(bH_DON_HANG_PO.ToList());
         }
 
+        public ActionResult DanhSachDuyetPO()
+        {
+
+            return View();
+        }
+
         // GET: DonHangPO/Details/5
         public ActionResult Details(string id)
         {
