@@ -59,9 +59,10 @@ namespace ERP.Web.Api.BanHang
         [Route("api/Api_BanHang/GetDBHByKhach")]
         public List<GetDonBanHang_ByKhachHang_Result> GetDBHByKhach(DataDBHByKH data)
         {
-           
+
             var query = db.Database.SqlQuery<GetDonBanHang_ByKhachHang_Result>("GetDonBanHang_ByKhachHang @macongty, @makhachhang", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("makhachhang", data.makh));
             resultDBHByKhach = query.ToList();
+
             return resultDBHByKhach;
         }
 
