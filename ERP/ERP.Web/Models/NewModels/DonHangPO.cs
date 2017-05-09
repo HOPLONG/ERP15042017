@@ -7,6 +7,7 @@ namespace ERP.Web.Models.NewModels
 {
     public class ThongTinDonPO
     {
+        public string SO_BAO_GIA { set; get; }
         public bool CAN_LAY_HOA_DON { set; get; }
         public bool CAN_XUAT_NGAY { set; get; }
         public string MA_SO_PO { get; set; }
