@@ -128,7 +128,6 @@ namespace ERP.Web.Api.KhachHang
         }
 
 
-
         [ResponseType(typeof(void))]
         [Route("api/Api_ChuyenSale/{makh}")]
         public IHttpActionResult PutKH_CHUYEN_SALES(string makh, KH_CHUYEN_SALES kH_CHUYEN_SALES)
@@ -174,8 +173,6 @@ namespace ERP.Web.Api.KhachHang
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
 
 
         // POST: api/Api_ChuyenSale
