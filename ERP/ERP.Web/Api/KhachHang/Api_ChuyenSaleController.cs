@@ -127,7 +127,23 @@ namespace ERP.Web.Api.KhachHang
             return Ok(kH_CHUYEN_SALES);
         }
 
-        
+
+
+        [ResponseType(typeof(void))]
+        [Route("api/Api_ChuyenSale/{makh}")]
+        public IHttpActionResult PutKH_CHUYEN_SALES(string makh, KH_CHUYEN_SALES kH_CHUYEN_SALES)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (makh != kH_CHUYEN_SALES.MA_KHACH_HANG)
+            {
+                return BadRequest();
+            }
+
             var query = db.KH_CHUYEN_SALES.Where(x => x.MA_KHACH_HANG == makh).FirstOrDefault();
             if (query != null)
             {
