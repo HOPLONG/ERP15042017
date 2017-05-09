@@ -26,15 +26,11 @@ namespace ERP.Web.Api.Kho
       
         // GET: api/Api_XuatKho/5
         [ResponseType(typeof(KHO_XUAT_KHO))]
-        public IHttpActionResult GetKHO_XUAT_KHO(string id)
+        [Route("api/Api_XuatKho/GetCTPhieuXuatKho/{ChungTu}")]
+        public List<GetChiTietPhieuXuatKho_Result> GetCTPhieuXuatKho(string ChungTu)
         {
-            KHO_XUAT_KHO kHO_XUAT_KHO = db.KHO_XUAT_KHO.Find(id);
-            if (kHO_XUAT_KHO == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(kHO_XUAT_KHO);
+            var data = db.Database.SqlQuery<GetChiTietPhieuXuatKho_Result>("GetChiTietPhieuXuatKho @sochungtu, @macongty", new SqlParameter("sochungtu", ChungTu), new SqlParameter("macongty", "HOPLONG"));
+            return data.ToList();
         }
 
         // PUT: api/Api_XuatKho/5
@@ -87,6 +83,10 @@ namespace ERP.Web.Api.Kho
                     {
                         newItem.SO_CHUNG_TU = xk.SO_CHUNG_TU;
                         newItem.MA_HANG = item.MA_HANG;
+
+                        newItem.MA_DIEU_CHINH = item.MA_DIEU_CHINH;
+
+                        newItem.MA_KHO_CON = item.MA_KHO_CON;
                         newItem.TK_CO = item.TK_CO;
                         newItem.TK_NO = item.TK_NO;
                         newItem.DVT = item.DVT;

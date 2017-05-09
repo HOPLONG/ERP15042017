@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using ERP.Web.Models.NewModels;
+using System.Data.SqlClient;
 
 namespace ERP.Web.Api.BaoGia
 {
@@ -18,28 +19,19 @@ namespace ERP.Web.Api.BaoGia
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: api/Api_DuyetDonPO
-        public List<ChiTietBaoGia> GetDuyet_Don_PO(string masoPO)
+        [Route(" api/Api_DuyetDonPO/GetThongtinChung/{masoPO}")]
+        public List<GetAll_ThongTinChungDonHangPO_Result> GetThongtinChung(string masoPO)
         {
-            var vData = (from t1 in db.BH_DON_HANG_PO
-                         join t3 in db.KHs on t1.MA_KHACH_HANG equals t3.MA_KHACH_HANG
-                         join t5 in db.HT_NGUOI_DUNG on t1.NHAN_VIEN_QUAN_LY equals t5.USERNAME
-                         where t1.MA_SO_PO == masoPO
-                         select new
-                         {
-                             t1.MA_SO_PO,
-                             t1.NGAY_LEN_PO,
-                             t1.MA_KHACH_HANG,
-                             t1.TEN_LIEN_HE,
-                             t1.HINH_THUC_THANH_TOAN,
-                             t1.TONG_TIEN_HANG,
-                             t1.SO_TIEN_VIET_BANG_CHU,
-                             t1.NGAY_GIAO_HANG,t1.DIA_DIEM_GIAO_HANG,t1.NHAN_VIEN_QUAN_LY,t1.DA_BAN_HANG,t1.TRUC_THUOC,t1.TONG_TIEN_THANH_TOAN,
-                             t1.TONG_TIEN_THUE_GTGT,t1.DA_GIU,t1.DA_HUY,t1.LY_DO_HUY,t1.CAN_LAY_HOA_DON,t1.CAN_XUAT_NGAY,t1.DA_DUYET,t1.NGUOI_DUYET,t1.DANG_DUYET
-                         });
-            var result = vData.ToList().Select(x => new ChiTietBaoGia()
-            {
-                
-            }).ToList();
+            var query = db.Database.SqlQuery<GetAll_ThongTinChungDonHangPO_Result>("GetAll_ThongTinChungDonHangPO @masoPO", new SqlParameter("masoPO", masoPO));
+            var result = query.ToList();
+            return result;
+        }
+
+        [Route(" api/Api_DuyetDonPO/ThongtinChitiet/{masoPO}")]
+        public List<GetAll_ChiTiet_DonHangPO_Result> ThongtinChitiet(string masoPO)
+        {
+            var query = db.Database.SqlQuery<GetAll_ChiTiet_DonHangPO_Result>("GetAll_ChiTiet_DonHangPO @masoPO", new SqlParameter("masoPO", masoPO));
+            var result = query.ToList();
             return result;
         }
 

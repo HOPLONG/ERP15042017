@@ -1057,6 +1057,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             TRUC_THUOC: 'HOPLONG',
             DA_BAN_HANG: false,
             NHAN_VIEN_QUAN_LY: salehienthoi,
+            SO_BAO_GIA: $scope.baogia.SO_BAO_GIA,
             NGAY_GIAO_HANG: $scope.ngay_giao_hang,
             DIA_DIEM_GIAO_HANG: $scope.dia_diem_giao_hang,
             CAN_XUAT_NGAY: $scope.can_xuat_ngay,
@@ -1071,6 +1072,43 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             url: window.location.origin + '/api/Api_DonHangPO/PostDon_Hang_PO'
         }).then(function successCallback(response) {
             SuccessSystem('Bạn đã tạo thành công 1 đơn PO có mã là ' + response.data)
+            $scope.PhuongAnKD = {
+                MA_SO_PO: response.data,
+                PHIEU_BAO_GIA:  $scope.BangBaoGia[0].SO_BAO_GIA,
+                MA_KHACH_HANG: $scope.BangBaoGia[0].MA_KHACH_HANG,
+                NOI_DUNG_PAKD: $scope.noi_dung_phuong_an_kinh_doanh,
+                TONG_GIA_TRI_VTHH_DAU_VAO: $scope.tong_gia_tri_vthh_dau_vao,
+                CHI_PHI_KHAC: $scope.BangBaoGia[0].PHI_VAN_CHUYEN,
+                TONG_GIA_TRI_DON_HANG_THUC_TE: $scope.tong_gia_tri_thuc_te_edit,
+                TONG_GIA_TRI_DON_HANG_THEO_PHIEU_XUAT_HOP_DONG: $scope.tong_gia_tri_theo_hop_dong_edit,
+                GIA_TRI_CHENH_LECH: $scope.gia_tri_chenh_lech_edit,
+                CHI_PHI_HOA_DON: 20,
+                TIEN_CHI_PHI_HOA_DON: $scope.tong_chi_phi_hoa_don_edit,
+                THUE_VAT: $scope.BangBaoGia[0].THUE_SUAT_GTGT,
+                TIEN_THUE_VAT: $scope.thue_vat_edit,
+                TONG_GIA_TRI_THU_CUA_KHACH: $scope.tong_gia_tri_thu_cua_khach_edit,
+                LOI_NHUAN_THUAN: $scope.loi_nhuan_thuan,
+                CHIET_KHAU_CHO_KHACH: $scope.tong_khach_nhan_edit,
+                THANH_TOAN_KHI_DAT_HANG: $scope.thanh_toan_khi_dat_hang,
+                THANH_TOAN_SAU_GIAO_HANG: $scope.thanh_toan_sau_giao_hang,
+                HINH_THUC_THANH_TOAN: $scope.BangBaoGia[0].PHUONG_THUC_THANH_TOAN,
+                HOA_DON_CHUNG_TU: $scope.hoa_don_chung_tu,
+                CONG_NO:  $scope.BangBaoGia[0].DIEU_KHOAN_THANH_TOAN,
+                TRUC_THUOC: 'HOPLONG',
+                NHAN_VIEN_QUAN_LY: username,
+            }
+
+            $http({
+                method: 'POST',
+                data: $scope.PhuongAnKD,
+                url: window.location.origin + '/api/Api_PhuongAnKinhDoanh/PostBH_PHUONG_AN_KINH_DOANH'
+            }).then(function successCallback(response) {
+                SuccessSystem('Bạn đã tạo thành công 1 đơn PO có mã là ' + response.data.MA_SO_PAKD);
+
+            }, function errorCallback(response) {
+                console.log(response);
+                ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            });
         }, function errorCallback(response) {
             console.log(response);
             ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
@@ -1708,7 +1746,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
     $scope.cachtinhthanhtiennew = ['Giá nhập', 'Giá list'];
     $scope.dieukhoanttnew = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
     $scope.ck_vat_new = [0, 5, 10];
-
+    $scope.hoadonchungtu = ['Hóa đơn đỏ(VAT)','Hóa đơn thường','Không hóa đơn']
 
     var mangso = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
     function dochangchuc(so, daydu) {
@@ -1831,6 +1869,9 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
     $scope.showInfoLH = function (p_dt) {
         $scope.id_lien_he = p_dt.ID_LIEN_HE;
         $scope.nguoi_lien_he = p_dt.NGUOI_LIEN_HE;
+        $scope.email_ca_nhan = p_dt.EMAIL_CA_NHAN;
+        $scope.sdt1 = p_dt.SDT1;
+        $scope.email_cong_ty = p_dt.EMAIL_CONG_TY;
         $scope.showtable_id_lien_he = false;
     }
 
@@ -1962,7 +2003,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         }
         $scope.Bao_Gia = {
             MA_KHACH_HANG: url,
-            TEN_LIEN_HE: $scope.id_lien_he,
+            TEN_LIEN_HE: $scope.nguoi_lien_he,
             HINH_THUC_THANH_TOAN: $scope.phuong_thuc_thanh_toan,
             TONG_TIEN_THANH_TOAN: $scope.tong_gia_tri_thu_cua_khach_new,
             TONG_TIEN_HANG: $scope.tong_gia_tri_thuc_te_new,
@@ -1972,25 +2013,81 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             TRUC_THUOC: 'HOPLONG',
             DA_BAN_HANG: false,
             NHAN_VIEN_QUAN_LY: username,
+            SO_BAO_GIA : $scope.BANGBAOGIA.SO_BAO_GIA,
             NGAY_GIAO_HANG: $scope.ngay_giao_hang,
             DIA_DIEM_GIAO_HANG: $scope.dia_diem_giao_hang,
             CAN_XUAT_NGAY: $scope.can_xuat_ngay,
             CAN_LAY_HOA_DON: $scope.can_lay_hoa_don,
             ChiTietPO: $scope.arrayChiTietBaoGia,
         };
+
         //Lưu vào CSDL
+
+
 
         $http({
             method: 'POST',
             data: $scope.Bao_Gia,
             url: window.location.origin + '/api/Api_DonHangPO/PostDon_Hang_PO'
         }).then(function successCallback(response) {
-            SuccessSystem('Bạn đã tạo thành công 1 đơn PO có mã là ' + response.data)
+            SuccessSystem('Bạn đã tạo thành công 1 đơn PO có mã là ' + response.data);
+            $scope.PhuongAnKD = {
+                    MA_SO_PO : response.data,
+                    PHIEU_BAO_GIA: $scope.BANGBAOGIA.SO_BAO_GIA,
+                    MA_KHACH_HANG: url,
+                    NOI_DUNG_PAKD: $scope.noi_dung_phuong_an_kinh_doanh,
+                    TONG_GIA_TRI_VTHH_DAU_VAO: $scope.tong_gia_tri_vthh_dau_vao,
+                    CHI_PHI_KHAC: $scope.phivanchuyen,
+                    TONG_GIA_TRI_DON_HANG_THUC_TE: $scope.tong_gia_tri_thuc_te_new,
+                    TONG_GIA_TRI_DON_HANG_THEO_PHIEU_XUAT_HOP_DONG: $scope.tong_gia_tri_theo_hop_dong_new,
+                    GIA_TRI_CHENH_LECH: $scope.gia_tri_chenh_lech_new,
+                    CHI_PHI_HOA_DON: 20,
+                    TIEN_CHI_PHI_HOA_DON: $scope.tong_chi_phi_hoa_don_new,
+                    THUE_VAT: $scope.thue_suat_gtgt,
+                    TIEN_THUE_VAT: $scope.thue_vat_new,
+                    TONG_GIA_TRI_THU_CUA_KHACH: $scope.tong_gia_tri_thu_cua_khach_new,
+                    LOI_NHUAN_THUAN: $scope.loi_nhuan_thuan,
+                    CHIET_KHAU_CHO_KHACH: $scope.tong_khach_nhan_new,
+                    THANH_TOAN_KHI_DAT_HANG: $scope.thanh_toan_khi_dat_hang,
+                    THANH_TOAN_SAU_GIAO_HANG: $scope.thanh_toan_sau_giao_hang,
+                    HINH_THUC_THANH_TOAN: $scope.phuong_thuc_thanh_toan,
+                    HOA_DON_CHUNG_TU: $scope.hoa_don_chung_tu,
+                    CONG_NO: $scope.dieu_khoan_thanh_toan,
+                    TRUC_THUOC: 'HOPLONG',
+                    NHAN_VIEN_QUAN_LY: username,
+                }
+
+                $http({
+                    method: 'POST',
+                    data: $scope.PhuongAnKD,
+                    url: window.location.origin + '/api/Api_PhuongAnKinhDoanh/PostBH_PHUONG_AN_KINH_DOANH'
+                }).then(function successCallback(response) {
+                    SuccessSystem('Bạn đã tạo thành công 1 đơn PO có mã là ' + response.data.MA_SO_PAKD);
+
+                }, function errorCallback(response) {
+                    console.log(response);
+                    ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+                });
         }, function errorCallback(response) {
             console.log(response);
             ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
         });
     };
+
+    $scope.new_ct_khachhang = function () {
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+
+        $http.get('/api/Api_KH/GetCT_KH/' + url).then(function (response) {
+            $scope.list_chitietkhachhangnew = response.data;
+        });
+    };
+    $scope.new_ct_khachhang();
 
 });
 

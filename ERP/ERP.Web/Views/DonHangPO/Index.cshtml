@@ -11,6 +11,22 @@
     <input type="hidden" value="@Session["USERNAME"]" id="username" />
     <input type="hidden" id="isadmin" name="isadmin" value="@Session["IS_AMIN"]" />
     <div class="content">
+        <div class="container">
+            <table class="table">
+                <tr ng-repeat="item in Detail.ListLocDuLieu">
+                    <td>
+                       Đã duyêt : <input type="checkbox" ng-model="item.da_duyet" ng-change="trangthai(item)" />
+                    </td>
+                    <td>
+                       Đang duyệt <input type="checkbox" ng-model="item.dang_duyet" ng-change="trangthai(item)" />
+                    </td>
+                    <td>
+                       Đã giữ <input type="checkbox" ng-model="item.da_giu" ng-change="trangthai(item)" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
         <table class="table">
             <thead>
                 <tr>
@@ -25,8 +41,9 @@
                     <th>Số tiền viết bằng chữ</th>
                     <th>Nhân viên quản lý</th>
                     <th>Địa điểm giao hàng</th>
-                    <th>Đã xuất kho</th>
-                    <th>Đã lập hóa đơn</th>
+                    <th>Đã giữ</th>
+                    <th>Đã duyệt</th>
+                    <th>Đang duyệt</th>
                     <th>Sửa</th>
                 </tr>
             </thead>
@@ -43,8 +60,9 @@
                     <td>{{entry.SO_TIEN_VIET_BANG_CHU}}</td>
                     <td>{{entry.HO_VA_TEN}}</td>
                     <td>{{entry.DIA_DIEM_GIAO_HANG}}</td>
-                    <td><input type="checkbox" ng-disabled="true" ng-model="entry.DA_XUAT_KHO" /></td>
-                    <td><input type="checkbox" ng-disabled="true" ng-model="entry.DA_LAP_HOA_DON" /></td>
+                    <td><input type="checkbox" ng-disabled="true" ng-model="entry.DA_GIU" /></td>
+                    <td><input type="checkbox" ng-disabled="true" ng-model="entry.DA_DUYET" /></td>
+                    <td><input type="checkbox" ng-disabled="true" ng-model="entry.DANG_DUYET" /></td>
                     <td><a href="/DonHangPO/Edit/{{entry.MA_SO_PO}}">Sửa đơn PO</a></td>
                 </tr>
             </tbody>
