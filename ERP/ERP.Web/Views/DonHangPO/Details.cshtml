@@ -4,87 +4,290 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<script src="~/Content/self-writing/js/Controllers/DuyetBaoGiaCtrl.js"></script>
+<script src="~/Content/self-writing/js/Services/DuyetBaoGiaService.js"></script>
 
-<div>
-    <h4>BH_DON_HANG_PO</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NGAY_LEN_PO)
-        </dt>
+<div ng-app="myApp" ng-controller="DuyetBaoGiaCtrl">
+    <input type="hidden" id="username" name="salehienthoi" value="@Session["USERNAME"]" />
+    <!-- Dashboard content -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-white">
+                <div class="panel-heading color-heading">
+                    <h6 class="panel-title">Giữ Hàng</h6>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NGAY_LEN_PO)
-        </dd>
+                <div class="panel-body">
+                    <!--Thông tin chung-->
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Thông tin chung<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" ng-repeat="item in list_duyetbaogia">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TEN_LIEN_HE)
-        </dt>
+                                    <!--Khách Hàng-->
+                                    <div class="form-group">
+                                        <!--Mã khách-->
+                                        <div class="col-md-6">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Khách hàng </label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <input type="text" readonly class="form-control" ng-model="item.TEN_CONG_TY">
+                                                    <input type="hidden" class="form-control" ng-model="item.MA_KHACH_HANG">
+                                                    <input type="hidden" class="form-control" ng-model="item.SO_BAO_GIA">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end Mã khách-->
+                                        <!--Tên công ty-->
+                                        <div class="col-md-6">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Sale báo giá </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input type="text" readonly class="form-control" ng-model="item.HO_VA_TEN">
+                                                    <input type="hidden" class="form-control" ng-model="item.USER_NAME">
+                                                </div>
+                                            </div>
+                                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.TEN_LIEN_HE)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HINH_THUC_THANH_TOAN)
-        </dt>
+                                    </div>
+                                    <!--End khách hàng-->
+                                    <!--Liên hệ-->
+                                    <div class="form-group">
+                                        <!--Mã khách-->
+                                        <div class="col-md-6">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Người Liên hệ </label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <input type="text" readonly class="form-control" ng-model="item.NGUOI_LIEN_HE">
+                                                    <input type="hidden" class="form-control" ng-model="item.LIEN_HE_KHACH_HANG">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end Mã khách-->
+                                        <!--Tên công ty-->
+                                        <div class="col-md-6">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Phương thức thanh toán </label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" readonly class="form-control" ng-model="item.PHUONG_THUC_THANH_TOAN">
+                                            </div>
+                                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.HINH_THUC_THANH_TOAN)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.THUE_SUAT_GTGT)
-        </dt>
+                                    </div>
+                                    <!--End Liên hệ-->
+                                    <!--Ngày báo giá-->
+                                    @*<div class="form-group">
+                                            <div class="col-md-6">
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Ngày báo giá </label>
+                                                </div>
+                                                <div class="col-md-8">
 
-        <dd>
-            @Html.DisplayFor(model => model.THUE_SUAT_GTGT)
-        </dd>
+                                                    <input type="text" datepicker class="form-control datetimepickerKT" ng-model="BangBaoGia.ngay_bao_gia">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TIEN_THUE_GTGT)
-        </dt>
+                                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.TIEN_THUE_GTGT)
-        </dd>
+                                        </div>*@
+                                    <!--end ngày báo giá-->
+                                    <!--Người báo giá-->
+                                    <div class="form-group">
+                                        <!--Mã khách-->
+                                        <div class="col-md-6">
+                                            <label class="col-md-3">Văn phòng giao dịch</label>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TONG_TIEN_THANH_TOAN)
-        </dt>
+                                            <div class="col-md-8"><input type="text" readonly class="form-control" ng-model="item.VAN_PHONG_GIAO_DICH"></div>
+                                        </div>
+                                        <!-- end Mã khách-->
+                                        <!--Tên công ty-->
+                                        <div class="col-md-6">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Hạn thanh toán </label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" readonly ng-model="item.HAN_THANH_TOAN" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End người báo giá-->
 
-        <dd>
-            @Html.DisplayFor(model => model.TONG_TIEN_THANH_TOAN)
-        </dd>
+                                    <div class="form-group">
+                                        <!--Mã khách-->
+                                        <div class="col-md-6">
+                                            <label class="col-md-3">Địa chỉ xuất hóa đơn</label>
+                                            <div class="col-md-8"><input type="text" readonly class="form-control col-md-8" ng-model="item.DIA_CHI_XUAT_HOA_DON"></div>
+                                        </div>
+                                        <!-- end Mã khách-->
+                                        <!--Tên công ty-->
+                                        <div class="col-md-6">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Điều khoản thanh toán </label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" readonly class="form-control col-md-8" ng-model="item.DIEU_KHOAN_THANH_TOAN">
+                                            </div>
+                                        </div>
+                                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SO_TIEN_VIET_BANG_CHU)
-        </dt>
+                                    <!--Mã dự kiến-->
+                                    <div class="form-group">
+                                        <!--Mã khách-->
+                                        <div class="col-md-6">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Mã dự kiến </label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" readonly ng-model="item.MA_DU_KIEN">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" readonly class="form-control " ng-value="(item.NGAY_TAO | date: 'dd/MM/yyyy')">
+                                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.SO_TIEN_VIET_BANG_CHU)
-        </dd>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Hiệu lực báo giá </label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="number" class="form-control" readonly ng-model="item.HIEU_LUC_BAO_GIA" />
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label">Phí vận chuyển </label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="number" class="form-control" readonly ng-model="item.PHI_VAN_CHUYEN" id="phivanchuyen" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <input type="checkbox" id="da_huy" ng-model="da_huy" ng-click="test()"> Đã hủy
+                                            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.KH.TEN_CONG_TY)
-        </dt>
+                                            <div class="col-md-3"><input type="checkbox" ng-model="da_duyet"> Đã duyệt</div>
+                                        </div>
+                                        <div class="col-md-12" id="lydohuy" style="display:none">
+                                            <textarea ng-model="ly_do_huy" placeholder="Lý do hủy" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Thông tin chung-->
+                    <!--Chi tiết giữ hàng-->
+                    <div class="col-md-12 content-group" style="">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover ">
+                                <thead>
+                                    <tr class="bg-primary-300">
+                                        <th class="text-center">Mã hàng</th>
+                                        <th class="text-center">Số lượng</th>
+                                        <th class="text-center !important">Đơn giá</th>
+                                        <th class="text-center !important">Chiết khấu</th>
+                                        <th class="text-center">Thành tiền</th>
+                                        <th class="text-center !important">Tình trạng hàng</th>
+                                        <th class="text-center">Thời gian giao hàng</th>
+                                        <th class="text-center !important">Ngày giao hàng</th>
+                                        <th class="text-center !important">Địa điểm giao hàng</th>
+                                        <th class="text-center">Ghi chú</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="detail in Detail.ListAdd">
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="detail.MA_HANG" readonly class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="detail.SO_LUONG" readonly class="form-control" ng-change="kiemtra(item)">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="number" ng-model="detail.DON_GIA" readonly class="form-control" ng-change="kiemtra(item)">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="number" ng-model="detail.CHIET_KHAU" readonly class="form-control" ng-change="kiemtra(item)">
+                                        </td>
+                                        <td class="text-center">
+                                            {{detail.THANH_TIEN | currency: '':0}}
+                                            <input ng-model="detail.THANH_TIEN" class="form-control" readonly type="hidden" ng-disabled="true" />
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" ng-model="detail.TINH_TRANG_HANG" readonly class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" ng-model="detail.THOI_GIAN_GIAO_HANG" readonly class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" mask="39/39/9999" ng-model="detail.NGAY_GIAO_HANG" readonly class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" ng-model="detail.DIA_DIEM_GIAO_HANG" readonly class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" ng-model="detail.GHI_CHU" readonly class="form-control">
+                                        </td>
+                                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.KH.TEN_CONG_TY)
-        </dd>
+                                    @*<tr >
+                                            <td colspan="10" style="text-align:center; cursor:pointer" ng-click="AddNew()">Bấm vào đây để thêm mới</td>
+                                        </tr>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CCTC_NHAN_VIEN.GIOI_TINH)
-        </dt>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="col-md-12">
+                                                <label class="col-md-3">Tổng thành tiền: </label>
+                                                <p class="col-md-6" style="text-align:right">{{tong_thanh_tien | currency: '':0}} vnd</p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-md-3">VAT 10% : </label>
+                                                <p class="col-md-6" style="text-align:right">{{tong_tien_VAT | currency: '':0}} vnd</p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <hr />
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-md-3">Tổng tiền(đã tính phí vận chuyển): </label>
+                                                <p class="col-md-6" style="text-align:right" id="tong_tien">{{BangBaoGia.tong_tien | currency: '':0}} vnd</p>
+                                            </div>
+                                        </td>
+                                        <td colspan="9"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-primary" ng-click="onSave(item.SO_BAO_GIA)"><i class="icon-floppy-disk"></i> Lưu</button>
+                        <a href="/" class="btn bg-orange-400"><i class="icon-blocked"></i> Bỏ qua</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CCTC_NHAN_VIEN.GIOI_TINH)
-        </dd>
-
-    </dl>
+    <!-- /dashboard content -->
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MA_SO_PO }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+

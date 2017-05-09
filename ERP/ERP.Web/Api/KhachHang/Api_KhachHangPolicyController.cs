@@ -19,9 +19,20 @@ namespace ERP.Web.Api.KhachHang
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: api/Api_KhachHangPolicy
-        public IQueryable<KH_POLICY> GetKH_POLICY()
+        [Route("api/Api_KhachHangPolicy/GetNvMuaHang")]
+        public List<HopLong_GetAll_Nhanvien_MuaHang_Result> GetNvMuaHang()
         {
-            return db.KH_POLICY;
+            var query = db.Database.SqlQuery<HopLong_GetAll_Nhanvien_MuaHang_Result>("HopLong_GetAll_Nhanvien_MuaHang @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var result = query.ToList();
+            return result;
+        }
+
+        [Route("api/Api_KhachHangPolicy/GetNvMarketing")]
+        public List<Prod_GetAll_Marketing_Result> GetNvMarketing()
+        {
+            var query = db.Database.SqlQuery<Prod_GetAll_Marketing_Result>("Prod_GetAll_Marketing @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var result = query.ToList();
+            return result;
         }
 
         // GET: api/Api_KhachHangPolicy/5
@@ -109,6 +120,8 @@ namespace ERP.Web.Api.KhachHang
                 HH_NHOM_VTHH newvthh = new HH_NHOM_VTHH();
                 newvthh.MA_NHOM_HANG_CHI_TIET = kH_POLICY.MA_NHOM_HANG;
                 newvthh.MA_NHOM_HANG_CHA = kH_POLICY.MA_NHOM_HANG_CHA;
+                newvthh.PURC_PHU_TRACH = kH_POLICY.PURC_PHU_TRACH;
+                newvthh.MARK_PHU_TRACH = kH_POLICY.MARK_PHU_TRACH;
                 db.HH_NHOM_VTHH.Add(newvthh);
                 db.SaveChanges();
 
