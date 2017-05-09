@@ -86,6 +86,7 @@ app.controller('FeedBackCtrl', function ($scope, $http) {
 
 
             else {
+                CKEDITOR.instances.noidungphanhoi.setData('');
                 new PNotify({
                     title: 'Thành công',
                     text: 'Phản hồi của bạn đã được gửi',
@@ -93,7 +94,7 @@ app.controller('FeedBackCtrl', function ($scope, $http) {
                 });
             }
         }, function (error) {
-            ConnectFail();
+            ErrorSystem();
         });
     }
 })
