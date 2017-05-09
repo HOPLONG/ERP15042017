@@ -128,38 +128,7 @@ namespace ERP.Web.Api.KhachHang
         }
 
         
-            var query = db.KH_CHUYEN_SALES.Where(x => x.MA_KHACH_HANG == makh).FirstOrDefault();
-            if (query != null)
-            {
-                
-                    query.SALE_CU_2 = query.SALE_CU;
-                    query.SALE_CU = query.SALE_HIEN_THOI;
-                    query.SALE_HIEN_THOI = kH_CHUYEN_SALES.SALE_HIEN_THOI;
-                   
-                        query.KHO_PHU_TRACH = kH_CHUYEN_SALES.KHO_PHU_TRACH;
-                   
-            }
-            
-          //  db.Entry(kH_CHUYEN_SALES).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!KH_CHUYEN_SALESExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
 
 
         // POST: api/Api_ChuyenSale
