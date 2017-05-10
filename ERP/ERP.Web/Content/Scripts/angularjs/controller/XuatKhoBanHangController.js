@@ -248,14 +248,27 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
                 ConnectFail();
             });
         //-------------------------------
-
-
         $http({
             method: 'GET',
             url: '/api/Api_BanHang/Get_DON_BAN_HANG'
         }).then(function (response) {
             if (typeof (response.data) == "object") {
                 $scope.DonBanHang = response.data;
+            }
+            else {
+                ErrorSystem();
+            }
+        }, function (error) {
+            ConnectFail();
+        });
+
+        //-----------
+        $http({
+            method: 'GET',
+            url: '/api/Api_BanHang/Get_DON_BAN_HANG_CHUA_XUAT'
+        }).then(function (response) {
+            if (typeof (response.data) == "object") {
+                $scope.DonBanHangChuaXuat = response.data;
             }
             else {
                 ErrorSystem();
@@ -497,6 +510,7 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
             NHAN_VIEN_BAN_HANG: $scope.GeneralInfo.Username,
             LY_DO_XUAT: $scope.GeneralInfo.DienGiai,
             NGUOI_NHAN: $scope.GeneralInfo.NguoiNhan,
+            PHIEU_BAN_HANG: $scope.ThamChieu.DonBanHang,
             NGUOi_LAP_PHIEU: a,
             TRUC_THUOC: b,
         }
@@ -519,6 +533,7 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
                     addclass: 'bg-primary'
                 });
             }
+            
         }, function (error) {
             ConnectFail();
         });
@@ -607,6 +622,7 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
     }
 
     $scope.ShowDonHangTra = function () {
+        
         if ($("#DonTraHang").css("display") == "none") {
             $(".tableselect").css({ "display": "none" });
             $("#DonTraHang").css({ "display": "block" });
@@ -615,6 +631,9 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
 
             $(".tableselect").css({ "display": "none" });
         }
+        
+
+        
     }
 
 
@@ -853,7 +872,6 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
     $scope.RemoveRow = function (index) {
         $scope.Detail.ListAdd.splice(index, 1);
 
-        ResetAfterSave();
     }
     $scope.SetThamChieu = function () {
         var length = $scope.ThamChieu.ListResult.length;
