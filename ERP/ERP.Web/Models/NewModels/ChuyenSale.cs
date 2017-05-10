@@ -15,13 +15,14 @@ namespace ERP.Web.Models.NewModels
         public string TINH { set; get; }
         public string QUOC_GIA { set; get; }
         public string SALE_HIEN_THOI { set; get; }
-        public string SALE_SAP_CHUYEN { set; get; }
+        public string KHO_PHU_TRACH { set; get; }
         public string SALE_CU { set; get; }
         public string SALE_CU_2 { set; get; }   
         public string HO_VA_TEN { set; get; }
         public string TEN_SALE_HIEN_THOI { set; get; }
-        public string TEN_SALE_SAP_CHUYEN { set; get; }
+        public string TEN_KHO_PHU_TRACH { set; get; }
         public string TEN_SALE_CU { set; get; }
         public string TEN_SALE_CU_HON { set; get; }
+    
     }
 }

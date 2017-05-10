@@ -594,7 +594,9 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
         $scope.ThamChieu.ListSelect = [];
         $scope.ThamChieu.ListSelect.push({ SO_CHUNG_TU: item.MA_SO_BH});
         $scope.ThamChieu.DonBanHang = item.MA_SO_BH;
+
         $(".tableselect").css({ "display": "none" });
+
 
         $http({
             method: 'GET',
@@ -607,7 +609,7 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
                 $scope.GeneralInfo.NhanVienBanHang = response.data.donbanhang.HO_VA_TEN,
                 $scope.GeneralInfo.Username = response.data.donbanhang.NHAN_VIEN_QUAN_LY
                 $scope.LoadHangTra = true;
-                
+
             }
             else {
                 ErrorSystem();
@@ -616,9 +618,9 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
             ConnectFail();
         });
         
-       
+
     }
-    
+
     $scope.ShowDonHangTra = function () {
         
         if ($("#DonTraHang").css("display") == "none") {

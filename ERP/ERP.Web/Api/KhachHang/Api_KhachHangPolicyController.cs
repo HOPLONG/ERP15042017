@@ -19,9 +19,20 @@ namespace ERP.Web.Api.KhachHang
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: api/Api_KhachHangPolicy
-        public IQueryable<KH_POLICY> GetKH_POLICY()
+        [Route("api/Api_KhachHangPolicy/GetNvMuaHang")]
+        public List<HopLong_GetAll_Nhanvien_MuaHang_Result> GetNvMuaHang()
         {
-            return db.KH_POLICY;
+            var query = db.Database.SqlQuery<HopLong_GetAll_Nhanvien_MuaHang_Result>("HopLong_GetAll_Nhanvien_MuaHang @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var result = query.ToList();
+            return result;
+        }
+
+        [Route("api/Api_KhachHangPolicy/GetNvMarketing")]
+        public List<Prod_GetAll_Marketing_Result> GetNvMarketing()
+        {
+            var query = db.Database.SqlQuery<Prod_GetAll_Marketing_Result>("Prod_GetAll_Marketing @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var result = query.ToList();
+            return result;
         }
 
         // GET: api/Api_KhachHangPolicy/5
@@ -35,19 +46,33 @@ namespace ERP.Web.Api.KhachHang
 
         // PUT: api/Api_KhachHangPolicy/5
         [Route("api/Api_KhachHangPolicy/PutKH_POLICY/{id}")]
-        public IHttpActionResult PutKH_POLICY(int id, KH_POLICY kH_POLICY)
+        public IHttpActionResult PutKH_POLICY(int id, KH_POLICY policy)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != kH_POLICY.ID)
+            if (id != policy.ID)
             {
                 return BadRequest();
             }
-
-            db.Entry(kH_POLICY).State = EntityState.Modified;
+            var query = db.KH_POLICY.Where(x => x.ID == id).FirstOrDefault();
+            if (query != null)
+            {
+                query.CK_HISTORY_3 = query.CK_HISTORY_2;
+                query.GIA_HISTORY_3 = query.GIA_HISTORY_2;
+                query.CK_HISTORY_2 = query.CK_HISTORY_1;
+                query.GIA_HISTORY_2 = query.GIA_HISTORY_1;
+                query.CK_HISTORY_1 = query.CK;
+                query.GIA_HISTORY_1 = query.GIA_BAN;
+                query.CK = policy.CK;
+                query.GIA_BAN = policy.GIA_BAN;
+                query.NGUOI_CAP_NHAT = policy.NGUOI_CAP_NHAT;
+                query.NGAY_CAP_NHAT = DateTime.Now;
+            }
+            
+            // db.Entry(kH_POLICY).State = EntityState.Modified;
 
             try
             {
@@ -86,6 +111,7 @@ namespace ERP.Web.Api.KhachHang
                 newpolicy.NGAY_CAP_NHAT = DateTime.Today.Date;
                 newpolicy.GIA_BAN = kH_POLICY.GIA_BAN;
                 newpolicy.CK = kH_POLICY.CK;
+                newpolicy.NGUOI_CAP_NHAT = kH_POLICY.NGUOI_CAP_NHAT;
                 db.KH_POLICY.Add(newpolicy);
                 db.SaveChanges();
             }
@@ -94,6 +120,8 @@ namespace ERP.Web.Api.KhachHang
                 HH_NHOM_VTHH newvthh = new HH_NHOM_VTHH();
                 newvthh.MA_NHOM_HANG_CHI_TIET = kH_POLICY.MA_NHOM_HANG;
                 newvthh.MA_NHOM_HANG_CHA = kH_POLICY.MA_NHOM_HANG_CHA;
+                newvthh.PURC_PHU_TRACH = kH_POLICY.PURC_PHU_TRACH;
+                newvthh.MARK_PHU_TRACH = kH_POLICY.MARK_PHU_TRACH;
                 db.HH_NHOM_VTHH.Add(newvthh);
                 db.SaveChanges();
 
@@ -102,7 +130,8 @@ namespace ERP.Web.Api.KhachHang
                 newpolicy.MA_KHACH_HANG = kH_POLICY.MA_KHACH_HANG;
                 newpolicy.GIA_BAN = kH_POLICY.GIA_BAN;
                 newpolicy.CK = kH_POLICY.CK;
-                newpolicy.NGAY_CAP_NHAT = DateTime.Today.Date;
+                newpolicy.NGUOI_CAP_NHAT = kH_POLICY.NGUOI_CAP_NHAT;
+                newpolicy.NGAY_CAP_NHAT = DateTime.Now;
                 db.KH_POLICY.Add(newpolicy);
                 db.SaveChanges();
             }

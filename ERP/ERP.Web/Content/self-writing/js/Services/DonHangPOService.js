@@ -1,6 +1,6 @@
 ﻿app.service('DonHangPOService', function ($http) {
-    this.get_danhsachPO = function () {
-        return $http.get("/api/Api_DonHangPO/GetBH_DON_HANG_PO").then(function (response) {
+    this.get_danhsachPO = function (isadmin,username) {
+        return $http.get("/api/Api_DonHangPO/GetBH_DON_HANG_PO/" + isadmin + '/' + username).then(function (response) {
             return response.data;
         });
     };

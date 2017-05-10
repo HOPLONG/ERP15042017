@@ -31,14 +31,14 @@ namespace ERP.Web.Api.KhachHang
                 DIA_CHI_XUAT_HOA_DON = x.DIA_CHI_XUAT_HOA_DON,
                 TINH = x.TINH,
                 QUOC_GIA = x.QUOC_GIA,
-                SALE_SAP_CHUYEN = x.SALE_SAP_CHUYEN,
+                KHO_PHU_TRACH = x.KHO_PHU_TRACH,
                 SALE_HIEN_THOI = x.SALE_HIEN_THOI,
                 SALE_CU_2 = x.SALE_CU_2,
                 SALE_CU = x.SALE_CU,
                 TEN_SALE_HIEN_THOI = x.TEN_SALE_HIEN_THOI,
                 TEN_SALE_CU_HON = x.TEN_SALE_CU_HON,
                 TEN_SALE_CU = x.TEN_SALE_CU,
-                TEN_SALE_SAP_CHUYEN = x.TEN_SALE_SAP_CHUYEN,
+                TEN_KHO_PHU_TRACH = x.TEN_KHO_PHU_TRACH,
 
             }).ToList();
             //var vData = (from t1 in db.KHs
@@ -75,68 +75,35 @@ namespace ERP.Web.Api.KhachHang
             //    return BadRequest(ModelState);
             //}
             var query = db.KH_CHUYEN_SALES.Where(x => x.MA_KHACH_HANG == datachuyensale.MA_KHACH_HANG).FirstOrDefault();
-             if(query == null)
+            if (query == null)
             {
                 KH_CHUYEN_SALES chuyensale = new KH_CHUYEN_SALES();
                 chuyensale.MA_KHACH_HANG = datachuyensale.MA_KHACH_HANG;
                 chuyensale.SALE_HIEN_THOI = datachuyensale.SALE_HIEN_THOI;
-                chuyensale.SALE_SAP_CHUYEN = datachuyensale.SALE_SAP_CHUYEN;
+                chuyensale.KHO_PHU_TRACH = datachuyensale.KHO_PHU_TRACH;
                 chuyensale.SALE_CU = datachuyensale.SALE_CU;
                 chuyensale.SALE_CU_2 = datachuyensale.SALE_CU_2;
                 db.KH_CHUYEN_SALES.Add(chuyensale);
             }
-             else
+            else
             {
-                if (query.SALE_SAP_CHUYEN == datachuyensale.SALE_HIEN_THOI)
-                {
-                    query.SALE_CU_2 = query.SALE_CU;
-                    query.SALE_CU = query.SALE_HIEN_THOI;
-                    query.SALE_HIEN_THOI = datachuyensale.SALE_HIEN_THOI;
-                    if (datachuyensale.SALE_SAP_CHUYEN != query.SALE_SAP_CHUYEN)
-                    {
-                        query.SALE_SAP_CHUYEN = datachuyensale.SALE_SAP_CHUYEN;
-                    }
-                    else
-                    {
-                        query.SALE_SAP_CHUYEN = null;
-                    }
-                }
-                else
-                {
 
-                    if (datachuyensale.SALE_SAP_CHUYEN != "None" && datachuyensale.SALE_SAP_CHUYEN != null)
-                    {
-                        query.SALE_SAP_CHUYEN = datachuyensale.SALE_SAP_CHUYEN;
-                    }
-                    else
-                    {
                         query.SALE_CU_2 = query.SALE_CU;
                         query.SALE_CU = query.SALE_HIEN_THOI;
                         query.SALE_HIEN_THOI = datachuyensale.SALE_HIEN_THOI;
-                        query.SALE_SAP_CHUYEN = null;
-
-                    }
+                        query.KHO_PHU_TRACH = datachuyensale.KHO_PHU_TRACH;
+                
                 }
 
-
-
-
-              
-
-
-
-
-
-            }
             try
             {
                 await db.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                
-                    throw;
-                
+
+                throw;
+
             }
             //return this.CreatedAtRoute("GetNH_NTTK", new { id = nH_NTTK.SO_CHUNG_TU }, nH_NTTK);
             return Ok(datachuyensale);
@@ -160,17 +127,17 @@ namespace ERP.Web.Api.KhachHang
             return Ok(kH_CHUYEN_SALES);
         }
 
-        // PUT: api/Api_ChuyenSale/5
+
         [ResponseType(typeof(void))]
         [Route("api/Api_ChuyenSale/{makh}")]
         public IHttpActionResult PutKH_CHUYEN_SALES(string makh, KH_CHUYEN_SALES kH_CHUYEN_SALES)
         {
-         
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            
+
             if (makh != kH_CHUYEN_SALES.MA_KHACH_HANG)
             {
                 return BadRequest();
@@ -180,38 +147,15 @@ namespace ERP.Web.Api.KhachHang
             if (query != null)
             {
 
-              
-                if (query.SALE_SAP_CHUYEN == kH_CHUYEN_SALES.SALE_HIEN_THOI)
-                {
-                    query.SALE_CU_2 = query.SALE_CU;
-                    query.SALE_CU = query.SALE_HIEN_THOI;
-                    query.SALE_HIEN_THOI = kH_CHUYEN_SALES.SALE_HIEN_THOI;
-                    if (kH_CHUYEN_SALES.SALE_SAP_CHUYEN != query.SALE_SAP_CHUYEN)
-                    {
-                        query.SALE_SAP_CHUYEN = kH_CHUYEN_SALES.SALE_SAP_CHUYEN;
-                    }
-                    else
-                    {
-                        query.SALE_SAP_CHUYEN = null;
-                    }
-                }
-                else
-                {
-                    if (kH_CHUYEN_SALES.SALE_SAP_CHUYEN != "None")
-                    {
-                        query.SALE_SAP_CHUYEN = kH_CHUYEN_SALES.SALE_SAP_CHUYEN;
-                    }
-                    else
-                    {
-                        query.SALE_SAP_CHUYEN = null;
-                    }
-                }
+                query.SALE_CU_2 = query.SALE_CU;
+                query.SALE_CU = query.SALE_HIEN_THOI;
+                query.SALE_HIEN_THOI = kH_CHUYEN_SALES.SALE_HIEN_THOI;
 
-
+                query.KHO_PHU_TRACH = kH_CHUYEN_SALES.KHO_PHU_TRACH;
 
             }
-            
-          //  db.Entry(kH_CHUYEN_SALES).State = EntityState.Modified;
+
+            //  db.Entry(kH_CHUYEN_SALES).State = EntityState.Modified;
 
             try
             {
@@ -228,9 +172,10 @@ namespace ERP.Web.Api.KhachHang
                     throw;
                 }
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok();
         }
+
+
 
         // POST: api/Api_ChuyenSale
         [ResponseType(typeof(KH_CHUYEN_SALES))]

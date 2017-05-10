@@ -1,6 +1,7 @@
 ﻿using ERP.Web.Models.Database;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -29,6 +30,25 @@ namespace ERP.Web.Controllers
                 return HttpNotFound();
             }
             return View(bH_BAO_GIA);
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// using partial view for pdf generation
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DownloadBaoGiaPDF(string so_bao_gia, string macongty)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_GetThongTinBaoGia_Result > ("Prod_BH_GetThongTinBaoGia @so_bao_gia, @macongty", new SqlParameter("so_bao_gia", so_bao_gia), new SqlParameter("macongty", macongty));
+            var result = query.ToList();
+            // var model = new GeneratePDFModel();
+            
+
+            return new Rotativa.PartialViewAsPdf("ViewBaoGiaPDF", result) { FileName = "partialViewAsPdf.pdf" };
         }
     }
 }

@@ -16,17 +16,39 @@ using System.Text.RegularExpressions;
 
 namespace ERP.Web.Api.DonHangPO
 {
+    public class LocDuLieu
+    {
+        public string username { get; set; }
+        public string macongty { get; set; }
+        public Boolean isadmin { get; set; }
+        public Boolean da_duyet { get; set; }
+        public Boolean dang_duyet { get; set; }
+        public Boolean da_giu { get; set; }
+    }
     public class Api_DonHangPOController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
         XuLyNgayThang xlnt = new XuLyNgayThang();
+        int tongton;
         // GET: api/Api_DonHangPO
-        [Route("api/Api_DonHangPO/GetBH_DON_HANG_PO")]
-        public List<GetAll_DonHangPO_Result> GetBH_DON_HANG_PO()
+        [Route("api/Api_DonHangPO/GetBH_DON_HANG_PO/{isadmin}/{sale}")]
+        public List<GetAll_DonHangPO_Result> GetBH_DON_HANG_PO(bool isadmin,string sale)
         {
-            var query = db.Database.SqlQuery<GetAll_DonHangPO_Result>("GetAll_DonHangPO @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var query = db.Database.SqlQuery<GetAll_DonHangPO_Result>("GetAll_DonHangPO @macongty,@isadmin,@sale", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("isadmin", isadmin), new SqlParameter("sale", sale));
             var result = query.ToList();
             return result;
+        }
+
+        [Route("api/Api_DonHangPO/LocDuLieuPO")]
+        public List<Prod_LocDonHangPO_Result> LocDuLieuPO(LocDuLieu timkiem)
+        {
+            var query = db.Database.SqlQuery<Prod_LocDonHangPO_Result>("Prod_LocDonHangPO @macongty, @isadmin,@sale, @dagiu, @daduyet,@dangduyet", new SqlParameter("macongty","HOPLONG"), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("sale", timkiem.username), new SqlParameter("dagiu", timkiem.da_giu), new SqlParameter("daduyet", timkiem.da_duyet), new SqlParameter("dangduyet", timkiem.dang_duyet));
+            var result = query.ToList();
+
+            var kq = result.Take(10).ToList();
+            return kq;
+
+
         }
 
         // GET: api/Api_DonHangPO/5
@@ -37,6 +59,16 @@ namespace ERP.Web.Api.DonHangPO
             var result = query.ToList();
             return result;
         }
+
+        // Danh sach PO can duyet
+        [Route("api/Api_DonHangPO/ListPO_Duyet/{username}/{isadmin}")]
+        public List<Prod_BH_List_PO_CanDuyet_Result> ListPO_Duyet(string username,bool isadmin)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_PO_CanDuyet_Result>("Prod_BH_List_PO_CanDuyet @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
 
         // PUT: api/Api_DonHangPO/5
         [ResponseType(typeof(void))]
@@ -223,6 +255,7 @@ namespace ERP.Web.Api.DonHangPO
             baogia.TRUC_THUOC = thongtinPO.TRUC_THUOC;
             baogia.DA_BAN_HANG = thongtinPO.DA_BAN_HANG;
             baogia.NHAN_VIEN_QUAN_LY = thongtinPO.NHAN_VIEN_QUAN_LY;
+            baogia.SO_BAO_GIA = thongtinPO.SO_BAO_GIA;
             if(thongtinPO.NGAY_GIAO_HANG != null)
             baogia.NGAY_GIAO_HANG =xlnt.Xulydatetime(thongtinPO.NGAY_GIAO_HANG.ToString());
             baogia.DIA_DIEM_GIAO_HANG = thongtinPO.DIA_DIEM_GIAO_HANG;
@@ -233,6 +266,19 @@ namespace ERP.Web.Api.DonHangPO
 
             foreach (var item in thongtinPO.ChiTietPO)
             {
+                var query = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG).ToList();
+                tongton = 0;
+                if (query != null)
+                {
+                    foreach (var tonkho in query)
+                    {
+                        tongton = tongton + tonkho.SL_HOPLONG;
+                    }
+                } else
+                {
+                    tongton = 0;
+                }
+                
                 BH_CT_DON_HANG_PO lienhe = new BH_CT_DON_HANG_PO();
                 lienhe.MA_SO_PO = baogia.MA_SO_PO;
                 lienhe.MA_HANG = item.MA_HANG;
@@ -244,6 +290,15 @@ namespace ERP.Web.Api.DonHangPO
                 lienhe.THUE_GTGT = thongtinPO.THUE_SUAT_GTGT;
                 lienhe.TIEN_THUE_GTGT =( (Convert.ToDouble(item.THANH_TIEN_HANG) * (thongtinPO.THUE_SUAT_GTGT / 100) ));
                 lienhe.TIEN_THANH_TOAN = Convert.ToDouble(lienhe.THANH_TIEN_HANG) + lienhe.TIEN_THUE_GTGT;
+                if(item.SO_LUONG <= tongton)
+                {
+                    lienhe.CAN_GIU_HANG = true;
+                    lienhe.CAN_DAT_HANG = false;
+                } else if(item.SO_LUONG > tongton)
+                {
+                    lienhe.CAN_GIU_HANG = false;
+                    lienhe.CAN_DAT_HANG = true;
+                }
                 db.BH_CT_DON_HANG_PO.Add(lienhe);
             }
 
@@ -258,6 +313,82 @@ namespace ERP.Web.Api.DonHangPO
 
             return Ok(baogia.MA_SO_PO);
         }
+
+
+        // Duyet don PO
+        [Route("api/Api_DonHangPO/Duyet_don_hangPO/{id}")]
+        [HttpPut]
+        public IHttpActionResult Duyet_don_hangPO(string id,BH_DON_HANG_PO thongtinPO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var edit = db.BH_DON_HANG_PO.Where(x => x.MA_SO_PO == id).FirstOrDefault();
+            if (edit != null)
+            {
+                edit.NGUOI_DUYET = thongtinPO.NGUOI_DUYET;
+                edit.DA_HUY = thongtinPO.DA_HUY;
+                edit.DA_DUYET = thongtinPO.DA_DUYET;
+                edit.LY_DO_HUY = thongtinPO.LY_DO_HUY;
+                edit.DANG_DUYET = thongtinPO.DANG_DUYET;
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BH_DON_HANG_POExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(edit.MA_SO_PO);
+        }
+
+        // Chuyen trang thai PO
+        [Route("api/Api_DonHangPO/TrangThaiPO/{id}")]
+        [HttpPut]
+        public IHttpActionResult TrangThaiPO(string id, BH_DON_HANG_PO thongtinPO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var edit = db.BH_DON_HANG_PO.Where(x => x.MA_SO_PO == id).FirstOrDefault();
+            if (edit != null)
+            {
+                edit.DANG_DUYET = thongtinPO.DANG_DUYET;
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BH_DON_HANG_POExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(edit.MA_SO_PO);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
