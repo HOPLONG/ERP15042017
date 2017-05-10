@@ -28,27 +28,26 @@ namespace ERP.Web.Models.Database
         public Nullable<decimal> TONG_GIA_TRI_CHENH_LECH { get; set; }
         public Nullable<decimal> TONG_CHI_PHI_HOA_DON { get; set; }
         public Nullable<decimal> THUC_NHAN_CUA_KHACH { get; set; }
-        public Nullable<bool> DA_DUYET { get; set; }
-        public string NGUOI_DUYET { get; set; }
-        public Nullable<bool> DA_TRUNG { get; set; }
-        public Nullable<bool> DA_HUY { get; set; }
-        public string LY_DO_HUY { get; set; }
-        public string SALES_BAO_GIA { get; set; }
-        public string TRUC_THUOC { get; set; }
-        public bool DANG_CHO_PHAN_HOI { get; set; }
         public Nullable<double> THUE_SUAT_GTGT { get; set; }
         public Nullable<decimal> TIEN_THUE_GTGT { get; set; }
-        public int ID { get; set; }
         public string SO_BAO_GIA { get; set; }
-        public Nullable<decimal> GIA_LIST { get; set; }
-        public Nullable<decimal> DON_GIA_NHAP { get; set; }
-        public Nullable<double> HE_SO_LOI_NHUAN { get; set; }
-        public string MA_HANG { get; set; }
-        public int SO_LUONG { get; set; }
-        public decimal DON_GIA { get; set; }
-        public double CHIET_KHAU { get; set; }
-        public decimal THANH_TIEN { get; set; }
-        public string THOI_GIAN_GIAO_HANG { get; set; }
         public string GHI_CHU { get; set; }
+        public string TEN_CONG_TY { get; set; }
+        public string DIA_CHI_XUAT_HOA_DON { get; set; }
+        public string VAN_PHONG_GIAO_DICH { get; set; }
+        public string EMAIL { get; set; }
+        public string FAX { get; set; }
+        public string HO_SO_THANH_TOAN { get; set; }
+        public string HOTLINE { get; set; }
+        public string MST { get; set; }
+        public string NGUOI_LIEN_HE { get; set; }
+        public string EMAIL_CA_NHAN { get; set; }
+        public string EMAIL_CONG_TY { get; set; }
+        public string SDT1 { get; set; }
+        public string SDT2 { get; set; }
+        public string SALES_QUAN_LY { get; set; }
+        public string TEN_SALE_QUAN_LY { get; set; }
+        public string SDT_SALE_QUAN_LY { get; set; }
+        public string EMAIL_SALE_QUAN_LY { get; set; }
     }
 }
