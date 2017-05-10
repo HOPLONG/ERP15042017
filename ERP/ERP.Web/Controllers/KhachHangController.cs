@@ -10,6 +10,7 @@ using ERP.Web.Models.Database;
 using System.IO;
 using OfficeOpenXml;
 using ERP.Web.Models.BusinessModel;
+using System.Text.RegularExpressions;
 
 namespace ERP.Web.Controllers
 {
@@ -36,11 +37,33 @@ namespace ERP.Web.Controllers
             return View();
         }
 
+        public string GenerateMAKH()
+        {
+            Regex digitsOnly = new Regex(@"[^\d]");
+            string year = DateTime.Now.Year.ToString().Substring(2, 2);
+
+            string prefixNumber = "KH" + year.ToString();
+            string SoChungTu = (from nhapkho in db.KHs where nhapkho.MA_KHACH_HANG.Contains(prefixNumber) select nhapkho.MA_KHACH_HANG).Max();
+
+
+            if (SoChungTu == null)
+            {
+                return "KH" + year + "0001";
+            }
+            SoChungTu = SoChungTu.Substring(4, SoChungTu.Length - 4);
+            string number = (Convert.ToInt32(digitsOnly.Replace(SoChungTu, "")) + 1).ToString();
+            string result = number.ToString();
+            int count = 4 - number.ToString().Length;
+            for (int i = 0; i < count; i++)
+            {
+                result = "0" + result;
+            }
+            return "KH" + year + result;
+        }
 
 
 
-
-[HttpPost]
+        [HttpPost]
         public ActionResult Import_KhachHang(HttpPostedFileBase file)
         {
             try
@@ -63,6 +86,7 @@ namespace ERP.Web.Controllers
                             var noOfRow = workSheet.Dimension.End.Row;
                             for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                             {
+                                if(workSheet.Cells[rowIterator, 1].Value != null)
                                  makhach = workSheet.Cells[rowIterator, 1].Value.ToString();
                                 tencongty = workSheet.Cells[rowIterator, 2].Value.ToString();
                                 if (workSheet.Cells[rowIterator, 3].Value != null)
@@ -144,91 +168,95 @@ namespace ERP.Web.Controllers
                                     phutrachhienthoi = workSheet.Cells[rowIterator, 21].Value.ToString();
                                 else
                                     phutrachhienthoi = "";
-
-
-
                                 if (workSheet.Cells[rowIterator, 22].Value != null)
-                                    nguoilienhe = workSheet.Cells[rowIterator, 22].Value.ToString();
+                                    khophutrach = workSheet.Cells[rowIterator, 22].Value.ToString();
+                                else
+                                    khophutrach = "";
+
+
+                                if (workSheet.Cells[rowIterator, 23].Value != null)
+                                    nguoilienhe = workSheet.Cells[rowIterator, 23].Value.ToString();
                                 else
                                     nguoilienhe = "";
-                                if (workSheet.Cells[rowIterator, 23].Value != null)
-                                    chucvu = workSheet.Cells[rowIterator, 23].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 24].Value != null)
+                                    chucvu = workSheet.Cells[rowIterator, 24].Value.ToString();
                                 else
                                     chucvu = "";
-                                if (workSheet.Cells[rowIterator, 24].Value != null)
-                                    phongban = workSheet.Cells[rowIterator, 24].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 25].Value != null)
+                                    phongban = workSheet.Cells[rowIterator, 25].Value.ToString();
                                 else
                                     phongban = "";
-                                if (workSheet.Cells[rowIterator, 25].Value != null)
-                                    ngaysinh = workSheet.Cells[rowIterator, 25].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 26].Value != null)
+                                    ngaysinh = workSheet.Cells[rowIterator, 26].Value.ToString();
                                 else
                                     ngaysinh = "";
-                                if (workSheet.Cells[rowIterator, 26].Value != null)
-                                    gioitinh = workSheet.Cells[rowIterator,26].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 27].Value != null)
+                                    gioitinh = workSheet.Cells[rowIterator, 27].Value.ToString();
                                 else
                                     gioitinh = "";
-                                if (workSheet.Cells[rowIterator, 27].Value != null)
-                                    sdt1 = workSheet.Cells[rowIterator, 27].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 28].Value != null)
+                                    sdt1 = workSheet.Cells[rowIterator, 28].Value.ToString();
                                 else
                                     sdt1 = "";
-                                if (workSheet.Cells[rowIterator,28].Value != null)
-                                    sdt2 = workSheet.Cells[rowIterator, 28].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 29].Value != null)
+                                    sdt2 = workSheet.Cells[rowIterator, 29].Value.ToString();
                                 else
                                     sdt2 = "";
-                                if (workSheet.Cells[rowIterator, 29].Value != null)
-                                    emailcanhan = workSheet.Cells[rowIterator, 29].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 30].Value != null)
+                                    emailcanhan = workSheet.Cells[rowIterator, 30].Value.ToString();
                                 else
                                     emailcanhan = "";
-                                if (workSheet.Cells[rowIterator, 30].Value != null)
-                                    emailcongty = workSheet.Cells[rowIterator, 30].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 31].Value != null)
+                                    emailcongty = workSheet.Cells[rowIterator, 31].Value.ToString();
                                 else
                                     emailcongty = "";
-                                if (workSheet.Cells[rowIterator,31].Value != null)
-                                    skype = workSheet.Cells[rowIterator, 31].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 32].Value != null)
+                                    skype = workSheet.Cells[rowIterator, 32].Value.ToString();
                                 else
                                     skype = "";
-                                if (workSheet.Cells[rowIterator, 32].Value != null)
-                                    facebook = workSheet.Cells[rowIterator, 32].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 33].Value != null)
+                                    facebook = workSheet.Cells[rowIterator, 33].Value.ToString();
                                 else
                                     facebook = "";
-                                if (workSheet.Cells[rowIterator, 33].Value != null)
-                                    ghichulienhe = workSheet.Cells[rowIterator, 33].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 34].Value != null)
+                                    ghichulienhe = workSheet.Cells[rowIterator, 34].Value.ToString();
                                 else
                                     ghichulienhe = "";
-                                if (workSheet.Cells[rowIterator, 34].Value != null)
-                                    salephutrach = workSheet.Cells[rowIterator, 34].Value.ToString();
+
+
+                                if (workSheet.Cells[rowIterator, 35].Value != null)
+                                    salephutrach = workSheet.Cells[rowIterator, 35].Value.ToString();
                                 else
                                     salephutrach = "";
-                                if (workSheet.Cells[rowIterator, 35].Value != null)
-                                    sotknganhang = workSheet.Cells[rowIterator, 35].Value.ToString();
-                                else
-                                    sotknganhang = "";
 
                                 if (workSheet.Cells[rowIterator, 36].Value != null)
-                                    tentaikhoan = workSheet.Cells[rowIterator, 36].Value.ToString();
+                                    sotknganhang = workSheet.Cells[rowIterator, 36].Value.ToString();
+                                else
+                                    sotknganhang = "";
+                                if (workSheet.Cells[rowIterator, 37].Value != null)
+                                    tentaikhoan = workSheet.Cells[rowIterator, 37].Value.ToString();
                                 else
                                     tentaikhoan = "";
-                                if (workSheet.Cells[rowIterator, 37].Value != null)
-                                    tennganhang = workSheet.Cells[rowIterator, 37].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 38].Value != null)
+                                    tennganhang = workSheet.Cells[rowIterator, 38].Value.ToString();
                                 else
                                     tennganhang = "";
-                                if (workSheet.Cells[rowIterator, 38].Value != null)
-                                    chinhanhnganhang = workSheet.Cells[rowIterator, 38].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 39].Value != null)
+                                    chinhanhnganhang = workSheet.Cells[rowIterator, 39].Value.ToString();
                                 else
                                     chinhanhnganhang = "";
-                                if (workSheet.Cells[rowIterator, 39].Value != null)
-                                    tinhnganhang = workSheet.Cells[rowIterator, 39].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 40].Value != null)
+                                    tinhnganhang = workSheet.Cells[rowIterator, 40].Value.ToString();
                                 else
                                     tinhnganhang = "";
-                                if (workSheet.Cells[rowIterator, 40].Value != null)
-                                    loaitaikhoan = workSheet.Cells[rowIterator, 40].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 41].Value != null)
+                                    loaitaikhoan = workSheet.Cells[rowIterator, 41].Value.ToString();
                                 else
                                     loaitaikhoan = "";
-                                if (workSheet.Cells[rowIterator, 41].Value != null)
-                                    ghichu = workSheet.Cells[rowIterator, 41].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 42].Value != null)
+                                    ghichu = workSheet.Cells[rowIterator, 42].Value.ToString();
                                 else
                                     ghichu = "";
-
 
 
 
@@ -247,7 +275,7 @@ namespace ERP.Web.Controllers
                                 if (query == null)
                                 {
                                     KH khachhang = new KH();
-                                    khachhang.MA_KHACH_HANG = makhach;
+                                    khachhang.MA_KHACH_HANG = GenerateMAKH();
                                     khachhang.TEN_CONG_TY = tencongty;
                                     if (diachivpgiaodich != "")
                                         khachhang.VAN_PHONG_GIAO_DICH = diachivpgiaodich;
@@ -291,6 +319,7 @@ namespace ERP.Web.Controllers
                                         KH_CHUYEN_SALES chuyensale = new KH_CHUYEN_SALES();
                                         chuyensale.MA_KHACH_HANG = makhach;
                                         chuyensale.SALE_HIEN_THOI = phutrachhienthoi;
+                                        chuyensale.KHO_PHU_TRACH = khophutrach;
                                         db.KH_CHUYEN_SALES.Add(chuyensale);
 
                                     }

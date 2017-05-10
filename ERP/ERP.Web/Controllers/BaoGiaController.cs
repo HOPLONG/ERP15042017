@@ -1,4 +1,5 @@
 ﻿using ERP.Web.Models.Database;
+using ERP.Web.Models.NewModels.BaoGiaAll;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -37,18 +38,21 @@ namespace ERP.Web.Controllers
 
 
 
+        
+        public ActionResult GetBaoGia(string sobaogia)
+        {
+            ViewBag.sobaogia = "BG1704240001AAAA" + sobaogia;
+            ViewData["bg"] = sobaogia;
+            return View(sobaogia);
+        }
+
         /// <summary>
         /// using partial view for pdf generation
         /// </summary>
         /// <returns></returns>
-        public ActionResult DownloadBaoGiaPDF(string so_bao_gia, string macongty)
+        public ActionResult GeneratePDF()
         {
-            var query = db.Database.SqlQuery<Prod_BH_GetThongTinBaoGia_Result > ("Prod_BH_GetThongTinBaoGia @so_bao_gia, @macongty", new SqlParameter("so_bao_gia", so_bao_gia), new SqlParameter("macongty", macongty));
-            var result = query.ToList();
-            // var model = new GeneratePDFModel();
-            
-
-            return new Rotativa.PartialViewAsPdf("ViewBaoGiaPDF", result) { FileName = "partialViewAsPdf.pdf" };
+            return new Rotativa.ActionAsPdf("GetBaoGia");
         }
     }
 }

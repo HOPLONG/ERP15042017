@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using ERP.Web.Models.BusinessModel;
 using System.Text.RegularExpressions;
 using ERP.Web.Models.NewModels;
+using ERP.Web.Models.NewModels.BaoGiaAll;
 
 namespace ERP.Web.Api.BaoGia
 {
@@ -20,12 +21,33 @@ namespace ERP.Web.Api.BaoGia
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
         XuLyNgayThang xlnt = new XuLyNgayThang();
+       
+
+
         // GET: api/Api_BaoGia
         public IQueryable<BH_BAO_GIA> GetBH_BAO_GIA()
         {
             return db.BH_BAO_GIA;
         }
 
+
+        #region "Print Báo giá"
+        [Route("api/Api_BaoGia/PrintBaoGia/{sobaogia}")]
+        public BaoGia_All PrintBaoGia(string sobaogia)
+        {
+            var data = db.Database.SqlQuery<Prod_BH_GetThongTinBaoGia_Result>("Prod_BH_GetThongTinBaoGia @so_bao_gia", new SqlParameter("so_bao_gia", sobaogia));
+            var resultdata = data.FirstOrDefault();
+            var query = db.Database.SqlQuery<Prod_BH_GetThongTin_CT_BaoGia_Result>("Prod_BH_GetThongTin_CT_BaoGia @so_bao_gia", new SqlParameter("so_bao_gia", sobaogia));
+            var resultquery = query.ToList();
+            BaoGia_All baogia = new BaoGia_All();
+            baogia.BG = resultdata;
+            baogia.CTBG = resultquery;
+            return baogia;
+        }
+        #endregion
+
+
+        #region "Lấy liên hệ khách"
         [Route("api/Api_BaoGia/GetLienHeKhach/{makhachhang}")]
         public List<GetAll_LienHeTheoKhach_Result> GetLienHeKhach(string makhachhang)
         {
@@ -33,6 +55,7 @@ namespace ERP.Web.Api.BaoGia
             var result = query.ToList();
             return result;
         }
+        #endregion
 
         [Route("api/Api_BaoGia/BaoGiaTheoDuKien/{sodukien}")]
         public List<Get_BaoGia_TheoDuKien_Result> GetBaoGiaTheoDuKien(string sodukien)
