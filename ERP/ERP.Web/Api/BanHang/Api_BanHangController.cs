@@ -29,6 +29,15 @@ namespace ERP.Web.Api.BanHang
             var result = query.ToList();
             return result;
         }
+
+        // GET: api/Api_BanHang Chưa Xuất
+        [Route("api/Api_BanHang/Get_DON_BAN_HANG_CHUA_XUAT")]
+        public List<GetAll_DonBanHangChuaXuat_Result> Get_DON_BAN_HANG_CHUA_XUAT()
+        {
+            var query = db.Database.SqlQuery<GetAll_DonBanHangChuaXuat_Result>("GetAll_DonBanHangChuaXuat @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var result = query.ToList();
+            return result;
+        }
         // GET: api/Api_BanHang
         public class GetDonBanHang
         {
