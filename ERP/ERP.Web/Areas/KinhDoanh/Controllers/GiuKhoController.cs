@@ -6,15 +6,15 @@ using System.Web.Mvc;
 
 namespace ERP.Web.Areas.KinhDoanh.Controllers
 {
-    public class HomeSalesController : Controller
+    public class GiuKhoController : Controller
     {
-        // GET: KinhDoanh/HomeSales
-        public ActionResult Index()
+        // GET: KinhDoanh/GiuKho
+        public ActionResult TongHop()
         {
             return View();
         }
 
-        public ActionResult Action()
+        public ActionResult GiuKhoSale()
         {
             return View();
         }
