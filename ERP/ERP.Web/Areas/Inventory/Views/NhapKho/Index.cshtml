@@ -90,7 +90,7 @@
                                         <label class="control-label col-lg-3">Khách hàng </label>
                                         <div class="col-lg-5" id="SelectKhachHang">
                                             <div class="has-feedback" ng-click="ShowKhachHang()">
-                                                <input type="text" ng-model="GeneralInfo.DoiTuong" class="form-control showtableselect">
+                                                <input type="text" ng-model="GeneralInfo.DoiTuong" class="form-control showtableselect" ng-change="SearchKH(GeneralInfo.DoiTuong)">
                                                 <div class="form-control-feedback">
                                                     <i class="icon-arrow-down5"></i>
                                                 </div>
@@ -253,7 +253,7 @@
                                                     <i class="icon-arrow-down5"></i>
                                                 </div>
                                             </div>
-                                            <div class="tableselect" id="DataHangHoa{{index}}" style="display: block; max-width: 750px; padding-left: 0px; margin-left: -9px;">
+                                            <div class="tableselect" id="DataHangHoa{{index}}" style="display: none; max-width: 750px; padding-left: 0px; margin-left: -9px;">
                                                 <table class="table-hover ">
                                                     <thead>
                                                         <tr>

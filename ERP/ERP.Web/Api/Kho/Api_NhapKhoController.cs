@@ -51,6 +51,9 @@ namespace ERP.Web.Api.Kho
 
 
 
+
+
+
         // GET: api/Api_NhapKho/5
         [ResponseType(typeof(KHO_NHAP_KHO))]
         public IHttpActionResult GetKHO_NHAP_KHO(string id)

@@ -134,14 +134,12 @@ namespace ERP.Web.Controllers.ControllerVietThem
                                             khachhang.SALE_HIEN_THOI = workSheet.Cells[rowIterator, 4].Value.ToString();
 
                                         so_dong_thanh_cong++;
+                                        dong = rowIterator-1;
                                     }
-                                    else
-                                    {
-                                        that_bai = rowIterator - 1;
-                                    }
+                                    
                                     db.SaveChanges();
 
-                                    //dong = rowIterator;
+                                   //dong = rowIterator;
                                 }
 
                             }
@@ -151,13 +149,13 @@ namespace ERP.Web.Controllers.ControllerVietThem
                 catch (Exception Ex)
                 {
                     ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
-                    //ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+                    ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
 
                 }
                 finally
                 {
                     ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
-                    ViewBag.Dongloi = "dòng lỗi: " + that_bai;
+                    //ViewBag.Dongloi = "dòng lỗi: " + that_bai;
                 }
 
                 return View("UpdateKhachHang_SaleHienThoi");
@@ -211,9 +209,10 @@ namespace ERP.Web.Controllers.ControllerVietThem
                                         chuyensale.SALE_HIEN_THOI = salehienthoi;
                                         db.KH_CHUYEN_SALES.Add(chuyensale);
                                         so_dong_thanh_cong++;
+                                        dong = rowIterator-1;
                                     }
-                                    else
-                                        that_bai = rowIterator - 1;
+                                    //else
+                                    //    that_bai = rowIterator - 1;
 
 
 
@@ -231,13 +230,13 @@ namespace ERP.Web.Controllers.ControllerVietThem
                 catch (Exception Ex)
                 {
                     ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
-                    //ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+                    ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
 
                 }
                 finally
                 {
                     ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
-                    ViewBag.Dongloi = "dòng lỗi: " + that_bai;
+                    //ViewBag.Dongloi = "dòng lỗi: " + dong;
                 }
 
                 return View("UpdateKhachHang_SaleHienThoi");

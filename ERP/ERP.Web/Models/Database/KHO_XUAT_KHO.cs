@@ -31,6 +31,7 @@ namespace ERP.Web.Models.Database
         public string NGUOI_LAP_PHIEU { get; set; }
         public string TRUC_THUOC { get; set; }
         public string KHACH_HANG { get; set; }
+        public string PHIEU_BAN_HANG { get; set; }
     
         public virtual CCTC_CONG_TY CCTC_CONG_TY { get; set; }
         public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
@@ -38,5 +39,6 @@ namespace ERP.Web.Models.Database
         public virtual KH KH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHO_CT_XUAT_KHO> KHO_CT_XUAT_KHO { get; set; }
+        public virtual BH_DON_BAN_HANG BH_DON_BAN_HANG { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using ERP.Web.Models.Database;
+using ERP.Web.Models.NewModels.BaoGiaAll;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -29,6 +31,28 @@ namespace ERP.Web.Controllers
                 return HttpNotFound();
             }
             return View(bH_BAO_GIA);
+        }
+
+
+
+
+
+
+        
+        public ActionResult GetBaoGia(string sobaogia)
+        {
+            ViewBag.sobaogia = "BG1704240001AAAA" + sobaogia;
+            ViewData["bg"] = sobaogia;
+            return View(sobaogia);
+        }
+
+        /// <summary>
+        /// using partial view for pdf generation
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GeneratePDF()
+        {
+            return new Rotativa.ActionAsPdf("GetBaoGia");
         }
     }
 }

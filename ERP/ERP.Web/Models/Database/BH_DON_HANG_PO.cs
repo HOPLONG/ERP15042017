@@ -18,6 +18,7 @@ namespace ERP.Web.Models.Database
         public BH_DON_HANG_PO()
         {
             this.BH_CT_DON_BAN_HANG = new HashSet<BH_CT_DON_BAN_HANG>();
+            this.BH_PHUONG_AN_KINH_DOANH = new HashSet<BH_PHUONG_AN_KINH_DOANH>();
         }
     
         public string MA_SO_PO { get; set; }
@@ -39,10 +40,18 @@ namespace ERP.Web.Models.Database
         public string LY_DO_HUY { get; set; }
         public bool CAN_XUAT_NGAY { get; set; }
         public bool CAN_LAY_HOA_DON { get; set; }
+        public bool DA_DUYET { get; set; }
+        public string NGUOI_DUYET { get; set; }
+        public bool DANG_DUYET { get; set; }
+        public string SO_BAO_GIA { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BH_CT_DON_BAN_HANG> BH_CT_DON_BAN_HANG { get; set; }
         public virtual KH KH { get; set; }
         public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
+        public virtual HT_NGUOI_DUNG HT_NGUOI_DUNG { get; set; }
+        public virtual BH_BAO_GIA BH_BAO_GIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BH_PHUONG_AN_KINH_DOANH> BH_PHUONG_AN_KINH_DOANH { get; set; }
     }
 }

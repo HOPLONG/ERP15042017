@@ -186,23 +186,23 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
              console.log(error);
          });
     }
+  
 
     function Init() {
 
-
-        $http({
-            method: 'GET',
-            url: '/api/Api_KH'
-        }).then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.KhachHang.KhachHang = response.data;
-            }
-            else {
-                ErrorSystem();
-            }
-        }, function (error) {
-            ConnectFail();
-        });
+        $scope.SearchKH = function (mkh) {
+            $http.post(window.location.origin + '/api/Search_KH/Search/' + mkh)
+             .then(function (response) {
+                 if (typeof (response.data) == "object") {
+                     $scope.KhachHang.KhachHang = response.data;
+                 }
+                 else {
+                     ErrorSystem();
+                 }
+             }, function (error) {
+                 console.log(error);
+             });
+        }
 
         $http({
             method: 'GET',
@@ -583,7 +583,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         $scope.ThamChieu.ListSelect = [];
         $scope.ThamChieu.ListSelect.push({ SO_CHUNG_TU: item.SO_CHUNG_TU });
         $scope.ThamChieu.TraHang = item.SO_CHUNG_TU;
-        $(".tableselect").css({ "display": "none" });
+        $(".tableselect").css({ "display": "none"});
         $http({
             method: 'GET',
             url: '/api/Api_NhapKho/GetDetailKHO_NHAP_KHO/' + item.SO_CHUNG_TU,
@@ -602,6 +602,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http, con
         }, function (error) {
             ConnectFail();
         });
+        
     }
     $scope.ShowDonHangTra = function () {
         if ($("#DonTraHang").css("display") == "none") {

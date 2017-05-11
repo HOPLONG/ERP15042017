@@ -29,5 +29,8 @@ namespace ERP.Web.Models.Database
         public string TK_THUE { get; set; }
         public double THUE_GTGT { get; set; }
         public double TIEN_THANH_TOAN { get; set; }
+        public string MA_CHUAN { get; set; }
+        public string TEN_HANG { get; set; }
+        public string TK_HACH_TOAN_KHO { get; set; }
     }
 }

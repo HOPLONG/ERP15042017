@@ -854,7 +854,7 @@ namespace ERP.Web.Areas.Marketing.Controllers
 
         public ActionResult ImportPolicy(HttpPostedFileBase file)
         {
-            string makhachhang, manhomhangcha;
+            string makhachhang, manhomhangcha, mark, purc;
             decimal ck, giaban, ckhistory1, ckhistory2, ckhistory3, giahistory1, giahistory2, giahistory3;
 
 
@@ -928,6 +928,16 @@ namespace ERP.Web.Areas.Marketing.Controllers
                                     else
                                         giahistory3 = 0;
                                     //=======================================
+                                    if (workSheet.Cells[rowIterator, 13].Value != null)
+                                        mark = workSheet.Cells[rowIterator, 13].Value.ToString();
+                                    else
+                                        mark = null;
+                                    //=======================================
+                                    if (workSheet.Cells[rowIterator, 14].Value != null)
+                                        purc = workSheet.Cells[rowIterator, 14].Value.ToString();
+                                    else
+                                        purc = null;
+                                    //=======================================
 
                                     var query = db.HH_NHOM_VTHH.Where(x => x.MA_NHOM_HANG_CHI_TIET == manhomhang).FirstOrDefault();
                                     if (query != null)
@@ -959,6 +969,14 @@ namespace ERP.Web.Areas.Marketing.Controllers
                                         nhomhang.MA_NHOM_HANG_CHI_TIET = manhomhang;
                                         nhomhang.MA_NHOM_HANG_CHA = manhomhangcha;
                                         db.HH_NHOM_VTHH.Add(nhomhang);
+
+                                        HH_NHOM_VTHH newvthh = new HH_NHOM_VTHH();
+                                        newvthh.MA_NHOM_HANG_CHI_TIET = manhomhang;
+                                        newvthh.MA_NHOM_HANG_CHA = manhomhangcha;
+                                        newvthh.PURC_PHU_TRACH = purc;
+                                        newvthh.MARK_PHU_TRACH = mark;
+                                        db.HH_NHOM_VTHH.Add(newvthh);
+                                        db.SaveChanges();
 
                                         KH_POLICY policykh = new KH_POLICY();
 
