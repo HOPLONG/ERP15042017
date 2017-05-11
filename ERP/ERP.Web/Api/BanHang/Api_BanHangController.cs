@@ -21,6 +21,33 @@ namespace ERP.Web.Api.BanHang
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
         XuLyNgayThang xlnt = new XuLyNgayThang();
         // GET: api/Api_BanHang
+        // List don ban hang
+        [Route("api/Api_BanHang/ListDonBanHang/{isadmin}/{username}")]
+        public List<Prod_BH_List_DonBanHang_Result> ListDonBanHang(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_DonBanHang_Result>("Prod_BH_List_DonBanHang @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
+        // List don ban hang chua xuat kho
+        [Route("api/Api_BanHang/ListDonBanHangChuaXuatKho/{isadmin}/{username}")]
+        public List<Prod_BH_List_DonBanHangChuaXuatKho_Result> ListDonBanHangChuaXuatKho(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_DonBanHangChuaXuatKho_Result>("Prod_BH_List_DonBanHangChuaXuatKho @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
+        // List don ban hang da xuat kho
+        [Route("api/Api_BanHang/ListDonBanHangDaXuatKho/{isadmin}/{username}")]
+        public List<Prod_BH_List_DonBanHangDaXuatKho_Result> ListDonBanHangDaXuatKho(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_DonBanHangDaXuatKho_Result>("Prod_BH_List_DonBanHangDaXuatKho @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
         [Route("api/Api_BanHang/Get_DON_BAN_HANG")]
         public List<GetAll_DonBanHang_Result> Get_DON_BAN_HANG()
         {

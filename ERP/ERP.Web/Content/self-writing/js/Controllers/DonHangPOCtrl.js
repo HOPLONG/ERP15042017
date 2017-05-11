@@ -417,8 +417,102 @@
         } while (so > 0);
         return chuoi;
     }
+    window.setInterval(function () {
+        // List PO
+        $http.post('/api/Api_DonHangPO/ListPO/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO = response.data;
+        });
+
+        // List PO da duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DaDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaDuyet = response.data;
+        });
+
+        // List PO da huy
+        $http.post('/api/Api_DonHangPO/ListPO_DaHuy/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaHuy = response.data;
+        });
+
+        // List PO dang cho duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DangChoDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangChoDuyet = response.data;
+        });
+
+        // List PO dang  duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DangDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangDuyet = response.data;
+        });
+
+        // List PO da len don ban hang
+        $http.post('/api/Api_DonHangPO/ListPO_DaLenDonBanHang/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaLenDonBanHang = response.data;
+        });
+
+        // List PO can ban ngay
+        $http.post('/api/Api_DonHangPO/ListPO_CanBanNgay/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_CanBanNgay = response.data;
+        });
+
+        // List PO dang xuat do
+        $http.post('/api/Api_DonHangPO/ListPO_DangXuatDo/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangXuatDo = response.data;
+        });
+
+        // List PO chua len don ban
+        $http.post('/api/Api_DonHangPO/ListPO_ChuaLenDonBan/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_ChuaLenDonBan = response.data;
+        });
+    }, 5000);
 
 
+    $scope.readyfunction = function () {
+        // List PO
+        $http.post('/api/Api_DonHangPO/ListPO/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO = response.data;
+        });
+
+
+        // List PO da duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DaDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaDuyet = response.data;
+        });
+
+        // List PO da huy
+        $http.post('/api/Api_DonHangPO/ListPO_DaHuy/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaHuy = response.data;
+        });
+
+        // List PO dang cho duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DangChoDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangChoDuyet = response.data;
+        });
+
+        // List PO dang  duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DangDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangDuyet = response.data;
+        });
+
+        // List PO da len don ban hang
+        $http.post('/api/Api_DonHangPO/ListPO_DaLenDonBanHang/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaLenDonBanHang = response.data;
+        });
+
+        // List PO can ban ngay
+        $http.post('/api/Api_DonHangPO/ListPO_CanBanNgay/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_CanBanNgay = response.data;
+        });
+
+        // List PO dang xuat do
+        $http.post('/api/Api_DonHangPO/ListPO_DangXuatDo/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangXuatDo = response.data;
+        });
+
+        // List PO chua len don ban
+        $http.post('/api/Api_DonHangPO/ListPO_ChuaLenDonBan/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_ChuaLenDonBan = response.data;
+        });
+    };
+    $scope.readyfunction();
 });
 app.directive('date', function (dateFilter) {
     return {
