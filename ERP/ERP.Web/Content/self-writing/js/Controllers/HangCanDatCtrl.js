@@ -7,4 +7,18 @@
         });
     };
     $scope.load_hangcandat();
+
+
+    // List hang can dat kinh doanh
+    $http.post('/api/Api_HangCanDatKinhDoanh/ListHangCanDat/' + isadmin + '/' + username).then(function (response) {
+        $scope.list_hangcandat_kinhdoanh = response.data;
+    });
+    // List hang can dat chua dat
+    $http.post('/api/Api_HangCanDatKinhDoanh/ListHangCanDatChuaDat/' + isadmin + '/' + username).then(function (response) {
+        $scope.list_hangcandatchuadat_kinhdoanh = response.data;
+    });
+    // List hang can dat da dat
+    $http.post('/api/Api_HangCanDatKinhDoanh/ListHangCanDatDaDat/' + isadmin + '/' + username).then(function (response) {
+        $scope.list_hangcandatdadat_kinhdoanh = response.data;
+    });
 });
