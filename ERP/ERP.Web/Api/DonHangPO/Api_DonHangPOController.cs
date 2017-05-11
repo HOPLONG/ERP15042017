@@ -31,6 +31,87 @@ namespace ERP.Web.Api.DonHangPO
         XuLyNgayThang xlnt = new XuLyNgayThang();
         int tongton;
         // GET: api/Api_DonHangPO
+        // List PO
+        [Route("api/Api_DonHangPO/ListPO/{isadmin}/{username}")]
+        public List<Prod_BH_List_PO_Result> ListPO(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_PO_Result>("Prod_BH_List_PO @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"),new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
+        // List PO da duyet
+        [Route("api/Api_DonHangPO/ListPO_DaDuyet/{isadmin}/{username}")]
+        public List<Prod_BH_List_PO_DaDuyet_Result> ListPO_DaDuyet(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_PO_DaDuyet_Result>("Prod_BH_List_PO_DaDuyet @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
+        // List PO da huy
+        [Route("api/Api_DonHangPO/ListPO_DaHuy/{isadmin}/{username}")]
+        public List<Prod_BH_List_PO_DaHuy_Result> ListPO_DaHuy(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_PO_DaHuy_Result>("Prod_BH_List_PO_DaHuy @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
+        // List PO dang cho duyet
+        [Route("api/Api_DonHangPO/ListPO_DangChoDuyet/{isadmin}/{username}")]
+        public List<Prod_BH_List_PO_CanDuyet_Result> ListPO_DangChoDuyet(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_PO_CanDuyet_Result>("Prod_BH_List_PO_CanDuyet @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
+        // List PO dang duyet
+        [Route("api/Api_DonHangPO/ListPO_DangDuyet/{isadmin}/{username}")]
+        public List<Prod_BH_List_PO_DangDuyet_Result> ListPO_DangDuyet(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_PO_DangDuyet_Result>("Prod_BH_List_PO_DangDuyet @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
+        // List PO da len don ban hang
+        [Route("api/Api_DonHangPO/ListPO_DaLenDonBanHang/{isadmin}/{username}")]
+        public List<Prod_BH_List_PO_DaLenDonBanHang_Result> ListPO_DaLenDonBanHang(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_PO_DaLenDonBanHang_Result>("Prod_BH_List_PO_DaLenDonBanHang @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
+        // List PO da len don ban hang
+        [Route("api/Api_DonHangPO/ListPO_CanBanNgay/{isadmin}/{username}")]
+        public List<Prod_BH_List_PO_CanBanNgay_Result> ListPO_CanBanNgay(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_PO_CanBanNgay_Result>("Prod_BH_List_PO_CanBanNgay @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
+        // List PO dang xuat do
+        [Route("api/Api_DonHangPO/ListPO_DangXuatDo/{isadmin}/{username}")]
+        public List<Prod_BH_List_PO_DangXuatDo_Result> ListPO_DangXuatDo(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_PO_DangXuatDo_Result>("Prod_BH_List_PO_DangXuatDo @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
+        // List PO chua len don ban
+        [Route("api/Api_DonHangPO/ListPO_ChuaLenDonBan/{isadmin}/{username}")]
+        public List<Prod_BH_List_PO_ChuaLenDonBan_Result> ListPO_ChuaLenDonBan(bool isadmin, string username)
+        {
+            var query = db.Database.SqlQuery<Prod_BH_List_PO_ChuaLenDonBan_Result>("Prod_BH_List_PO_ChuaLenDonBan @macongty,@username,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("username", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+
         [Route("api/Api_DonHangPO/GetBH_DON_HANG_PO/{isadmin}/{sale}")]
         public List<GetAll_DonHangPO_Result> GetBH_DON_HANG_PO(bool isadmin,string sale)
         {

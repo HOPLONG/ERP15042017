@@ -6,6 +6,9 @@
     $scope.Detail.ListAdd = [{
 
     }];
+    var username = $('#username').val();
+    var isadmin = $('#isadmin').val();
+
 
     var salehienthoi = $('#username').val();
 
@@ -324,8 +327,35 @@
         } while (so > 0);
         return chuoi;
     }
+    window.setInterval(function(){
+        // List don ban hang
+        $http.post('/api/Api_BanHang/ListDonBanHang/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_donbanhang_kinhdoanh = response.data;
+        });
+    //List don ban hang chua xuat kho
+    $http.post('/api/Api_BanHang/ListDonBanHangChuaXuatKho/' + isadmin + '/' + username).then(function (response) {
+        $scope.list_donbanhangchuaxuatkho_kinhdoanh = response.data;
+    });
+    // List don ban hang da xuat kho
+    $http.post('/api/Api_BanHang/ListDonBanHangDaXuatKho/' + isadmin + '/' + username).then(function (response) {
+        $scope.list_donbanhangdaxuatkho_kinhdoanh = response.data;
+    });
+}, 5000);
 
 
+
+    // List don ban hang
+    $http.post('/api/Api_BanHang/ListDonBanHang/' + isadmin + '/' + username).then(function (response) {
+        $scope.list_donbanhang_kinhdoanh = response.data;
+    });
+    //List don ban hang chua xuat kho
+    $http.post('/api/Api_BanHang/ListDonBanHangChuaXuatKho/' + isadmin + '/' + username).then(function (response) {
+        $scope.list_donbanhangchuaxuatkho_kinhdoanh = response.data;
+    });
+    // List don ban hang da xuat kho
+    $http.post('/api/Api_BanHang/ListDonBanHangDaXuatKho/' + isadmin + '/' + username).then(function (response) {
+        $scope.list_donbanhangdaxuatkho_kinhdoanh = response.data;
+    });
 });
 app.directive('date', function (dateFilter) {
     return {
