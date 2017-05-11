@@ -518,11 +518,9 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
         $http.post("/api/Api_XuatKhoBanHang/PostKHO_XUAT_KHO", data).then(function (response) {
             //console.log(response);
             $scope.datareturn = response.data;
-            init();
             //response.data = jQuery.parseJSON(response.data);
             if (response.data == config.INPUT_ERROR) {
                 InputFail();
-                
             }
             else if (response.data == config.FAIL) {
                 ErrorSystem();
