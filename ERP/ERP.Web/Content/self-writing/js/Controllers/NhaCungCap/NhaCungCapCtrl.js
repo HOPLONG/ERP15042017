@@ -2,6 +2,9 @@
 app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $location) {
 
     $scope.ListSelect = [];
+    
+    $scope.ListAdd = [];
+    
   
     $scope.createnew = function () {
         $("textarea[name=addghichu]").val(CKEDITOR.instances.addghichu.getData());
@@ -381,6 +384,33 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
         loai_tai_khoan: '',
     }];
 
+    $scope.AddNew = function () {
+        $scope.arraytaikhoan.push({
+            ma_nha_cung_cap: '',
+            so_tai_khoan: '',
+            ten_tai_khoan: '',
+            ten_ngan_hang: '',
+            chi_nhanh: '',
+            tinh_tp: '',
+            loai_tai_khoan: '',
+        });
+    }
+
+    $scope.AddNew1 = function () {
+        $scope.arraylienhe.push({
+            nguoi_lien_he: '',
+            chuc_vu: '',
+            phong_ban: '',
+            ngay_sinh: '',
+            gioi_tinh: '',
+            so_dien_thoai1: '',
+            so_dien_thoai2: '',
+            email_ca_nhan: '',
+            skype: '',
+            facebook: '',
+            pur_phu_trach: '',
+        });
+    }
 
     $scope.SelectList = function (vthh) {
         if (vthh.Action == true) {
