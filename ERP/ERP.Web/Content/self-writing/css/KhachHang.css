@@ -545,6 +545,16 @@ h1{
     padding: 0 10px;
     background-color: #38B8E6;
 }
+
+.button_addrow{
+    border-radius: 3px !important;
+    float: right;
+    height: 30px;
+    margin-right: 10px;
+    padding: 0 10px;
+    background-color: #38B8E6;
+    margin-top: 5px;
+}
 table, th, td
 {
 border: 1px solid black;
@@ -561,7 +571,7 @@ border: 1px solid black;
 
 td
 {
-padding:12px;
+padding:5px;
 }
 
 table 
@@ -603,9 +613,9 @@ cursor: pointer;}
   min-height: 20px;
   text-shadow: 1px 1px 5px;
   font-weight: bold;
-  color: #64B5F6;
+  color: #fff;
   padding: 15px 0 15px 0;
-  background-color: #f5f5f5;
+  background-color: #1191BF;
   border: 1px solid #e3e3e3;
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
@@ -621,3 +631,18 @@ cursor: pointer;}
     background-repeat: no-repeat;
     height: 15px;
     margin-left: -20px;
+
+.kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+}
+.kv-avatar .file-input {
+    display: table-cell;
+    max-width: 220px;
+}
+.box-header-title {
+    background-color: #FACE0C;
+}
