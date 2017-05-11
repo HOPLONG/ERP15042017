@@ -1,17 +1,50 @@
 ﻿app.controller("DonHangPOCtrl", function ($http, $scope, DonHangPOService) {
     $scope.Detail = {
         ListAdd: [],
-        ListNew: []
+        ListNew: [],
+        ListLocDuLieu : [],
     }
     $scope.Detail.ListAdd = [{
 
     }];
 
+    $scope.Detail.ListLocDuLieu = [{
+        da_duyet: false,
+        dang_duyet: false,
+        da_giu : false,
+    }];
+    var username = $('#username').val();
+    var isadmin = $('#isadmin').val();
     $scope.load_danhsachPO = function () {
-        DonHangPOService.get_danhsachPO().then(function (a) {
+        DonHangPOService.get_danhsachPO(isadmin,username).then(function (a) {
             $scope.list_donhangPO = a;
         });
     };
+
+    $scope.trangthai = function (item) {
+        $scope.item = item;
+        var locdulieu = {
+            username : username,
+            isadmin : isadmin,
+            da_giu: $scope.item.da_giu,
+            da_duyet: $scope.item.da_duyet,
+            dang_duyet : $scope.item.dang_duyet,
+        }
+        $http.post('/api/Api_DonHangPO/LocDuLieuPO', locdulieu).then(function (response) {
+            $scope.list_donhangPO = response.data;
+        });
+    };
+
+    //this gets the full url
+    var url = document.location.href;
+    //this removes the anchor at the end, if there is one
+    url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+    //this removes the query after the file name, if there is one
+    url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+    //this removes everything before the last slash in the path
+    url = url.substring(url.lastIndexOf("/") + 1, url.length);
+    //
+
     $scope.load_danhsachPO();
 
     $scope.load_thongtinchungPO = function () {
@@ -172,6 +205,29 @@
         });
     };
 
+    $scope.Save_DuyetDonPO = function () {
+        var username = $('#username').val();
+        var data_duyet = {
+            MA_SO_PO: url,
+            DA_HUY: $scope.da_huy,
+            DA_DUYET: $scope.da_duyet,
+            NGUOI_DUYET: username,
+            LY_DO_HUY: $scope.ly_do_huy,
+            DANG_DUYET : false,
+        }
+        $http.put('/api/Api_DonHangPO/Duyet_don_hangPO/' + url, data_duyet).then(function (response) {
+            SuccessSystem('Duyệt thành công đơn hàng PO có mã là ' + response.data)
+            $(function () {
+                setTimeout(function () {
+                    window.location.href = "/DonHangPO/DanhSachDuyetPO";
+
+                }, 2000);
+            });
+        }, function errorCallback(response) {
+            ErrorSystem('Sự cố hệ thống,vui lòng liên hệ với admin hoặc người hỗ trợ');
+        });
+    };
+
     $scope.CreateBH = function (item) {
         $scope.item = item;
         $scope.Detail.ListNew.push({
@@ -275,6 +331,18 @@
              ErrorSystem(error);
          });
 
+    $http.post('/api/Api_DonHangPO/ListPO_Duyet/' + username + '/' + isadmin).then(function (response) {
+        $scope.list_POcanduyet = response.data;
+    });
+
+    $scope.ChangeStatus = function (masoPO) {
+        var data_change = {
+            DANG_DUYET : true,
+        }
+        $http.put('/api/Api_DonHangPO/TrangThaiPO/' + masoPO, data_change).then(function (response) {
+            return response.data;
+        });
+    }
 
     $scope.hinhthuctt = ["Chuyển khoản", "Tiền mặt", "Trả tiền sau khi nhận hàng"];
 

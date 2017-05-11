@@ -2293,7 +2293,7 @@ app.controller('DonhangdukienCtrl', function (DonhangdukienService, $scope,$http
 
     $scope.lienhekh = function (url) {
         //get data liên hệ
-        $http.get(window.location.origin + '/api/Api_LienHeKhachHang/' + url)
+        $http.post(window.location.origin + '/api/Api_LienHeKhachHang/' + url)
              .then(function (response) {
                  if (response.data) {
                      $scope.arrayLH = response.data;
@@ -2370,6 +2370,8 @@ app.controller('productdetailsCtrl', function (productdetailsService, $scope) {
 
 
 // Các phần bổ trợ,không sửa xóa,viết code js ở trên đoạn này
+
+
 function reload() {
     location.reload();
 }

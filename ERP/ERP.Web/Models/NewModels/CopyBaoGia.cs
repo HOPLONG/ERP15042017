@@ -7,6 +7,8 @@ namespace ERP.Web.Models.NewModels
 {
     public class CopyBaoGia
     {
+        public int ID_LIEN_HE { set; get; }
+        public string SALES_QUAN_LY { set; get; }
         public int ID { set; get; }
         public string SO_BAO_GIA { set; get; }
         public DateTime NGAY_BAO_GIA { set; get; }

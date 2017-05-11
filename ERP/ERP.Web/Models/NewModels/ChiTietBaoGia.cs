@@ -7,6 +7,7 @@ namespace ERP.Web.Models.NewModels
 {
     public class ChiTietBaoGia
     {
+        public string MA_SO_PO { set; get; }
         public int ID { set; get; }
         public string SO_BAO_GIA { set; get; }
         public DateTime NGAY_BAO_GIA { set; get; }

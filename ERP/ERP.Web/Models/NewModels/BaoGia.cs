@@ -7,6 +7,7 @@ namespace ERP.Web.Models.NewModels
 {
     public class BaoGia
     {
+        public int ID_LIEN_HE { set; get; }
         public string SO_BAO_GIA { set; get; }
         public string NGAY_BAO_GIA { set; get; }
         public string MA_DU_KIEN { set; get; }

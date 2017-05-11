@@ -2,8 +2,11 @@
 @{
     ViewBag.Title = "Index";
 }
-<script src="~/Content/self-writing/js/Controllers/ChuyenSaleCtrl.js"></script>
 <script src="~/Content/self-writing/js/Services/ChuyenSaleService.js"></script>
+<script src="~/Content/self-writing/js/Services/KhachHangServices.js"></script>
+<script src="~/Content/self-writing/js/Controllers/ChuyenSaleCtrl.js"></script>
+<script src="~/Content/self-writing/js/Controllers/KhachHangCtrl.js"></script>
+
 <style>
     .hienthi {
         display : block !important;
@@ -22,7 +25,7 @@
                     <th>Tên công ty</th>
                     <th>Tỉnh</th>
                     <th>Sale hiện thời</th>
-                    <th>Sale sắp chuyển</th>
+                    <th>Nhân viên kho phụ trách</th>
                     <th>Sale cũ 1</th>
                     <th>Sale cũ 2</th>
                     <th>Sửa</th>
@@ -46,12 +49,12 @@
                         </md-input-container>
                     </td>
                     <td class="text-left">
-                        <p ng-hide="editMode" ng-model="entry.SALE_SAP_CHUYEN">{{entry.TEN_SALE_SAP_CHUYEN}}</p>
+                        <p ng-hide="editMode" ng-model="entry.KHO_PHU_TRACH">{{entry.TEN_KHO_PHU_TRACH}}</p>
                         <md-input-container ng-show="editMode">
-                            <label>Sale</label>
-                            <md-select ng-model="entry.SALE_SAP_CHUYEN">
+                            <label>Kho</label>
+                            <md-select ng-model="entry.KHO_PHU_TRACH">
                                 <md-option><em>None</em></md-option>
-                                <md-option ng-repeat="state in list_nhanvienkd" ng-value="state.USERNAME">
+                                <md-option ng-repeat="state in list_nhanvienkho" ng-value="state.USERNAME">
                                     {{state.HO_VA_TEN}}
                                 </md-option>
                             </md-select>

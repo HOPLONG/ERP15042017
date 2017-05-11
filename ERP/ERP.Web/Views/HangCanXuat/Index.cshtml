@@ -9,11 +9,10 @@
             <thead>
                 <tr>
                     <th>Mã số PO</th>
-                    <th>Mã hàng</th>
                     <th>Mã điều chỉnh</th>
+                    <th>Mã khách hàng</th>
                     <th>Khách hàng</th>
                     <th>Người liên hệ</th>
-                    <th>Ngày lên PO</th>
                     <th>Đơn vị tính</th>
                     <th>Số lượng</th>
                     <th>Đơn giá</th>
@@ -26,15 +25,15 @@
             <tbody>
                 <tr ng-repeat="item in list_hangcanxuat">
                     <td>{{item.MA_SO_PO}}</td>
-                    <td>{{item.MA_HANG}}</td>
                     <td>{{item.MA_DIEU_CHINH}}</td>
+                    <td>{{item.MA_KHACH_HANG}}</td>
                     <td>{{item.TEN_CONG_TY}}</td>
                     <td>{{item.TEN_LIEN_HE}}</td>
                     <td>{{item.NGAY_LEN_PO | date: 'dd/MM/yyyy'}}</td>
                     <td>{{item.DVT}}</td>
                     <td>{{item.SO_LUONG}}</td>
-                    <td>{{item.DON_GIA}}</td>
-                    <td>{{item.THANH_TIEN}}</td>
+                    <td>{{item.DON_GIA  | currency : '' : 0}}</td>
+                    <td>{{item.THANH_TIEN_HANG | currency : '' : 0}}</td>
                     <td>{{item.NGAY_GIAO_HANG | date: 'dd/MM/yyyy'}}</td>
                     <td>{{item.DIA_DIEM_GIAO_HANG}}</td>
                     <td>{{item.HO_VA_TEN}}</td>
