@@ -145,7 +145,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         });
     }
 
-    var tongso = 2000;
+    var tongso = 500;
     var sohienthi = 10;
 
 
@@ -960,7 +960,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
         });
     };
-
+    //LẤY POLICY KHÁCH HÀNG
     $scope.get_policy = function (makh) {
         khachhangService.get_kh_policy(makh).then(function (policy) {
             $scope.list_policy = policy;
@@ -980,9 +980,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             MA_KHACH_HANG: $scope.policy.MA_KHACH_HANG,
             MA_NHOM_HANG: $scope.policy.MA_NHOM_HANG,
             GIA_BAN: $scope.policy.GIA_BAN,
-            CHIET_KHAU_CM: $scope.policy.CHIET_KHAU_CM,
-            THOI_GIAN_AP_DUNG: $scope.policy.THOI_GIAN_AP_DUNG,
-            GHI_CHU: $scope.policy.GHI_CHU,
+            CK: $scope.policy.CK,
         }
         khachhangService.save_kh_policy($scope.policy.ID, data_save).then(function (response) {
             SuccessSystem('Sửa thành công');
@@ -1012,9 +1010,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             MA_KHACH_HANG: makh,
             MA_NHOM_HANG: $scope.ma_nhom_hang_policy,
             GIA_BAN: $scope.gia_ban_policy,
-            CHIET_KHAU_CM: $scope.chiet_khau_cm_policy,
-            THOI_GIAN_AP_DUNG: $scope.thoi_gian_ap_dung_policy,
-            GHI_CHU: $scope.ghi_chu_policy,
+            CK: $scope.ck_policy,
+            MA_NHOM_HANG_CHA: $scope.ma_nhom_hang_cha,
         }
         khachhangService.add_kh_policy(data_add).then(function () {
             SuccessSystem('Thêm thành công');
@@ -1043,13 +1040,13 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             });
 
     $scope.onVTHHFind = function () {
-        if (!$scope.CHUNG_LOAI_HANG) {
+        if (!$scope.MA_NHOM_HANG_CHI_TIET) {
             $scope.arrayVTHHFinded = $scope.arrayVTHH.map(function (item) {
                 return item;
             });
         }
         $scope.arrayVTHHFinded = $scope.arrayVTHH.filter(function (item) {
-            if (item.CHUNG_LOAI_HANG.toLowerCase().indexOf($scope.chung_loai_hang.toLowerCase()) >= 0) {
+            if (item.MA_NHOM_HANG_CHI_TIET.toLowerCase().indexOf($scope.ma_nhom_hang_policy.toLowerCase()) >= 0) {
                 return true;
             } else {
                 return false;
@@ -1089,8 +1086,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.SelectDataSales = function (nhanvienkd) {
         $scope.nhanvienkd = nhanvienkd;
         tukhoa = nhanvienkd.USERNAME;
-        $scope.LocKH(1, nhanvienkd.HO_VA_TEN);
-        $scope.TimKiemPhanTrang(nhanvienkd.HO_VA_TEN);
+        $scope.LocKH(1, nhanvienkd.USERNAME);
+        $scope.TimKiemPhanTrang(nhanvienkd.USERNAME);
         $("#DataSales").css({ "display": "none" });
         $scope.huyloc = true;
     }
@@ -1184,6 +1181,18 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             ErrorSystem('Lỗi khi chuyển');
 
         });
+    };
+
+    $scope.find_thong_ke = function (mahang, makhach) {
+        if (mahang != "") {
+            $http.post('/api/Api_KH/TimKiemThongKeMuaHang/' + makhach + '/' + mahang).then(function (response) {
+                $scope.thong_ke_mua_hang = response.data;
+            });
+            $('#pagination_thongke').hide();
+        } else if(mahang == ""){
+            $scope.get_thongkemuahang(makhach);
+            $('#pagination_thongke').show();
+        }
     };
 });
 

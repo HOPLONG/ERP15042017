@@ -17,5 +17,6 @@ namespace ERP.Web.Models
         public string TEN_DANH_MUC { set; get; }
         public string MA_DANH_MUC { set; get; }
         public string USERNAME { set; get; }
+        public DateTime? NGAY_CAP_NHAT { set; get; }
     }
 }

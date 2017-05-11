@@ -793,9 +793,9 @@ input:-ms-input-placeholder {
                                                 <th style="border: 1px solid #ddd !important">Action</th>
                                             </tr>
                                             <tr ng-repeat="khachphanhoi in list_phanhoi">
-                                                <td style="width: 10%;">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
-                                                <td style="width: 20%;">{{khachphanhoi.HO_VA_TEN}}</td>
-                                                <td style="width: 64%;">
+                                                <td class="text-left" style="width: 10%;">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
+                                                <td class="text-left" style="width: 20%;">{{khachphanhoi.HO_VA_TEN}}</td>
+                                                <td class="text-left" style="width: 64%;">
                                                     <p ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" class="thongtinphanhoi-{{khachphanhoi.ID}}"></p>                                                    
                                                 </td>                                                
                                                 <td>
@@ -807,6 +807,7 @@ input:-ms-input-placeholder {
                                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newphanhoi">Thêm mới</button>
                                     </div>
                                     <div id="thongkemuahang" class="tab-pane fade">
+                                        <input ng-model="timkiemthongke" placeholder="Tìm kiếm mã hàng" ng-change="find_thong_ke(timkiemthongke,item.MA_KHACH_HANG)"/>
                                         <table class="table">
                                             <thead class="table-header-popup">
                                                 <tr>
@@ -828,7 +829,7 @@ input:-ms-input-placeholder {
                                             </tbody>
                                         </table>
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-12" id="pagination_thongke">
                                             <div>
                                                 <div id="pagination-3" style="width: 30%;display:inline-block"></div>
                                             </div>
@@ -846,31 +847,35 @@ input:-ms-input-placeholder {
                                             <tr style="border: 1px solid #ddd !important">
                                                 <th style="border: 1px solid #ddd !important">Mã nhóm hàng</th>
                                                 <th style="border: 1px solid #ddd !important">Giá bán</th>
-                                                <th style="border: 1px solid #ddd !important">Chiết khấu CM</th>
-                                                <th style="border: 1px solid #ddd !important">Thời gian áp dụng</th>
-                                                <th style="border: 1px solid #ddd !important">Ghi chú</th>
+                                                <th style="border: 1px solid #ddd !important">Chiết khấu </th>
+                                                <th style="border: 1px solid #ddd !important">Ngày cập nhật</th>
+                                                <th style="border: 1px solid #ddd !important">Giá bán cũ 1</th>
+                                                <th style="border: 1px solid #ddd !important">Chiết khấu cũ 1</th>
+                                                <th style="border: 1px solid #ddd !important">Giá bán cũ 2</th>
+                                                <th style="border: 1px solid #ddd !important">Chiết khấu cũ 2</th>
+                                                <th style="border: 1px solid #ddd !important">Giá báncũ 3</th>
+                                                <th style="border: 1px solid #ddd !important">Chiết khấu cũ 3</th>
                                                 <th style="border: 1px solid #ddd !important" ng-show="isadmin">Sửa</th>
                                             </tr>
                                             <tr ng-repeat="policy in list_policy">
                                                 <td>{{policy.MA_NHOM_HANG}}</td>
                                                 <td>
 
-                                                    <p ng-hide="editMode">{{policy.GIA_BAN}} %</p>
+                                                    <p ng-hide="editMode">{{policy.GIA_BAN | currency : '' : 0}}</p>
                                                     <input type="number" ng-model="policy.GIA_BAN" ng-show="editMode" />
                                                 </td>
                                                 <td>
-                                                    <p ng-hide="editMode">{{policy.CHIET_KHAU_CM}} %</p>
+                                                    <p ng-hide="editMode">{{policy.CK}} %</p>
 
-                                                    <input type="number" ng-model="policy.CHIET_KHAU_CM" ng-show="editMode" />
+                                                    <input type="number" ng-model="policy.CK" ng-show="editMode" />
                                                 </td>
-                                                <td>
-                                                    <p ng-hide="editMode" ng-model="policy.THOI_GIAN_AP_DUNG">{{policy.THOI_GIAN_AP_DUNG}}</p>
-                                                    <select class="form-control" ng-model="policy.THOI_GIAN_AP_DUNG" ng-show="editMode" style="width: 100%;" data-ng-options="item as item for item in thoi_gian_ap_dung"></select>
-                                                </td>
-                                                <td>
-                                                    <p ng-hide="editMode">{{policy.GHI_CHU}}</p>
-                                                    <input type="text" ng-model="policy.GHI_CHU" ng-show="editMode" />
-                                                </td>
+                                                <td>{{policy.NGAY_CAP_NHAT | date: 'dd/MM/yyyy'}}</td>
+                                                <td>{{policy.GIA_HISTORY_1 | currency: '' : 0}}</td>
+                                                <td>{{policy.CK_HISTORY_1 | currency: '' : 0}} %</td>
+                                                <td>{{policy.GIA_HISTORY_2 | currency: '' : 0}}</td>
+                                                <td>{{policy.CK_HISTORY_2 | currency: '' : 0}} %</td>
+                                                <td>{{policy.GIA_HISTORY_3 | currency: '' : 0}}</td>
+                                                <td>{{policy.CK_HISTORY_3 | currency: '' : 0}} %</td>
                                                 <td ng-show="isadmin">
                                                     <button type="submit" ng-hide="editMode" ng-click="editMode = true; editpolicy(policy)" class="btn btn-default">Sửa nhanh</button>
                                                     <button type="submit" ng-show="editMode" ng-click="editMode = false; save_policy(policy)" class="btn btn-default">Save</button>
@@ -1094,10 +1099,9 @@ input:-ms-input-placeholder {
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-4">Nhóm hàng</label>
-                                        <div class="col-md-8">
+                                        <div class="col-md-6">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" ng-model="chung_loai_hang" value="{{chung_loai_hang}}" ng-change="onVTHHFind()" ng-focus="showtable_VTHH = true">
-                                                <input type="hidden" class="form-control" ng-model="ma_nhom_hang_policy" ng-focus="showtable_VTHH = true">
+                                                <input type="text" class="form-control" ng-model="ma_nhom_hang_policy" value="{{ma_nhom_hang_policy}}" ng-focus="showtable_VTHH = true" ng-change="onVTHHFind()">
                                                 <div class="input-group-btn">
                                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_VTHH = !showtable_VTHH" aria-haspopup="true" aria-expanded="false">
                                                         <span class="caret"></span>
@@ -1122,10 +1126,10 @@ input:-ms-input-placeholder {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4">Thời gian áp dụng</label>
+                                    <div class="form-group" ng-show="isadmin">
+                                        <label class="col-md-4">Mã nhóm hàng cha</label>
                                         <div class="col-md-8">
-                                            <select class="form-control" ng-model="thoi_gian_ap_dung_policy" data-ng-options="item as item for item in thoi_gian_ap_dung"></select>
+                                            <input type="text" class="form-control" ng-model="ma_nhom_hang_cha" placeholder="Mã nhóm hàng cha"/>
                                         </div>
                                     </div>
                                 </div>
@@ -1139,12 +1143,9 @@ input:-ms-input-placeholder {
                                     <div class="form-group col-md-12">
                                         <label class="col-md-4">Chiết khấu CM</label>
                                         <div class="col-md-8">
-                                            <input type="number" class="form-control" ng-model="chiet_khau_cm_policy" ng-init="chiet_khau_cm_policy=0.00" />
+                                            <input type="number" class="form-control" ng-model="ck_policy" ng-init="ck_policy=0.00" />
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <textarea placeholder="Ghi chú" ng-model="ghi_chu_policy" class="form-control"></textarea>
                                 </div>
                             </fieldset>
                         </form>
