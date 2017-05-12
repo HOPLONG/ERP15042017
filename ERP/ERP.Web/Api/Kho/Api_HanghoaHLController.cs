@@ -13,6 +13,7 @@ using System.Dynamic;
 using System.Web.Routing;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using ERP.Web.Models.NewModels.All;
 
 namespace ERP.Web.Areas.HopLong.Api.Kho
 {
@@ -32,12 +33,12 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
             return result;
         }
 
-
-        [Route("api/Api_HanghoaHL/GetAllHH/{ma_nhom_hang}")]
-        public List<Prod_HH_GetHH_TheoNhom_Result> GetAllHH( string ma_nhom_hang)
+        [HttpPost]
+        [Route("api/Api_HanghoaHL/GetAllHH")]
+        public List<Prod_HH_GetHH_TheoNhom_Result> GetAllHH(ThamSo thamso)
         {
             
-            var query = db.Database.SqlQuery<Prod_HH_GetHH_TheoNhom_Result>("Prod_HH_GetHH_TheoNhom @manhomhang, @sotrang, @username, @isadmin", new SqlParameter("tukhoa", ma_chuan));
+            var query = db.Database.SqlQuery<Prod_HH_GetHH_TheoNhom_Result>("Prod_HH_GetHH_TheoNhom @manhomhang, @sotrang, @username, @isadmin", new SqlParameter("manhomhang", thamso.manhomhang), new SqlParameter("sotrang", thamso.sotrang), new SqlParameter("username", thamso.manhomhang), new SqlParameter("isadmin", thamso.isadmin));
             var result = query.ToList();
 
             return result;
