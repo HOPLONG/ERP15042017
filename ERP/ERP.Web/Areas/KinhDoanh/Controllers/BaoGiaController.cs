@@ -47,6 +47,7 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
             return View();
         }
 
+
         public ActionResult ThemBaoGiaMoi()
         {
             return View();
@@ -89,6 +90,5 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
             return View(sobaogia);
         }
         #endregion
-
     }
 }
