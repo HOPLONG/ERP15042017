@@ -37,7 +37,7 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
         public List<Prod_HH_GetHH_TheoNhom_Result> GetAllHH( string ma_nhom_hang)
         {
             
-            var query = db.Database.SqlQuery<Prod_HH_GetHH_TheoNhom_Result>("Prod_HH_GetHH_TheoNhom @manhomhang, @sotrang, @username, @isadmin", new SqlParameter("tukhoa", ma_chuan));
+            var query = db.Database.SqlQuery<Prod_HH_GetHH_TheoNhom_Result>("Prod_HH_GetHH_TheoNhom @manhomhang, @sotrang, @username, @isadmin", new SqlParameter("manhomhang", ma_nhom_hang));
             var result = query.ToList();
 
             return result;
