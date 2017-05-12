@@ -21,5 +21,10 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
         {
             return View();
         }
+
+        public ActionResult HangCanDatHome()
+        {
+            return View();
+        }
     }
 }

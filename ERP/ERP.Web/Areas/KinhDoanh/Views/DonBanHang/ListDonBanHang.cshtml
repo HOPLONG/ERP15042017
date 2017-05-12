@@ -1,7 +1,4 @@
-﻿
-@{
-    ViewBag.Title = "ListDonBanHang";
-}
+﻿@{Layout = null; }
 
 <script src="~/Content/self-writing/js/Services/BanHangService.js"></script>
 <script src="~/Content/self-writing/js/Controllers/BanHangCtrl.js"></script>
@@ -26,6 +23,10 @@
 <div ng-app="myApp" ng-controller="BanHangCtrl" class="content">
     <input type="hidden" value="@Session["USERNAME"]" id="username" />
     <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
+    <div class="col-md-12" style="margin: 20px 0px 20px 0px">
+        <i class="fa fa-check" aria-hidden="true"></i> : Đã xuất kho
+        <i class="fa fa-times" aria-hidden="true"></i> : Chưa xuất kho
+    </div>
     <div class="col-md-8">
         <table class="table">
             <thead>

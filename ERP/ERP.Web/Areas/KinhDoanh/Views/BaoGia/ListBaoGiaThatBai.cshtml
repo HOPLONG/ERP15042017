@@ -1,11 +1,25 @@
-﻿
-@{
-    ViewBag.Title = "ListBaoGiaThatBai";
+﻿@{Layout = null;
 }
 
 <script src="~/Content/self-writing/js/Services/BaoGiaService.js"></script>
 <script src="~/Content/self-writing/js/Controllers/BaoGiaCtrl.js"></script>
+<style>
+    .border-td {
+        border: 1px solid black;
+    }
 
+    .table > tbody > tr > td {
+        border-top: 1px solid black;
+    }
+
+    .table > thead > tr > th {
+        border-bottom: 1px solid black;
+    }
+
+    h4 {
+        color: lightskyblue;
+    }
+</style>
 <div ng-app="myApp" ng-controller="baogiaCtrl" class="content">
     <input type="hidden" value="@Session["USERNAME"]" id="username" />
     <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
@@ -40,20 +54,22 @@
             </tr>
             <tr>
                 <td class="border-td">
-                    <table class="table right-table">
-                        <thead>
-                            <tr>
-                                <th>Số báo giá</th>
-                                <th>Ngày báo giá</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in ds_baogia_kinhdoanh_dangchophanhoi | limitTo:4 ">
-                                <td>{{item.SO_BAO_GIA}}</td>
-                                <td>{{item.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div style="height: 400px;overflow:auto">
+                        <table class="table right-table">
+                            <thead>
+                                <tr>
+                                    <th>Số báo giá</th>
+                                    <th>Ngày báo giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in ds_baogia_kinhdoanh_dangchophanhoi">
+                                    <td>{{item.SO_BAO_GIA}}</td>
+                                    <td>{{item.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -61,20 +77,22 @@
             </tr>
             <tr>
                 <td class="border-td">
-                    <table class="table right-table">
-                        <thead>
-                            <tr>
-                                <th>Số báo giá</th>
-                                <th>Ngày báo giá</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in ds_baogia_kinhdoanh_thanhcong| limitTo:4 ">
-                                <td>{{item.SO_BAO_GIA}}</td>
-                                <td>{{item.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div style="height: 400px;overflow:auto">
+                        <table class="table right-table">
+                            <thead>
+                                <tr>
+                                    <th>Số báo giá</th>
+                                    <th>Ngày báo giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in ds_baogia_kinhdoanh_thanhcong">
+                                    <td>{{item.SO_BAO_GIA}}</td>
+                                    <td>{{item.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -82,20 +100,22 @@
             </tr>
             <tr>
                 <td class="border-td">
-                    <table class="table right-table">
-                        <thead>
-                            <tr>
-                                <th>Số báo giá</th>
-                                <th>Ngày báo giá</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in ds_baogia_kinhdoanh_dahuy| limitTo:4 ">
-                                <td>{{item.SO_BAO_GIA}}</td>
-                                <td>{{item.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div style="height: 400px;overflow:auto">
+                        <table class="table right-table">
+                            <thead>
+                                <tr>
+                                    <th>Số báo giá</th>
+                                    <th>Ngày báo giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in ds_baogia_kinhdoanh_dahuy">
+                                    <td>{{item.SO_BAO_GIA}}</td>
+                                    <td>{{item.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
             </tr>
         </table>
