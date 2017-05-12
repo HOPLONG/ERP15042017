@@ -99,6 +99,7 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
             return View();
         }
 
+
         public ActionResult DonPOHome()
         {
             return View();
@@ -106,3 +107,4 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
     }
     
 }
+
