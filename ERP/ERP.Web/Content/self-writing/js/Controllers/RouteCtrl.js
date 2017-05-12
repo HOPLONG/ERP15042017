@@ -4,21 +4,24 @@
     $scope.$watch('selectedIndex', function (current, old) {
         switch (current) {
             case 0:
-                $location.url("/ListBaoGia");
+                $location.url("/ThemBaoGiaMoi");
                 break;
             case 1:
-                $location.url("/ListBaoGiaDaHuy");
+                $location.url("/ListBaoGia");
                 break;
             case 2:
-                $location.url("/ListBaoGiaThanhCong");
+                $location.url("/ListBaoGiaDaHuy");
                 break;
             case 3:
-                $location.url("/ListBaoGiaThatBai");
+                $location.url("/ListBaoGiaThanhCong");
                 break;
             case 4:
-                $location.url("/ListBaoGiaDangChoPhanHoi");
+                $location.url("/ListBaoGiaThatBai");
                 break;
             case 5:
+                $location.url("/ListBaoGiaDangChoPhanHoi");
+                break;
+            case 6:
                 $location.url("/ListBaoGiaDaLenPO");
                 break;
         }
@@ -140,6 +143,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
     //Bao gia
+    .state('ThemBaoGiaMoi', {
+        url: "/ThemBaoGiaMoi",
+        templateUrl: "ThemBaoGiaMoi",
+        controller: "baogiaCtrl"
+    })
     .state('ListBaoGia', {
         url: "/ListBaoGia",
         templateUrl: "ListBaoGia",
