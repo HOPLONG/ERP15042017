@@ -10,6 +10,7 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <link href="~/Content/self-writing/css/HangHoaHL.css" rel="stylesheet" />
 <script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="~/Content/self-writing/js/Controllers/Kho/HangHoaCtrl.js"></script>
 <style>
     #texttime {
             color: gray;
@@ -23,7 +24,7 @@
 <br />
 @*<script type="text/javascript">var startTime=new Date();function currentTime(){var a=Math.floor((new Date()-startTime)/100)/10;if (a%1==0) a+=".0";document.getElementById("endTime").innerHTML=a;}window.onload=function(){clearTimeout(loopTime);}</script>
 <script type="text/javascript">document.write('<div align="center"><span id="texttime"><i class="fa fa fa-spinner fa-spin"></i> Thời gian tải trang: <span id="endTime">0.0</span>s</span></div> ');var loopTime=setInterval("currentTime()",100);</script>*@
-<div ng-app="myApp" ng-controller="hanghoaCtrl">
+<div ng-app="myApp" ng-controller="HangHoaCtrl">
     <div class="content">
         <div class="flr">
             <button type="button" class="fa fa-plus button_ncc" data-toggle="modal" data-target="#myModal"><span style="font-size: 15px; font-weight: bold; padding-left:5px;">Thêm sản phẩm</span></button>
