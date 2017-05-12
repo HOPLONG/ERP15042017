@@ -104,7 +104,14 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
         {
             return View();
         }
+
+        #region "Thêm mới PO"
+        public ActionResult ThemMoiPO()
+        {
+            return View();
+        }
+        #endregion
     }
-    
+
 }
 
