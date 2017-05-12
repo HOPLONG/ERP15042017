@@ -1,4 +1,4 @@
-﻿app.controller('XuLyHoiGiaCtrl', function ($scope, $http, $timeout) {
+﻿app.controller('XuLyHoiGiaCtrl', function ($scope, $http, $timeout, XuLyHoiGiaService, YeuCauHoiGiaService) {
     var purhienthoi = $('#purhienthoi').val();
     $scope.get_yeucau = function () {
         YeuCauHoiGiaService.get_yeucau().then(function (responseData) {
@@ -23,11 +23,14 @@
             data: $scope.YeuCau,
             url: window.location.origin + '/api/Api_YeuCauHoiGia/' + id
         }).then(function successCallback(response) {
-            confirm('Bạn vừa nhận 1 yêu cầu hỏi giá');
+            SuccessSystem('Bạn vừa nhận 1 yêu cầu hỏi giá');
             $scope.get_yeucau();
         }, function errorCallback(response) {
-            console.log(response);
-            alert('Sự cố hệ thống, Bạn vui lòng kiểm tra kết nối Internet hoặc liên hệ với admin để được hỗ trợ ');
+            ErrorSystem(response);
+            ErrorSystem('Sự cố hệ thống, Bạn vui lòng kiểm tra kết nối Internet hoặc liên hệ với admin để được hỗ trợ ');
         });
     }
+
+
+
 });

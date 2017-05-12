@@ -29,5 +29,7 @@ namespace ERP.Web.Models.Database
         public string EMAIL_NGUOI_BAO_GIA { get; set; }
         public System.DateTime NGAY_BAO_GIA { get; set; }
         public Nullable<decimal> PHI_VAN_CHUYEN { get; set; }
+        public Nullable<double> THUE_SUAT_GTGT { get; set; }
+        public Nullable<decimal> TIEN_THUE_GTGT { get; set; }
     }
 }

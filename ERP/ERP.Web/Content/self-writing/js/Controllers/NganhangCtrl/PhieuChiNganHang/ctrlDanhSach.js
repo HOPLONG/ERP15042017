@@ -65,6 +65,6 @@
         }
 
         $scope.selectTaiKhoanNganHang = function (tknh) {
-            $scope.so_tai_khoan = tknh.so_tai_khoan;
+            $scope.so_tai_khoan = tknh.SO_TAI_KHOAN;
         };
     }

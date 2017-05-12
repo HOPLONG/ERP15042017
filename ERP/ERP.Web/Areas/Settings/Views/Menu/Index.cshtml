@@ -1,7 +1,10 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Areas/Settings/Views/Shared/Layout.cshtml";
 }
+<script src="~/Content/self-writing/js/Services/Menu/MenuService.js"></script>
+<script src="~/Content/self-writing/js/Controllers/Menu/MenuCtrl.js"></script>
 <style>
     .hienthi{
         display: block !important;
@@ -46,9 +49,10 @@
         float: left;
     }
 </style>
-<input type="hidden" value="@Session["MA_PHONG_BAN"]" id="maphongban"/>
-<input type="hidden" value="@Session["USERNAME"]" id="username"/>
+
 <div ng-app="myApp" ng-controller="menuCtrl" class="content">
+    <input type="hidden" value="@Session["MA_PHONG_BAN"]" id="maphongban" name="maphongban" />
+    <input type="hidden" value="@Session["USERNAME"]" id="username" name="username" />
     <div class="col-md-3 list">
         <ul  ng-repeat="menu in danhsachmenu" ng-class="get(menu.USERNAME)">
             <li ng-class="check(menu.TRANG_THAI)"><a href="{{menu.LINK}}">{{menu.TEN_MENU}}</a></li>

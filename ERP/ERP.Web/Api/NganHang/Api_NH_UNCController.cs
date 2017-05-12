@@ -13,17 +13,67 @@ using System.Text.RegularExpressions;
 using ERP.Web.Models.NewModels.NganHang;
 using ERP.Web.Common;
 using ERP.Web.Models.NewModels.All;
+using System.Dynamic;
 
 namespace ERP.Web.Api.NganHang
 {
     public class Api_NH_UNCController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
-
+        [HttpGet]
         // GET: api/Api_NH_UNC
-        public IQueryable<NH_UNC> GetNH_UNC()
+        public ExpandoObject GetNH_UNC(DateTime? from_day = null, DateTime? to_day = null, string so_tai_khoan = null, int current_page = 1, int page_size = 10)
         {
-            return db.NH_UNC;
+
+            IEnumerable<NH_UNC> value = db.NH_UNC;
+
+            if (so_tai_khoan != null)
+            {
+                value = value.Where(c => c.TAI_KHOAN_CHI == so_tai_khoan);
+            }
+
+            if (to_day != null)
+            {
+                value = value.Where(c => c.NGAY_CHUNG_TU <= to_day);
+            }
+
+            if (from_day != null)
+            {
+                value = value.Where(c => c.NGAY_CHUNG_TU >= from_day);
+            }
+
+            int count = value.Count();
+            value = value.Skip(page_size * (current_page - 1)).Take(page_size);
+            int max_page = (count + page_size - 1) / page_size;
+
+            if (max_page < current_page)
+            {
+                current_page = max_page;
+            }
+
+            // List<NH_NTTK> Listtest = value.ToList();
+            var result = value.ToList().Select(x => new NH_UNC()
+            {
+                SO_CHUNG_TU = x.SO_CHUNG_TU,
+                NGAY_HACH_TOAN = x.NGAY_HACH_TOAN,
+                NGAY_CHUNG_TU = x.NGAY_CHUNG_TU,
+                MA_DOI_TUONG = x.MA_DOI_TUONG,
+                TAI_KHOAN_CHI = x.TAI_KHOAN_CHI,
+                DIEN_GIAI_NOI_DUNG_THANH_TOAN = x.DIEN_GIAI_NOI_DUNG_THANH_TOAN,
+                NOI_DUNG_THANH_TOAN = x.NOI_DUNG_THANH_TOAN,
+                NHAN_VIEN_CHUYEN_KHOAN = x.NHAN_VIEN_CHUYEN_KHOAN,
+                TONG_TIEN = x.TONG_TIEN,
+                NGUOI_LAP_BIEU = x.NGUOI_LAP_BIEU,
+                TRUC_THUOC = x.TRUC_THUOC
+
+            }).ToList();
+
+            dynamic res_data = new ExpandoObject();
+            res_data.current_page = current_page;
+            res_data.page_size = page_size;
+            res_data.max_page = max_page;
+            res_data.data = result;
+            return res_data;
         }
 
         // GET: api/Api_NH_UNC/5
@@ -166,7 +216,7 @@ namespace ERP.Web.Api.NganHang
                     tongtien += newItem.QUY_DOI;
                     newItem.MA_DOI_TUONG = unc.MA_DOI_TUONG;
                     newItem.DON_VI = item.DON_VI;
-                    if(chi_nganhang.ChiTietThue != null && chi_nganhang.ChiTietThue.Count > 0)
+                    if (chi_nganhang.ChiTietThue != null && chi_nganhang.ChiTietThue.Count > 0)
                     {
                         var thue = chi_nganhang.ChiTietThue.Where(x => x.MA_NHA_CUNG_CAP == unc.MA_DOI_TUONG).FirstOrDefault();
                         newItem.DIEN_GIAI_THUE = thue.DIEN_GIAI_THUE;
@@ -180,15 +230,73 @@ namespace ERP.Web.Api.NganHang
                         newItem.KY_HIEU_HD = thue.KY_HIEU_HD;
                         newItem.MA_NHA_CUNG_CAP = thue.MA_NHA_CUNG_CAP;
                     }
-                    
-
-
-
-
 
                     db.NH_CT_UNC.Add(newItem);
+
+                    // Lưu Nhật ký
+                    KT_SO_NHAT_KY_CHUNG sonhatky = new KT_SO_NHAT_KY_CHUNG();
+                    sonhatky.SO_CHUNG_TU = newItem.SO_CHUNG_TU;
+                    sonhatky.NGAY_CHUNG_TU = unc.NGAY_CHUNG_TU;
+                    sonhatky.NGAY_HACH_TOAN = unc.NGAY_HACH_TOAN;
+                    sonhatky.DOI_TUONG = unc.MA_DOI_TUONG;
+                    sonhatky.TRUC_THUOC = "HOPLONG";
+                    sonhatky.DIEN_GIAI_CHUNG = unc.NOI_DUNG_THANH_TOAN;
+                    sonhatky.DIEN_GIAI_CHI_TIET = newItem.DIEN_GIAI;
+                    sonhatky.TAI_KHOAN_HACH_TOAN = newItem.TK_NO;
+                    sonhatky.TAI_KHOAN_DOI_UNG = newItem.TK_CO;
+                    sonhatky.PHAT_SINH_NO = tongtien;
+                    sonhatky.PHAT_SINH_CO = 0;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(sonhatky);
+                    KT_SO_NHAT_KY_CHUNG sonhatky1 = new KT_SO_NHAT_KY_CHUNG();
+                    sonhatky1.SO_CHUNG_TU = newItem.SO_CHUNG_TU;
+                    sonhatky1.NGAY_CHUNG_TU = unc.NGAY_CHUNG_TU;
+                    sonhatky1.NGAY_HACH_TOAN = unc.NGAY_HACH_TOAN;
+                    sonhatky1.DOI_TUONG = unc.MA_DOI_TUONG;
+                    sonhatky1.TRUC_THUOC = "HOPLONG";
+                    sonhatky1.DIEN_GIAI_CHUNG = unc.NOI_DUNG_THANH_TOAN;
+                    sonhatky1.DIEN_GIAI_CHI_TIET = newItem.DIEN_GIAI;
+                    sonhatky1.TAI_KHOAN_HACH_TOAN = newItem.TK_CO;
+                    sonhatky1.TAI_KHOAN_DOI_UNG = newItem.TK_NO;
+                    sonhatky1.PHAT_SINH_NO = 0;
+                    sonhatky1.PHAT_SINH_CO = tongtien;
+                    db.KT_SO_NHAT_KY_CHUNG.Add(sonhatky1);
+                    if (newItem.TK_THUE_GTGT != null)
+                    {
+                        KT_SO_NHAT_KY_CHUNG sonhatky3 = new KT_SO_NHAT_KY_CHUNG();
+                        sonhatky3.SO_CHUNG_TU = newItem.SO_CHUNG_TU;
+                        sonhatky3.NGAY_CHUNG_TU = unc.NGAY_CHUNG_TU;
+                        sonhatky3.NGAY_HACH_TOAN = unc.NGAY_HACH_TOAN;
+                        sonhatky3.DOI_TUONG = unc.MA_DOI_TUONG;
+                        sonhatky3.TRUC_THUOC = "HOPLONG";
+                        sonhatky3.DIEN_GIAI_CHUNG = unc.NOI_DUNG_THANH_TOAN;
+                        sonhatky3.DIEN_GIAI_CHI_TIET = newItem.DIEN_GIAI;
+                        sonhatky3.TAI_KHOAN_HACH_TOAN = newItem.TK_THUE_GTGT;
+                        sonhatky3.TAI_KHOAN_DOI_UNG = newItem.TK_NO;
+                        sonhatky3.PHAT_SINH_NO = Convert.ToDecimal(newItem.TIEN_THUE_GTGT);
+                        sonhatky3.PHAT_SINH_CO = 0;
+                        db.KT_SO_NHAT_KY_CHUNG.Add(sonhatky3);
+                        KT_SO_NHAT_KY_CHUNG sonhatky4 = new KT_SO_NHAT_KY_CHUNG();
+                        sonhatky4.SO_CHUNG_TU = newItem.SO_CHUNG_TU;
+                        sonhatky4.NGAY_CHUNG_TU = unc.NGAY_CHUNG_TU;
+                        sonhatky4.NGAY_HACH_TOAN = unc.NGAY_HACH_TOAN;
+                        sonhatky4.DOI_TUONG = unc.MA_DOI_TUONG;
+                        sonhatky4.TRUC_THUOC = "HOPLONG";
+                        sonhatky4.DIEN_GIAI_CHUNG = unc.NOI_DUNG_THANH_TOAN;
+                        sonhatky4.DIEN_GIAI_CHI_TIET = newItem.DIEN_GIAI;
+                        sonhatky4.TAI_KHOAN_HACH_TOAN = newItem.TK_NO;
+                        sonhatky4.TAI_KHOAN_DOI_UNG = newItem.TK_THUE_GTGT;
+                        sonhatky4.PHAT_SINH_NO = 0;
+                        sonhatky4.PHAT_SINH_CO = Convert.ToDecimal(newItem.TIEN_THUE_GTGT);
+                        db.KT_SO_NHAT_KY_CHUNG.Add(sonhatky4);
+                        db.SaveChanges();
+
+
+                    }
                 }
+
+
             }
+
 
             unc.TONG_TIEN = tongtien;
 

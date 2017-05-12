@@ -2,9 +2,68 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = null;
 }
+
+<link rel="shortcut icon" type="image/ico" href="~/logo_hoplong.png">
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.6 -->
+<link href="~/Content/download/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/self-writing/css/nav_hoplong_multilevel.css" rel="stylesheet" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Theme style -->
+<link href="~/Content/download/dist/css/AdminLTE.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+     folder instead of downloading all of them to reduce the load. -->
+
+<link href="~/Content/download/bootstrap/css/layout_all.css" rel="stylesheet" />
+<link href="~/Content/self-writing/css/Layout-CSS.css" rel="stylesheet" />
+<link href="~/Content/self-writing/css/LayoutHL.css" rel="stylesheet" />
+<script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
+<script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
+<script src="~/Content/download/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="~/Content/download/angularjs/angular.min.js"></script>
+<script src="~/Content/self-writing/js/app.js"></script>
+<script src="~/Content/self-writing/js/Service.js"></script>
+<script src="~/Content/self-writing/js/Controller.js"></script>
+<script src="~/Content/download/angularjs/dirPagination.js"></script>
+<script src="~/Content/download/moment.min.js"></script>
+<script src="~/Content/download/date_directive.js"></script>
+
+
+<script src="~/Content/download/angular-ui/build/angular-ui.min.js"></script>
+<script src="~/Content/download/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="~/Content/download/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+<script src="~/Content/download/bootstrap-datetimepicker.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+<script src="~/Content/download/angular-smart-table/angular-smart-table/dist/smart-table.js"></script>
+
+
+<!-- Angular Material Library -->
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 <script src="~/Content/self-writing/js/Controllers/PhieuBaoGiaCtrl.js"></script>
 <script src="~/Content/self-writing/js/Services/PhieuBaoGiaService.js"></script>
+<script src="~/Content/download/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="~/Content/self-writing/pagination.js"></script>
+<script src="~/Content/download/dist/js/app.min.js"></script>
+<script src="~/Content/download/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/download/plugins/fastclick/fastclick.js"></script>
+
+<script src="~/Content/self-writing/js/nav_hoplong_multilevel.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ngMask/3.1.1/ngMask.min.js"></script>
 <style>
     td,tr,th{
         border: 1px solid black !important;
@@ -276,9 +335,9 @@
 
 
 </div>
+<a href="@Url.Action("DownloadActionAsPDF", "PhieuBaoGia")">in trang</a>
 
-
-<script language="javascript" type="text/javascript">
+    <script language="javascript" type="text/javascript">
         function printDiv(divID) {
             //Get the HTML of div
             var divElements = document.getElementById(divID).innerHTML;
@@ -298,5 +357,5 @@
 
 
         }
-</script>
+    </script>
 

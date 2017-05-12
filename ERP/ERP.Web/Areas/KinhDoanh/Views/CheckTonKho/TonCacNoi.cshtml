@@ -16,158 +16,266 @@
 <br />
 <div ng-app="myApp"  ng-controller="TonCacNoiCtrl" >
     <div class="content">
-
+        <input type="hidden" name="macongty" id="macongty" value="@Session["MA_CONG_TY"]">
+        <input type="hidden" name="macongty" id="username" value="@Session["USERNAME"]">
         <!--Tìm Kiếm Hàng Hóa-->
-        <div class="tab-pane fade in" style="border:1px solid #ddd">
-            <center>
-                <div id="quick-access" style="padding-bottom: 20px;padding-top: 20px; align-content:center">
-                    <form class="form-inline quick-search-form" role="form" action="#">
-                        <div class="form-group" style="width: 90%">
-                            <input type="text" style="width: 60%" class="form-control" placeholder="Nhập mã hàng chuẩn tại đây" ng-model="search_text">
-
-                            <button type="button" style="border-radius: 5px" class="btn btn-info" ng-model="find" ng-click="datatonkho(search_text)">Tìm kiếm</button>
-                        </div>
-                    </form>
+        <!--Form tìm kiếm-->
+        <div id="quick-access">
+            <form class="form-inline quick-search-form" role="form" action="#">
+                <div class="form-group" style="width: 100%; margin-bottom: 10px;" >
+                    <input type="text" style="width: 60%; border:1px solid #ddd !important" class="form-control" placeholder="Type Customer Name You Want To Search Here" ng-model="search_text" ng-change="datatonkho(search_text)">
                 </div>
-            </center>
+            </form>
+        </div>
+        <!--End Form tìm kiếm-->
 
+        <div style="border:1px solid #ddd">
 
-
-            <div class="col-md-12 content-group" >
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover ">
+                <div class="table" style="overflow:scroll">
+                    <table>
                         <thead>
-                            <tr class="bg-primary-300">
-                                <th style="width:6%" class="text-left">Mã hàng</th>
-                                <th style="width:6%" class="text-center">Tên hàng</th>
-                                <th style="width:6%" class="text-center">Mã chuẩn</th>
-                                <th style="width:8%" class="text-center">Thông số</th>
-                                <th style="width:4%" class="text-center">Hãng</th>
-                                <th style="width:2%" class="text-center">ĐVT</th>
-                                <th style="width:5%" class="text-center">Xuất xứ</th>
-                                <th style="width:6%" class="text-center">Giá List</th>
-                                <th style="width:5%" class="text-center">Discontinue</th>
-                                <th style="width:8%" class="text-center">Mã chuyển đổi</th>
-                                <th style="width:4%" class="text-center">Tồn HL</th>
-                                <th style="width:4%" class="text-center">Tồn ĐN</th>
-                                <th style="width:5%" class="text-center">Tồn HCM</th>
-                                <th style="width:4%" class="text-center">Tồn HP</th>
-                                <th style="width:5%" class="text-center">Đang giữ</th>
-                                <th style="width:5%" class="text-center">Ký gửi</th>
-                                <th style="width:5%" class="text-center">Tồn Hãng</th>
-                                <th style="width:9%" class="text-center">Thời gian cấp hàng (Hãng)</th>
-                                <th style="width:5%" class="text-center"></th>
+                            <tr height="23">
+                                <th height="44" rowspan="2" style="height:44px;width:200px;">
+                                    Mã chuẩn
+                                </th>
+                                <th rowspan="2" style="width:253px;">
+                                    Thông số
+                                </th>
+                                <th rowspan="2" style="width:120px;">
+                                    Hãng/Xuất xứ
+                                </th>
+                                <th rowspan="2" style="width:60px;">
+                                    ĐVT
+                                </th>
+                                <th colspan="3" rowspan="2" style="width:210px;">
+                                    Giá
+                                </th>
+                                <th colspan="2" rowspan="2" style="width:60px;">
+                                    Tồn HL
+                                </th>
+                                <th colspan="2" rowspan="2" style="width:60px;">
+                                    Tồn ĐN
+                                </th>
+                                <th colspan="2" rowspan="2" style="width:60px;">
+                                    Tồn HP
+                                </th>
+                                <th colspan="2" rowspan="2" style="width:60px;">
+                                    Tồn HCM
+                                </th>
+                                <th rowspan="2" style="width:63px;">
+                                    Tồn Hãng
+                                </th>
+                                <th colspan="3"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in listtonkho">
+                            <tr ng-repeat="item in listtonkho" >
+                                <td colspan="16" >
+                                    <table border="1" cellpadding="0" cellspacing="0" style="width:1752px;">
 
-                                <td>
-                                    <div>
-                                        {{item.MA_HANG }}
-                                    </div>
-                                </td>
-                                <td>
-                                    {{item.TEN_HANG }}
-                                </td>
-                                <td class="text-center">
-                                    {{item.MA_CHUAN }}
-                                </td>
-                                <td class="text-center">
-                                    {{item.THONG_SO }}
-                                </td>
-                                <td class="text-center">
-                                    {{item.MA_NHOM_HANG }}
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.DVT }}
-                                    </div>
-                                </td>
+                                        <tbody>
 
-                                <td>
-                                    <div>
-                                        {{item.XUAT_XU }}
-                                    </div>
+                                            <tr height="23">
+                                                <td height="23" style="height:23px;width:131px;">
+                                                    {{item.MA_CHUAN}}
+                                                </td>
+                                                <td style="width:183px;">
+                                                    {{item.THONG_SO}}
+                                                </td>
+                                                <td style="width:90px;">
+                                                    {{item.MA_NHOM_HANG}}
+                                                </td>
+                                                <td style="width:50px;">
+                                                    {{item.DVT}}
+                                                </td>
+                                                <td style="width:70px;">
+                                                    {{item.GIA1}}
+                                                </td>
+                                                <td style="width:70px;">
+                                                    {{item.GIA2}}
+                                                </td>
+                                                <td style="width:70px;">
+                                                    {{item.GIA3}}
+                                                </td>
+                                                <td colspan="2" style="width:60px;">
+                                                    {{item.tonHL}}
+                                                </td>
+                                                <td colspan="2" style="width:60px;">
+                                                    {{item.TON_DANANG + item.KY_GUI_DEN_DN}}
+                                                </td>
+                                                <td colspan="2" style="width:60px;">
+                                                    {{item.TON_HAIPHONG + item.KY_GUI_DEN_HP}}
+                                                </td>
+                                                <td colspan="2" style="width:60px;">
+                                                   {{item.TON_HCM + item.KY_GUI_DEN_HCM}}
+                                                </td>
+                                                <td align="right" style="width:40px;">
+                                                    {{item.TON_TAI_HANG}}
+                                                </td>
+                                            </tr>
+                                            <tr height="23">
+                                                <td rowspan="2" height="23" style="height:23px;width:131px;">
+                                                    {{item.TEN_HANG}}
+                                                </td>
+                                                <td style="width:183px;">
+                                                    
+                                                </td>
+                                                <td style="width:90px;">
+                                                    {{item.XUAT_XU}}
+                                                </td>
+                                                <td style="width:50px;">
+                                                    
+                                                </td>
+                                                <td style="width:70px;">
+                                                    {{item.GIA4}}
+                                                </td>
+                                                <td style="width:70px;">
+                                                    {{item.GIA5}}
+                                                </td>
+                                                <td style="width:70px;">
+                                                    {{item.GIA6}}
+                                                </td>
+                                                <td style="width:30px;">
+                                                    {{item.tonHL}}
+                                                </td>
+                                                <td style="width:30px;">
+                                                    {{item.DANG_GIU_HL}}
+                                                </td>
+                                                <td style="width:30px;">
+                                                    {{item.TON_DANANG}}
+                                                </td>
+                                                <td style="width:30px;">
+                                                    {{item.DANG_GIU_DN}}
+                                                </td>
+                                                <td style="width:30px;">
+                                                    {{item.TON_HAIPHONG}}
+                                                </td>
+                                                <td style="width:30px;">
+                                                   {{item.DANG_GIU_HP}}
+                                                </td>
+                                                <td style="width:30px;">
+                                                    {{item.TON_HCM}}
+                                                </td>
+                                                <td style="width:30px;">
+                                                    {{item.DANG_GIU_HCM}}
+                                                </td>
+                                                <td style="width:40px;">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr height="23">
+                                                
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td style="width:70px;">
+                                                    {{item.GIA7}}
+                                                </td>
+                                                <td style="width:70px;">
+                                                    {{item.GIA8}}
+                                                </td>
+                                                <td style="width:70px;">
+                                                    {{item.GIA9}}
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    {{item.SL_DANG_VE_HL}}
+                                                </td>
+                                                <td>
+                                                    {{item.KY_GUI_DEN_DN}}
+                                                </td>
+                                                <td>
+                                                    {{item.SL_DANG_VE_DN}}
+                                                </td>
+                                                <td>
+                                                    {{item.KY_GUI_DEN_HP}}
+                                                </td>
+                                                <td>
+                                                    {{item.SL_DANG_VE_HP}}
+                                                </td>
+                                                <td>
+                                                    {{item.KY_GUI_DEN_HCM}}
+                                                </td>
+                                                <td>
+                                                    {{item.SL_DANG_VE_HCM}}
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr height="23">
+                                                <td height="23" style="height:23px;">
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    {{item.GIA10}}
+                                                </td>
+                                                <td>
+                                                    {{item.GIA11}}
+                                                </td>
+                                                <td>
+                                                    {{item.GIA12}}
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </td>
-                                <td>
-                                    <div>
-                                        {{item.GIA_LIST | currency:'':0}} vnd
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <input type="checkbox" ng-model="item.DISCONTINUE">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.MA_CHUYEN_DOI }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.TON_HOPLONG }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.TON_DANANG }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.TON_HCM }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.TON_HAIPHONG }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.SL_DANG_GIU }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.SL_KY_GUI_DI }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.TON_TAI_HANG }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{item.THOI_GIAN_CAP_HANG }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#myModal" ng-click="edit(item)">Hỏi giá</button>
-                                    </div>
-                                </td>
+                                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" ng-click="edit(item)">Hỏi giá</button></td>
+                                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#nhatky" ng-click="nhatkyhoihang(item.MA_HANG)">Lịch sử hỏi giá</button></td>
+                                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#comment" ng-click="edit(item)">New Comment</button></td>
                             </tr>
-
-
                         </tbody>
 
 
                     </table>
 
 
-
                 </div>
 
-
-
-              
-
-
-            </div>
 
         </div>
         <!--End tìm kiếm hàng hóa-->
@@ -195,10 +303,13 @@
                                 <input type="text" class="form-control" ng-model="ton.MA_CHUAN">
                             </div>
                             <div class="row">
+                                <label style="font-weight:bold; padding-top: 15px;">Mã khách order</label>
+                                <input type="text" class="form-control" ng-model="ton.MA_KHACH_ORDER">
+                            </div>
+                            <div class="row">
                                 <label style="font-weight:bold; padding-top: 15px;">Thông số</label>
                                 <input type="text" class="form-control" ng-model="ton.THONG_SO">
                             </div>
-
                         </div>
                         <div class="col-md-6">
                             <div class="row">
@@ -229,7 +340,89 @@
     </div>
 
 
+
+
+    <!--Xem nhật ký hỏi hàng-->
+    <div class="modal fade" id="nhatky" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Nhật Ký Hỏi Hàng</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="col-md-12" style="padding-bottom: 20px; padding-top:30px;">
+                       <table>
+                           <tr>
+                               <td style="width:10% ;padding: 5px;">Mã chuẩn</td>
+                               <td style="width:10% ;padding: 5px;">Mã khách order</td>
+                               <td style="width:5% ;padding: 5px;">SL</td>
+                               <td style="width:10% ;padding: 5px;">NCC</td>
+                               <td style="width:10% ;padding: 5px;">Giá</td>
+                               <td style="width:15% ;padding: 5px;">TG cấp hàng</td>
+                               <td style="width:5% ;padding: 5px;">Ngày hỏi giá</td>
+                               <td style="width:10% ;padding: 5px;">Ghi chú</td>
+                               <td style="width:10% ;padding: 5px;">Người xử lý</td>
+                           </tr>
+                           <tr ng-repeat="item in nkhoihang">
+                               <td>{{item.MA_CHUAN}}</td>
+                               <td>{{item.MA_KHACH_ORDER}}</td>
+                               <td>{{item.SL}}</td>
+                               <td>{{item.MA_NCC}}</td>
+                               <td>{{item.GIA}}</td>
+                               <td>{{item.THOI_GIAN_CAP_HANG}}</td>
+                               <td>{{item.NGAY_HOI}}</td>
+                               <td>{{item.GHI_CHU}}</td>
+                               <td>{{item.HO_VA_TEN}}</td>
+                           </tr>
+                       </table>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <center>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </center>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!---------------------------->
   
+    <div class="modal fade" id="comment" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <label class="col-md-2">Nội dung</label>
+                        <div class="col-sm-10">
+                            <textarea id="newcomment" name="newcomment" class="form-control input-md"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="anmelden"></label>
+                        <div class="col-md-8 addnew" style="text-align: left;margin-top: 30px;">
+                            <button id="addnew" name="addnew" class="btn" ng-click="AddNewComment(item.MA_HANG)" data-dismiss="modal">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            CKEDITOR.replace('newcomment', {
+                height: 150
+            });
+        </script>
+
+    </div>
 </div>
 
 

@@ -28,6 +28,7 @@ namespace ERP.Web.Api.KhachHang
                          select new
                          {
                              t1.MA_KHACH_HANG,
+                             t2.ID,
                              t2.NGUOI_PHAN_HOI,
                              t2.NGAY_PHAN_HOI,
                              t2.THONG_TIN_PHAN_HOI,
@@ -36,6 +37,7 @@ namespace ERP.Web.Api.KhachHang
                          });
             var result = vData.ToList().Select(x => new KhachHanghl()
             {
+                ID = x.ID,
                 NGUOI_PHAN_HOI = x.NGUOI_PHAN_HOI,
                 MA_KHACH_HANG = x.MA_KHACH_HANG,
                 NGAY_PHAN_HOI = x.NGAY_PHAN_HOI.ToString("dd/MM/yyyy"),
@@ -68,12 +70,13 @@ namespace ERP.Web.Api.KhachHang
                 return BadRequest(ModelState);
             }
 
-            if (id != kH_PHAN_HOI_KHACH_HANG.ID)
-            {
-                return BadRequest();
-            }
+           
 
-            db.Entry(kH_PHAN_HOI_KHACH_HANG).State = EntityState.Modified;
+            var query = db.KH_PHAN_HOI_KHACH_HANG.Where(x => x.ID == id).FirstOrDefault();
+            if(query != null)
+            {
+                query.THONG_TIN_PHAN_HOI = kH_PHAN_HOI_KHACH_HANG.THONG_TIN_PHAN_HOI;
+            }
 
             try
             {

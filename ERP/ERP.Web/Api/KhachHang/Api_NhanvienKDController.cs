@@ -18,21 +18,19 @@ namespace ERP.Web.Api.KhachHang
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: api/Api_NhanvienKD
-        public List<nhanvien> GetCCTC_NHAN_VIEN()
+        public List<HopLong_GetAllSale_Result> GetCCTC_NHAN_VIEN()
         {
-            var vData = (from t1 in db.HT_NGUOI_DUNG
-                         join t2 in db.CCTC_NHAN_VIEN on t1.USERNAME equals t2.USERNAME
-                         where t2.MA_PHONG_BAN == "SALE_HL"
-                         select new
-                         {
-                             t1.USERNAME,
-                             t1.HO_VA_TEN,
-                         });
-            var result = vData.ToList().Select(x => new nhanvien()
-            {
-                USERNAME = x.USERNAME,
-                HO_VA_TEN = x.HO_VA_TEN,
-            }).ToList();
+            var query = db.Database.SqlQuery<HopLong_GetAllSale_Result>("HopLong_GetAllSale");
+            var result = query.ToList();
+            return result;
+        }
+
+
+        [Route("api/Api_NhanvienKD/GetNhanvienKho")]
+        public List<HopLong_GetAll_Nhanvien_Kho_Result> GetNhanvienKho()
+        {
+            var query = db.Database.SqlQuery<HopLong_GetAll_Nhanvien_Kho_Result>("HopLong_GetAll_Nhanvien_Kho");
+            var result = query.ToList();
             return result;
         }
 

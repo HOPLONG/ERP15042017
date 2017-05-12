@@ -13,5 +13,10 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
         {
             return View();
         }
+
+        public ActionResult Action()
+        {
+            return View();
+        }
     }
 }

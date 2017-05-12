@@ -1,5 +1,5 @@
 ﻿
-app.controller('StoreInsertController', function ($rootScope, $scope, $http,config) {
+app.controller('StoreInsertController', function ($rootScope, $scope, $http, config) {
     $rootScope.PageSetting = {
         PageCount: 0,
         NumberPerPage: 10,
@@ -28,13 +28,11 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         DienGia: null,
         KemTheo: null,
         ChiTiet: null,
-        TenDoiTuong:null
+        TenDoiTuong: null
 
     };
-    $scope.ChangeType=function()
-    {
-        if($scope.StoreType!=2)
-        {
+    $scope.ChangeType = function () {
+        if ($scope.StoreType != 2) {
             ResetAfterSave();
             $scope.LoadHangTra = false;
         }
@@ -58,7 +56,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         To: null,
         ListResult: [],
         ListSelect: [],
-        TraHang:null
+        TraHang: null
     };
     $scope.ChungTu = {
         ListThamChieu: []
@@ -80,7 +78,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         NgayBatDau: null,
         NgayKetThuc: null,
         ListResult: [],
-        DonHangSelect:null
+        DonHangSelect: null
     };
 
     $scope.ValidateSearchDonHangTra = {
@@ -90,14 +88,14 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         $scope.StoreType = 1;
         $scope.LoaiChungTu = null;
         $scope.GiaTriThamChieu = [];
-        //$scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
-        //$scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+        $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+        $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
         $scope.GiaTriChungTu.Search = null,
         $scope.GiaTriChungTu.Date = null;
         $scope.GeneralInfo.NgayChungTu = null;
         $scope.GeneralInfo.NgayHachToan = null;
         $scope.GeneralInfo.SoChungTu = null;
-        $scope.GeneralInfo.DienGia = null;
+        $scope.GeneralInfo.DienGiai = null;
         $scope.GeneralInfo.KemTheo = null;
         $scope.GeneralInfo.ChiTiet = null;
         $scope.Detail.ListHangHoa = [];
@@ -129,8 +127,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
     }
     function ResetAfterSave() {
         $scope.GiaTriThamChieu = [];
-        //$scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
-        //$scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+        $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+        $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
         $scope.GiaTriChungTu.Search = null,
         $scope.GiaTriChungTu.Date = null;
         $scope.GeneralInfo.NgayChungTu = null;
@@ -173,15 +171,45 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         SearchHang: [],
         ListKho: []
     }
+
+    //Lấy dữ liệu hàng hóa
+    $scope.SearchHH = function (mh) {
+        $http.get(window.location.origin + '/api/Api_XuatNhapKho/GetAllHH/' + 'HOPLONG/' + 'NHAPKHO/' + mh)
+         .then(function (response) {
+             if (typeof (response.data) == "object") {
+                 $scope.Detail.ListHangHoa = response.data;
+             }
+             else {
+                 ErrorSystem();
+             }
+         }, function (error) {
+             console.log(error);
+         });
+    }
+  
+
     function Init() {
 
+        $scope.SearchKH = function (mkh) {
+            $http.post(window.location.origin + '/api/Search_KH/Search/' + mkh)
+             .then(function (response) {
+                 if (typeof (response.data) == "object") {
+                     $scope.KhachHang.KhachHang = response.data;
+                 }
+                 else {
+                     ErrorSystem();
+                 }
+             }, function (error) {
+                 console.log(error);
+             });
+        }
 
         $http({
             method: 'GET',
-            url: '/api/Api_KH'
+            url: '/api/Api_KhoHL'
         }).then(function (response) {
             if (typeof (response.data) == "object") {
-                $scope.KhachHang.KhachHang = response.data;
+                $scope.Detail.ListKho = response.data;
             }
             else {
                 ErrorSystem();
@@ -189,8 +217,6 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         }, function (error) {
             ConnectFail();
         });
-
-
 
         $http({
             method: 'GET',
@@ -243,6 +269,377 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
 
     init();
     //Thay đổi loại chứng từ
+    
+    $scope.ShowDataNguoiGiaoHang = function () {
+        if ($("#DataNguoiGiaoHang").css("display") == "none") {
+            $("#DataNguoiGiaoHang").css({ "display": "block" });
+        }
+        else {
+            $("#DataNguoiGiaoHang").css({ "display": "none" });
+        }
+    }
+    $scope.SelectDataGiaTriChungTu = function (item) {
+        $scope.GiaTriChungTu.Data = item;
+        $scope.GiaTriChungTu.Search = item.tendoituong;
+        $("#DataGiaTriChungTu").css({ "display": "none" });
+    }
+    $scope.SelectDataNguoiGiaoHang = function (item) {
+        $scope.NguoiGiaoHang.NguoiGiaoHang = item;
+        $scope.NguoiGiaoHang.Search = item.USERNAME;
+        $scope.NguoiGiaoHang.Ten = item.HO_VA_TEN;
+        $("#DataNguoiGiaoHang").css({ "display": "none" });
+    }
+    $("#SlectNguoiGiaoHang").focusout(function () {
+        $("#DataGiaTriChungTu").css({ "display": "none" });
+    });
+   
+    $scope.AddNew = function () {
+        $scope.Detail.ListAdd.push({
+            MA_HANG: null,
+            MA_CHUAN: null,
+            TEN_HANG: null,
+            MA_KHO: null,
+            TK_KHO: null,
+            DON_GIA: null,
+            SO_LUONG: null,
+            DVT: null,
+            TK_NO: null,
+            TK_CO: null,
+        });
+    }
+    $scope.ShowHangHoa = function (index) {
+        if ($("#DataHangHoa" + index).css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#DataHangHoa" + index).css({ "display": "block" });
+        }
+        else {
+            $(".tableselect").css({ "display": "none" });
+        }
+    }
+    $scope.SelectHangHoa = function (index, item, hanghoa) {
+        item.MA_CHUAN = hanghoa.MA_CHUAN;
+        item.MA_HANG = hanghoa.MA_HANG;
+        item.TEN_HANG = hanghoa.TEN_HANG;
+        item.TK_KHO = hanghoa.TK_KHO;
+        item.TK_NO = hanghoa.TK_CHI_PHI;
+        item.TK_CO = hanghoa.TK_DOANH_THU;
+        //$scope.Detail.ListAdd[index].SearchHang = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
+        //$scope.Detail.ListAdd[index].KhoList = $scope.Detail.ListHangHoa[childIndex].KHO;
+        $(".tableselect").css({ "display": "none" });
+    };
+    //Chọn tài khoản
+    $scope.ShowTaiKhoanCo = function (index) {
+        if ($("#DataTaiKhoanCo" + index).css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#DataTaiKhoanCo" + index).css({ "display": "block" });
+        }
+        else {
+            $(".tableselect").css({ "display": "none" });
+        }
+    };
+    $scope.SelectTK_CO = function (index, item, tkco) {
+        item.TK_CO = tkco.SO_TK;
+        $(".tableselect").css({ "display": "none" });
+    };
+    $scope.ShowTaiKhoanNo = function (index) {
+        if ($("#DataTaiKhoanNo" + index).css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#DataTaiKhoanNo" + index).css({ "display": "block" });
+        }
+        else {
+            $(".tableselect").css({ "display": "none" });
+        }
+    };
+    $scope.SelectTK_NO = function (index, item, tkno) {
+        item.TK_NO = tkno.SO_TK;
+        $("#DataTaiKhoanNo" + index).css({ "display": "none" });
+    };
+
+    $scope.ShowTaiKhoanKho = function (index) {
+        if ($("#DataTaiKhoanKho" + index).css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#DataTaiKhoanKho" + index).css({ "display": "block" });
+        }
+        else {
+            $(".tableselect").css({ "display": "none" });
+        }
+    };
+    $scope.SelectTK_KHO = function (index, item, tkkho) {
+        item.TK_KHO = tkkho.SO_TK;
+        $(".tableselect").css({ "display": "none" });
+    };
+    //Khách hàng
+    $scope.ShowKhachHang = function () {
+        if ($("#KhachHang").css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#KhachHang").css({ "display": "block" });
+        }
+        else {
+            $(".tableselect").css({ "display": "none" });
+        }
+    }
+    $scope.SelectKhachHang = function (item) {
+        $scope.GeneralInfo.DoiTuong = item.MA_KHACH_HANG;
+        $scope.GeneralInfo.TenDoiTuong = item.TEN_CONG_TY;
+        $(".tableselect").css({ "display": "none" });
+    }
+    //Kho hàng
+    $scope.ShowKho = function (index) {
+        if ($("#DataKho" + index).css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#DataKho" + index).css({ "display": "block" });
+        }
+        else {
+            $(".tableselect").css({ "display": "none" });
+        }
+    };
+    $scope.SelectKho = function (index, item, kho) {
+        item.MA_KHO = kho.MA_KHO;
+        $(".tableselect").css({ "display": "none" });
+    };
+
+
+
+    $(function () {
+
+        $('#GeneralInfo_NgayHachToan').datetimepicker({
+            format: 'DD/MM/YYYY',
+            defaultDate: moment(),
+            sideBySide: true
+        });
+        $('#GeneralInfo_NgayChungTu').datetimepicker({
+            format: 'DD/MM/YYYY',
+            defaultDate: moment(),
+            sideBySide: true
+        });
+    });
+    $scope.test_ = function () {
+        var abc = $('#ngay_chung_tu').val();
+        console.log(abc);
+    };
+    //Lưu nhập kho
+    function CheckAll() {
+        var check = true;
+        $scope.GeneralInfo.NgayChungTu = $("#GeneralInfo_NgayChungTu").val();
+        $scope.GeneralInfo.NgayHachToan = $("#GeneralInfo_NgayHachToan").val();
+        if ($scope.NguoiGiaoHang.NguoiGiaoHang == null) {
+            $scope.ValidateGeneral.NguoiGiaoHang = false;
+            check = false;
+        } else {
+            $scope.ValidateGeneral.NguoiGiaoHang = true;
+            $scope.GeneralInfo.NguoiGiaoHang = $scope.NguoiGiaoHang.NguoiGiaoHang.USERNAME;
+        }
+        if ($scope.GeneralInfo.NgayChungTu == null || $scope.GeneralInfo.NgayChungTu == "") {
+            $scope.ValidateGeneral.NgayChungTu = false;
+            check = false;
+        } else {
+            $scope.ValidateGeneral.NgayChungTu = true;
+        }
+        if ($scope.GeneralInfo.NgayHachToan == null || $scope.GeneralInfo.NgayHachToan == "") {
+            $scope.ValidateGeneral.NgayHachToan = false;
+            check = false;
+        }
+        else {
+            $scope.ValidateGeneral.NgayHachToan = true;
+        }
+        if ($scope.GeneralInfo.NguoiGiaoHang == null) {
+            $scope.ValidateGeneral.NguoiGiaoHang = false;
+            check = false;
+        }
+        else {
+            $scope.ValidateGeneral.NguoiGiaoHang = true;
+        }
+        if (ConvertToDate($scope.GeneralInfo.NgayHachToan) < ConvertToDate($scope.GeneralInfo.NgayChungTu)) {
+            $scope.ValidateGeneral.NgayHachToanLess = false;
+            check = false;
+        }
+        else {
+            $scope.ValidateGeneral.NgayHachToanLess = true;
+        }
+        return check;
+    }
+    var a = $('#username').val();
+    var b = $('#macongty').val();
+    $scope.SaveNhapKho = function () {
+        if (CheckAll() == false) {
+            return;
+        }
+        var loainhapkho = "";
+        if ($scope.StoreType == 1) {
+            loainhapkho = "Hàng nhập kho";
+        } else if ($scope.StoreType == 2) {
+            loainhapkho = "Hàng trả lại";
+        }
+        else {
+            loainhapkho = "Khác";
+        }
+        $http({
+            method: 'POST',
+            url: '/api/Api_NhapKho/PostKHO_NHAP_KHO',
+            data: {
+                SO_CHUNG_TU: $scope.GeneralInfo.SoChungTu,
+                NGAY_CHUNG_TU: $scope.GeneralInfo.NgayChungTu,
+                NGAY_HACH_TOAN: $scope.GeneralInfo.NgayHachToan,
+                DIEN_GIAI: $scope.GeneralInfo.DienGiai,
+                ChiTiet: $scope.Detail.ListAdd,
+                ThamChieu: $scope.ThamChieu.ListSelect,
+                NGUOI_GIAO_HANG: $scope.NguoiGiaoHang.Search,
+                MA_DOI_TUONG: $scope.GeneralInfo.DoiTuong,
+                DIEN_GIAI: $scope.GeneralInfo.DienGiai,
+                LOAI_NHAP_KHO: loainhapkho,
+                NGUOI_LAP_PHIEU: a,
+                TRUC_THUOC: b,
+            }
+        }).then(function (response) {
+            $scope.datareturn = response.data;
+            //response.data = jQuery.parseJSON(response.data);
+            if (response.data == config.INPUT_ERROR) {
+                InputFail();
+            }
+            else if (response.data == config.FAIL) {
+                ErrorSystem();
+            }
+            else {
+                ResetAfterSave();
+                new PNotify({
+                    title: 'Thành công',
+                    text: 'Chứng từ ' + $scope.datareturn + ' đã được tạo',
+                    addclass: 'bg-primary'
+                });
+            }
+        }, function (error) {
+            ConnectFail();
+        });
+    }
+    function CheckSearchDonHangTra() {
+        var check = true;
+        $scope.SearchDonHangTra.NgayBatDau = $("#SearchDonHangTra_NgayBatDau").val();
+        $scope.SearchDonHangTra.NgayKetThuc = $("#SearchDonHangTra_NgayKetThuc").val();
+        if ($scope.SearchDonHangTra.NgayBatDau != null && $scope.SearchDonHangTra.NgayBatDau != "" && $scope.SearchDonHangTra.NgayKetThuc != null && $scope.SearchDonHangTra.NgayKetThuc != "" && ConvertToDate($scope.SearchDonHangTra.NgayBatDau) > ConvertToDate($scope.SearchDonHangTra.NgayKetThuc)) {
+            $scope.ValidateSearchDonHangTra.NgayKetThucLess = false;
+            check = false;
+        }
+        else {
+            $scope.ValidateSearchDonHangTra.NgayKetThucLess = true;
+        }
+        return check;
+    }
+    $scope.SearchDonHangTraSubmit = function () {
+        if (CheckSearchDonHangTra() == false) {
+            return;
+        }
+
+        var data = {
+            makh: $scope.SearchDonHangTra.KhachHang,
+            tungay: $scope.SearchDonHangTra.NgayBatDau,
+            denngay: $scope.SearchDonHangTra.NgayKetThuc
+
+        }
+        $http.post('/api/Api_XuatNhapKho/GetCTTraByKhach', data)
+         .then(function (response) {
+             console.log(response);
+             if (typeof (response.data) == "object") {
+                 $scope.SearchDonHangTra.ListResult = response.data;
+                 if ($scope.SearchDonHangTra.ListResult.length == 0) {
+                     Norecord();
+                 }
+             }
+             else {
+                 ErrorSystem();
+             }
+         }, function (error) {
+             ConnectFail();
+         });
+    }
+    $scope.SelectSearchDonHang = function (item, index) {
+        $scope.SearchDonHangTra.DonHangSelect = angular.copy(item);
+        $(".SelectSearchDonHang").css({ "background-color": "white" });
+        $("#SelectSearchDonHang" + index).css({ "background-color": "rgba(0, 255, 220, 0.31)" });
+    }
+    $scope.SetSearchDonHangTra = function () {
+        $scope.ThamChieu.ListSelect = [];
+        $scope.ThamChieu.ListSelect.push($scope.SearchDonHangTra.DonHangSelect);
+        $http({
+            method: 'GET',
+            url: '/api/Api_NhapKho/GetDetailKHO_NHAP_KHO/' + $scope.SearchDonHangTra.DonHangSelect.SO_CHUNG_TU,
+        }).then(function (response) {
+            if (typeof (response.data) == "object") {
+                $scope.Detail.ListAdd = response.data.ctxuatkho;
+                $scope.GeneralInfo.DoiTuong = response.data.xuatkho.KHACH_HANG,
+                $scope.GeneralInfo.TenDoiTuong = response.data.xuatkho.TEN_KHACH_HANG,
+                $scope.GeneralInfo.DienGiai = response.data.xuatkho.LY_DO_XUAT,
+                $scope.GeneralInfo.KemTheo = response.data.xuatkho.KEM_THEO
+                $scope.LoadHangTra = true;
+                $("#SearchDonHangTra").modal("toggle");
+            }
+            else {
+                ErrorSystem();
+            }
+        }, function (error) {
+            ConnectFail();
+        });
+    }
+    $scope.SelectDonTraHang = function (item) {
+        $scope.ThamChieu.ListSelect = [];
+        $scope.ThamChieu.ListSelect.push({ SO_CHUNG_TU: item.SO_CHUNG_TU });
+        $scope.ThamChieu.TraHang = item.SO_CHUNG_TU;
+        $(".tableselect").css({ "display": "none"});
+        $http({
+            method: 'GET',
+            url: '/api/Api_NhapKho/GetDetailKHO_NHAP_KHO/' + item.SO_CHUNG_TU,
+        }).then(function (response) {
+            if (typeof (response.data) == "object") {
+                $scope.Detail.ListAdd = response.data.ctxuatkho;
+                $scope.GeneralInfo.DoiTuong = response.data.xuatkho.KHACH_HANG,
+                $scope.GeneralInfo.TenDoiTuong = response.data.xuatkho.TEN_KHACH_HANG,
+                $scope.GeneralInfo.DienGiai = response.data.xuatkho.LY_DO_XUAT,
+                $scope.GeneralInfo.KemTheo = response.data.xuatkho.KEM_THEO
+                $scope.LoadHangTra = true;
+            }
+            else {
+                ErrorSystem();
+            }
+        }, function (error) {
+            ConnectFail();
+        });
+        
+    }
+    $scope.ShowDonHangTra = function () {
+        if ($("#DonTraHang").css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#DonTraHang").css({ "display": "block" });
+        }
+        else {
+
+            $(".tableselect").css({ "display": "none" });
+        }
+    }
+
+
+    // Tham Chiếu...........................................
+    //Hiển thị ô giá trị chứng từ
+    $scope.ShowDataGiaTriChungTu = function () {
+        if ($scope.LoaiChungTu == 2 && $("#DataGiaTriChungTu").css("display") == "none") {
+            $("#DataGiaTriChungTu").css({ "display": "block" });
+        }
+        else {
+            $("#DataGiaTriChungTu").css({ "display": "none" });
+        }
+    }
+    //End 
+
+
+
+    //Chọn giá trị chứng từ
+    $scope.SelectDataGiaTriChungTu = function (item) {
+        $scope.GiaTriChungTu.Data = item;
+        $scope.GiaTriChungTu.Search = item.tendoituong;
+        $("#DataGiaTriChungTu").css({ "display": "none" });
+    }
+    //end
+
+
+    //Thay đổi loại chứng từ
     $scope.ChangeLoaiChungTu = function () {
 
         if ($scope.LoaiChungTu == 1) {
@@ -275,102 +672,56 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             $("#Input_DataGiaTriChungTu").css({ "display": "block" });
             $("#Input_MaChungTu").css({ "display": "none" });
             $("#DataGiaTriChungTu").css({ "display": "block" });
-            $http({
-                method: 'GET',
-                url: '/api/Api_XuatNhapKho/GetAllDoiTuong'
-            }).then(function (response) {
-                if (typeof (response.data) == "object") {
-                    var data = response.data.DoiTuong;
-                    var colength = 5;
-                    var madoituong = "", tendoituong = "";
-                    var max = 0;
-                    var maxlength = response.data.Length;
-                    for (var i = 0; i < response.data.length; i++) {
-                        madoituong = response.data[i].MA_DOI_TUONG;
-                        tendoituong = response.data[i].TEN_DOI_TUONG;
-                        $scope.GiaTriThamChieu.push({
-                            value: response.data[i].MA_DOI_TUONG,
-                            show: "",
-                            madoituong: madoituong,
-                            tendoituong: tendoituong,
-                        });
-                    }
-                }
-                else {
-                    ErrorSystem();
-                }
-            }, function (error) {
-                ConnectFail();
-            });
+            $scope.DoiTuongFind = function () {
+                $http.post(window.location.origin + '/api/Api_XuatNhapKho/GetAllDoiTuong/' + $scope.GiaTriChungTu.Search)
+                 .then(function (response) {
+                     if (typeof (response.data) == "object") {
+                         var data = response.data.DoiTuong;
+                         var colength = 5;
+                         var madoituong = "", tendoituong = "";
+                         var max = 0;
+                         var maxlength = response.data.Length;
+                         for (var i = 0; i < response.data.length; i++) {
+                             madoituong = response.data[i].MA_DOI_TUONG;
+                             tendoituong = response.data[i].TEN_DOI_TUONG;
+                             $scope.GiaTriThamChieu.push({
+                                 value: response.data[i].MA_DOI_TUONG,
+                                 show: "",
+                                 madoituong: madoituong,
+                                 tendoituong: tendoituong,
+                             });
+                         }
+                     }
+                     else {
+                         ErrorSystem();
+                     }
+                 }, function (error) {
+                     console.log(error);
+                 });
+            }
+
+
         }
         else if ($scope.LoaiChungTu == 3) {
             $("#Select_DataGiaTriChungTu").css({ "display": "none" });
             $("#Input_DataGiaTriChungTu").css({ "display": "none" });
             $("#Input_MaChungTu").css({ "display": "block" });
             $("#DataGiaTriChungTu").css({ "display": "none" });
-            //$http({
-            //    method: 'POST',
-            //    url: '/api/Api_XuatNhapKho/SearchAllMa/A/A'
-            //}).then(function (response) {
-            //    if (typeof (response.data) == "object") {
-            //        $scope.GiaTriThamChieu = [];
-            //        for (var i = 0; i < response.data.length; i++) {
-            //            $scope.GiaTriThamChieu.push({
-            //                "value": response.data[i].SO_CHUNG_TU,
-            //                "show": response.data[i].SO_CHUNG_TU
-            //            });
-            //        }
-            //    }
-            //    else {
-            //        ErrorSystem();
-            //    }
-            //}, function (error) {
-            //    ConnectFail();
-            //});
+
         }
     };
     //End
-    $scope.ShowDataGiaTriChungTu = function () {
-        if ($scope.LoaiChungTu == 2 && $("#DataGiaTriChungTu").css("display") == "none") {
-            $("#DataGiaTriChungTu").css({ "display": "block" });
-        }
-        else {
-            $("#DataGiaTriChungTu").css({ "display": "none" });
-        }
-    }
-    $scope.ShowDataNguoiGiaoHang = function () {
-        if ($("#DataNguoiGiaoHang").css("display") == "none") {
-            $("#DataNguoiGiaoHang").css({ "display": "block" });
-        }
-        else {
-            $("#DataNguoiGiaoHang").css({ "display": "none" });
-        }
-    }
-    $scope.SelectDataGiaTriChungTu = function (item) {
-        $scope.GiaTriChungTu.Data = item;
-        $scope.GiaTriChungTu.Search = item.tendoituong;
-        $("#DataGiaTriChungTu").css({ "display": "none" });
-    }
-    $scope.SelectDataNguoiGiaoHang = function (item) {
-        $scope.NguoiGiaoHang.NguoiGiaoHang = item;
-        $scope.NguoiGiaoHang.Search = item.USERNAME;
-        $scope.NguoiGiaoHang.Ten = item.HO_VA_TEN;
-        $("#DataNguoiGiaoHang").css({ "display": "none" });
-    }
-    $("#SlectNguoiGiaoHang").focusout(function () {
-        $("#DataGiaTriChungTu").css({ "display": "none" });
-    });
-    // Tìm tham chiếu
+
     $scope.SearchThamChieu = function () {
         if (CheckSearchThamChieu() == false) {
             return;
         }
-
         if ($scope.LoaiChungTu == 1) {
             var data = {
                 GiaTriChungTu: $scope.GiaTriLoaiChungTu,
                 FromTime: $scope.ThamChieu.From,
                 ToTime: $scope.ThamChieu.To
+
 
             }
 
@@ -389,8 +740,6 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             }, function (error) {
                 ConnectFail();
             });
-
-
 
 
 
@@ -456,7 +805,6 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             });
         }
     };
-    //End
     function CheckSearchThamChieu() {
         $scope.ThamChieu.From = $("#ThamChieuFrom").val();
         $scope.ThamChieu.To = $("#ThamChieuTo").val();
@@ -485,14 +833,25 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         return check;
     };
     $scope.SelectThamChieu = function (item, index) {
-        if (item.Action == true)
-        {
+        if (item.Action == true) {
             item.Action = false;
         }
         else {
             item.Action = true;
 
         }
+    };
+    $scope.RemoveThamChieu = function (index) {
+        $scope.ThamChieu.ListSelect.splice(index, 1);
+        if ($scope.LoadHangTra == true) {
+            ResetAfterSave();
+        }
+    }
+
+    $scope.RemoveRow = function (index) {
+        $scope.Detail.ListAdd.splice(index, 1);
+
+        ResetAfterSave();
     }
     $scope.SetThamChieu = function () {
         var length = $scope.ThamChieu.ListResult.length;
@@ -516,345 +875,14 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         $("#modal_theme_primary").modal("toggle");
         ResetThamChieu();
     };
-    function ResetThamChieu()
-    {
+    function ResetThamChieu() {
         $("#ThamChieuFrom").val("");
         $("#ThamChieuTo").val("");
         $scope.ThamChieu.ListResult = [];
-    }
-    $scope.RemoveThamChieu = function (index) {
-        $scope.ThamChieu.ListSelect.splice(index, 1);
-        if ($scope.LoadHangTra == true)
-        {
-            ResetAfterSave();
-        }
-    }
-    $scope.AddNew = function () {
-        $scope.Detail.ListAdd.push({
-            MA_HANG: null,
-            TEN_HANG: null,
-            Kho: null,
-            TK_KHO:null,
-            DON_GIA: null,
-            SO_LUONG: null,
-            DVT: null,
-            TK_NO: null,
-            TK_CO: null,
-        });
-    }
-    // Hàng hóa
-    $scope.ShowHangHoa = function (index) {
-        if ($("#DataHangHoa" + index).css("display") == "none") {
-            $(".tableselect").css({ "display": "none" });
-            $("#DataHangHoa" + index).css({ "display": "block" });
-        }
-        else {
-            $(".tableselect").css({ "display": "none" });
-        }
-    }
-    $scope.SelectHangHoa = function (index, childIndex) {
-        $scope.Detail.ListAdd[index].MA_HANG = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
-        $scope.Detail.ListAdd[index].TEN_HANG = $scope.Detail.ListHangHoa[childIndex].TEN_HANG;
-        $scope.Detail.ListAdd[index].SearchHang = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
-        $scope.Detail.ListAdd[index].KhoList = $scope.Detail.ListHangHoa[childIndex].KHO;
-        $(".tableselect").css({ "display": "none" });
-    };
-    //Chọn tài khoản
-    $scope.ShowTaiKhoanCo = function (index) {
-        if ($("#DataTaiKhoanCo" + index).css("display") == "none") {
-            $(".tableselect").css({ "display": "none" });
-            $("#DataTaiKhoanCo" + index).css({ "display": "block" });
-        }
-        else {
-            $(".tableselect").css({ "display": "none" });
-        }
-    };
-    $scope.SelectTK_CO = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TK_CO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
-        $(".tableselect").css({ "display": "none" });
-    };
-    $scope.ShowTaiKhoanNo = function (index) {
-        if ($("#DataTaiKhoanNo" + index).css("display") == "none") {
-            $(".tableselect").css({ "display": "none" });
-            $("#DataTaiKhoanNo" + index).css({ "display": "block" });
-        }
-        else {
-            $(".tableselect").css({ "display": "none" });
-        }
-    };
-    $scope.SelectTK_NO = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TK_NO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
-        $("#DataTaiKhoanNo" + index).css({ "display": "none" });
     };
 
-    $scope.ShowTaiKhoanKho = function (index) {
-        if ($("#DataTaiKhoanKho" + index).css("display") == "none") {
-            $(".tableselect").css({ "display": "none" });
-            $("#DataTaiKhoanKho" + index).css({ "display": "block" });
-        }
-        else {
-            $(".tableselect").css({ "display": "none" });
-        }
-    };
-    $scope.SelectTK_KHO = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TK_KHO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
-        $(".tableselect").css({ "display": "none" });
-    };
-    //Khách hàng
-    $scope.ShowKhachHang = function () {
-        if ($("#KhachHang").css("display") == "none") {
-            $(".tableselect").css({ "display": "none" });
-            $("#KhachHang").css({ "display": "block" });
-        }
-        else {
-            $(".tableselect").css({ "display": "none" });
-        }
-    }
-    $scope.SelectKhachHang = function (item) {
-        $scope.GeneralInfo.DoiTuong = item.MA_DOI_TUONG;
-        $scope.GeneralInfo.TenDoiTuong = item.TEN_DOI_TUONG;
-        $(".tableselect").css({ "display": "none" });
-    }
-    //Kho hàng
-    $scope.ShowKho = function (index) {
-        if ($("#DataKho" + index).css("display") == "none") {
-            $(".tableselect").css({ "display": "none" });
-            $("#DataKho" + index).css({ "display": "block" });
-        }
-        else {
-            $(".tableselect").css({ "display": "none" });
-        }
-    };
-    $scope.SelectKho = function (index, item, kho) {
-        item.Kho = kho.MA_KHO;
-        $(".tableselect").css({ "display": "none" });
-    };
-    //Lưu nhập kho
-    function CheckAll() {
-        var check = true;
-        $scope.GeneralInfo.NgayChungTu = $("#GeneralInfo_NgayChungTu").val();
-        $scope.GeneralInfo.NgayHachToan = $("#GeneralInfo_NgayHachToan").val();
-        if ($scope.NguoiGiaoHang.NguoiGiaoHang == null)
-        {
-            $scope.ValidateGeneral.NguoiGiaoHang = false;
-            check = false;
-        } else {
-            $scope.ValidateGeneral.NguoiGiaoHang = true;
-            $scope.GeneralInfo.NguoiGiaoHang = $scope.NguoiGiaoHang.NguoiGiaoHang.USERNAME;
-        }
-        if ($scope.GeneralInfo.NgayChungTu == null || $scope.GeneralInfo.NgayChungTu == "") {
-            $scope.ValidateGeneral.NgayChungTu = false;
-            check = false;
-        } else {
-            $scope.ValidateGeneral.NgayChungTu = true;
-        }
-        if ($scope.GeneralInfo.NgayHachToan == null || $scope.GeneralInfo.NgayHachToan == "") {
-            $scope.ValidateGeneral.NgayHachToan = false;
-            check = false;
-        }
-        else {
-            $scope.ValidateGeneral.NgayHachToan = true;
-        }
-        if ($scope.GeneralInfo.NguoiGiaoHang == null) {
-            $scope.ValidateGeneral.NguoiGiaoHang = false;
-            check = false;
-        }
-        else {
-            $scope.ValidateGeneral.NguoiGiaoHang = true;
-        }
-        if (ConvertToDate($scope.GeneralInfo.NgayHachToan) < ConvertToDate($scope.GeneralInfo.NgayChungTu)) {
-            $scope.ValidateGeneral.NgayHachToanLess = false;
-            check = false;
-        }
-        else {
-            $scope.ValidateGeneral.NgayHachToanLess = true;
-        }
-        return check;
-    }
-    var a = $('#username').val();
-    var b = $('#macongty').val();
-    $scope.SaveNhapKho = function () {
-        if (CheckAll() == false) {
-            return;
-        }
-        var loainhapkho = "";
-        if ($scope.StoreType == 1) {
-            loainhapkho = "Hàng nhập kho";
-        } else if ($scope.StoreType == 2) {
-            loainhapkho = "Hàng trả lại";
-        }
-        else {
-            loainhapkho = "Khác";
-        }
-        $http({
-            method: 'POST',
-            url: '/api/Api_NhapKho/PostKHO_NHAP_KHO',
-            data: {
-                SO_CHUNG_TU: $scope.GeneralInfo.SoChungTu,
-                NGAY_CHUNG_TU: $scope.GeneralInfo.NgayChungTu,
-                NGAY_HACH_TOAN: $scope.GeneralInfo.NgayHachToan,
-                DIEN_GIAI: $scope.GeneralInfo.DienGiai,
-                ChiTiet: $scope.Detail.ListAdd,
-                ThamChieu: $scope.ThamChieu.ListSelect,
-                NGUOI_GIAO_HANG: $scope.GeneralInfo.NguoiGiaoHang,
-                LOAI_NHAP_KHO: loainhapkho,
-                NGUOI_LAP_PHIEU: a,
-                TRUC_THUOC: b,
-            }
-        }).then(function (response) {
-            response.data = jQuery.parseJSON(response.data);
-            if (response.data == config.INPUT_ERROR) {
-                InputFail();
-            }
-            else if (response.data == config.FAIL) {
-                ErrorSystem();
-            }
-            else {
-                ResetAfterSave();
-                new PNotify({
-                    title: 'Thành công',
-                    text: 'Chứng từ ' + response.data + ' đã được tạo',
-                    addclass: 'bg-primary'
-                });
-            }
-        }, function (error) {
-            ConnectFail();
-        });
-    }
-    function CheckSearchDonHangTra()
-    {
-        var check = true;
-        $scope.SearchDonHangTra.NgayBatDau = $("#SearchDonHangTra_NgayBatDau").val();
-        $scope.SearchDonHangTra.NgayKetThuc = $("#SearchDonHangTra_NgayKetThuc").val();
-        if ($scope.SearchDonHangTra.NgayBatDau != null &&$scope.SearchDonHangTra.NgayBatDau!="" && $scope.SearchDonHangTra.NgayKetThuc!=null && $scope.SearchDonHangTra.NgayKetThuc!="" && ConvertToDate($scope.SearchDonHangTra.NgayBatDau) > ConvertToDate($scope.SearchDonHangTra.NgayKetThuc)) {
-            $scope.ValidateSearchDonHangTra.NgayKetThucLess = false;
-            check = false;
-        }
-        else {
-            $scope.ValidateSearchDonHangTra.NgayKetThucLess = true;
-        }
-        return check;
-    }
-    $scope.SearchDonHangTraSubmit=function()
-    {
-        if (CheckSearchDonHangTra() == false)
-        {
-            return;
-        }
-
-        var data = {
-            makh: $scope.SearchDonHangTra.KhachHang,
-            tungay: $scope.SearchDonHangTra.NgayBatDau,
-            denngay: $scope.SearchDonHangTra.NgayKetThuc
-
-        }
-        $http.post('/api/Api_XuatNhapKho/GetCTTraByKhach', data)
-         .then(function (response) {
-             console.log(response);
-             if (typeof (response.data) == "object") {
-                 $scope.SearchDonHangTra.ListResult = response.data;
-                 if ($scope.SearchDonHangTra.ListResult.length == 0) {
-                     Norecord();
-                 }
-             }
-             else {
-                 ErrorSystem();
-             }
-         }, function (error) {
-             ConnectFail();
-         });
-    }
-    $scope.SelectSearchDonHang = function (item,index)
-    {
-        $scope.SearchDonHangTra.DonHangSelect = angular.copy(item);
-        $(".SelectSearchDonHang").css({ "background-color": "white" });
-        $("#SelectSearchDonHang"+index).css({ "background-color": "rgba(0, 255, 220, 0.31)" });
-    }
-    $scope.SetSearchDonHangTra = function()
-    {
-        $scope.ThamChieu.ListSelect = [];
-        $scope.ThamChieu.ListSelect.push($scope.SearchDonHangTra.DonHangSelect);
-        $http({
-            method: 'GET',
-            url: '/api/Api_NhapKho/GetDetailKHO_NHAP_KHO/' + $scope.SearchDonHangTra.DonHangSelect.SO_CHUNG_TU,
-        }).then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.Detail.ListAdd = response.data.ctxuatkho;
-                $scope.GeneralInfo.DoiTuong = response.data.xuatkho.KHACH_HANG,
-                $scope.GeneralInfo.TenDoiTuong = response.data.xuatkho.TEN_KHACH_HANG,
-                $scope.GeneralInfo.DienGiai = response.data.xuatkho.LY_DO_XUAT,
-                $scope.GeneralInfo.KemTheo = response.data.xuatkho.KEM_THEO
-                $scope.LoadHangTra = true;
-                $("#SearchDonHangTra").modal("toggle");
-            }
-            else {
-                ErrorSystem();
-            }
-        }, function (error) {
-            ConnectFail();
-        });
-    }
-    $scope.SelectDonTraHang=function(item)
-    {
-        $scope.ThamChieu.ListSelect = [];
-        $scope.ThamChieu.ListSelect.push({SO_CHUNG_TU:item.SO_CHUNG_TU});
-        $scope.ThamChieu.TraHang = item.SO_CHUNG_TU;
-        $(".tableselect").css({ "display": "none" });
-        $http({
-            method: 'GET',
-            url: '/api/Api_NhapKho/GetDetailKHO_NHAP_KHO/' + item.SO_CHUNG_TU,
-        }).then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.Detail.ListAdd = response.data.ctxuatkho;
-                $scope.GeneralInfo.DoiTuong = response.data.xuatkho.KHACH_HANG,
-                $scope.GeneralInfo.TenDoiTuong = response.data.xuatkho.TEN_KHACH_HANG,
-                $scope.GeneralInfo.DienGiai = response.data.xuatkho.LY_DO_XUAT,
-                $scope.GeneralInfo.KemTheo = response.data.xuatkho.KEM_THEO
-                $scope.LoadHangTra = true;
-            }
-            else {
-                ErrorSystem();
-            }
-        }, function (error) {
-            ConnectFail();
-        });
-    }
-    $scope.ShowDonHangTra=function()
-    {
-        if ($("#DonTraHang").css("display") == "none")
-        {
-            $(".tableselect").css({ "display": "none" });
-            $("#DonTraHang").css({ "display": "block" });
-        }
-        else {
-
-            $(".tableselect").css({ "display": "none" });
-        }
-    }
 
 
-    //Tìm Kiếm Thông Tin hàng Hóa
-    $scope.FindProduct = function (machuan) {
-
-        $http({
-            method: 'GET',
-            data: machuan,
-            url: window.location.origin + '/api/Api_TonKhoHL/GetHH_TON_KHO/' + machuan
-        }).then(function successCallback(response) {
-            $scope.danhsachhanghoa = response.data;
-
-        });
-    }
-
-
-    //button add check
-    $scope.check = function (mahang, tenhang) {
-        $scope.Detail.ListAdd.push({
-            MA_HANG: mahang,
-            TEN_HANG: tenhang,
-        });
-    }
-    //End Tìm Kiếm Thông Tin hàng Hóa
 
 
 });

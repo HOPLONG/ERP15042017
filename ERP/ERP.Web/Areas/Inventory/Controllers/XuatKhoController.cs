@@ -13,6 +13,10 @@ namespace ERP.Web.Areas.Inventory.Controllers
         {
             return View();
         }
+        public ActionResult XuatKhoBanHang()
+        {
+            return View();
+        }
         public ActionResult DSXuatKho()
         {
             return View();

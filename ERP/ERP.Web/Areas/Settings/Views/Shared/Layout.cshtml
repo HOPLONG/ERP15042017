@@ -33,23 +33,48 @@
     <link href="~/Content/download/bootstrap/css/layout_all.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/Layout-CSS.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/LayoutHL.css" rel="stylesheet" />
+
+
+    <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
+
+
+
+
+
+    <script src="~/Content/download/plugins/jQuery/jquery.min.js"></script>
+    <script src="~/Content/download/angularjs/angular.min.js"></script>
+
     <script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
     <script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
     <script src="~/Content/download/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="~/Content/download/angularjs/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-debounce/0.1.7/angular-debounce.js"></script>
     <script src="~/Content/self-writing/js/app.js"></script>
     <script src="~/Content/self-writing/js/Service.js"></script>
     <script src="~/Content/self-writing/js/Controller.js"></script>
     <script src="~/Content/download/angularjs/dirPagination.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-debounce/0.1.7/angular-debounce.js"></script>
     <script src="~/Content/download/moment.min.js"></script>
     <script src="~/Content/download/date_directive.js"></script>
+
+
+    <script src="~/Content/download/angular-ui/build/angular-ui.min.js"></script>
+    <script src="~/Content/download/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="~/Content/download/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
     <script src="~/Content/download/bootstrap-datetimepicker.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="~/Content/download/angular-smart-table/angular-smart-table/dist/smart-table.js"></script>
+    <script src="~/Content/self-writing/pnotify.custom.min.js"></script>
+    <link href="~/Content/self-writing/pnotify.custom.min.css" rel="stylesheet" />
+    <script src="~/Content/self-writing/js/Services/Menu/MenuService.js"></script>
+    <script src="~/Content/self-writing/js/Controllers/Menu/MenuCtrl.js"></script>
     <!-- Angular Material Library -->
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="~/Content/self-writing/js/Controllers/ThongBaoKinhDoanhCtrl.js"></script>
     <script>
         $(function () {
             CKEDITOR.config.extraPlugins = 'justify';
@@ -58,7 +83,7 @@
     </script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper" style="padding-bottom: 50px;">
+    <div class="wrapper" style="padding-bottom: 50px;" ng-app="myApp">
         <header class="main-header">
             <!-- Logo -->
             <a href="/Home/Index" class="logo">
@@ -77,14 +102,15 @@
                     <span class="sr-only">Toggle navigation</span>
                 </a>
                 <!-- DANH SÁCH MENU TRÊN-->
-                <div class="navbar-custom-menu pull-left">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            
+                <div class="navbar-custom-menu pull-left"   ng-controller="menuCtrl">
+                    <input type="hidden" value="@Session["MA_PHONG_BAN"]" id="maphongban" />
+                    <input type="hidden" value="@Session["USERNAME"]" id="username" />
+                    <ul class="nav navbar-nav" ng-repeat="menu in danhsachmenu" ng-class="get(menu.USERNAME)">
+                        <li ng-class="check(menu.TRANG_THAI)">
+                            <a href="{{menu.LINK}}" class="dropdown-toggle" ng-mouseup="edit(menu.MA_MENU)">{{menu.TEN_MENU}}</a>
                         </li>
                     </ul>
                 </div><!-- /end menu bar -->
-
 
 
                 <div class="navbar-custom-menu pull-right">
@@ -98,12 +124,25 @@
 
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
-                        <li class="dropdown notifications-menu">
+                        <li class="dropdown notifications-menu" ng-controller="ThongBaoKinhDoanhCtrl">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <!--<span class="label label-warning">10</span>-->
+                                <span class="label label-warning">{{sothongbao}}</span>
                             </a>
+                            <ul class="dropdown-menu">
 
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li ng-repeat="item in ListThongBao">
+                                            <a href="{{item.LINK_THONG_BAO}}" ng-click="ReadNotification(item.ID)">
+                                                <i class="fa fa-users text-aqua"></i>{{item.NOI_DUNG_THONG_BAO}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
                         <li class="dropdown tasks-menu">
@@ -197,6 +236,17 @@
                     </li>
                     <li class="treeview">
                         <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span>QUẢN LÝ MENU</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/Settings/Menu/Index"><i class="fa fa-angle-double-right"></i>Danh sách menu</a></li>
+                            <li><a href="/Settings/AddMenu/Index"><i class="fa fa-angle-double-right"></i>Phân quyền menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
                             <i class="fa fa-bolt"></i>
                             <span>CHỨC NĂNG</span>
                             <i class="fa fa-angle-left pull-right"></i>
@@ -204,6 +254,18 @@
                         <ul class="treeview-menu">
                             <li><a href="/Settings/ImportBangchamcong/Import_Bangchamcong"><i class="fa fa-angle-double-right"></i>Import bảng chấm công</a></li>
                             <li><a href="/Settings/ImportExcel/Import_Hanghoa"><i class="fa fa-angle-double-right"></i>Import Excel</a></li>
+                            <li><a href="/Settings/ImportBangLuong/Index"><i class="fa fa-angle-double-right"></i>Import bảng lương</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-bolt"></i>
+                            <span>KHÁCH HÀNG</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/ControllerVietThem/InsertKhachHang_SaleHienThoi"><i class="fa fa-angle-double-right"></i>Import chuyển sale</a></li>
+                            <li><a href="/ControllerVietThem/UpdateKhachHang_SaleHienThoi"><i class="fa fa-angle-double-right"></i>Update chuyển sale</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -273,14 +335,14 @@
         }
     </style>
 
-    <script>
+    @*<script>
         window.setInterval(function () {
             $.get("/Home/Alive", function (data) {
                 //alert("still alive")
             }, 180000);
         });
 
-    </script>
+    </script>*@
 
 </body>
 </html>

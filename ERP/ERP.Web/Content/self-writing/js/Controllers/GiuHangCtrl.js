@@ -1,6 +1,8 @@
 ﻿
 app.controller('GiuHangHopLongCtrl', function ($scope, $http) {
 
+    var username = $('#username').val();
+    var isadmin = $('#isadmin').val();
     //xóa dòng
     $scope.Remove = function (index) {
         $scope.Detail.ListAdd.splice(index, 1);
@@ -54,39 +56,39 @@ app.controller('GiuHangHopLongCtrl', function ($scope, $http) {
     //Khai báo đối tượng lưu vào cơ sở dữ liệu-------------------------------------
     $scope.onSave = function () {
         if (!$scope.arrayKhachHang.ma_khach_hang) {
-            alert('Thiếu thông tin Mã khách hàng');
+            ErrorSystem('Thiếu thông tin Mã khách hàng');
             return;
         }
 
         if (!$scope.arraySaleGiu.username) {
-            alert('Thiếu thông tin Sale giữ');
+            ErrorSystem('Thiếu thông tin Sale giữ');
             return;
         }
 
         if (!$scope.KhoGiuHang.ngayGiu) {
-            alert('Thiếu thông tin Ngày giữ');
+            ErrorSystem('Thiếu thông tin Ngày giữ');
             return;
         }
 
 
         for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
             if (!$scope.Detail.ListAdd[i].MA_HANG) {
-                alert('Thiếu thông tin Mã hàng - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin Mã hàng - tại dòng ' + (i + 1));
                 return;
             }
 
             if (!$scope.Detail.ListAdd[i].SL_GIU) {
-                alert('Thiếu thông tin số lượng giữ - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin số lượng giữ - tại dòng ' + (i + 1));
                 return;
             }
 
             if (!$scope.Detail.ListAdd[i].DON_GIA) {
-                alert('Thiếu thông tin đơn giá - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin đơn giá - tại dòng ' + (i + 1));
                 return;
             }
 
             if (!$scope.Detail.ListAdd[i].NGAY_XUAT) {
-                alert('Thiếu thông tin ngày xuất - tại dòng ' + (i + 1));
+                ErrorSystem('Thiếu thông tin ngày xuất - tại dòng ' + (i + 1));
                 return;
             }
 
@@ -134,7 +136,7 @@ app.controller('GiuHangHopLongCtrl', function ($scope, $http) {
     }).then(function successCallback(response) {
         $scope.GiuHang = response.data;
         if (!$scope.GiuHang) {
-            alert('Không lưu được thông tin chung của giữ hàng');
+            ErrorSystem('Không lưu được thông tin chung của giữ hàng');
             return;
         }
 
@@ -151,14 +153,14 @@ app.controller('GiuHangHopLongCtrl', function ($scope, $http) {
             }).then(function successCallback(response) {
                 alert("Hoàn Thành Lưu");
             }, function errorCallback(response) {
-                alert('Không lưu được chi tiết giữ kho, Bạn vui lòng kiểm tra lại số lượng tồn trong kho');
+                ErrorSystem('Không lưu được chi tiết giữ kho, Bạn vui lòng kiểm tra lại số lượng tồn trong kho');
             });
             return;
         }
         
     }, function errorCallback(response) {
-        console.log(response);
-        alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+        ErrorSystem(response);
+        ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
     });
 }
 
@@ -303,4 +305,14 @@ app.controller('GiuHangHopLongCtrl', function ($scope, $http) {
     }
         //End Tìm Kiếm Thông Tin hàng Hóa
 
+    
+    // Tong hop giu kho kinh doanh
+    $http.post('/api/Api_DonHangPO/ListHangGiuTongHop').then(function (response) {
+        $scope.listgiukho_tonghop = response.data;
+    });
+
+    // Giu kho theo sale
+    $http.post('/api/Api_DonHangPO/ListHangGiuTheoSale/' + isadmin + '/' + username).then(function (response) {
+        $scope.listgiukho_theosale = response.data;
+    });
 });

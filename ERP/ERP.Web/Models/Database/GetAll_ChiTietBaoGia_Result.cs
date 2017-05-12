@@ -20,13 +20,10 @@ namespace ERP.Web.Models.Database
         public decimal DON_GIA { get; set; }
         public double CHIET_KHAU { get; set; }
         public decimal THANH_TIEN { get; set; }
-        public string TINH_TRANG_HANG { get; set; }
         public string THOI_GIAN_GIAO_HANG { get; set; }
-        public Nullable<System.DateTime> NGAY_GIAO_HANG { get; set; }
-        public string DIA_DIEM_GIAO_HANG { get; set; }
         public string GHI_CHU { get; set; }
-        public Nullable<decimal> DON_GIA_LIST { get; set; }
         public Nullable<decimal> DON_GIA_NHAP { get; set; }
         public Nullable<double> HE_SO_LOI_NHUAN { get; set; }
+        public Nullable<decimal> GIA_LIST { get; set; }
     }
 }

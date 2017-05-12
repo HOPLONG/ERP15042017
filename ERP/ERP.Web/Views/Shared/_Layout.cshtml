@@ -33,21 +33,45 @@
     <link href="~/Content/download/bootstrap/css/layout_all.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/Layout-CSS.css" rel="stylesheet" />
     <link href="~/Content/self-writing/css/LayoutHL.css" rel="stylesheet" />
+
+
+    <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
+
+
+
+
+
+    <script src="~/Content/download/plugins/jQuery/jquery.min.js"></script>
+    <script src="~/Content/download/angularjs/angular.min.js"></script>
+
     <script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
     <script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
     <script src="~/Content/download/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="~/Content/download/angularjs/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-debounce/0.1.7/angular-debounce.js"></script>
     <script src="~/Content/self-writing/js/app.js"></script>
     <script src="~/Content/self-writing/js/Service.js"></script>
     <script src="~/Content/self-writing/js/Controller.js"></script>
     <script src="~/Content/download/angularjs/dirPagination.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-debounce/0.1.7/angular-debounce.js"></script>
     <script src="~/Content/download/moment.min.js"></script>
     <script src="~/Content/download/date_directive.js"></script>
+
+
+    <script src="~/Content/download/angular-ui/build/angular-ui.min.js"></script>
+    <script src="~/Content/download/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="~/Content/download/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
     <script src="~/Content/download/bootstrap-datetimepicker.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="~/Content/download/angular-smart-table/angular-smart-table/dist/smart-table.js"></script>
+    <script src="~/Content/self-writing/pnotify.custom.min.js"></script>
+    <link href="~/Content/self-writing/pnotify.custom.min.css" rel="stylesheet" />
+    <script src="~/Content/self-writing/js/Services/Menu/MenuService.js"></script>
+    <script src="~/Content/self-writing/js/Controllers/Menu/MenuCtrl.js"></script>
     <!-- Angular Material Library -->
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     <script src="~/Content/self-writing/js/Controllers/ThongBaoKinhDoanhCtrl.js"></script>
@@ -80,7 +104,8 @@
                 <!-- DANH SÁCH MENU TRÊN-->
                 <div class="navbar-custom-menu pull-left">
                         <input type="hidden" value="@Session["MA_PHONG_BAN"]" id="maphongban" />
-                        <input type="hidden" value="@Session["USERNAME"]" id="username" />
+                        <input type="hidden" value="@Session["USERNAME"]" id="username" name="username" />
+                    <input type="hidden" value="@Session["MA_CONG_TY"]" id="macongty" name="macongty" />
                     <ul class="nav navbar-nav" ng-repeat="menu in danhsachmenu" ng-class="get(menu.USERNAME)">                       
                         <li  ng-class="check(menu.TRANG_THAI)">
                             <a href="{{menu.LINK}}" class="dropdown-toggle"  ng-mouseup="edit(menu.MA_MENU)">{{menu.TEN_MENU}}</a>                          
@@ -101,24 +126,24 @@
 
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
-                        <li class="dropdown notifications-menu">
+                        <li class="dropdown notifications-menu" ng-controller="ThongBaoKinhDoanhCtrl">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">10</span>
+                                <span class="label label-warning">{{sothongbao}}</span>
                             </a>
-                            <ul class="dropdown-menu" ng-controller="ThongBaoKinhDoanhCtrl">
-                                <li class="header">You have 10 notifications</li>
+                            <ul class="dropdown-menu">
+
                                 <li>
                                     <!-- inner menu: contains the actual data -->
                                     <ul class="menu">
                                         <li ng-repeat="item in ListThongBao">
-                                            <a href="/Home/Details/{{item.MA_BAI_VIET}}">
-                                                <i class="fa fa-users text-aqua"></i>{{item.TIEU_DE_BAI_VIET}}
+                                            <a href="{{item.LINK_THONG_BAO}}" ng-click="ReadNotification(item.ID)">
+                                                <i class="fa fa-users text-aqua"></i>{{item.NOI_DUNG_THONG_BAO}}
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="footer"><a href="#">View all</a></li>
+                                @*<li class="footer"><a href="#">View all</a></li>*@
                             </ul>
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
@@ -163,7 +188,6 @@
                             <span style="font-size:14px;">Đăng thông báo kinh doanh</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
-                        
                     </li>
                     <li class="treeview">
                         <a href="/LichLamViecNhanVien">
@@ -173,7 +197,22 @@
                         </a>
 
                     </li>
+                    <li class="treeview">
+                        <a href="@Url.Action("DownloadBaoGiaPDF", "BaoGia")">
+                            <i class="fa fa-bell"></i>
+                            <span style="font-size:14px;">Download PDF</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
 
+                    </li>
+                    <li class="treeview">
+                        <a href="/BaoGia/GetBaoGia/BG1704240001">
+                                <i class="fa fa-bell"></i>
+                                <span style="font-size:14px;">Check</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+
+</li>
 
                     <li class="treeview">
                         <a href="#">
@@ -265,13 +304,10 @@
         }
     </script>
     <style>
-        body input {
-            border: 1px solid #00BFFF !important;
-            border-radius: 5px !important;
-        }
+
 
         body select {
-            border: 1px solid #00BFFF !important;
+            /*border: 1px solid #00BFFF !important;*/
             border-radius: 5px !important;
         }
 
@@ -281,7 +317,7 @@
         }
 
         body button {
-            background: #00BFFF !important;
+            background: #1191BF !important;
             color: white !important;
             border: none !important;
         }
@@ -297,7 +333,7 @@
         display: none !important;
     }
     </style>
-    
+   
 
 </body>
 </html>

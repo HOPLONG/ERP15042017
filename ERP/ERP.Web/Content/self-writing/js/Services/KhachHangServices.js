@@ -1,8 +1,21 @@
-﻿
-// Khach hang
+﻿// Khach hang
 app.service('khachhangService', function ($http) {
-    this.get_khachhang = function (username, tukhoa) {
-        return $http.post('/api/Api_KH/KH_THEO_SALES/' + username + '/' + tukhoa).then(function (response) {
+
+    this.phantrangkh = function (sotrang) {
+        return $http.post("/api/Api_KH/PhantrangKH/" + sotrang).then(function (response) {
+            return response.data;
+        });
+    };
+
+
+    this.get_khachhang = function (page,thongtintimkiem) {
+        return $http.post('/api/Api_KH/KH_THEO_SALES/'+page, thongtintimkiem).then(function (response) {
+            return response.data;
+        });
+    };
+
+    this.Loc_KH = function (page,thongtintimkiem) {
+        return $http.post('/api/Api_KH/LOC_KH/'+page, thongtintimkiem).then(function (response) {
             return response.data;
         });
     };
@@ -12,7 +25,7 @@ app.service('khachhangService', function ($http) {
         });
     };
     this.get_lienhekh = function (makh) {
-        return $http.get('/api/Api_LienHeKhachHang/' + makh).then(function (response) {
+        return $http.post('/api/Api_LienHeKhachHang/' + makh).then(function (response) {
             return response.data;
         });
     };
@@ -21,7 +34,11 @@ app.service('khachhangService', function ($http) {
             return response.data;
         });
     };
-
+    this.get_phanhoi = function (makh) {
+        return $http.get('/api/Api_PhanHoiKhachHang/GetKhachHanghl/' + makh).then(function (response) {
+            return response.data;
+        });
+    };
     this.get_taikhoankh = function (makh) {
         return $http.get('/api/Api_TaiKhoanKH/' + makh).then(function (response) {
             return response.data;
@@ -39,6 +56,13 @@ app.service('khachhangService', function ($http) {
             return response.data;
         });
     };
+
+    //this.get_thongke_muahang = function (makh) {
+    //    return $http.post('/api/Api_KH/ThongKeMuaHang/' + makh).then(function (response) {
+    //        return response.data;
+    //    });
+    //};
+
     this.add_phanloaikh = function (phanloaikh_add) {
         return $http.post('/api/Api_PhanLoaiKH', phanloaikh_add);
     };
@@ -75,5 +99,37 @@ app.service('khachhangService', function ($http) {
     this.add_saletao = function (data_add) {
         return $http.post('/api/Api_ChuyenSale', data_add);
     };
+
+    this.add_phanhoi = function (data_add) {
+        return $http.post('/api/Api_PhanHoiKhachHang', data_add);
+    };
+
+    this.save_listchuyensale = function (data_save) {
+        return $http.post('/api/Api_PhanLoaiKH/XuLyChyenSale', data_save);
+    };
+
+    this.chitietkhachhang = function (makh) {
+        return $http.get('/api/Api_KH/GetCT_KH/' + makh).then(function (response) {
+            return response.data;
+        });
+    };
+
+
+    //LẤY POLICY KHÁCH HÀNG
+    this.get_kh_policy = function (makh) {
+        return $http.get('/api/Api_KhachHangPolicy/' + makh).then(function (response) {
+            return response.data;
+        });
+    };
+    this.save_kh_policy = function (id, data_save) {
+        return $http.put("/api/Api_KhachHangPolicy/PutKH_POLICY/" + id, data_save);
+    };
+
+    this.add_kh_policy = function (data_add) {
+        return $http.post("/api/Api_KhachHangPolicy", data_add);
+    };
+    this.delete_phanhoi = function (id) {
+        return $http.delete('/api/Api_PhanHoiKhachHang/' + id);
+    }
 });
 //end khach hang

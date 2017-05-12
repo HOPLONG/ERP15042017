@@ -849,6 +849,7 @@ th {
     .table > tbody > tr > td,
     .table > tfoot > tr > td {
         vertical-align: middle;
+        border: 1px solid #ccc !important;
     }
 
     .panel[class*=bg-] .table > thead > tr > th,
@@ -7589,7 +7590,7 @@ h6.panel-title,
 
 .tableselect {
     position: absolute;
-    top: 36px;
+    /*top: 36px;*/
     background-color: white;
     margin-right: 10px;
     z-index: 1040;

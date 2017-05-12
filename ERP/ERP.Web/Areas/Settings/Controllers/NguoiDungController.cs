@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ERP.Web.Models.Database;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,6 +15,27 @@ namespace ERP.Web.Areas.Settings.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+
+        public ActionResult Details(string id)
+        {
+            using (var db = new ERP_DATABASEEntities())
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                HT_NGUOI_DUNG hT_NGUOI_DUNG = db.HT_NGUOI_DUNG.Find(id);
+                if (hT_NGUOI_DUNG == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(hT_NGUOI_DUNG);
+
+            }
+               
+        
         }
 
         [HttpPost]

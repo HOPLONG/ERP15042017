@@ -21,6 +21,7 @@ namespace ERP.Web.Api.Kho
         List<GetChungTuTra_Result> resultCTTra = new List<GetChungTuTra_Result>();
         List<GetChungTuTra_ByKhachHang_Result> resultCTTraByKhach = new List<GetChungTuTra_ByKhachHang_Result>();
         List<GetAll_PhieuNhapKho_Result> resultDSNhap = new List<GetAll_PhieuNhapKho_Result>();
+        List<Prod_KHO_GetHHTonKho_Result> resultHH = new List<Prod_KHO_GetHHTonKho_Result>();
         #region "SearchByType"
 
 
@@ -100,16 +101,14 @@ namespace ERP.Web.Api.Kho
 
 
         #region "Get All Doi Tuong"
-
-        [Route("api/Api_XuatNhapKho/GetAllDoiTuong")]
-        public List<GetAllDoiTuong_Result> GetAllDoiTuong()
+        [HttpPost]
+        [Route("api/Api_XuatNhapKho/GetAllDoiTuong/{mdt}")]
+        public List<GetAllDoiTuong_Result> GetAllDoiTuong(string mdt)
         {
-
-
-            var query = db.Database.SqlQuery<GetAllDoiTuong_Result>("GetAllDoiTuong @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var query = db.Database.SqlQuery<GetAllDoiTuong_Result>("GetAllDoiTuong @macongty, @tendoituong", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("tendoituong", mdt));
             var resultAllDT = query.ToList();
-
             return resultAllDT;
+           
         }
         #endregion
 
@@ -117,7 +116,9 @@ namespace ERP.Web.Api.Kho
         #region "Get All Danh Sach Phieu Xuat Kho"
         [HttpPost]
         [Route("api/Api_XuatNhapKho/GetAllDSPhieuXuatKho/{sotrang}")]
+
         public List<GetAll_DS_PhieuXuatKho_NoDate_Result> GetAllDSPhieuXuatKho(int sotrang, DataDSXuatKho data)
+
         {
             if (data.tungay == "" && data.denngay == "")
             {
@@ -191,6 +192,19 @@ namespace ERP.Web.Api.Kho
             }
             return resultDSNhap;
 
+        }
+        #endregion
+
+        #region "Get All Thông tin hàng hóa"
+        [HttpGet]
+        [Route("api/Api_XuatNhapKho/GetAllHH/{macongty}/{key}/{machuan}")]
+        public List<Prod_KHO_GetHHTonKho_Result> GetAllHH(string macongty, string key, string machuan)
+        {
+            var query = db.Database.SqlQuery<Prod_KHO_GetHHTonKho_Result>("Prod_KHO_GetHHTonKho @macongty,@key,@machuan", new SqlParameter("macongty", macongty), new SqlParameter("key", key), new SqlParameter("machuan", machuan));
+            resultHH = query.ToList();
+            
+            return resultHH;
+            
         }
         #endregion
     }

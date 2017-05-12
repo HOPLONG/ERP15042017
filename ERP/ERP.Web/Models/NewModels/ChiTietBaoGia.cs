@@ -7,6 +7,7 @@ namespace ERP.Web.Models.NewModels
 {
     public class ChiTietBaoGia
     {
+        public string MA_SO_PO { set; get; }
         public int ID { set; get; }
         public string SO_BAO_GIA { set; get; }
         public DateTime NGAY_BAO_GIA { set; get; }
@@ -37,6 +38,7 @@ namespace ERP.Web.Models.NewModels
         public decimal DON_GIA { set; get; }
         public double CHIET_KHAU { set; get; }
         public decimal THANH_TIEN { set; get; }
+        public decimal THANH_TIEN_NET { set; get; }
         public double? CK_VAT { set; get; }
         public decimal? TIEN_VAT { set; get; }
         public string THOI_GIAN_GIAO_HANG { set; get; }
@@ -55,12 +57,12 @@ namespace ERP.Web.Models.NewModels
         public float? THUE_TNDN { set; get; }
         public decimal? DON_GIA_BAO_DI_NET { set; get; }
         public decimal? CM { set; get; }
-        public decimal? DON_GIA_MOI{ set; get; }
+        public decimal? DON_GIA_MOI { set; get; }
         public decimal? TIEN_THUE_TNDN { set; get; }
 
         public decimal? CHIET_KHAU_CHO_KHACH { set; get; }
-        public double? CHI_PHI_XU_LY_HOA_DON { set; get; }
-        public double? TONG_CHI_PHI_XU_LY_HOA_DON { set; get; }
+        public decimal? CHI_PHI_XU_LY_HOA_DON { set; get; }
+        public decimal? TONG_CHI_PHI_XU_LY_HOA_DON { set; get; }
         public double? THUE_SUAT_GTGT { set; get; }
         public decimal? TIEN_THUE_GTGT { set; get; }
         public decimal? TONG_GIA_TRI_DON_HANG_THUC_TE { set; get; }
@@ -69,5 +71,9 @@ namespace ERP.Web.Models.NewModels
         public decimal? TONG_CHI_PHI_HOA_DON { set; get; }
         public decimal? THUC_NHAN_CUA_KHACH { set; get; }
         public decimal? KHACH_NHAN_DUOC { set; get; }
+        public bool DANG_CHO_PHAN_HOI { set; get; }
+
+        public List<CopyBaoGia> Chitiet { set; get; }
+
     }
 }

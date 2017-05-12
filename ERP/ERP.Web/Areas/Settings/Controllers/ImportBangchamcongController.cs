@@ -13,6 +13,7 @@ namespace ERP.Web.Areas.Settings.Controllers
     {
 
         XuLyNgayThang xulydate = new XuLyNgayThang();
+        int dathemthanhcong, dasuathanhcong;
         int so_dong_thanh_cong;
         int dong;
         string thangchamcong, username, ghichu;
@@ -50,7 +51,7 @@ namespace ERP.Web.Areas.Settings.Controllers
                             var noOfRow = workSheet.Dimension.End.Row;
                             for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                             {
-                                thangchamcong = workSheet.Cells[rowIterator, 15].Value.ToString();
+                                thangchamcong = workSheet.Cells[rowIterator, 17].Value.ToString();
                                 username = workSheet.Cells[rowIterator, 3].Value.ToString();
                                 ngaychuan = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value);
                                 if (workSheet.Cells[rowIterator, 5].Value != null)
@@ -99,10 +100,10 @@ namespace ERP.Web.Areas.Settings.Controllers
                                     ungluong = 0;
                                 if (workSheet.Cells[rowIterator, 16].Value != null)
                                    ghichu = workSheet.Cells[rowIterator, 16].Value.ToString();
-                                if (workSheet.Cells[rowIterator, 15].Value != null)
-                                    phucapthem = Convert.ToDecimal(workSheet.Cells[rowIterator, 16].Value);
+                                if (workSheet.Cells[rowIterator, 18].Value != null)
+                                    phucapthem = Convert.ToDecimal(workSheet.Cells[rowIterator, 18].Value);
                                 else
-                                    ungluong = 0;
+                                    phucapthem = 0;
 
 
 
@@ -126,44 +127,44 @@ namespace ERP.Web.Areas.Settings.Controllers
                                 bcc.SO_LAN_QUEN_DEO_THE = solanquendeothe;
                                 bcc.PHU_CAP_THEM = phucapthem;
 
-                                CCTC_BANG_LUONG bangluong = new CCTC_BANG_LUONG();
-                                var querytinhluong = db.NV_TINH_LUONG.Where(x => x.USERNAME == username).FirstOrDefault();
-                                if(querytinhluong != null)
-                                {
-                                    bangluong.USERNAME = username;
-                                    bangluong.THANG_LUONG = thangchamcong;
-                                    bangluong.LUONG_CO_BAN = querytinhluong.LUONG_CO_BAN;
-                                    bangluong.LUONG_BAO_HIEM = querytinhluong.LUONG_BAO_HIEM;
-                                    bangluong.PHU_CAP_AN_TRUA = querytinhluong.PHU_CAP_AN_TRUA;
-                                    bangluong.PHU_CAP_DI_LAI_DIEN_THOAI = querytinhluong.PHU_CAP_DI_LAI_DIEN_THOAI;
-                                    bangluong.PHU_CAP_THUONG_DOANH_SO = 0;
-                                    bangluong.PHU_CAP_TRACH_NHIEM = querytinhluong.PHU_CAP_TRACH_NHIEM;
-                                    bangluong.CONG_CO_BAN = ngaychuan;
-                                    bangluong.LUONG_CO_BAN_NGAY = (querytinhluong.LUONG_CO_BAN/ngaychuan);
-                                    bangluong.LUONG_CO_BAN_GIO = (bangluong.LUONG_CO_BAN_NGAY / 8);
-                                    bangluong.BAO_HIEM_CONG_TY_DONG = (querytinhluong.LUONG_BAO_HIEM * Convert.ToDecimal(0.22));
-                                    bangluong.BAO_HIEM_NHAN_VIEN_DONG = (querytinhluong.LUONG_BAO_HIEM * Convert.ToDecimal(0.105));
-                                    bangluong.LUONG_THUC_TE_CONG_LAM_THUC = congthucte;
-                                    bangluong.LUONG_THUC_TE_SO_TIEN = (Convert.ToDecimal(congthucte) * bangluong.LUONG_CO_BAN_NGAY);
-                                    bangluong.LUONG_LAM_THEM_CONG_NGAY_THUONG = tangcangaythuong;
-                                    bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG = bangluong.LUONG_CO_BAN_GIO * Convert.ToDecimal(bangluong.LUONG_LAM_THEM_CONG_NGAY_THUONG * 1.5);
-                                    bangluong.LUONG_LAM_THEM_CONG_NGAY_NGHI = 0;
-                                    bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI = bangluong.LUONG_CO_BAN_GIO * Convert.ToDecimal(bangluong.LUONG_LAM_THEM_CONG_NGAY_NGHI * 2);
-                                    bangluong.LUONG_LAM_THEM_CONG_NGAY_LE = tangcangayle;
-                                    bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_LE = bangluong.LUONG_CO_BAN_GIO * Convert.ToDecimal(bangluong.LUONG_LAM_THEM_CONG_NGAY_LE * 3);
-                                    bangluong.TONG_THU_NHAP = bangluong.PHU_CAP_AN_TRUA + bangluong.PHU_CAP_DI_LAI_DIEN_THOAI + bangluong.PHU_CAP_THUONG_DOANH_SO + bangluong.PHU_CAP_TRACH_NHIEM + bangluong.LUONG_THUC_TE_SO_TIEN + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_LE;
-                                    bangluong.TAM_UNG = ungluong;
-                                    bangluong.VAY_TIN_DUNG = vaytindung;
-                                    bangluong.GIO_DI_TRE = (giodimuon * 3) + giovesom;
-                                    bangluong.PHAT_DI_TRE = Convert.ToDecimal(bangluong.GIO_DI_TRE) * bangluong.LUONG_CO_BAN_GIO;
-                                    bangluong.PHAT_QUEN_DONG_PHUC = Convert.ToDecimal(solanviphamdongphuc) * 20000;
-                                    bangluong.PHAT_QUEN_DEO_THE = Convert.ToDecimal(solanquendeothe) * 20000;
-                                    bangluong.PHU_CAP_THEM = phucapthem;
-                                    bangluong.CONG_DOAN = querytinhluong.LUONG_CO_BAN * Convert.ToDecimal(0.02);
-                                    bangluong.LUONG_LAO_CONG = querytinhluong.LUONG_LAO_CONG;
-                                    bangluong.THUC_LINH = (bangluong.PHU_CAP_AN_TRUA + bangluong.PHU_CAP_DI_LAI_DIEN_THOAI + bangluong.PHU_CAP_THUONG_DOANH_SO + bangluong.PHU_CAP_TRACH_NHIEM + bangluong.LUONG_THUC_TE_SO_TIEN + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_LE+phucapthem) - (bangluong.TAM_UNG + bangluong.VAY_TIN_DUNG + bangluong.PHAT_DI_TRE + bangluong.CONG_DOAN + bangluong.LUONG_LAO_CONG+ bangluong.BAO_HIEM_NHAN_VIEN_DONG+bangluong.PHAT_QUEN_DEO_THE+bangluong.PHAT_QUEN_DONG_PHUC);
-                                    db.CCTC_BANG_LUONG.Add(bangluong);
-                                }
+                                //CCTC_BANG_LUONG bangluong = new CCTC_BANG_LUONG();
+                                //var querytinhluong = db.NV_TINH_LUONG.Where(x => x.USERNAME == username).FirstOrDefault();
+                                //if(querytinhluong != null)
+                                //{
+                                //    bangluong.USERNAME = username;
+                                //    bangluong.THANG_LUONG = thangchamcong;
+                                //    bangluong.LUONG_CO_BAN = querytinhluong.LUONG_CO_BAN;
+                                //    bangluong.LUONG_BAO_HIEM = querytinhluong.LUONG_BAO_HIEM;
+                                //    bangluong.PHU_CAP_AN_TRUA = querytinhluong.PHU_CAP_AN_TRUA;
+                                //    bangluong.PHU_CAP_DI_LAI_DIEN_THOAI = querytinhluong.PHU_CAP_DI_LAI_DIEN_THOAI;
+                                //    bangluong.PHU_CAP_THUONG_DOANH_SO = 0;
+                                //    bangluong.PHU_CAP_TRACH_NHIEM = querytinhluong.PHU_CAP_TRACH_NHIEM;
+                                //    bangluong.CONG_CO_BAN = ngaychuan;
+                                //    bangluong.LUONG_CO_BAN_NGAY = (querytinhluong.LUONG_CO_BAN/ngaychuan);
+                                //    bangluong.LUONG_CO_BAN_GIO = (bangluong.LUONG_CO_BAN_NGAY / 8);
+                                //    bangluong.BAO_HIEM_CONG_TY_DONG = (querytinhluong.LUONG_BAO_HIEM * Convert.ToDecimal(0.22));
+                                //    bangluong.BAO_HIEM_NHAN_VIEN_DONG = (querytinhluong.LUONG_BAO_HIEM * Convert.ToDecimal(0.105));
+                                //    bangluong.LUONG_THUC_TE_CONG_LAM_THUC = congthucte;
+                                //    bangluong.LUONG_THUC_TE_SO_TIEN = (Convert.ToDecimal(congthucte) * bangluong.LUONG_CO_BAN_NGAY);
+                                //    bangluong.LUONG_LAM_THEM_CONG_NGAY_THUONG = tangcangaythuong;
+                                //    bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG = bangluong.LUONG_CO_BAN_GIO * Convert.ToDecimal(bangluong.LUONG_LAM_THEM_CONG_NGAY_THUONG * 1.5);
+                                //    bangluong.LUONG_LAM_THEM_CONG_NGAY_NGHI = 0;
+                                //    bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI = bangluong.LUONG_CO_BAN_GIO * Convert.ToDecimal(bangluong.LUONG_LAM_THEM_CONG_NGAY_NGHI * 2);
+                                //    bangluong.LUONG_LAM_THEM_CONG_NGAY_LE = tangcangayle;
+                                //    bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_LE = bangluong.LUONG_CO_BAN_GIO * Convert.ToDecimal(bangluong.LUONG_LAM_THEM_CONG_NGAY_LE * 3);
+                                //    bangluong.TONG_THU_NHAP = bangluong.PHU_CAP_AN_TRUA + bangluong.PHU_CAP_DI_LAI_DIEN_THOAI + bangluong.PHU_CAP_THUONG_DOANH_SO + bangluong.PHU_CAP_TRACH_NHIEM + bangluong.LUONG_THUC_TE_SO_TIEN + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_LE;
+                                //    bangluong.TAM_UNG = ungluong;
+                                //    bangluong.VAY_TIN_DUNG = vaytindung;
+                                //    bangluong.GIO_DI_TRE = (giodimuon * 3) + giovesom;
+                                //    bangluong.PHAT_DI_TRE = Convert.ToDecimal(bangluong.GIO_DI_TRE) * bangluong.LUONG_CO_BAN_GIO;
+                                //    bangluong.PHAT_QUEN_DONG_PHUC = Convert.ToDecimal(solanviphamdongphuc) * 100000;
+                                //    bangluong.PHAT_QUEN_DEO_THE = Convert.ToDecimal(solanquendeothe) * 100000;
+                                //    bangluong.PHU_CAP_THEM = phucapthem;
+                                //    bangluong.CONG_DOAN = querytinhluong.LUONG_CO_BAN * Convert.ToDecimal(0.02);
+                                //    bangluong.LUONG_LAO_CONG = querytinhluong.LUONG_LAO_CONG;
+                                //    bangluong.THUC_LINH = (bangluong.PHU_CAP_AN_TRUA + bangluong.PHU_CAP_DI_LAI_DIEN_THOAI + bangluong.PHU_CAP_THUONG_DOANH_SO + bangluong.PHU_CAP_TRACH_NHIEM + bangluong.LUONG_THUC_TE_SO_TIEN + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_LE+phucapthem) - (bangluong.TAM_UNG + bangluong.VAY_TIN_DUNG + bangluong.PHAT_DI_TRE + bangluong.CONG_DOAN + bangluong.LUONG_LAO_CONG+ bangluong.BAO_HIEM_NHAN_VIEN_DONG+bangluong.PHAT_QUEN_DEO_THE+bangluong.PHAT_QUEN_DONG_PHUC);
+                                //    db.CCTC_BANG_LUONG.Add(bangluong);
+                                //}
                                 
                                 
 
@@ -201,6 +202,7 @@ namespace ERP.Web.Areas.Settings.Controllers
         [HttpPost]
         public ActionResult Import_TinhLuong(FormCollection formCollection)
         {
+            dathemthanhcong = 0;
             try
             {
                 if (Request != null)
@@ -221,20 +223,41 @@ namespace ERP.Web.Areas.Settings.Controllers
                             var noOfRow = workSheet.Dimension.End.Row;
                             for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                             {
-                             
-                                NV_TINH_LUONG tinhluong = new NV_TINH_LUONG();
-                                tinhluong.USERNAME = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                tinhluong.LUONG_CO_BAN =Convert.ToDecimal(workSheet.Cells[rowIterator, 3].Value);
-                                tinhluong.LUONG_BAO_HIEM = Convert.ToDecimal(workSheet.Cells[rowIterator, 4].Value);
-                                tinhluong.PHU_CAP_AN_TRUA = Convert.ToDecimal(workSheet.Cells[rowIterator, 5].Value);
-                                tinhluong.PHU_CAP_DI_LAI_DIEN_THOAI = Convert.ToDecimal(workSheet.Cells[rowIterator,6].Value);
-                                tinhluong.PHU_CAP_TRACH_NHIEM = Convert.ToDecimal(workSheet.Cells[rowIterator, 7].Value);
-                                tinhluong.LUONG_LAO_CONG = Convert.ToDecimal(workSheet.Cells[rowIterator, 8].Value);
+                                username = workSheet.Cells[rowIterator, 2].Value.ToString();
 
-                                db.NV_TINH_LUONG.Add(tinhluong);
+                                var query = db.NV_TINH_LUONG.Where(x => x.USERNAME == username).FirstOrDefault();
+                                
+                                if(query != null)
+                                {
+                                    query.LUONG_CO_BAN = Convert.ToDecimal(workSheet.Cells[rowIterator, 3].Value);
+                                    query.LUONG_BAO_HIEM = Convert.ToDecimal(workSheet.Cells[rowIterator, 4].Value);
+                                    query.PHU_CAP_AN_TRUA = Convert.ToDecimal(workSheet.Cells[rowIterator, 5].Value);
+                                    query.PHU_CAP_DI_LAI_DIEN_THOAI = Convert.ToDecimal(workSheet.Cells[rowIterator, 6].Value);
+                                    query.PHU_CAP_TRACH_NHIEM = Convert.ToDecimal(workSheet.Cells[rowIterator, 7].Value);
+                                    query.LUONG_LAO_CONG = Convert.ToDecimal(workSheet.Cells[rowIterator, 8].Value);
+                                    db.SaveChanges();
+                                    dasuathanhcong++;
+                                    
+                                }
+                                else
+                                {
+                                    NV_TINH_LUONG tinhluong = new NV_TINH_LUONG();
+                                    tinhluong.USERNAME = username;
+                                    tinhluong.LUONG_CO_BAN = Convert.ToDecimal(workSheet.Cells[rowIterator, 3].Value);
+                                    tinhluong.LUONG_BAO_HIEM = Convert.ToDecimal(workSheet.Cells[rowIterator, 4].Value);
+                                    tinhluong.PHU_CAP_AN_TRUA = Convert.ToDecimal(workSheet.Cells[rowIterator, 5].Value);
+                                    tinhluong.PHU_CAP_DI_LAI_DIEN_THOAI = Convert.ToDecimal(workSheet.Cells[rowIterator, 6].Value);
+                                    tinhluong.PHU_CAP_TRACH_NHIEM = Convert.ToDecimal(workSheet.Cells[rowIterator, 7].Value);
+                                    tinhluong.LUONG_LAO_CONG = Convert.ToDecimal(workSheet.Cells[rowIterator, 8].Value);
 
-                                db.SaveChanges();
-                                so_dong_thanh_cong++;
+                                    db.NV_TINH_LUONG.Add(tinhluong);
+                                    db.SaveChanges();
+                                    dathemthanhcong++;
+
+                                }
+
+                                
+                                //so_dong_thanh_cong++;
                                 dong = rowIterator;
                             }
                         }
@@ -249,7 +272,8 @@ namespace ERP.Web.Areas.Settings.Controllers
             }
             finally
             {
-                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+                ViewBag.Message = "Đã thêm thành công " + dathemthanhcong + " dòng";
+                ViewBag.suathanhcong = "Đã sửa thành công " + dasuathanhcong + " dòng";
             }
             return View("Import_Bangchamcong");
         }

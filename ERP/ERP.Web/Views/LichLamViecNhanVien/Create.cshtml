@@ -3,91 +3,64 @@
 @{
     ViewBag.Title = "Create";
 }
+<link href="~/Content/assets/css/core.css" rel="stylesheet" />
+<link href="~/Content/assets/css/colors.css" rel="stylesheet" />
+<script src="~/Content/self-writing/js/Controllers/LichLamViecNhanVienCtrl.js"></script>
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>NV_LICH_LAM_VIEC</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.TIEU_DE_CONG_VIEC, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TIEU_DE_CONG_VIEC, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TIEU_DE_CONG_VIEC, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NGAY_THUC_HIEN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NGAY_THUC_HIEN, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NGAY_THUC_HIEN, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NOI_DUNG_CONG_VIEC, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NOI_DUNG_CONG_VIEC, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NOI_DUNG_CONG_VIEC, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DIA_DIEM_LAM_VIEC, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DIA_DIEM_LAM_VIEC, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DIA_DIEM_LAM_VIEC, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NHAN_VIEN_THUC_HIEN, "NHAN_VIEN_THUC_HIEN", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("NHAN_VIEN_THUC_HIEN", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.NHAN_VIEN_THUC_HIEN, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HUY_CONG_VIEC, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.HUY_CONG_VIEC)
-                    @Html.ValidationMessageFor(model => model.HUY_CONG_VIEC, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TRANG_THAI, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TRANG_THAI, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TRANG_THAI, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GHI_CHU, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GHI_CHU, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GHI_CHU, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+<div class="content" ng-app="myApp" ng-controller="LichLamViecNhanVienCtrl">
+    <input type="hidden" value="@Session["USERNAME"]" id="salehienthoi"/>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="name">Tiêu đề công việc: </label>
+        <div class="col-md-10">
+            <input type="text" placeholder="Tiêu đề công việc" class="form-control input-md" ng-model="tieu_de_cong_viec">
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="name">Nội dung công việc: </label>
+        <div class="col-md-10">
+            <textarea type="text" placeholder="Nội dung công việc" class="form-control input-md" ng-model="noi_dung_cong_viec"></textarea>
+        </div>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="name">Địa điểm làm việc : </label>
+        <div class="col-md-10">
+            <input type="text" placeholder="Địa điểm làm việc" class="form-control input-md" ng-model="dia_diem_lam_viec">
+        </div>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="name">Thời gian bắt đầu: </label>
+        <div class="col-md-10">
+            <input type="text" placeholder="Thời gian bắt đầu" class="form-control input-md" ng-model="thoi_gian_bat_dau">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="name">Thời gian kết thúc: </label>
+        <div class="col-md-10">
+            <input type="text" placeholder="Thời gian kết thúc" class="form-control input-md" ng-model="thoi_gian_ket_thuc">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="name">Trạng thái: </label>
+        <div class="col-md-10">
+            <select class="form-control select" ng-model="trang_thai" id="trangthai"
+                    data-ng-options="item as item for item in trangthailamviec"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="name">Ghi chú: </label>
+        <div class="col-md-10">
+            <input type="text" placeholder="Ghi chú" class="form-control input-md" ng-model="ghi_chu">
+        </div>
+    </div>
+    <!-- Button (Double) -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="anmelden"></label>
+        <div class="col-md-11 edit">
+            <button class="btn" ng-click="AddLichLamViec()" data-dismiss="modal">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn" data-dismiss="modal">Exit</button>
+        </div>
+    </div>
 </div>

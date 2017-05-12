@@ -1,22 +1,50 @@
 ﻿app.controller("DonHangPOCtrl", function ($http, $scope, DonHangPOService) {
     $scope.Detail = {
         ListAdd: [],
-        ListNew: []
+        ListNew: [],
+        ListLocDuLieu : [],
     }
     $scope.Detail.ListAdd = [{
-        MA_HANG: '',
-        MA_DIEU_CHINH: '',
-        DVT: '',
-        SO_LUONG: 0,
-        DON_GIA: 0,
-        THANH_TIEN: 0,
+
     }];
 
+    $scope.Detail.ListLocDuLieu = [{
+        da_duyet: false,
+        dang_duyet: false,
+        da_giu : false,
+    }];
+    var username = $('#username').val();
+    var isadmin = $('#isadmin').val();
     $scope.load_danhsachPO = function () {
-        DonHangPOService.get_danhsachPO().then(function (a) {
+        DonHangPOService.get_danhsachPO(isadmin,username).then(function (a) {
             $scope.list_donhangPO = a;
         });
     };
+
+    $scope.trangthai = function (item) {
+        $scope.item = item;
+        var locdulieu = {
+            username : username,
+            isadmin : isadmin,
+            da_giu: $scope.item.da_giu,
+            da_duyet: $scope.item.da_duyet,
+            dang_duyet : $scope.item.dang_duyet,
+        }
+        $http.post('/api/Api_DonHangPO/LocDuLieuPO', locdulieu).then(function (response) {
+            $scope.list_donhangPO = response.data;
+        });
+    };
+
+    //this gets the full url
+    var url = document.location.href;
+    //this removes the anchor at the end, if there is one
+    url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+    //this removes the query after the file name, if there is one
+    url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+    //this removes everything before the last slash in the path
+    url = url.substring(url.lastIndexOf("/") + 1, url.length);
+    //
+
     $scope.load_danhsachPO();
 
     $scope.load_thongtinchungPO = function () {
@@ -35,17 +63,19 @@
             DonHangPOService.get_thongtinchitietPO(url).then(function (b) {
                 $scope.Detail.ListAdd = b;
 
-                var tong_thanh_tien = 0;
-                var thuesuat_gtgt = $('#thuesuat_gtgt').val();
+                var tong_tien_hang = 0;
+                var tong_tien_thue_GTGT = 0;
+                var tong_tien_thanh_toan = 0;
                 
                 for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
-                    tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
+                    tong_tien_hang = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN_HANG + tong_tien_hang);
+                    tong_tien_thue_GTGT = parseFloat($scope.Detail.ListAdd[i].TIEN_THUE_GTGT + tong_tien_thue_GTGT);
+                    tong_tien_thanh_toan = parseFloat($scope.Detail.ListAdd[i].TIEN_THANH_TOAN + tong_tien_thanh_toan)
                 }
-                $scope.tong_thanh_tien = tong_thanh_tien;
-                $scope.tong_tien_VAT = parseFloat($scope.tong_thanh_tien * (thuesuat_gtgt / 100));
-
-                $scope.tong_tien_thuc_te = $scope.tong_thanh_tien + $scope.tong_tien_VAT;
-                $scope.so_tien_viet_bang_chu = docso($scope.tong_tien_thuc_te);
+                $scope.tong_tien_hang = tong_tien_hang;
+                $scope.tong_tien_thue_GTGT = tong_tien_thue_GTGT
+                $scope.tong_tien_thanh_toan = tong_tien_thanh_toan;
+                $scope.so_tien_viet_bang_chu = docso($scope.tong_tien_thanh_toan);
             });
         });
     };
@@ -55,19 +85,23 @@
     $scope.kiemtra = function (item) {
         $scope.item = item;
 
-        var tong_thanh_tien = 0;
-        var thuesuat_gtgt = $('#thuesuat_gtgt').val();
+        var tong_tien_hang = 0;
+        var tong_tien_thue_GTGT = 0;
+        var tong_tien_thanh_toan = 0;
 
-        $scope.item.THANH_TIEN = $scope.item.DON_GIA * $scope.item.SO_LUONG;
+        $scope.item.THANH_TIEN_HANG =parseFloat( $scope.item.DON_GIA * $scope.item.SO_LUONG );
+        $scope.item.TIEN_THUE_GTGT = parseFloat($scope.item.THANH_TIEN_HANG * ($scope.item.THUE_GTGT / 100));
+        $scope.item.TIEN_THANH_TOAN = $scope.item.THANH_TIEN_HANG + $scope.item.TIEN_THUE_GTGT;
 
         for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
-            tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
+            tong_tien_hang = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN_HANG + tong_tien_hang);
+            tong_tien_thue_GTGT = parseFloat($scope.Detail.ListAdd[i].TIEN_THUE_GTGT + tong_tien_thue_GTGT);
+            tong_tien_thanh_toan = parseFloat($scope.Detail.ListAdd[i].TIEN_THANH_TOAN + tong_tien_thanh_toan)
         }
-        $scope.tong_thanh_tien = tong_thanh_tien;
-        $scope.tong_tien_VAT = parseFloat($scope.tong_thanh_tien * (thuesuat_gtgt / 100));
-
-        $scope.tong_tien_thuc_te = $scope.tong_thanh_tien + $scope.tong_tien_VAT;
-        $scope.so_tien_viet_bang_chu = docso($scope.tong_tien_thuc_te);
+        $scope.tong_tien_hang = tong_tien_hang;
+        $scope.tong_tien_thue_GTGT = tong_tien_thue_GTGT
+        $scope.tong_tien_thanh_toan = tong_tien_thanh_toan;
+        $scope.so_tien_viet_bang_chu = docso($scope.tong_tien_thanh_toan);
     };
 
 
@@ -90,12 +124,16 @@
             MA_KHACH_HANG: $scope.thongtinchung[0].MA_KHACH_HANG,
             TEN_LIEN_HE: $scope.thongtinchung[0].TEN_LIEN_HE,
             HINH_THUC_THANH_TOAN: $scope.thongtinchung[0].HINH_THUC_THANH_TOAN,
-            THUE_SUAT_GTGT: $scope.thongtinchung[0].THUE_SUAT_GTGT,
-            TIEN_THUE_GTGT: $scope.tong_tien_VAT,
-            TONG_TIEN_THANH_TOAN: $scope.tong_tien_thuc_te,
+            TONG_TIEN_HANG: $scope.tong_tien_hang,
+            TONG_TIEN_THUE_GTGT: $scope.tong_tien_thue_GTGT,
+            TONG_TIEN_THANH_TOAN: $scope.tong_tien_thanh_toan,
             SO_TIEN_VIET_BANG_CHU: $scope.so_tien_viet_bang_chu,
             NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG.format('DD/MM/YYYY'),
             DIA_DIEM_GIAO_HANG: $scope.thongtinchung[0].DIA_DIEM_GIAO_HANG,
+            DA_HUY: $scope.thongtinchung[0].DA_HUY,
+            LY_DO_HUY: $scope.thongtinchung[0].LY_DO_HUY,
+            CAN_XUAT_NGAY: $scope.thongtinchung[0].CAN_XUAT_NGAY,
+            CAN_LAY_HOA_DON:$scope.thongtinchung[0].CAN_LAY_HOA_DON,
         }
 
         $scope.arrayChiTietPO = [];
@@ -109,15 +147,22 @@
                 MA_DIEU_CHINH: $scope.Detail.ListAdd[i].MA_DIEU_CHINH,
                 SO_LUONG: $scope.Detail.ListAdd[i].SO_LUONG,
                 DON_GIA: $scope.Detail.ListAdd[i].DON_GIA,
-                THANH_TIEN: $scope.Detail.ListAdd[i].THANH_TIEN,
+                THANH_TIEN_HANG: $scope.Detail.ListAdd[i].THANH_TIEN_HANG,
                 DVT: $scope.Detail.ListAdd[i].DVT,
+                DIEN_GIAI_THUE: $scope.Detail.ListAdd[i].DIEN_GIAI_THUE,
+                THUE_GTGT: $scope.Detail.ListAdd[i].THUE_GTGT,
+                TIEN_THUE_GTGT: $scope.Detail.ListAdd[i].TIEN_THUE_GTGT,
+                TIEN_THANH_TOAN: $scope.Detail.ListAdd[i].TIEN_THANH_TOAN,
+                TK_NO: $scope.Detail.ListAdd[i].TK_NO,
+                TK_CO: $scope.Detail.ListAdd[i].TK_CO,
+                TK_THUE: $scope.Detail.ListAdd[i].TK_THUE,
             }
             //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
             $scope.arrayChiTietPO.push(ChiTietPO);
         }
 
         DonHangPOService.save_thongtinchungPO(url,data_save).then(function successCallback(response) {
-            alert('Thêm thông tin chung thành công');
+            SuccessSystem('Thêm thông tin chung thành công');
 
             for (var i = 0; i < $scope.arrayChiTietPO.length; i++) {
                 $scope.arrayChiTietPO[i].MA_SO_PO = url;
@@ -130,16 +175,16 @@
                     data: $scope.arrayChiTietPO,
                     url: window.location.origin + '/api/Api_ChiTiet_DonHangPO/PutBH_CT_DON_HANG_PO'
                 }).then(function successCallback(response) {
-                    alert("Hoàn Thành Lưu");
+                    SuccessSystem("Hoàn Thành Lưu");
                 }, function errorCallback(response) {
-                    alert('Không lưu được chi tiết giữ kho');
+                    ErrorSystem('Không lưu được chi tiết giữ kho');
                 });
                 return;
             }
 
         }, function errorCallback(response) {
-            console.log(response);
-            alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            ErrorSystem(response);
+            ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
         });
     };
 
@@ -155,18 +200,127 @@
         //
 
         DonHangPOService.delete_thongtinchungPO(url).then(function (response) {
-            alert('Bạn đã xóa thành công');
+            SuccessSystem('Bạn đã xóa thành công');
             window.location.href = "/DonHangPO/Index";
         });
     };
 
+    $scope.Save_DuyetDonPO = function () {
+        var username = $('#username').val();
+        var data_duyet = {
+            MA_SO_PO: url,
+            DA_HUY: $scope.da_huy,
+            DA_DUYET: $scope.da_duyet,
+            NGUOI_DUYET: username,
+            LY_DO_HUY: $scope.ly_do_huy,
+            DANG_DUYET : false,
+        }
+        $http.put('/api/Api_DonHangPO/Duyet_don_hangPO/' + url, data_duyet).then(function (response) {
+            SuccessSystem('Duyệt thành công đơn hàng PO có mã là ' + response.data)
+            $(function () {
+                setTimeout(function () {
+                    window.location.href = "/DonHangPO/DanhSachDuyetPO";
 
-    $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi)
+                }, 2000);
+            });
+        }, function errorCallback(response) {
+            ErrorSystem('Sự cố hệ thống,vui lòng liên hệ với admin hoặc người hỗ trợ');
+        });
+    };
+
+    $scope.CreateBH = function (item) {
+        $scope.item = item;
+        $scope.Detail.ListNew.push({
+            ID : $scope.item.ID,
+            MA_SO_PO: $scope.item.MA_SO_PO,
+            MA_HANG: $scope.item.MA_HANG,
+            MA_DIEU_CHINH: $scope.item.MA_DIEU_CHINH,
+            TK_NO: '131',
+            TK_CO: '51111',
+            DVT: $scope.item.DVT,
+            SO_LUONG: $scope.item.SO_LUONG,
+            DON_GIA: $scope.item.DON_GIA,
+            THANH_TIEN_HANG: $scope.item.THANH_TIEN_HANG,
+            DIEN_GIAI_THUE: 'Thuế GTGT đầu ra',
+            THUE_GTGT: $scope.item.THUE_GTGT,
+            TIEN_THUE_GTGT : $scope.item.TIEN_THUE_GTGT,
+            TK_THUE: '33311',
+            TIEN_THANH_TOAN: $scope.item.TIEN_THANH_TOAN,
+            DA_BAN : false,
+        })
+    };
+
+    $scope.AddNew_PhieuBanHang = function () {
+        //this gets the full url
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+        //
+        var username = $('#username').val();
+        $scope.arrayChiTietPO = [];
+
+        for (var i = 0; i < $scope.Detail.ListNew.length; i++) {
+            var ChiTietPO = {
+                ID: $scope.Detail.ListNew[i].ID,
+                MA_SO_PO: $scope.Detail.ListNew[i].MA_SO_PO,
+                MA_HANG: $scope.Detail.ListNew[i].MA_HANG,
+                MA_DIEU_CHINH: $scope.Detail.ListNew[i].MA_DIEU_CHINH,
+                SO_LUONG: $scope.Detail.ListNew[i].SO_LUONG,
+                DON_GIA: $scope.Detail.ListNew[i].DON_GIA,
+                THANH_TIEN_HANG: $scope.Detail.ListNew[i].THANH_TIEN_HANG,
+                DVT: $scope.Detail.ListNew[i].DVT,
+                DIEN_GIAI_THUE: $scope.Detail.ListNew[i].DIEN_GIAI_THUE,
+                THUE_GTGT: $scope.Detail.ListNew[i].THUE_GTGT,
+                TIEN_THUE_GTGT: $scope.Detail.ListNew[i].TIEN_THUE_GTGT,
+                TIEN_THANH_TOAN: $scope.Detail.ListNew[i].TIEN_THANH_TOAN,
+                TK_NO: $scope.Detail.ListNew[i].TK_NO,
+                TK_CO: $scope.Detail.ListNew[i].TK_CO,
+                TK_THUE: $scope.Detail.ListNew[i].TK_THUE,
+                DA_BAN: $scope.Detail.ListNew[i].DA_BAN,
+            }
+            //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
+            $scope.arrayChiTietPO.push(ChiTietPO);
+        }
+
+        $scope.ThongTinBanHang = {
+            MA_KHACH_HANG: $scope.thongtinchung[0].MA_KHACH_HANG,
+            TEN_LIEN_HE: $scope.thongtinchung[0].TEN_LIEN_HE,
+            HINH_THUC_THANH_TOAN: $scope.thongtinchung[0].HINH_THUC_THANH_TOAN,
+            TONG_TIEN_HANG: $scope.tong_tien_hang,
+            TONG_TIEN_THUE_GTGT: $scope.tong_tien_thue_GTGT,
+            TONG_TIEN_THANH_TOAN: $scope.tong_tien_thanh_toan,
+            SO_TIEN_VIET_BANG_CHU: $scope.so_tien_viet_bang_chu,
+            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG.format('DD/MM/YYYY'),
+            DIA_DIEM_GIAO_HANG: $scope.thongtinchung[0].DIA_DIEM_GIAO_HANG,
+            DA_XUAT_KHO: false,
+            DA_LAP_HOA_DON: false,
+            TRUC_THUOC: 'HOPLONG',
+            NHAN_VIEN_QUAN_LY: username,
+            ChiTietPO: $scope.arrayChiTietPO,
+        };
+
+        $http({
+            method: 'POST',
+            data: $scope.ThongTinBanHang,
+            url: window.location.origin + '/api/Api_BanHang/PostThemPhieuBanHang'
+        }).then(function successCallback(response) {
+            SuccessSystem('Bạn đã tạo thành công 1 đơn bán hàng có mã là ' + response.data)
+        }, function errorCallback(response) {
+            console.log(response);
+            ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+        });
+    };
+
+    $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi + '/' + isadmin)
 
          .then(function (response) {
              $scope.list_khachhang = response.data;
          }, function (error) {
-             console.log(error);
+             ErrorSystem(error);
          });
 
     //get data nguoi giu
@@ -174,9 +328,21 @@
          .then(function (response) {
              $scope.list_nhanvienql = response.data;
          }, function (error) {
-             console.log(error);
+             ErrorSystem(error);
          });
 
+    $http.post('/api/Api_DonHangPO/ListPO_Duyet/' + username + '/' + isadmin).then(function (response) {
+        $scope.list_POcanduyet = response.data;
+    });
+
+    $scope.ChangeStatus = function (masoPO) {
+        var data_change = {
+            DANG_DUYET : true,
+        }
+        $http.put('/api/Api_DonHangPO/TrangThaiPO/' + masoPO, data_change).then(function (response) {
+            return response.data;
+        });
+    }
 
     $scope.hinhthuctt = ["Chuyển khoản", "Tiền mặt", "Trả tiền sau khi nhận hàng"];
 
@@ -251,8 +417,102 @@
         } while (so > 0);
         return chuoi;
     }
+    window.setInterval(function () {
+        // List PO
+        $http.post('/api/Api_DonHangPO/ListPO/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO = response.data;
+        });
+
+        // List PO da duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DaDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaDuyet = response.data;
+        });
+
+        // List PO da huy
+        $http.post('/api/Api_DonHangPO/ListPO_DaHuy/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaHuy = response.data;
+        });
+
+        // List PO dang cho duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DangChoDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangChoDuyet = response.data;
+        });
+
+        // List PO dang  duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DangDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangDuyet = response.data;
+        });
+
+        // List PO da len don ban hang
+        $http.post('/api/Api_DonHangPO/ListPO_DaLenDonBanHang/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaLenDonBanHang = response.data;
+        });
+
+        // List PO can ban ngay
+        $http.post('/api/Api_DonHangPO/ListPO_CanBanNgay/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_CanBanNgay = response.data;
+        });
+
+        // List PO dang xuat do
+        $http.post('/api/Api_DonHangPO/ListPO_DangXuatDo/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangXuatDo = response.data;
+        });
+
+        // List PO chua len don ban
+        $http.post('/api/Api_DonHangPO/ListPO_ChuaLenDonBan/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_ChuaLenDonBan = response.data;
+        });
+    }, 5000);
 
 
+    $scope.readyfunction = function () {
+        // List PO
+        $http.post('/api/Api_DonHangPO/ListPO/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO = response.data;
+        });
+
+
+        // List PO da duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DaDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaDuyet = response.data;
+        });
+
+        // List PO da huy
+        $http.post('/api/Api_DonHangPO/ListPO_DaHuy/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaHuy = response.data;
+        });
+
+        // List PO dang cho duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DangChoDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangChoDuyet = response.data;
+        });
+
+        // List PO dang  duyet
+        $http.post('/api/Api_DonHangPO/ListPO_DangDuyet/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangDuyet = response.data;
+        });
+
+        // List PO da len don ban hang
+        $http.post('/api/Api_DonHangPO/ListPO_DaLenDonBanHang/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DaLenDonBanHang = response.data;
+        });
+
+        // List PO can ban ngay
+        $http.post('/api/Api_DonHangPO/ListPO_CanBanNgay/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_CanBanNgay = response.data;
+        });
+
+        // List PO dang xuat do
+        $http.post('/api/Api_DonHangPO/ListPO_DangXuatDo/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_DangXuatDo = response.data;
+        });
+
+        // List PO chua len don ban
+        $http.post('/api/Api_DonHangPO/ListPO_ChuaLenDonBan/' + isadmin + '/' + username).then(function (response) {
+            $scope.list_PO_ChuaLenDonBan = response.data;
+        });
+    };
+    $scope.readyfunction();
 });
 app.directive('date', function (dateFilter) {
     return {

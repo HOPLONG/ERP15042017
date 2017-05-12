@@ -37,5 +37,7 @@ namespace ERP.Web.Models
        public string CONG_DOAN { set; get; }
        public string LUONG_LAO_CONG { set; get; }
        public string THUC_LINH { set; get; }
+        public string PHAT_QUEN_DONG_PHUC { set; get; }
+        public string PHU_CAP_THEM { set; get; }
     }
 }

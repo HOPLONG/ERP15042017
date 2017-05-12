@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link href="~/Content/download/dist/css/AdminLTE.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
 
@@ -34,25 +35,42 @@
     <link href="~/Content/self-writing/css/LayoutHL.css" rel="stylesheet" />
 
 
+    <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
+
+
+    <script src="~/Content/download/plugins/jQuery/jquery.min.js"></script>
+    <script src="~/Content/download/angularjs/angular.min.js"></script>
 
     <script src="~/Content/download/plugins/ckeditor/ckeditor.js"></script>
     <script src="~/Content/download/plugins/ckfinder/ckfinder.js"></script>
     <script src="~/Content/download/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="~/Content/download/angularjs/angular.min.js"></script>
-    <script src="~/Content/Scripts/angularjs/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-debounce/0.1.7/angular-debounce.js"></script>
     <script src="~/Content/self-writing/js/app.js"></script>
     <script src="~/Content/self-writing/js/Service.js"></script>
     <script src="~/Content/self-writing/js/Controller.js"></script>
     <script src="~/Content/download/angularjs/dirPagination.js"></script>
     <script src="~/Content/download/moment.min.js"></script>
     <script src="~/Content/download/date_directive.js"></script>
+
+
+    <script src="~/Content/download/angular-ui/build/angular-ui.min.js"></script>
+    <script src="~/Content/download/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="~/Content/download/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
     <script src="~/Content/download/bootstrap-datetimepicker.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="~/Content/download/angular-smart-table/angular-smart-table/dist/smart-table.js"></script>
+    <script src="~/Content/self-writing/pnotify.custom.min.js"></script>
+    <link href="~/Content/self-writing/pnotify.custom.min.css" rel="stylesheet" />
+    <script src="~/Content/self-writing/js/Services/Menu/MenuService.js"></script>
+    <script src="~/Content/self-writing/js/Controllers/Menu/MenuCtrl.js"></script>
     <!-- Angular Material Library -->
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="~/Content/self-writing/js/Controllers/ThongBaoKinhDoanhCtrl.js"></script>
     <script>
         $(function () {
             CKEDITOR.config.extraPlugins = 'justify';
@@ -79,6 +97,16 @@
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="color: white;">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
+                <!-- DANH SÁCH MENU TRÊN-->
+                <div class="navbar-custom-menu pull-left">
+                    <input type="hidden" value="@Session["MA_PHONG_BAN"]" id="maphongban" />
+                    <input type="hidden" value="@Session["USERNAME"]" id="username" />
+                    <ul class="nav navbar-nav" ng-repeat="menu in danhsachmenu" ng-class="get(menu.USERNAME)">
+                        <li ng-class="check(menu.TRANG_THAI)">
+                            <a href="{{menu.LINK}}" class="dropdown-toggle" ng-mouseup="edit(menu.MA_MENU)">{{menu.TEN_MENU}}</a>
+                        </li>
+                    </ul>
+                </div><!-- /end menu bar -->
  
                 <div class="navbar-custom-menu pull-right">
                     <ul class="nav navbar-nav ">
@@ -91,12 +119,25 @@
 
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
-                        <li class="dropdown notifications-menu">
+                        <li class="dropdown notifications-menu" ng-controller="ThongBaoKinhDoanhCtrl">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <!--<span class="label label-warning">10</span>-->
+                                <span class="label label-warning">{{sothongbao}}</span>
                             </a>
+                            <ul class="dropdown-menu">
 
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li ng-repeat="item in ListThongBao">
+                                            <a href="{{item.LINK_THONG_BAO}}" ng-click="ReadNotification(item.ID)">
+                                                <i class="fa fa-users text-aqua"></i>{{item.NOI_DUNG_THONG_BAO}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
                         <li class="dropdown tasks-menu">
@@ -146,7 +187,6 @@
                             <li><a href="#"><i class="fa fa-angle-double-right"></i> Đề nghị báo giá</a></li>
                         </ul>
                     </li>
-
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-bell-o"></i>
@@ -163,18 +203,11 @@
                     </li>
 
                     <li class="treeview">
-                        <a href="#">
+                        <a href="/KinhDoanh/BaoGia/BaoGiaHome">
                             <i class="fa fa-file-text-o"></i>
                             <span>BÁO GIÁ</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Danh sách báo giá</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Báo giá mới</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Đơn báo giá đã trúng</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Đơn báo giá chưa được quyết</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Đơn chưa làm đề nghị xuất</a></li>
-                        </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
@@ -213,14 +246,11 @@
                         </ul>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a href="/KinhDoanh/DonBanHang/DonBanHangHome">
                             <i class="fa fa-cart-arrow-down"></i>
                             <span>BÁN HÀNG</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Danh sách hóa đơn bán hàng</a></li>
-                        </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
@@ -234,7 +264,34 @@
                             <li><a href="#"><i class="fa fa-angle-double-right"></i> Đơn đã hoàn thành</a></li>
                         </ul>
                     </li>
-                    
+                    <li class="treeview">
+                        <a href="/KinhDoanh/DonHangPO/DonPOHome">
+                            <i class="fa fa-truck"></i>
+                            <span>Đơn hàng PO</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="/KinhDoanh/HangCanXuat/HangCanXuatHome">
+                            <i class="fa fa-truck"></i>
+                            <span>Hàng cần xuất</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="/KinhDoanh/HangCanDat/HangCanDatHome">
+                            <i class="fa fa-truck"></i>
+                            <span>Hàng cần đặt</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="/KinhDoanh/GiuKho/GiuKhoHome">
+                            <i class="fa fa-truck"></i>
+                            <span>Giữ kho</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -268,7 +325,8 @@
     
     <style>
         body input {
-            border: 1px solid #00BFFF !important;
+            padding-left:5px;
+            border: none !important;
             border-radius: 5px !important;
         }
 

@@ -6,44 +6,7 @@
     }
 });
 
-app.service('hanghoaService', function ($http) {
-    this.find_hanghoa = function (ma_chuan) {
-        return $http.post("/api/Api_HanghoaHL/TimKiemHH/" + ma_chuan).then(function (response) {
-            return response.data;
-        });
-    }
-    this.get_hanghoa = function (MA_NHOM_HANG) {
-        return $http.get("/api/Api_HanghoaHL/GetAllHH/" + MA_NHOM_HANG).then(function (response) {
-            return response.data;
-        });
-    }
-    this.get_nhomhang = function () {
-        return $http.get("/api/Api_NhomVTHHHL").then(function (response) {
-            return response.data;
-        });
-    }
-    this.add = function (data_add) {
-        return $http.post("/api/Api_HanghoaHL", data_add);
-    };
 
-    this.save = function (data_update) {
-        return $http.put("/api/Api_HanghoaHL/PutDM_HANG_HOA", data_update);
-    }
-
-    this.delete = function (data_delete) {
-        return $http.delete("/api/Api_HanghoaHL/DeleteDM_HANG_HOA", data_delete);
-    }
-    //this.get_hangtonkho = function (id) {
-    //    return $http.get("/api/Api_Checktonkho/" + id).then(function (response) {
-    //        return response.data;
-    //    });
-    //};
-    this.get_quantam = function (username) {
-        return $http.get("/api/Api_HangDuocQuanTam/" + username).then(function (response) {
-            return response.data;
-        });
-    }
-});
 
 
 
@@ -180,29 +143,7 @@ app.service('danhmucService', function ($http) {
     };
 });
 
-app.service('menuService', function ($http) {
-    this.get_menu = function (username) {
-        return $http.get('/api/Api_ListMenu/' + username).then(function (response) {
-            return response.data;
-        });
-    };
 
-    this.save_menu = function (maphongban, username, mamenu, data_save) {
-        return $http.put('/api/Api_MENU_USER/' + maphongban + '/' + username + '/' + mamenu, data_save);
-    }
-
-    this.get_menucha = function (username, menucha) {
-        return $http.get('/api/Api_ListMenu/' + username + '/' + menucha).then(function (response) {
-            return response.data;
-        });
-    }
-
-    this.get_listmenucha = function (username, menucha) {
-        return $http.get('/api/Api_ListMenuCha/' + username + '/' + menucha).then(function (response) {
-            return response.data;
-        });
-    }
-});
 
 app.service('userdetailService', function ($http) {
     this.get_details = function (username) {
@@ -752,130 +693,7 @@ app.service('productdetailsService', function ($http) {
 
 
 
-// Khach hang
-app.service('khachhangService', function ($http) {
 
-    this.phantrangkh = function (sotrang) {
-        return $http.post("/api/Api_KH/PhantrangKH/" + sotrang).then(function (response) {
-            return response.data;
-        });
-    };
-  
-
-    this.get_khachhang = function (username, tukhoa) {
-        return $http.post('/api/Api_KH/KH_THEO_SALES/'+username+'/'+tukhoa).then(function (response) {
-            return response.data;
-        });
-    };
-    this.get_phanloaikhach = function () {
-        return $http.get('/api/Api_LoaiKH').then(function (response) {
-            return response.data;
-        });
-    };
-    this.get_lienhekh = function (makh) {
-        return $http.get('/api/Api_LienHeKhachHang/' + makh).then(function (response) {
-            return response.data;
-        });
-    };
-    this.get_nhanvienkd = function () {
-        return $http.get('/api/Api_NhanvienKD').then(function (response) {
-            return response.data;
-        });
-    };
-    this.get_phanhoi = function (makh) {
-        return $http.get('/api/Api_PhanHoiKhachHang/GetKhachHanghl/' + makh).then(function (response) {
-            return response.data;
-        });
-    };
-    this.get_taikhoankh = function (makh) {
-        return $http.get('/api/Api_TaiKhoanKH/' + makh).then(function (response) {
-            return response.data;
-        });
-    };
-
-    this.get_loaitk = function () {
-        return $http.get('/api/Api_LoaiTaiKhoan').then(function (response) {
-            return response.data;
-        });
-    };
-
-    this.get_danhsachlienhe = function () {
-        return $http.get('/api/Api_ListLienHeKH').then(function (response) {
-            return response.data;
-        });
-    };
-
-    //this.get_thongke_muahang = function (makh) {
-    //    return $http.post('/api/Api_KH/ThongKeMuaHang/' + makh).then(function (response) {
-    //        return response.data;
-    //    });
-    //};
-
-    this.add_phanloaikh = function (phanloaikh_add) {
-        return $http.post('/api/Api_PhanLoaiKH', phanloaikh_add);
-    };
-
-    this.save_khachhang = function (id, kh_save) {
-        return $http.put('/api/Api_KH/' + id, kh_save);
-    };
-    this.save_phanloaikh = function (id, phanloai_save) {
-        return $http.put('/api/Api_PhanLoaiKH/' + id, phanloai_save);
-    };
-
-    this.save_lienhe = function (idlienhe, data_save) {
-        return $http.put('/api/Api_LienHeKhachHang/' + idlienhe, data_save);
-    };
-
-    this.add_lienhe = function (data_add) {
-        return $http.post('/api/Api_LienHeKhachHang', data_add);
-    };
-
-    this.add_taikhoan = function (data_add) {
-        return $http.post('/api/Api_TaiKhoanKH', data_add);
-    };
-
-    this.get_lastmakhach = function () {
-        return $http.get('/api/Api_KH/GetIdKH').then(function (response) {
-            return response.data;
-        });
-    };
-
-    this.save_salesphutrach = function (username, idlienhe, data_savesalesphutrach) {
-        return $http.put('/api/Api_SalePhuTrach/' + username + '/' + idlienhe, data_savesalesphutrach);
-    };
-
-    this.add_saletao = function (data_add) {
-        return $http.post('/api/Api_ChuyenSale', data_add);
-    };
-
-    this.add_phanhoi = function (data_add) {
-        return $http.post('/api/Api_PhanHoiKhachHang', data_add);
-    };
-
-    this.save_listchuyensale = function (data_save) {
-        return $http.post('/api/Api_PhanLoaiKH/XuLyChyenSale', data_save);
-    };
-
-    this.chitietkhachhang = function (makh) {
-        return $http.get('/api/Api_KH/GetCT_KH/' + makh).then(function (response) {
-            return response.data;
-        });
-    };
-
-    this.get_kh_policy = function (makh) {
-        return $http.post('/api/Api_KhachHangPolicy/' + makh).then(function (response) {
-            return response.data;
-        });
-    };
-    this.save_kh_policy = function (id,data_save) {
-        return $http.put("/api/Api_KhachHangPolicy/PutKH_POLICY/" + id, data_save);
-    };
-
-    this.add_kh_policy = function (data_add) {
-        return $http.post("/api/Api_KhachHangPolicy", data_add);
-    };
-});
-//end khach hang
 
 
 // Nha cung cap
@@ -927,9 +745,6 @@ app.service('nhacungcapService', function ($http) {
         return $http.post('/api/Api_PhanLoaiKH', phanloaikh_add);
     };
 
-    this.save_nhacungcap = function (mancc, kh_save) {
-        return $http.put('/api/Api_NhaCungCap/' + mancc, kh_save);
-    };
 
     this.save_lienhencc = function (idlienhe, data_save) {
         return $http.put('/api/Api_LienHeNhaCungCap/' + idlienhe, data_save);
