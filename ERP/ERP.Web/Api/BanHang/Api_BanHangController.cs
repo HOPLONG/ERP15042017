@@ -19,6 +19,7 @@ namespace ERP.Web.Api.BanHang
     public class Api_BanHangController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
+        List<GetDonBanHang_ByKhachHang_Result> resultDBHByKhach = new List<GetDonBanHang_ByKhachHang_Result>();
         XuLyNgayThang xlnt = new XuLyNgayThang();
         // GET: api/Api_BanHang
         // List don ban hang
@@ -56,6 +57,52 @@ namespace ERP.Web.Api.BanHang
             return result;
         }
 
+        // GET: api/Api_BanHang Chưa Xuất
+        [Route("api/Api_BanHang/Get_DON_BAN_HANG_CHUA_XUAT")]
+        public List<GetAll_DonBanHangChuaXuat_Result> Get_DON_BAN_HANG_CHUA_XUAT()
+        {
+            var query = db.Database.SqlQuery<GetAll_DonBanHangChuaXuat_Result>("GetAll_DonBanHangChuaXuat @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var result = query.ToList();
+            return result;
+        }
+        // GET: api/Api_BanHang
+        public class GetDonBanHang
+        {
+            public GetDonBanHang_Result donbanhang { set; get; }
+            public List<GetAll_ChiTiet_DonBanHang_Result> ctdonbanhang { set; get; }
+        }
+        public class DataDBHByKH
+        {
+            public string makh { get; set; }
+           
+        }
+        [Route("api/Api_BanHang/GetDetailDON_BAN_HANG/{masobanhang}")]
+        public GetDonBanHang GetDetailDON_BAN_HANG(string masobanhang)
+        {
+
+            //Lưu thông tin nhập kho
+            GetDonBanHang dbh = new GetDonBanHang();
+            var query = db.Database.SqlQuery<GetDonBanHang_Result>("GetDonBanHang @masobanhang, @macongty", new SqlParameter("masobanhang", masobanhang), new SqlParameter("macongty", "HOPLONG"));
+            var data = db.Database.SqlQuery<GetAll_ChiTiet_DonBanHang_Result>("GetAll_ChiTiet_DonBanHang @masoBH", new SqlParameter("masoBH", masobanhang));
+            dbh.donbanhang = query.FirstOrDefault();
+            dbh.ctdonbanhang = data.ToList();
+            return dbh;
+
+        }
+
+        #region "Get ĐƠN BÁN HÀNG theo khách hàng"
+        [HttpPost]
+        [Route("api/Api_BanHang/GetDBHByKhach")]
+        public List<GetDonBanHang_ByKhachHang_Result> GetDBHByKhach(DataDBHByKH data)
+        {
+
+            var query = db.Database.SqlQuery<GetDonBanHang_ByKhachHang_Result>("GetDonBanHang_ByKhachHang @macongty, @makhachhang", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("makhachhang", data.makh));
+            resultDBHByKhach = query.ToList();
+
+            return resultDBHByKhach;
+        }
+
+        #endregion
 
         // GET: api/Api_BanHang/5
         [HttpPost]

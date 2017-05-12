@@ -21,7 +21,7 @@ namespace ERP.Web.Api.Kho
         [Route("api/Api_KHO_CT_NHAP_KHO/GetCTPhieuNhapKho/{sct}")]
         public List<GetCTNhapKho_Result> GetCTPhieuNhapKho(string sct)
         {
-            var query = db.Database.SqlQuery<GetCTNhapKho_Result>("GetCTNhapKho @sochungtu", new SqlParameter("sochungtu", sct));
+            var query = db.Database.SqlQuery<GetCTNhapKho_Result>("GetCTNhapKho @sochungtu,@macongty ", new SqlParameter("sochungtu", sct), new SqlParameter("macongty", "HOPLONG"));
 
             return query.ToList();
         }

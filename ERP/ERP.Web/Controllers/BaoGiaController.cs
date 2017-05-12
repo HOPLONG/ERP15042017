@@ -1,6 +1,8 @@
 ﻿using ERP.Web.Models.Database;
+using ERP.Web.Models.NewModels.BaoGiaAll;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,23 +14,8 @@ namespace ERP.Web.Controllers
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
         // GET: BaoGia
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
 
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            BH_BAO_GIA bH_BAO_GIA = db.BH_BAO_GIA.Find(id);
-            if (bH_BAO_GIA == null)
-            {
-                return HttpNotFound();
-            }
-            return View(bH_BAO_GIA);
-        }
+       
     }
 }

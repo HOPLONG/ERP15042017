@@ -85,7 +85,21 @@
             DonGiaVon: null
         });
 
-
+    $scope.AddNew = function () {
+        $scope.Detail.ListAdd.push({
+            MA_HANG: null,
+            MA_CHUAN: null,
+            TEN_HANG: null,
+            MA_KHO_CON: null,
+            TK_KHO: null,
+            DON_GIA: null,
+            SO_LUONG: null,
+            DVT: null,
+            TK_NO: null,
+            TK_CO: null,
+            DON_GIA_VON: null
+        });
+    }
 
     $scope.SearchPhieuNhapKho = function (tn, dn) {
         if (tn != null && dn != null)
@@ -128,7 +142,41 @@
         
     };
     //$scope.SearchPhieuNhapKho();
- 
+    
+    //Lấy dữ liệu hàng hóa
+    $scope.SearchHH = function (mh) {
+        $http.get(window.location.origin + '/api/Api_XuatNhapKho/GetAllHH/' + 'HOPLONG/' + 'NHAPKHO/' + mh)
+         .then(function (response) {
+             if (typeof (response.data) == "object") {
+                 $scope.Detail.ListHangHoa = response.data;
+             }
+             else {
+                 ErrorSystem();
+             }
+         }, function (error) {
+             console.log(error);
+         });
+    }
+
+    function Init() {
+
+        $http({
+            method: 'GET',
+            url: '/api/Api_KhoHL'
+        }).then(function (response) {
+            if (typeof (response.data) == "object") {
+                $scope.Detail.ListKho = response.data;
+            }
+            else {
+                ErrorSystem();
+            }
+        }, function (error) {
+            ConnectFail();
+        });
+    }
+    Init();
+
+
     $scope.transfer = function (transfer) {
         $scope.item = transfer;
         $http.get('/api/Api_KHO_CT_NHAP_KHO/GetCTPhieuNhapKho/' + $scope.item.SO_CHUNG_TU)
@@ -166,36 +214,48 @@
             }, function (error) {
                 ConnectFail();
             });
-        $http({
-            method: 'GET',
-            url: '/api/Api_XuatNhapKho/GetCTTra'
-        }).then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.DonHangTra = response.data;
-            }
-            else {
-                ErrorSystem();
-            }
-        }, function (error) {
-            ConnectFail();
-        });
-
-        $http({
-            method: 'GET',
-            url: '/api/Api_KH'
-        }).then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.KhachHang.KhachHang = response.data;
-            }
-            else {
-                ErrorSystem();
-            }
-        }, function (error) {
-            ConnectFail();
-        });
+        
     };
 
+    $scope.ShowHangHoa = function (index) {
+        if ($("#DataHangHoa" + index).css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#DataHangHoa" + index).css({ "display": "block" });
+        }
+        else {
+            $(".tableselect").css({ "display": "none" });
+        }
+    }
+    $scope.SelectHangHoa = function (index, item, hanghoa) {
+        item.MA_CHUAN = hanghoa.MA_CHUAN;
+        item.MA_HANG = hanghoa.MA_HANG;
+        item.TEN_HANG = hanghoa.TEN_HANG;
+        item.MA_KHO_CON = hanghoa.TEN_KHO;
+        item.TK_HACH_TOAN_KHO = hanghoa.TK_KHO;
+        item.TK_NO = hanghoa.TK_CHI_PHI;
+        item.TK_CO = hanghoa.TK_DOANH_THU;
+        //$scope.Detail.ListAdd[index].SearchHang = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
+        //$scope.Detail.ListAdd[index].KhoList = $scope.Detail.ListHangHoa[childIndex].KHO;
+        $(".tableselect").css({ "display": "none" });
+    };
 
+    //Kho hàng
+    $scope.ShowKho = function (index) {
+        if ($("#DataKho" + index).css("display") == "none") {
+            $(".tableselect").css({ "display": "none" });
+            $("#DataKho" + index).css({ "display": "block" });
+        }
+        else {
+            $(".tableselect").css({ "display": "none" });
+        }
+    };
+    $scope.SelectKho = function (index, item, kho) {
+        item.MA_KHO_CON = kho.MA_KHO;
+        $(".tableselect").css({ "display": "none" });
+    };
+
+    // reset all
+    
     //
 
     //Hiển thị ô giá trị chứng từ
@@ -421,8 +481,12 @@
     $scope.RemoveThamChieu = function (index) {
         $scope.ThamChieu.ListSelect.splice(index, 1);
         if ($scope.LoadHangTra == true) {
-            ResetAfterSave();
+           
         }
+    }
+    $scope.RemoveRow = function (index) {
+        $scope.Detail.ListAdd.splice(index, 1);
+
     }
     $scope.SetThamChieu = function () {
         var length = $scope.ThamChieu.ListResult.length;
@@ -487,7 +551,8 @@
 
             }
         }).then(function (response) {
-            response.data = jQuery.parseJSON(response.data);
+            $scope.datareturn = response.data;
+            //response.data = jQuery.parseJSON(response.data);
             if (response.data == config.INPUT_ERROR) {
                 InputFail();
             }
@@ -495,19 +560,19 @@
                 ErrorSystem();
             }
             else {
-                $(function () {
-                   new PNotify({
-                       title: 'Thành công',
-                       text: 'Chứng từ ' + response.data + ' đã được sửa',
-                       addclass: 'bg-primary'
-                     });
+               
+                new PNotify({
+                    title: 'Thành công',
+                    text: 'Chứng từ ' + $scope.datareturn + ' đã được sửa',
+                    addclass: 'bg-primary'
                 });
             }
+            Loadtranglucdau();
         }, function (error) {
             ConnectFail();
         });
-    }
 
+    }
 
     
     //Phan trang DS Phiếu XK

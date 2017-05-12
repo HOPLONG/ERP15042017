@@ -11,6 +11,7 @@
     
     <div>
         <div class="col-md-12" ng-repeat="item in list_chitietkhachhangnew">
+            @*<a href="/BaoGia/GetBaoGia/{{item.MA_KHACH_HANG}}"> In báo giá</a>*@
             <div class="col-md-9">
                 <div style="margin-bottom: 5%;" class="col-md-12">
                     <h1>{{item.TEN_CONG_TY | uppercase}}</h1>
@@ -363,9 +364,16 @@
 
 
     </div>
+    <div style="margin-top: 15px">
+        <input class="btn btn-primary" ng-click="CreateNewFromKH()" value="Thêm mới">
+        <a href="/KinhDoanh/BaoGia/GetBaoGia_THUC/{{BANGBAOGIA.SO_BAO_GIA}}"><input class="btn btn-primary" value="In báo giá"></a>
+        <a href="/KinhDoanh/BaoGia/GetBaoGia/{{BANGBAOGIA.SO_BAO_GIA}}"><input class="btn btn-primary" value="In báo giá(CM)"></a>
+        <button ng-show="createnewPOvalue" type="button" class="btn btn-primary" style="margin-top: 20px;" data-toggle="modal" data-target="#thongtinPO"><i class="icon-floppy-disk"></i>Tạo đơn PO</button>
 
-    <button type="button" class="btn btn-primary" ng-click="CreateNewFromKH()" style="margin-top: 20px;"><i class="icon-floppy-disk"></i>Thêm mới</button>
-    <button ng-show="createnewPOvalue" type="button" class="btn btn-primary"  style="margin-top: 20px;" data-toggle="modal" data-target="#thongtinPO"><i class="icon-floppy-disk"></i>Tạo đơn PO</button>
+    </div>
+   
+
+
 
     <div class="modal fade" id="thongtinPO" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-lg" style="width:50%">
@@ -426,8 +434,8 @@
 
                     <button class="btn btn-default" ng-click="CreateNewPOFromKH()" data-dismiss="modal">Lên PO</button>
                     <button class="btn" data-dismiss="modal">Exit</button>
-
-                </div>
+                    
+</div>
             </div>
         </div>
     </div>
