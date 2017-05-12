@@ -131,4 +131,11 @@
         });
     }
     init();
+
+    $scope.DanLink = function (item) {
+        window.location = '/KinhDoanh/DonHangPO/Details/' + item;
+    }
+    $scope.DanLinkXuatKho = function (item) {
+        window.location = '/Inventory/KhoXuat/DetailXuatKho/' + item;
+    }
 });

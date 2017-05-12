@@ -36,11 +36,9 @@ app.controller('HangCanXuatCtrl', function ($scope, $location, $log) {
                 $location.url("/ListHangGiu1");
                 break;
             case 3:
-                $location.url("/ListHangDaDat");
-                break;
-            case 4:
                 $location.url("/HangChuaGiu");
                 break;
+                
         }
     });
 });
@@ -106,11 +104,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         templateUrl: "ListHangGiu",
         controller: "KhoXuatController"
     })
-    .state('ListHangDaDat', {
-        url: "/ListHangDaDat",
-        templateUrl: "HangGiuSaoDenNgayXuat",
-        controller: "KhoXuatController"
-    })
+
     .state('HangChuaGiu', {
         url: "/HangChuaGiu",
         templateUrl: "HangChuaGiu",

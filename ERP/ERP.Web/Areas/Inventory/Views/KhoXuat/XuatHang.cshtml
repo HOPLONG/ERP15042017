@@ -14,7 +14,7 @@
                 <table class="table " cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Ngày hạch toán</th>
+                            <th>Số chứng từ</th>
                             <th>Ngày chứng từ</th>
                             <th>Tên công ty</th>
                             <th>Nhân viên bán hàng</th>
@@ -25,11 +25,11 @@
 
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in ListXuatHang" itemsPerPage: 30 class="hover" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="phanhoi">
-                            <td class="text-left">{{item.NGAY_HACH_TOAN}}</td>
+                        <tr ng-repeat="item in ListXuatHang" itemsPerPage: 30 class="hover" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="phanhoi" ng-click="DanLinkXuatKho(item.SO_CHUNG_TU);">
+                            <td class="text-left">{{item.SO_CHUNG_TU}}</td>
                             <td class="text-left">{{item.NGAY_CHUNG_TU}}</td>
                             <td class="text-left">{{item.TEN_CONG_TY}}</td>
-                            <td class="text-left">{{item.NHAN_VIEN_BAN_HANG}}</td>
+                            <td class="text-left">{{item.HO_VA_TEN}}</td>
                             <td class="text-left">{{item.TONG_TIEN | currency:""}}</td>
                             <td class="text-left">{{item.LY_DO_XUAT}}</td>
                             <td class="text-left">{{item.LOAI_XUAT_KHO}}</td>
