@@ -138,7 +138,23 @@ namespace ERP.Web.Api.Kho
 
             return Ok(xk.SO_CHUNG_TU);
         }
-    
+
+
+        #region "Print Phieu Xuat Kho"
+        [Route("api/Api_XuatKho/PrintPhieuXuatKho/{sochungtu}")]
+        public PrintPhieuXuatKho PrintPhieuXuatKho(string sochungtu)
+        {
+            var data = db.Database.SqlQuery<GetThongTinChungPhieuXuatKho_Result>("GetThongTinChungPhieuXuatKho @sochungtu,@macongty", new SqlParameter("sochungtu", sochungtu), new SqlParameter("macongty", "HOPLONG"));
+            var resultdata = data.FirstOrDefault();
+            var query = db.Database.SqlQuery<GetChiTietPhieuXuatKho_Result>("GetChiTietPhieuXuatKho @sochungtu,@macongty", new SqlParameter("sochungtu", sochungtu), new SqlParameter("macongty", "HOPLONG"));
+            var resultquery = query.ToList();
+            PrintPhieuXuatKho baogia = new PrintPhieuXuatKho();
+            baogia.ChungPhieuXuatKho = resultdata;
+            baogia.ChiTietPhieuXuatKho = resultquery;
+            return baogia;
+        }
+        #endregion
+
         public string GeneralChungTu()
         {
             Regex digitsOnly = new Regex(@"[^\d]");

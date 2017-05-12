@@ -1,7 +1,4 @@
-﻿
-@{
-    ViewBag.Title = "BaoGiaKhach";
-}
+﻿@{Layout = null; }
 <script src="~/Content/self-writing/js/Services/BaoGiaService.js"></script>
 <script src="~/Content/self-writing/js/Controllers/BaoGiaCtrl.js"></script>
 
@@ -9,11 +6,11 @@
 <div ng-app="myApp" ng-controller="baogiaCtrl" class="content">
     <input type="hidden" value="@Session["USERNAME"]" id="username" />
     <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
-    <div class="form-group col-md-12">
-        <label class="col-md-1 control-label" for="name">Khách hàng</label>
-        <div class="control-label col-md-5">
-            <div>
-                <input type="text" class="form-control" ng-model="ten_cong_ty" ng-change="onKH_BaoGiaFind()" ng-focus="showtable_KH_BaoGia = true"  ng-blur="showtable_KH_BaoGia = false" style="border: 1px solid black !important;">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <label class="col-md-2 control-label" for="name">Khách hàng :</label>
+            <div class="col-md-10">
+                <input type="text" ng-model="ten_cong_ty" ng-change="onKH_BaoGiaFind()" ng-focus="showtable_KH_BaoGia = true" ng-blur="showtable_KH_BaoGia = false" style="border: 1px solid black !important;width: 100%;border-radius: 0px !important">
                 <input type="text" class="form-control" ng-model="ma_khach_hang" style="display:none">
                 <div class="input-group-btn">
                     <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block;height: 400px;overflow:auto;" ng-show="showtable_KH_BaoGia">
@@ -37,19 +34,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            Địa chỉ:  {{dia_chi_xuat_hoa_don}}
-            <br />
-            Hotline: {{hotline}}
-        </div>
     </div>
-
-
-    <div class="form-group col-md-12">
-        <label class="col-md-1 control-label" for="name">Người liên hệ: </label>
-        <div class="control-label col-md-5">
-            <div>
-                <input type="text" class="form-control" ng-model="nguoi_lien_he" ng-change="onLienHeFind()" ng-focus="showtable_id_lien_he = true" id="ID_LIEN_HE" name="ID_LIEN_HE" ng-blur="showtable_id_lien_he = false"  style="border: 1px solid black !important;">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <label class="col-md-2 control-label" for="name">Người liên hệ: </label>
+            <div class="col-md-10">
+                <input type="text" ng-model="nguoi_lien_he" ng-change="onLienHeFind()" ng-focus="showtable_id_lien_he = true" ng-blur="showtable_id_lien_he = false" style="border: 1px solid black !important;width: 100%;border-radius: 0px !important">
                 <input type="text" class="form-control" ng-model="id_lien_he" ng-change="onLienHeFind()" style="display:none">
                 <div class="input-group-btn">
                     <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_id_lien_he">
@@ -79,10 +69,37 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-md-12">
         <div class="col-md-6">
-            Email cá nhân : {{email_ca_nhan}}<br/>
-            Số điện thoại người liên hệ : {{sdt1}}<br/>
-            Email công ty : {{email_cong_ty}}
+            <label class="col-md-2 control-label">Địa chỉ :</label>
+            <div class="col-md-10">
+                <p>{{van_phong_giao_dich}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <label class="col-md-3 control-label">SĐT khách hàng:</label>
+            <div class="col-md-9">
+                <p>{{hotline}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <label class="col-md-3 control-label">Email người liên hệ :</label>
+            <div class="col-md-6">
+                <p>{{email_ca_nhan}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <label class="col-md-3 control-label">Số điện thoại người liên hệ</label>
+            <div class="col-md-6">
+                <p>{{sdt1}}</p>
+            </div>
         </div>
     </div>
 
@@ -380,7 +397,7 @@
 
 
     </div>
-    <div style="margin-top: 15px">
+    <div style="margin-top: 15px" class="col-md-12">
         <input class="btn btn-primary" ng-click="CreateNewBaoGiaFromBaoGia()" value="Thêm mới">
         <a href="/KinhDoanh/BaoGia/GetBaoGia_THUC/{{BANGBAOGIA.SO_BAO_GIA}}"><input class="btn btn-primary" value="In báo giá"></a>
         <a href="/KinhDoanh/BaoGia/GetBaoGia/{{BANGBAOGIA.SO_BAO_GIA}}"><input class="btn btn-primary" value="In báo giá(CM)"></a>
