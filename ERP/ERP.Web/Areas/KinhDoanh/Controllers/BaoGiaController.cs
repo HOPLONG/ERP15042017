@@ -40,6 +40,11 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
         {
             return View();
         }
+        public ActionResult BaoGiaHome()
+         {
+             return View();
+         }
+
 
 
         public ActionResult BaoGiaHome()
@@ -53,7 +58,10 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
             return View();
         }
 
-        public ActionResult Index()
+    
+
+    public ActionResult Index()
+
         {
             return View();
         }
