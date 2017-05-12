@@ -52,7 +52,7 @@ app.controller('HomeDonPOCtrl', function ($scope, $location, $log) {
                 $location.url("/ListPO_CanBanNgay");
                 break;
             case 7:
-                $location.url("/ListPO_DangXuatDon");
+                $location.url("/ListPO_DangXuatDo");
                 break;
         }
     });
@@ -206,9 +206,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         templateUrl: "ListPO_CanBanNgay",
         controller: "DonHangPOCtrl"
     })
-    .state('ListPO_DangXuatDon', {
-        url: "/ListPO_DangXuatDon",
-        templateUrl: "ListPO_DangXuatDon",
+    .state('ListPO_DangXuatDo', {
+        url: "/ListPO_DangXuatDo",
+        templateUrl: "ListPO_DangXuatDo",
         controller: "DonHangPOCtrl"
     })
     // Don ban hang

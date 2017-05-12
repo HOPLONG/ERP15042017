@@ -115,10 +115,10 @@ namespace ERP.Web.Api.HeThong
             return kq;
         }
 
-        [Route("api/Api_KH/GET_KHACH_CUA_SALE/{username}")]
-        public List<GetAll_KhachCuaSale_Result> GET_KHACH_CUA_SALE(string username)
+        [Route("api/Api_KH/GET_KHACH_CUA_SALE/{username}/{isadmin}")]
+        public List<GetAll_KhachCuaSale_Result> GET_KHACH_CUA_SALE(string username,bool isadmin)
         {
-            var query = db.Database.SqlQuery<GetAll_KhachCuaSale_Result>("GetAll_KhachCuaSale  @macongty, @sale", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("sale", username));
+            var query = db.Database.SqlQuery<GetAll_KhachCuaSale_Result>("GetAll_KhachCuaSale  @macongty, @sale,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("sale", username), new SqlParameter("isadmin", isadmin));
             var result = query.ToList();
             return result;
         }
