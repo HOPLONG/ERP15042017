@@ -22,13 +22,16 @@ namespace ERP.Web.Areas.Inventory.Controllers
         public ActionResult ExportToExcel()
         {
             var gv = new GridView();
-            gv.DataSource = this.ExportPhieuXuatKho();
+            gv.DataSource = db.GetAll_KhachHang();
             gv.DataBind();
             Response.ClearContent();
+            
             Response.Buffer = true;
             Response.AddHeader("content-disposition", "attachment; filename=DemoExcel.xls");
             Response.ContentType = "application/ms-excel";
-            Response.Charset = "";
+            Response.Charset = "UTF-8";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
             StringWriter objStringWriter = new StringWriter();
             HtmlTextWriter objHtmlTextWriter = new HtmlTextWriter(objStringWriter);
             gv.RenderControl(objHtmlTextWriter);
