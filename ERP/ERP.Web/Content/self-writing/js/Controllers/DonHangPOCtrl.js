@@ -315,7 +315,7 @@
         });
     };
 
-    $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi)
+    $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi + '/' + isadmin)
 
          .then(function (response) {
              $scope.list_khachhang = response.data;
