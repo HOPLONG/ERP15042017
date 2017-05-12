@@ -90,6 +90,15 @@ namespace ERP.Web.Api.BaoGia
         }
         #endregion
 
+        #region "Lấy khách hàng theo sale"
+        [Route("api/Api_BaoGia/KhachHangTheoSale/{username}/{isadmin}")]
+        public List<GetAll_KhachCuaSale_Result> KhachHangTheoSale(string username,bool isadmin)
+        {
+            var query = db.Database.SqlQuery<GetAll_KhachCuaSale_Result>("GetAll_KhachCuaSale @macongty,@sale,@isadmin", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("sale", username), new SqlParameter("isadmin", isadmin));
+            var result = query.ToList();
+            return result;
+        }
+        #endregion
 
         #region "Lấy liên hệ khách"
         [Route("api/Api_BaoGia/GetLienHeKhach/{makhachhang}")]

@@ -1,9 +1,6 @@
-﻿
-@{
-    ViewBag.Title = "ListBaoGia";
-}
-<script src="~/Content/self-writing/js/Services/BaoGiaService.js"></script>
-<script src="~/Content/self-writing/js/Controllers/BaoGiaCtrl.js"></script>
+﻿@{Layout = null;
+         }
+
 <style>
     .border-td{
         border: 1px solid black;
@@ -18,7 +15,7 @@
         color: lightskyblue;
     }
 </style>
-<div ng-app="myApp" ng-controller="baogiaCtrl" class="content">
+    <div ng-app="myApp" ng-controller="baogiaCtrl" class="content">
     <input type="hidden" value="@Session["USERNAME"]" id="username"/>
     <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
     <div class="col-md-8">
@@ -120,4 +117,6 @@
 
     </div>
 </div>
+
+
 
