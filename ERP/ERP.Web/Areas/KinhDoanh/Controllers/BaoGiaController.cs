@@ -43,5 +43,6 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
         {
             return View();
         }
+        
     }
 }
