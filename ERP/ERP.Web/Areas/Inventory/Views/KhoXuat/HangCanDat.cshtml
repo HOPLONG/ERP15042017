@@ -27,7 +27,7 @@
 
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in lisHangCanXuat" itemsPerPage: 30 class="hover" ng-click="edit(item)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="phanhoi">
+                        <tr ng-repeat="item in lisHangCanXuat" itemsPerPage: 30 class="hover" ng-click="DanLink(item.MA_SO_PO);" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="phanhoi">
                             <td class="text-left">{{item.MA_SO_PO}}</td>
                             <td class="text-left">{{item.MA_HANG}}</td>
                             <td class="text-left">{{item.MA_DIEU_CHINH}}</td>
@@ -64,7 +64,7 @@
                     <td>
                         <div style="height:410px;overflow-y:auto;">
                             <table class="table" ;cursor:pointer;">
-                                <tr ng-repeat="item in DonBanHang" ng-click="SelectDonTraHang(item)">
+                                <tr ng-repeat="item in DonBanHang">
                                     <td colspan="2">{{item.MA_SO_BH}}</td>
                                     <td>{{item.NGAY_BH | date:'dd/MM/yyyy'}}</td>
                                 </tr>
@@ -82,7 +82,7 @@
                     <td>
                         <div style="height:200px; overflow-y:auto;">
                             <table class="table">
-                                <tr ng-repeat="item in ListHangChuaGiu">
+                                <tr ng-repeat="item in ListHangChuaGiu" ng-click="DanLink(item.MA_SO_PO);">
                                     <td colspan="2">{{item.MA_SO_PO}}</td>
                                     <td>{{item.NGAY_LEN_PO | date:'dd/MM/yyyy'}}</td>
 

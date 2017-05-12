@@ -26,9 +26,9 @@
 
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in ListHangGiuDaBan" itemsPerPage: 30 class="hover" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="phanhoi">
+                        <tr ng-repeat="item in ListHangGiuDaBan" itemsPerPage: 30 class="hover" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="phanhoi" ng-click="DanLink(item.MA_SO_PO);">
                             <td class="text-left">{{item.MA_SO_PO}}</td>
-                            <td class="text-left">{{item.NGAY_LEN_PO}}</td>
+                            <td class="text-left">{{item.NGAY_LEN_PO | date:'dd/MM/yyyy'}}</td>
                             <td class="text-left">{{item.MA_DIEU_CHINH}}</td>
                             <td class="text-left">{{item.SO_LUONG}}</td>
                             <td class="text-left">{{item.DON_GIA | currency:""}}</td>
@@ -63,7 +63,7 @@
                     <td>
                         <div style="height:410px;overflow-y:auto;">
                             <table class="table" ;cursor:pointer;">
-                                <tr ng-repeat="item in ListHangGiuChuaBan" ng-click="SelectDonTraHang(item)">
+                                <tr ng-repeat="item in ListHangGiuChuaBan" ng-click="DanLink(item.MA_SO_PO);">
                                     <td colspan="2">{{item.MA_SO_PO}}</td>
                                     <td>{{item.NGAY_LEN_PO | date:'dd/MM/yyyy'}}</td>
                                 </tr>
@@ -81,7 +81,7 @@
                     <td>
                         <div style="height:200px; overflow-y:auto;">
                             <table class="table">
-                                <tr ng-repeat="item in ListHangGiuSapDenNgayXuat">
+                                <tr ng-repeat="item in ListHangGiuSapDenNgayXuat" ng-click="DanLink(item.MA_SO_PO);">
                                     <td colspan="2">{{item.MA_SO_PO}}</td>
                                     <td>{{item.NGAY_LEN_PO | date:'dd/MM/yyyy'}}</td>
 
@@ -98,7 +98,7 @@
                     <td>
                         <div style="height:200px; overflow-y:auto;">
                             <table class="table" style="cursor:pointer;">
-                                <tr ng-repeat="item in ListHangGiuDaBan" ng-click="SelectDonTraHang(item)">
+                                <tr ng-repeat="item in ListHangGiuDaBan" ng-click="DanLink(item.MA_SO_PO);">
                                     <td colspan="2">{{item.MA_SO_PO}}</td>
                                     <td>{{item.NGAY_LEN_PO | date:'dd/MM/yyyy'}}</td>
 
