@@ -23,5 +23,10 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
         {
             return View();
         }
+
+        public ActionResult DonBanHangHome()
+        {
+            return View();
+        }
     }
 }
