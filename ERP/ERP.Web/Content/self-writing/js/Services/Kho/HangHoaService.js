@@ -4,8 +4,8 @@
             return response.data;
         });
     }
-    this.get_hanghoa = function (MA_NHOM_HANG) {
-        return $http.get("/api/Api_HanghoaHL/GetAllHH/" + MA_NHOM_HANG).then(function (response) {
+    this.get_hanghoa = function (ThamSo) {
+        return $http.post("/api/Api_HanghoaHL/GetAllHH",ThamSo).then(function (response) {
             return response.data;
         });
     }

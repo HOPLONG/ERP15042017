@@ -1,4 +1,8 @@
 ﻿app.controller('HangHoaCtrl', function (hanghoaService, $scope) {
+    var userhienthoi = $("#userhienthoi").val();
+    var isadmin = $("#isadmin").val();
+
+
     $scope.timkiemhanghoa = function (ma_chuan) {
         hanghoaService.find_hanghoa(ma_chuan).then(function (d) {
             if (d.length > 0) {
@@ -10,8 +14,14 @@
 
         });
     }
-    $scope.loadHangHoa = function (MA_NHOM_HANG) {
-        hanghoaService.get_hanghoa(MA_NHOM_HANG).then(function (d) {
+    $scope.loadHangHoa = function (manhomhang, sotrang) {
+        var thamso = {
+            manhomhang: manhomhang,
+            sotrang: sotrang,
+            username: userhienthoi,
+            isadmin:isadmin
+        }
+        hanghoaService.get_hanghoa(thamso).then(function (d) {
             $scope.danhsachhanghoa = d;
         });
 
@@ -26,7 +36,7 @@
         });
     }
     $scope.loadQuanTam();
-    $scope.loadHangHoa('AUTONICS');
+    //$scope.loadHangHoa('AUTONICS',1);
 
     //$scope.manhomhang = "AUTONICS";
 
@@ -66,7 +76,7 @@
         hanghoaService.add(data_add).then(function (response) {
 
             SuccessSystem("Bạn đã thêm mới 1 hàng hóa!" + response.data);
-            $scope.loadHangHoa('AUTONICS');
+            //$scope.loadHangHoa('AUTONICS',1);
 
             $('#imgInp').val() = '';
         }, function errorCallback(response) {
