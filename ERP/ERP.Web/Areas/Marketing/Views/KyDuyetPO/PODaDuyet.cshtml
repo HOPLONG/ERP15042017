@@ -23,7 +23,7 @@
 <div ng-app="myApp" ng-controller="DonHangPOCtrl" class="content">
     <input type="hidden" value="@Session["USERNAME"]" id="username" />
     <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
-    <div class="col-md-8">
+    <div class="col-md-12">
         <table class="table">
             <thead>
                 <tr>
@@ -35,10 +35,11 @@
                     <th>Ngày giao hàng</th>
                     <th>Địa điểm giao hàng</th>
                     <th>Nhân viên quản lý</th>
+                    <th>Người duyệt</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in list_PO_DaLenDonBanHang"  ng-click="xemchitietPO(item.MA_SO_PO)">
+                <tr ng-repeat="item in list_PO_DaDuyet" ng-click="xemchitietPO(item.MA_SO_PO)">
                     <td>{{item.MA_SO_PO}}</td>
                     <td>{{item.NGAY_LEN_PO | date: 'dd/MM/yyyy'}}</td>
                     <td>{{item.TEN_CONG_TY}}</td>
@@ -47,11 +48,14 @@
                     <td>{{item.NGAY_GIAO_HANG | date: 'dd/MM/yyyy'}}</td>
                     <td>{{item.DIA_DIEM_GIAO_HANG}}</td>
                     <td>{{item.TEN_NHAN_VIEN_QUAN_LY}}</td>
+                    <td>
+                        {{item.TEN_NGUOI_DUYET}}
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-md-4">
+    @*<div class="col-md-4">
         <table class="table">
             <tr>
                 <td colspan="2" class="border-td"><h4>PO đang chờ duyệt</h4></td>
@@ -124,7 +128,7 @@
             </tr>
         </table>
 
-    </div>
+    </div>*@
 </div>
 
 
