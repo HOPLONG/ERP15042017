@@ -23,7 +23,7 @@
 <div ng-app="myApp" ng-controller="DonHangPOCtrl" class="content">
     <input type="hidden" value="@Session["USERNAME"]" id="username" />
     <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
-    <div class="col-md-8">
+    <div class="col-md-12">
         <table class="table">
             <thead>
                 <tr>
@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in list_PO_DaLenDonBanHang"  ng-click="xemchitietPO(item.MA_SO_PO)">
+                <tr ng-repeat="item in list_PO_DangChoDuyet" ng-click="RedirectDuyetPO(item.MA_SO_PO)">
                     <td>{{item.MA_SO_PO}}</td>
                     <td>{{item.NGAY_LEN_PO | date: 'dd/MM/yyyy'}}</td>
                     <td>{{item.TEN_CONG_TY}}</td>
@@ -51,7 +51,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-4">
+    @*<div class="col-md-4">
         <table class="table">
             <tr>
                 <td colspan="2" class="border-td"><h4>PO đang chờ duyệt</h4></td>
@@ -124,7 +124,7 @@
             </tr>
         </table>
 
-    </div>
+    </div>*@
 </div>
 
 
