@@ -171,7 +171,7 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
 
     //Lấy dữ liệu hàng hóa
     $scope.SearchHH = function (mh) {
-        $http.get(window.location.origin + '/api/Api_XuatNhapKho/GetAllHH/' + 'HOPLONG/' + 'XUATKHO/' + mh)
+        $http.get(window.location.origin + '/api/Api_XuatNhapKho/GetAllHH/' + 'HOPLONG/' + 'NHAPKHO/' + mh)
          .then(function (response) {
              if (typeof (response.data) == "object") {
                  $scope.Detail.ListHangHoa = response.data;
@@ -185,6 +185,8 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
     }
 
     //Lấy dữ liệu khách hàng hợp long
+    var IsAdmin = $('#isadmin').val();
+    var Username = $('#username').val();
 
     $scope.SearchKH = function (mkh) {
         $http.post(window.location.origin + '/api/Search_KH/Search/' + mkh)
@@ -265,10 +267,10 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
         //-----------
         $http({
             method: 'GET',
-            url: '/api/Api_BanHang/Get_DON_BAN_HANG_CHUA_XUAT'
+            url: '/api/Api_BanHang/Get_DON_BAN_HANG_DA_XUAT/' + IsAdmin + '/' + Username
         }).then(function (response) {
             if (typeof (response.data) == "object") {
-                $scope.DonBanHangChuaXuat = response.data;
+                $scope.DonBanHangDaXuat = response.data;
             }
             else {
                 ErrorSystem();
@@ -522,6 +524,7 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
             //response.data = jQuery.parseJSON(response.data);
             if (response.data == config.INPUT_ERROR) {
                 InputFail();
+                
             }
             else if (response.data == config.FAIL) {
                 ErrorSystem();
@@ -595,9 +598,7 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
         $scope.ThamChieu.ListSelect = [];
         $scope.ThamChieu.ListSelect.push({ SO_CHUNG_TU: item.MA_SO_BH});
         $scope.ThamChieu.DonBanHang = item.MA_SO_BH;
-
         $(".tableselect").css({ "display": "none" });
-
 
         $http({
             method: 'GET',
@@ -610,7 +611,7 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
                 $scope.GeneralInfo.NhanVienBanHang = response.data.donbanhang.HO_VA_TEN,
                 $scope.GeneralInfo.Username = response.data.donbanhang.NHAN_VIEN_QUAN_LY
                 $scope.LoadHangTra = true;
-
+                
             }
             else {
                 ErrorSystem();
@@ -619,9 +620,9 @@ app.controller('XuatKhoBanHangController', function ($rootScope, $scope, $http, 
             ConnectFail();
         });
         
-
+       
     }
-
+    
     $scope.ShowDonHangTra = function () {
         
         if ($("#DonTraHang").css("display") == "none") {

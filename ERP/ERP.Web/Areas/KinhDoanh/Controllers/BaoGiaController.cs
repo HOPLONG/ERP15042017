@@ -46,13 +46,6 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
          }
 
 
-
-        public ActionResult BaoGiaHome()
-        {
-            return View();
-        }
-
-
         public ActionResult ThemBaoGiaMoi()
         {
             return View();
