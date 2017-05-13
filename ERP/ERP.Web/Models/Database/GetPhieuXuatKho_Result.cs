@@ -25,5 +25,6 @@ namespace ERP.Web.Models.Database
         public string TRUC_THUOC { get; set; }
         public string KHACH_HANG { get; set; }
         public string TEN_CONG_TY { get; set; }
+        public string LOAI_XUAT_KHO1 { get; set; }
     }
 }
