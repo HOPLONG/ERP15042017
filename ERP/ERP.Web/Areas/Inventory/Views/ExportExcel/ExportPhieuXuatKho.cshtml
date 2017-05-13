@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ERP.Web.Models.Database.GetAll_KhachHang_Result>
+@*@{
+    Layout = null;
+}*@
+
+<html>
+
+<head>
+
+    <script data-semver="2.0.0" src="https://code.angularjs.org/1.4.8/angular.js"></script>
+    <script data-semver="2.1.4" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+</head>
+
+  <body  >
+    <h1>Export to Excel</h1>
+
+     
+    <button export-to-csv>Download</button>
+      <table id="myTable">
+@using (Html.BeginForm("ExportToExcel", "ExportExcel", FormMethod.Post))
+{
+          <tr>
+              <th>Tiêu đề 1</th>
+              <th>Head2</th>
+              <th>Head3</th>
+              <th>Head4</th>
+          </tr>
+          foreach (var item in Model)
+          {
+            <tr>
+                <td>@item.MA_KHACH_HANG</td>
+                <td>@item.TEN_CONG_TY</td>
+                <td>@item.DIA_CHI_XUAT_HOA_DON</td>
+                <td>@item.HOTLINE</td>
+            </tr>
+          }
+    <tr>
+        <th colspan="4"><input type="submit" value="Export to Excel" class="button" /> </th>
+    </tr>
+}
+
+      </table>
+  </body>
+
+</html>

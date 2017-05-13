@@ -38,9 +38,6 @@
     <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
 
 
-
-
-
     <script src="~/Content/download/plugins/jQuery/jquery.min.js"></script>
     <script src="~/Content/download/angularjs/angular.min.js"></script>
 
@@ -61,7 +58,7 @@
     <script src="~/Content/download/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
     <script src="~/Content/download/bootstrap-datetimepicker.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
@@ -190,7 +187,6 @@
                             <li><a href="#"><i class="fa fa-angle-double-right"></i> Đề nghị báo giá</a></li>
                         </ul>
                     </li>
-
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-bell-o"></i>
@@ -207,19 +203,11 @@
                     </li>
 
                     <li class="treeview">
-                        <a href="#">
+                        <a href="/KinhDoanh/BaoGia/BaoGiaHome">
                             <i class="fa fa-file-text-o"></i>
                             <span>BÁO GIÁ</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/KinhDoanh/BaoGia/ListBaoGia"><i class="fa fa-angle-double-right"></i> Danh sách báo giá</a></li>
-                            <li><a href="/KinhDoanh/BaoGia/ListBaoGiaDaHuy"><i class="fa fa-angle-double-right"></i> Báo giá đã hủy</a></li>
-                            <li><a href="/KinhDoanh/BaoGia/ListBaoGiaDaLenPO"><i class="fa fa-angle-double-right"></i> Báo giá đã lên PO</a></li>
-                            <li><a href="/KinhDoanh/BaoGia/ListBaoGiaDangChoPhanHoi"><i class="fa fa-angle-double-right"></i> Báo giá đang chờ phản hồi</a></li>
-                            <li><a href="/KinhDoanh/BaoGia/ListBaoGiaThanhCong"><i class="fa fa-angle-double-right"></i> Báo giá thành công</a></li>
-                            <li><a href="/KinhDoanh/BaoGia/ListBaoGiaThatBai"><i class="fa fa-angle-double-right"></i> Báo giá thất bại</a></li>
-                        </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
@@ -258,16 +246,11 @@
                         </ul>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a href="/KinhDoanh/DonBanHang/DonBanHangHome">
                             <i class="fa fa-cart-arrow-down"></i>
                             <span>BÁN HÀNG</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/KinhDoanh/DonBanHang/ListDonBanHang"><i class="fa fa-angle-double-right"></i> Danh sách hóa đơn bán hàng</a></li>
-                            <li><a href="/KinhDoanh/DonBanHang/ListDonBanHangChuaXuatKho"><i class="fa fa-angle-double-right"></i> Danh sách hóa đơn bán hàng chưa xuất kho</a></li>
-                            <li><a href="/KinhDoanh/DonBanHang/ListDonBanHangDaXuatKho"><i class="fa fa-angle-double-right"></i> Danh sách hóa đơn bán hàng đã xuất kho</a></li>
-                        </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
@@ -282,21 +265,32 @@
                         </ul>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a href="/KinhDoanh/DonHangPO/DonPOHome">
                             <i class="fa fa-truck"></i>
                             <span>Đơn hàng PO</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/KinhDoanh/DonHangPO/ListPO"><i class="fa fa-angle-double-right"></i> Danh sách đơn PO</a></li>
-                            <li><a href="/KinhDoanh/DonHangPO/ListPO_DaDuyet"><i class="fa fa-angle-double-right"></i>Đơn PO đã duyệt</a></li>
-                            <li><a href="/KinhDoanh/DonHangPO/ListPO_DaHuy"><i class="fa fa-angle-double-right"></i>Đơn PO đã hủy</a></li>
-                            <li><a href="/KinhDoanh/DonHangPO/ListPO_DangChoDuyet"><i class="fa fa-angle-double-right"></i>Đơn PO chờ duyệt</a></li>
-                            <li><a href="/KinhDoanh/DonHangPO/ListPO_DangDuyet"><i class="fa fa-angle-double-right"></i>Đơn PO đang duyệt</a></li>
-                            <li><a href="/KinhDoanh/DonHangPO/ListPO_DaLenDonBanHang"><i class="fa fa-angle-double-right"></i>Đơn PO đã lên đơn bán hàng</a></li>
-                            <li><a href="/KinhDoanh/DonHangPO/ListPO_CanBanNgay"><i class="fa fa-angle-double-right"></i>Đơn PO cần bán ngay</a></li>
-                            <li><a href="/KinhDoanh/DonHangPO/ListPO_DangXuatNgay"><i class="fa fa-angle-double-right"></i>Đơn PO đang xuất dở</a></li>
-                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="/KinhDoanh/HangCanXuat/HangCanXuatHome">
+                            <i class="fa fa-truck"></i>
+                            <span>Hàng cần xuất</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="/KinhDoanh/HangCanDat/HangCanDatHome">
+                            <i class="fa fa-truck"></i>
+                            <span>Hàng cần đặt</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="/KinhDoanh/GiuKho/GiuKhoHome">
+                            <i class="fa fa-truck"></i>
+                            <span>Giữ kho</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
                     </li>
                 </ul>
             </section>

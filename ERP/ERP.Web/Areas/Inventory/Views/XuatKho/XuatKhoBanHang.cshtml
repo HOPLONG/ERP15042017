@@ -3,7 +3,7 @@
 <link href="~/Content/assets/css/colors.css" rel="stylesheet" />
 <link href="~/Content/download/pnotify.custom.min.css" rel="stylesheet" />
 <link href="~/Content/assets/css/icons/icomoon/styles.css" rel="stylesheet" />
-<link href="~/Content/self-writing/css/KhachHang.css" rel="stylesheet" />
+<link href="~/Content/self-writing/css/XuatKhoBanHang.css" rel="stylesheet" />
 
 <script src="~/Content/download/plugins/jQuery/jquery.min.js"></script>
 <script src="~/Content/assets/js/plugins/loaders/pace.min.js"></script>
@@ -20,7 +20,7 @@
 <script src="~/Content/Scripts/angularjs/angular.js"></script>
 <script src="~/Content/Scripts/angularjs/angular-route.min.js"></script>
 <script src="~/Content/Scripts/angularjs/dirPagination.js"></script>
-<script src="~/Content/Scripts/angularjs/app.js"></script>
+@*<script src="~/Content/Scripts/angularjs/app.js"></script>*@
 <script src="~/Content/Scripts/daterangepicker.js"></script>
 <script src="~/Content/Scripts/moment.min.js"></script>
 <script src="~/Content/download/date_directive.js"></script>
@@ -74,16 +74,18 @@
         height:45px !important;
     }
 </style>
-<div class="" ng-app="app" ng-controller="XuatKhoBanHangController">
+<div class="" ng-app="myApp" ng-controller="XuatKhoBanHangController">
     <!-- Dashboard content -->
     <div class="container">
         @*<div class="col-md-12">
             <div class="panel panel-white">*@
+        <input type="hidden" id="isadmin" value="@Session["IS_AMIN"]" />
+        <input type="hidden" id="username" value="@Session["USERNAME"]" />
         <div class="panel-heading color-heading">
             <h6 class="panel-title" style="text-align:left;">Xuất kho</h6>
         </div>
 
-        <table border='1' style="width:80%" id="themmoikhach">
+        <table border='1' style="width:85%" id="themmoikhach">
             <tr>
                 <td style="width:20%" class="text-left"><label class="form-control" style="font-weight:bold; font-size:16px">Phiếu xuất kho</label></td>
                 <td>
@@ -208,7 +210,6 @@
                                             <i class="icon-arrow-down5"></i>
                                         </div>
                                     </div>
-
                                     <div class="tableselect" id="DataNhanVien" style="display:none;min-width: 450px;">
                                         <table class="table-hover ">
                                             <thead>
@@ -228,7 +229,6 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-
                                     </div>
                                     <label id="basic-error" class="validation-error-label" ng-if="ValidateGeneral.NhanVienBanHang == false" for="basic">Trường này không được để trống</label>
                                 </div>
@@ -426,8 +426,8 @@
                             <td colspan="1">
                                 <input type="number" ng-model="item.SO_LUONG" class="input">
                             </td>
-                            <td colspan="1">
-                                <input type="text" ng-model="item.DON_GIA" format="number" class="input">
+                            <td colspan="1"  style="text-align: right;">
+                                <input type="text" ng-model="item.DON_GIA" format="number" class="input"  style="text-align: right;">
                             </td>
                             <td colspan="1" style="text-align: right;">
                                 {{item.DON_GIA * item.SO_LUONG | currency:""}}
@@ -450,17 +450,17 @@
             </tr>
         </table>
         
-        <table border="1" style="width:20% !important;" id="themmoikhach">
+        <table border="1" style="width:15% !important;" id="themmoikhach">
             <tr>
-                <td class="text-center"><p style="text-shadow: 1px 1px 5px #91DDFD; font-style:italic; font-size: 14px;text-align:center; color: #64B5F6; margin-left:10px; margin-top:5px;margin-bottom:5px; font-weight: bold">Đơn bán hàng cần xuất</p></td>
+                <td class="text-center"><p class="blink_me" style="text-shadow: 1px 1px 5px #91DDFD; font-style:italic; font-size: 14px;text-align:center; color: red; margin-left:10px; margin-top:5px;margin-bottom:5px; font-weight: bold">Đơn bán hàng cần xuất</p></td>
             </tr>
             <tr>
                 <td>
                     <div style="height:410px;overflow-y:auto;">
                         <table style="width:100%;cursor:pointer;">
                             <tr ng-repeat="item in DonBanHang" ng-click="SelectDonTraHang(item)">
-                                <td colspan="2">{{item.MA_SO_BH}}</td>
-                                <td>{{item.NGAY_BH | date:'dd/MM/yyyy'}}</td>
+                                <td colspan="2" class="text-left">{{item.MA_SO_BH}}</td>
+                                <td class="text-left">{{item.NGAY_BH | date:'dd/MM/yyyy'}}</td>
                             </tr>
 
                         </table>
@@ -475,9 +475,9 @@
                 <td>
                     <div style="height:200px; overflow-y:auto;">
                         <table style="width:100%;">
-                            <tr ng-repeat="item in DonBanHangChuaXuat">
-                                <td colspan="2">{{item.MA_SO_BH}}</td>
-                                <td>{{item.NGAY_BH | date:'dd/MM/yyyy'}}</td>
+                            <tr ng-repeat="item in DonBanHangDaXuat">
+                                <td colspan="2" class="text-left">{{item.MA_SO_BH}}</td>
+                                <td class="text-left">{{item.NGAY_BH | date:'dd/MM/yyyy'}}</td>
 
                             </tr>
                         </table>
@@ -492,8 +492,8 @@
                     <div style="height:200px; overflow-y:auto;">
                         <table style="width:100%;cursor:pointer;">
                             <tr ng-repeat="item in DonBanHang" ng-click="SelectDonTraHang(item)">
-                                <td colspan="2">{{item.MA_SO_BH}}</td>
-                                <td>{{item.NGAY_BH | date:'dd/MM/yyyy'}}</td>
+                                <td colspan="2" class="text-left">{{item.MA_SO_BH}}</td>
+                                <td class="text-left">{{item.NGAY_BH | date:'dd/MM/yyyy'}}</td>
 
                             </tr>
                         </table>
@@ -520,7 +520,7 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Tìm theo</label>
                             <div class="col-lg-3">
-                                <select name="select" class="form-control" ng-change="ChangeLoaiChungTu()" ng-model="LoaiChungTu">
+                                <select name="select" class="form-control" ng-change="ChangeLoaiChungTu()" ng-model="LoaiChungTu" style="border: 1px solid #64B5F6 !important;">
                                     <option value="1">Loại chứng từ</option>
                                     <option value="2">Đối tượng</option>
                                     <option value="3">Số hóa đơn/chứng từ</option>
@@ -530,12 +530,12 @@
                             <label class="control-label col-lg-2">Giá trị</label>
                             <div class="col-lg-5" style="position:relative;z-index:100">
                                 <div class="has-feedback" id="Input_DataGiaTriChungTu" style="display:none" ng-click="ShowDataGiaTriChungTu()">
-                                    <input type="text" ng-model="GiaTriChungTu.Search" class="form-control showtableselect" ng-change="DoiTuongFind()">
+                                    <input type="text" style="border: 1px solid #64B5F6 !important;" ng-model="GiaTriChungTu.Search" class="form-control showtableselect" ng-change="DoiTuongFind()">
                                     <div class="form-control-feedback">
                                         <i class="icon-arrow-down5"></i>
                                     </div>
                                 </div>
-                                <select name="select" class="form-control" id="Select_DataGiaTriChungTu" ng-model="GiaTriLoaiChungTu">
+                                <select name="select" class="form-control" id="Select_DataGiaTriChungTu" ng-model="GiaTriLoaiChungTu" style="border: 1px solid #64B5F6 !important;">
                                     <option ng-repeat="item in GiaTriThamChieu" value="{{item.value}}">{{item.show}}</option>
                                 </select>
                                 <table class="table-hover tableselect" id="DataGiaTriChungTu" style="display:none">
@@ -561,7 +561,7 @@
                             <label class="control-label col-lg-2">Từ ngày</label>
                             <div class="col-lg-3">
                                 <div class="form-group has-feedback">
-                                    <input type="text" ng-model="ThamChieu.From" id="ThamChieuFrom" class="form-control datetimepicker">
+                                    <input type="text" ng-model="ThamChieu.From" id="ThamChieuFrom" class="form-control datetimepicker" style="border: 1px solid #64B5F6 !important;">
                                     <div class="form-control-feedback">
                                         <i class="icon-calendar"></i>
                                     </div>
@@ -570,7 +570,7 @@
                             <label class="control-label col-lg-2">Đến ngày</label>
                             <div class="col-lg-3">
                                 <div class="form-group has-feedback">
-                                    <input type="text" ng-model="ThamChieu.To" id="ThamChieuTo" class="form-control datetimepicker">
+                                    <input type="text" ng-model="ThamChieu.To" id="ThamChieuTo" class="form-control datetimepicker" style="border: 1px solid #64B5F6 !important;">
                                     <div class="form-control-feedback">
                                         <i class="icon-calendar"></i>
                                     </div>
@@ -714,3 +714,8 @@
         border: 1px solid #eeeeee !important;
     }
 </style>
+<script>
+    (function blink() {
+        $('.blink_me').fadeOut(500).fadeIn(500, blink);
+    })();
+</script>

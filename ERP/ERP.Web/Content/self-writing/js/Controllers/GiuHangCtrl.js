@@ -1,6 +1,8 @@
 ﻿
 app.controller('GiuHangHopLongCtrl', function ($scope, $http) {
 
+    var username = $('#username').val();
+    var isadmin = $('#isadmin').val();
     //xóa dòng
     $scope.Remove = function (index) {
         $scope.Detail.ListAdd.splice(index, 1);
@@ -303,4 +305,14 @@ app.controller('GiuHangHopLongCtrl', function ($scope, $http) {
     }
         //End Tìm Kiếm Thông Tin hàng Hóa
 
+    
+    // Tong hop giu kho kinh doanh
+    $http.post('/api/Api_DonHangPO/ListHangGiuTongHop').then(function (response) {
+        $scope.listgiukho_tonghop = response.data;
+    });
+
+    // Giu kho theo sale
+    $http.post('/api/Api_DonHangPO/ListHangGiuTheoSale/' + isadmin + '/' + username).then(function (response) {
+        $scope.listgiukho_theosale = response.data;
+    });
 });

@@ -120,7 +120,7 @@
  
         var data_save = {
             MA_SO_PO: url,
-            NGAY_LEN_PO: $scope.thongtinchung[0].NGAY_LEN_PO.format('DD/MM/YYYY'),
+            NGAY_LEN_PO: $scope.thongtinchung[0].NGAY_LEN_PO,
             MA_KHACH_HANG: $scope.thongtinchung[0].MA_KHACH_HANG,
             TEN_LIEN_HE: $scope.thongtinchung[0].TEN_LIEN_HE,
             HINH_THUC_THANH_TOAN: $scope.thongtinchung[0].HINH_THUC_THANH_TOAN,
@@ -128,7 +128,7 @@
             TONG_TIEN_THUE_GTGT: $scope.tong_tien_thue_GTGT,
             TONG_TIEN_THANH_TOAN: $scope.tong_tien_thanh_toan,
             SO_TIEN_VIET_BANG_CHU: $scope.so_tien_viet_bang_chu,
-            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG.format('DD/MM/YYYY'),
+            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG,
             DIA_DIEM_GIAO_HANG: $scope.thongtinchung[0].DIA_DIEM_GIAO_HANG,
             DA_HUY: $scope.thongtinchung[0].DA_HUY,
             LY_DO_HUY: $scope.thongtinchung[0].LY_DO_HUY,
@@ -294,7 +294,7 @@
             TONG_TIEN_THUE_GTGT: $scope.tong_tien_thue_GTGT,
             TONG_TIEN_THANH_TOAN: $scope.tong_tien_thanh_toan,
             SO_TIEN_VIET_BANG_CHU: $scope.so_tien_viet_bang_chu,
-            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG.format('DD/MM/YYYY'),
+            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG,
             DIA_DIEM_GIAO_HANG: $scope.thongtinchung[0].DIA_DIEM_GIAO_HANG,
             DA_XUAT_KHO: false,
             DA_LAP_HOA_DON: false,
@@ -315,7 +315,7 @@
         });
     };
 
-    $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi)
+    $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi + '/' + isadmin)
 
          .then(function (response) {
              $scope.list_khachhang = response.data;
