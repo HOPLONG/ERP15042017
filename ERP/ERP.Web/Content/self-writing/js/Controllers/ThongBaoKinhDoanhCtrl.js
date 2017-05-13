@@ -1,17 +1,20 @@
 ﻿app.controller('ThongBaoKinhDoanhCtrl', function ($scope, $http) {
     var username = $("#username").val();
     var macongty = $("#macongty").val();
-   
-    //get data khách hàng
-    $http.get(window.location.origin + '/api/Api_BaiViet_TongHop/GetThongBaoKinhDoanh/' + username)
-         .then(function (response) {
-             if (response.data) {
-                 $scope.ListThongBao = response.data;
-                 
-             }
-         }, function (error) {
-             ErrorSystem(error);
-         });
+    window.setInterval(function () {
+        //get data khách hàng
+        $http.get(window.location.origin + '/api/Api_BaiViet_TongHop/GetThongBaoKinhDoanh/' + username)
+             .then(function (response) {
+                 if (response.data) {
+                     $scope.ListThongBao = response.data;
+
+                 }
+             }, function (error) {
+                 ErrorSystem(error);
+             });
+        $scope.so_thong_bao();
+    },5000);
+    
     //get số thông báo
     $scope.so_thong_bao = function () {
         $http.get(window.location.origin + '/api/Api_BaiViet_TongHop/GetSoThongBaoKinhDoanh/' + username)
@@ -24,7 +27,7 @@
             ErrorSystem(error);
         });
     }
-    $scope.so_thong_bao();
+    
 
 
 

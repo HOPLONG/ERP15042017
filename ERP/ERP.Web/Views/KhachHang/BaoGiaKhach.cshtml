@@ -364,9 +364,13 @@
 
 
     </div>
+    <div style="margin-top: 15px">
+        <input class="btn btn-primary" ng-click="CreateNewFromKH()" value="Thêm mới">
+        <a href="/KinhDoanh/BaoGia/GetBaoGia_THUC/{{BANGBAOGIA.SO_BAO_GIA}}"><input class="btn btn-primary" value="In báo giá"></a>
+        <a href="/KinhDoanh/BaoGia/GetBaoGia/{{BANGBAOGIA.SO_BAO_GIA}}"><input class="btn btn-primary" value="In báo giá(CM)"></a>
+        <button ng-show="createnewPOvalue" type="button" class="btn btn-primary" style="margin-top: 20px;" data-toggle="modal" data-target="#thongtinPO"><i class="icon-floppy-disk"></i>Tạo đơn PO</button>
 
-    <button type="button" class="btn btn-primary" ng-click="CreateNewFromKH()" style="margin-top: 20px;"><i class="icon-floppy-disk"></i>Thêm mới</button>
-    <button ng-show="createnewPOvalue" type="button" class="btn btn-primary"  style="margin-top: 20px;" data-toggle="modal" data-target="#thongtinPO"><i class="icon-floppy-disk"></i>Tạo đơn PO</button>
+    </div>
    
 
 

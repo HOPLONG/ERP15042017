@@ -18,10 +18,10 @@ namespace ERP.Web.Api.DonHangPO
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: api/Api_HangCanXuat
-        [Route("api/Api_HangCanXuat/GetBH_DON_HANG_PO")]
-        public List<Prod_HangCanXuat_Result> GetBH_DON_HANG_PO()
+        [Route("api/Api_HangCanXuat/GetBH_DON_HANG_PO/{isadmin}/{username}")]
+        public List<Prod_HangCanXuat_Result> GetBH_DON_HANG_PO(bool isadmin,string username)
         {
-            var query = db.Database.SqlQuery<Prod_HangCanXuat_Result>("Prod_HangCanXuat @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var query = db.Database.SqlQuery<Prod_HangCanXuat_Result>("Prod_HangCanXuat @macongty,@isadmin,@username", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("isadmin", isadmin), new SqlParameter("username", username));
             var result = query.ToList();
             return result;
         }

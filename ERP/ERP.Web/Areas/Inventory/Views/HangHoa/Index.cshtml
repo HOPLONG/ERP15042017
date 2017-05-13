@@ -10,6 +10,8 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <link href="~/Content/self-writing/css/HangHoaHL.css" rel="stylesheet" />
 <script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="~/Content/self-writing/js/Services/Kho/HangHoaService.js"></script>
+<script src="~/Content/self-writing/js/Controllers/Kho/HangHoaCtrl.js"></script>
 <style>
     #texttime {
             color: gray;
@@ -23,7 +25,9 @@
 <br />
 @*<script type="text/javascript">var startTime=new Date();function currentTime(){var a=Math.floor((new Date()-startTime)/100)/10;if (a%1==0) a+=".0";document.getElementById("endTime").innerHTML=a;}window.onload=function(){clearTimeout(loopTime);}</script>
 <script type="text/javascript">document.write('<div align="center"><span id="texttime"><i class="fa fa fa-spinner fa-spin"></i> Thời gian tải trang: <span id="endTime">0.0</span>s</span></div> ');var loopTime=setInterval("currentTime()",100);</script>*@
-<div ng-app="myApp" ng-controller="hanghoaCtrl">
+<div ng-app="myApp" ng-controller="HangHoaCtrl">
+    <input type="hidden" id="userhienthoi" name="userhienthoi" value="@Session["USERNAME"]" />
+    <input type="hidden" id="isadmin" name="isadmin" value="@Session["IS_AMIN"]" />
     <div class="content">
         <div class="flr">
             <button type="button" class="fa fa-plus button_ncc" data-toggle="modal" data-target="#myModal"><span style="font-size: 15px; font-weight: bold; padding-left:5px;">Thêm sản phẩm</span></button>
@@ -729,108 +733,108 @@
                         Tìm Kiếm
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('AUTONICS')" >
+                <li ng-click="loadHangHoa('AUTONICS',1)" >
                     <a data-toggle="tab" href="#AUTONICS" style="font-weight: bold; color: #F15A24;">
                         AUTONICS
                         <!--<img src="~/Content/Images/HangHoa/AUTONICS.png" height="30"   />-->
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('SCHNEIDER')" >
+                <li ng-click="loadHangHoa('SCHNEIDER',1)" >
                     <a data-toggle="tab" href="#SCHNEIDER" style="font-weight: bold; color: #21C650;" >
                         SCHNEIDER
                        <!--<img src="~/Content/Images/HangHoa/SCHNEIDER.png" height="30" />--> 
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('OMRON')">
+                <li ng-click="loadHangHoa('OMRON',1)">
                     <a data-toggle="tab" href="#OMRON" style="font-weight: bold; color: #4915E3;">
                         OMRON
                         <!--<img src="~/Content/Images/HangHoa/OMRON.png" height="30" />-->   
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('IDEC')">
+                <li ng-click="loadHangHoa('IDEC',1)">
                     <a data-toggle="tab" href="#IDEC" style="font-weight: bold; color: #A71C20;">
                         IDEC
                         <!--<img src="~/Content/Images/HangHoa/IDEC.png" height="30" />-->  
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('MITSUBISHI')">
+                <li ng-click="loadHangHoa('MITSUBISHI',1)">
                     <a data-toggle="tab" href="#MITSUBISHI" style="font-weight: bold; color: #ED1B23;">
                         MITSUBISHI
                         <!--<img src="~/Content/Images/HangHoa/MITSUBISHI.png" height="30" />-->   
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('LS')">
+                <li ng-click="loadHangHoa('LS',1)">
                     <a data-toggle="tab" href="#LS" style="font-weight: bold; color:#003875;">
                         LS
                         <!--<img src="~/Content/Images/HangHoa/LS.png" height="30" />-->  
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('FUJI')">
+                <li ng-click="loadHangHoa('FUJI',1)">
                     <a data-toggle="tab" href="#FUJI" style="font-weight: bold; color: #005BAA;">
                         FUJI
                         <!--<img src="~/Content/Images/HangHoa/FUJI.png" height="30" />-->  
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('CKD')">
+                <li ng-click="loadHangHoa('CKD',1)">
                     <a data-toggle="tab" href="#CKD" style="font-weight: bold; color: #34A55E;">
                         CKD
                         <!--<img src="~/Content/Images/HangHoa/CKD.png" height="30" />-->  
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('DECA')">
+                <li ng-click="loadHangHoa('DECA',1)">
                     <a data-toggle="tab" href="#DECA" style="font-weight: bold; color: #08519E;">
                         DECA
                         <!--<img src="~/Content/Images/HangHoa/DECA.png" height="30" />-->  
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('HANYOUNG')">
+                <li ng-click="loadHangHoa('HANYOUNG',1)">
                     <a data-toggle="tab" href="#HANYOUNG" style="font-weight: bold; color: #C1001F;">
                         HANYOUNG
                         <!--<img src="~/Content/Images/HangHoa/HANYOUNG.png" height="30" />-->    
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('HITACHI')">
+                <li ng-click="loadHangHoa('HITACHI',1)">
                     <a data-toggle="tab" href="#HITACHI" style="font-weight: bold; color:#FF0000;">
                         HITACHI
                         <!--<img src="~/Content/Images/HangHoa/HITACHI.png" height="30" />-->  
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('MAX')">
+                <li ng-click="loadHangHoa('MAX',1)">
                     <a data-toggle="tab" href="#MAX" style="font-weight: bold; color: #F15A24;">
                         MAX
                         <!--<img src="~/Content/Images/HangHoa/MAX.png" height="30" />-->    
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('PROFACE')">
+                <li ng-click="loadHangHoa('PROFACE',1)">
                     <a data-toggle="tab" href="#PROFACE" style="font-weight: bold; color:#0065B3;">
                         PROFACE
                         <!--<img src="~/Content/Images/HangHoa/PROFACE.png" height="30" />-->   
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('RITTAL')">
+                <li ng-click="loadHangHoa('RITTAL',1)">
                     <a data-toggle="tab" href="#RITTAL" style="font-weight: bold; color: #010101;">
                         RITTAL
                         <!--<img src="~/Content/Images/HangHoa/RITTAL.png" height="30" />-->   
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('SIEMENS')">
+                <li ng-click="loadHangHoa('SIEMENS',1)">
                     <a data-toggle="tab" href="#SIEMENS" style="font-weight: bold; color: #009999;">
                         SIEMENS
                         <!--<img src="~/Content/Images/HangHoa/SIEMENS.png" height="30" />-->   
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('SMC')">
+                <li ng-click="loadHangHoa('SMC',1)">
                     <a data-toggle="tab" href="#SMC" style="font-weight: bold; color:#3380CC;">
                         SMC
                         <!--<img src="~/Content/Images/HangHoa/SMC.png" height="30" />-->   
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('TEND')">
+                <li ng-click="loadHangHoa('TEND',1)">
                     <a data-toggle="tab" href="#TEND" style="font-weight: bold; color:#115E07;">
                         <!--<img src="~/Content/Images/HangHoa/TEND.png" height="30" />-->   
                     </a>
                 </li>
-                <li ng-click="loadHangHoa('TOSHIBA')">
+                <li ng-click="loadHangHoa('TOSHIBA',1)">
                     <a data-toggle="tab" href="#TOSHIBA" style="font-weight: bold; color: #FF0000;">
                         TOSHIBA
                         <!--<img src="~/Content/Images/HangHoa/TOSHIBA.png" height="30" />--> 
@@ -845,14 +849,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -860,16 +866,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'AUTONICS'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="autonics">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -903,31 +909,34 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
+                           
                             </tr>
 
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'LS'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="ls">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -959,14 +968,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -974,16 +985,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'OMRON'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="omron">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1015,14 +1026,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1030,16 +1043,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'IDEC'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="idec">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1072,14 +1085,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1087,17 +1102,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'FUJI'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="fuji">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
-
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
                                 </td>
@@ -1128,14 +1142,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1143,16 +1159,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'SCHNEIDER'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="schneider">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1184,14 +1200,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1199,16 +1217,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'MITSUBISHI'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="mitsubishi">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1240,14 +1258,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1255,16 +1275,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'CKD'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="ckd">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1296,14 +1316,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1311,16 +1333,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'MAX'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="max">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1352,14 +1374,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1367,17 +1391,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'PROFACE'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="proface">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
-
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
                                 </td>
@@ -1408,14 +1431,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1423,16 +1448,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'DECA'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="deca">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1464,14 +1489,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1479,17 +1506,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'HANYOUNG'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="hanyoung">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
-
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
                                 </td>
@@ -1520,14 +1546,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1535,16 +1563,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'HITACHI'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="hitachi">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1576,14 +1604,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1591,16 +1621,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'RITTAL'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="rittal">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1632,14 +1662,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1647,16 +1679,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'SIEMENS'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="siemens">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1688,14 +1720,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1703,16 +1737,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'SMC'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="smc">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
@@ -1744,14 +1778,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1759,17 +1795,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'TEND'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="tend">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
-
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
                                 </td>
@@ -1800,14 +1835,16 @@
                     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
                         <thead>
                             <tr>
-                                <th>Product Code</th>
-                                <th>Product Name</th>
-                                <th>Maker</th>
-                                <th>Price list</th>
-                                <th>Unit</th>
-                                <th>Weight</th>
-                                <th>Original</th>
-                                <th>Note</th>
+                                <th>Mã Chuẩn</th>
+                                <th>Tên Hàng</th>
+                                <th>Thông số</th>
+                                <th>Hãng</th>
+                                <th>Đơn Vị</th>
+                                <th>Xuất Xứ</th>
+                                <th>Giá List</th>
+                                <th>Ngưng sản xuất <br /> Mã chuyển đổi</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Thông số kỹ thuật</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -1815,16 +1852,16 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate-start="item in filtered  = (danhsachhanghoa | filter: {MA_NHOM_HANG: 'TOSHIBA'}) | filter: {MA_HANG:search_text} | itemsPerPage: 30 " class="hover" ng-click="edit(item);get_tonkho(item.MA_HANG)" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="toshiba">
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_CHUAN}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.TEN_HANG}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.THONG_SO}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.MA_NHOM_HANG}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DON_VI_TINH}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.KHOI_LUONG}}</td>
                                 <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.XUAT_XU}}</td>
-                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GHI_CHU}}</td>
-                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 hidden"></td>
-                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 hidden"></td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.GIA_LIST | currency: '' :0}}</td>
+                                <td class="text-left" data-toggle="modal" data-target="#chitiethanghoa">{{item.DISCONTINUE}}<br />{{item.MA_CHUYEN_DOI}}</td>
+                                <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe" class="{{item.MA_HANG}}-1 text-left"></td>
+                                <td ng-bind-html="item.THONG_SO_KY_THUAT | unsafe" class="{{item.MA_HANG}}-2 text-left"></td>
 
                                 <td>
                                     <button class="btn  btn-circle" ng-click="edit(item)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>

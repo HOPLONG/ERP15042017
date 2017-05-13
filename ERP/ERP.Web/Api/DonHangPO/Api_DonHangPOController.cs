@@ -150,6 +150,21 @@ namespace ERP.Web.Api.DonHangPO
             return result;
         }
 
+        #region "Print PO"
+        [Route("api/Api_DonHangPO/PrintDonPO/{masoPO}")]
+        public PrintPO PrintDonPO(string masoPO)
+        {
+            var data = db.Database.SqlQuery<GetAll_ThongTinChungDonHangPO_Result>("GetAll_ThongTinChungDonHangPO @masoPO", new SqlParameter("masoPO", masoPO));
+            var resultdata = data.FirstOrDefault();
+            var query = db.Database.SqlQuery<GetAll_ChiTiet_DonHangPO_Result>("GetAll_ChiTiet_DonHangPO @masoPO", new SqlParameter("masoPO", masoPO));
+            var resultquery = query.ToList();
+            PrintPO baogia = new PrintPO();
+            baogia.ChungPO = resultdata;
+            baogia.ChiTietPO = resultquery;
+            return baogia;
+        }
+        #endregion
+
 
         // PUT: api/Api_DonHangPO/5
         [ResponseType(typeof(void))]

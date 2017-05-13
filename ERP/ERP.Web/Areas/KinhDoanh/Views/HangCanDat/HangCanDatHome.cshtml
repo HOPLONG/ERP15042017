@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "HangCanDatHome";
+}
+
+<script src="~/Content/self-writing/js/Controllers/RouteCtrl.js"></script>
+<script src="~/Content/self-writing/js/Services/HangCanDatService.js"></script>
+<script src="~/Content/self-writing/js/Controllers/HangCanDatCtrl.js"></script>
+<div ng-app="myApp"
+     ng-controller="HomeHangCanDatCtrl"
+     layout="column">
+    <md-toolbar>
+        <h2 class="md-toolbar-tools">
+            <span>Bạn đang trong mục Hàng cần đặt</span>
+        </h2>
+    </md-toolbar>
+    <md-tabs md-stretch-tabs
+             md-selected="selectedIndex">
+        <md-tab label="List hàng cần đặt"></md-tab>
+        <md-tab label="List hàng cần đặt (chưa đặt)"></md-tab>
+        <md-tab label="List hàng cần đặt (đã đặt)"></md-tab>
+    </md-tabs>
+
+    <div id="content" ui-view flex> </div>
+
+</div>
+
+

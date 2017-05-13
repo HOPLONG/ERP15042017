@@ -83,7 +83,7 @@
         });
     </script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini"  ng-controller="menuCtrl">
     <div class="wrapper" style="padding-bottom: 50px;">
         <header class="main-header">
             <!-- Logo -->
@@ -235,8 +235,9 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu ">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Danh sách xuất kho</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Phiếu xuất kho mới</a></li>
+                            <li><a href="/Inventory/XuatKho/DSXuatKho"><i class="fa fa-angle-double-right"></i>Danh sách xuất kho</a></li>
+                            <li><a href="/Inventory/XuatKho/Index"><i class="fa fa-angle-double-right"></i>Phiếu xuất kho mới</a></li>
+                            <li><a href="/Inventory/XuatKho/XuatKhoBanHang"><i class="fa fa-angle-double-right"></i>Xuất kho bán hàng</a></li>
                         </ul>
                     </li>
 
@@ -247,10 +248,36 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Danh sách nhập kho</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Phiếu nhập kho mới</a></li>
+                            <li><a href="/Inventory/NhapKho/DSNhapKho"><i class="fa fa-angle-double-right"></i>Danh sách nhập kho</a></li>
+                            <li><a href="/Inventory/NhapKho/Index"><i class="fa fa-angle-double-right"></i>Phiếu nhập kho mới</a></li>
                         </ul>
                     </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-sign-in"></i>
+                            <span>CHUYỂN KHO</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/Inventory/ChuyenKho/DSChuyenKho"><i class="fa fa-angle-double-right"></i>Danh sách chuyển kho</a></li>
+                            <li><a href="/Inventory/ChuyenKho/Index"><i class="fa fa-angle-double-right"></i>Phiếu chuyển kho mới</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-sign-in"></i>
+                            <span>DANH SÁCH BÁO CÁO</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/Inventory/KhoXuat/HomeGiuHang"><i class="fa fa-angle-double-right"></i>Giữ Hàng</a></li>
+                            <li><a href="/Inventory/KhoXuat/HomeXuatHang"><i class="fa fa-angle-double-right"></i>Xuất hàng</a></li>
+                            <li><a href="/Inventory/KhoXuat/HomeHangCanXuat"><i class="fa fa-angle-double-right"></i>Hàng cần xuất</a></li>
+                        </ul>
+                    </li>
+
+                    
 
                     <li class="treeview">
                         <a href="#">

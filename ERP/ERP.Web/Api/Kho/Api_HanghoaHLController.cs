@@ -13,6 +13,7 @@ using System.Dynamic;
 using System.Web.Routing;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using ERP.Web.Models.NewModels.All;
 
 namespace ERP.Web.Areas.HopLong.Api.Kho
 {
@@ -28,69 +29,20 @@ namespace ERP.Web.Areas.HopLong.Api.Kho
         {
             // var vData = db.HHs.Where(x => x.MA_NHOM_HANG == ma_chuan);
             var query = db.Database.SqlQuery<HH>("XL_TimKiemHangHoa @tukhoa", new SqlParameter("tukhoa", ma_chuan));
-
-
-            var result = query.ToList().Select(x => new HH()
-            {
-                MA_HANG = x.MA_HANG,
-                TEN_HANG = x.TEN_HANG,
-                MA_NHOM_HANG = x.MA_NHOM_HANG,
-                GIA_NHAP = x.GIA_NHAP,
-                THONG_SO = x.THONG_SO,
-                MA_CHUAN = x.MA_CHUAN,
-                MA_NHAP_HANG = x.MA_NHAP_HANG,
-                DISCONTINUE = x.DISCONTINUE,
-                MA_CHUYEN_DOI = x.MA_CHUYEN_DOI,
-                GIA_LIST = x.GIA_LIST,
-                DON_VI_TINH = x.DON_VI_TINH,
-                KHOI_LUONG = x.KHOI_LUONG,
-                XUAT_XU = x.XUAT_XU,
-                BAO_HANH = x.BAO_HANH,
-                THONG_SO_KY_THUAT = x.THONG_SO_KY_THUAT,
-                QUY_CACH_DONG_GOI = x.QUY_CACH_DONG_GOI,
-                HINH_ANH = x.HINH_ANH,
-                GHI_CHU = x.GHI_CHU,
-                TK_HACH_TOAN_KHO = x.TK_HACH_TOAN_KHO,
-                TK_DOANH_THU = x.TK_DOANH_THU,
-                TK_CHI_PHI = x.TK_CHI_PHI,
-                SERIES = x.SERIES
-            }).ToList();
+            var result = query.ToList();
             return result;
         }
 
-
-        [Route("api/Api_HanghoaHL/GetAllHH/{ma_nhom_hang}")]
-        public List<HH> GetAllHH( string ma_nhom_hang)
+        [HttpPost]
+        [Route("api/Api_HanghoaHL/GetAllHH")]
+        public List<Prod_HH_GetHH_TheoNhom_Result> GetAllHH(ThamSo thamso)
         {
-                var vData = db.HHs.Where(x => x.MA_NHOM_HANG == ma_nhom_hang).Take(50);
+            
 
-            var result  = vData.ToList().Select(x => new HH()
-                {
-                    MA_HANG = x.MA_HANG,
-                    TEN_HANG = x.TEN_HANG,
-                    MA_NHOM_HANG = x.MA_NHOM_HANG,
-                    GIA_NHAP = x.GIA_NHAP,
-                    THONG_SO = x.THONG_SO,
-                    MA_CHUAN = x.MA_CHUAN,
-                    MA_NHAP_HANG = x.MA_NHAP_HANG,
-                    DISCONTINUE = x.DISCONTINUE,
-                    MA_CHUYEN_DOI = x.MA_CHUYEN_DOI,
-                    GIA_LIST = x.GIA_LIST,
-                    DON_VI_TINH = x.DON_VI_TINH,
-                    KHOI_LUONG = x.KHOI_LUONG,
-                    XUAT_XU = x.XUAT_XU,
-                    BAO_HANH = x.BAO_HANH,
-                    THONG_SO_KY_THUAT = x.THONG_SO_KY_THUAT,
-                    QUY_CACH_DONG_GOI = x.QUY_CACH_DONG_GOI,
-                    HINH_ANH = x.HINH_ANH,
-                    GHI_CHU = x.GHI_CHU,
-                    TK_HACH_TOAN_KHO = x.TK_HACH_TOAN_KHO,
-                    TK_DOANH_THU = x.TK_DOANH_THU,
-                    TK_CHI_PHI = x.TK_CHI_PHI,
-                    SERIES = x.SERIES
-            }).ToList();
-            
-            
+            var query = db.Database.SqlQuery<Prod_HH_GetHH_TheoNhom_Result>("Prod_HH_GetHH_TheoNhom @manhomhang, @sotrang, @username, @isadmin", new SqlParameter("manhomhang", thamso.manhomhang), new SqlParameter("sotrang", thamso.sotrang), new SqlParameter("username", thamso.manhomhang), new SqlParameter("isadmin", thamso.isadmin));
+
+            var result = query.ToList();
+
             return result;
         }
 
