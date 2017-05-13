@@ -28,5 +28,10 @@ namespace ERP.Web.Models.Database
         public string NHAN_VIEN_QUAN_LY { get; set; }
         public string TEN_CONG_TY { get; set; }
         public string HO_VA_TEN { get; set; }
+        public Nullable<int> TON_TANG_2 { get; set; }
+        public Nullable<int> TON_TANG_3 { get; set; }
+        public Nullable<int> TON_TANG_4 { get; set; }
+        public string MA_CHUAN { get; set; }
+        public int ID_DON_CHI_TIET { get; set; }
     }
 }

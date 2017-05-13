@@ -243,6 +243,96 @@ namespace ERP.Web.Api.Kho
             return Ok(kho.SO_CHUNG_TU);
         }
 
+
+        #region "Chuyển kho giữ hàng"
+        // POST: api/Api_ChuyenKho
+        [Route("api/Api_ChuyenKho/ChuyenKhoGiuHang/{id}")]
+        [ResponseType(typeof(KHO_CHUYEN_KHO))]
+        public IHttpActionResult ChuyenKhoGiuHang(int id,ChuyenKho chuyenkho)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            KHO_CHUYEN_KHO kho = new KHO_CHUYEN_KHO();
+            kho.SO_CHUNG_TU = GeneralChungTu();
+            kho.NGAY_CHUNG_TU = DateTime.Today.Date;
+            kho.NGAY_HACH_TOAN = DateTime.Today.Date;
+            kho.NGUOI_LAP_PHIEU = chuyenkho.NGUOI_LAP_PHIEU;
+            kho.TRUC_THUOC = chuyenkho.TRUC_THUOC;
+            kho.DIEN_GIAI = chuyenkho.DIEN_GIAI;
+            db.KHO_CHUYEN_KHO.Add(kho);
+            // Chi tiết chuyển kho
+            foreach (ChiTietChuyenKho item in chuyenkho.ChiTiet)
+            {
+                KHO_CT_CHUYEN_KHO newItem = new KHO_CT_CHUYEN_KHO();
+                newItem.SO_CHUNG_TU = kho.SO_CHUNG_TU;
+                newItem.MA_HANG = item.MA_HANG;
+                newItem.XUAT_TAI_KHO = item.MA_KHO_CON;
+                newItem.NHAP_TAI_KHO = item.NHAP_TAI_KHO;
+                newItem.SO_LUONG = item.SO_LUONG;
+                newItem.DVT = item.DVT;
+                db.KHO_CT_CHUYEN_KHO.Add(newItem);
+                //Chuyển hàng vào kho
+                TONKHO_HOPLONG newkhoxuat = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG && x.MA_KHO_CON == item.MA_KHO_CON).FirstOrDefault();
+
+                if (newkhoxuat == null || newkhoxuat.SL_HOPLONG < item.SO_LUONG)
+                {
+                    return Ok("Hàng không có trong kho hoặc SL tồn không đủ");
+                }
+                newkhoxuat.SL_HOPLONG -= Convert.ToInt32(item.SO_LUONG);
+
+                TONKHO_HOPLONG newkhonhap = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG && x.MA_KHO_CON == item.NHAP_TAI_KHO).FirstOrDefault();
+                if (newkhonhap == null)
+                {
+                    newkhonhap = new TONKHO_HOPLONG();
+                    newkhonhap.MA_HANG = item.MA_HANG;
+                    newkhonhap.MA_KHO_CON = item.NHAP_TAI_KHO;
+                    newkhonhap.SL_HOPLONG = Convert.ToInt32(item.SO_LUONG);
+                    db.TONKHO_HOPLONG.Add(newkhonhap);
+                }
+                else
+                {
+                    newkhonhap.MA_HANG = item.MA_HANG;
+                    newkhonhap.SL_HOPLONG += Convert.ToInt32(item.SO_LUONG);
+                }
+
+
+
+            }
+
+
+            var query = db.BH_CT_DON_HANG_PO.Where(x => x.ID == id).FirstOrDefault();
+            query.CAN_GIU_HANG = true;
+
+
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (KHO_CHUYEN_KHOExists(chuyenkho.SO_CHUNG_TU))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(kho.SO_CHUNG_TU);
+        }
+
+        #endregion
+
+
+
+
+
         // DELETE: api/Api_ChuyenKho/5
         [ResponseType(typeof(KHO_CHUYEN_KHO))]
         public IHttpActionResult DeleteKHO_CHUYEN_KHO(string id)

@@ -65,5 +65,9 @@ namespace ERP.Web.Areas.Inventory.Controllers
         {
             return View();
         }
+        public ActionResult DetailXuatKho(String id)
+        {
+            return View();
+        }
     }
 }
