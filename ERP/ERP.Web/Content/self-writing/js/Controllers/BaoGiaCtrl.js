@@ -1132,7 +1132,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
     //get data khách hàng
 
-    $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi)
+    $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi + '/' + isadmin)
 
          .then(function (response) {
              if (response.data) {
@@ -1964,6 +1964,12 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                         .then(function successCallback(response) {
                             SuccessSystem("Lưu thành công!");
                             $scope.createnewPOvalue = true;
+                            $(function () {
+                                setTimeout(function () {
+                                    window.location.href = "/KinhDoanh/BaoGia/BaoGiaHome";
+
+                                }, 2000);
+                            });
                         }, function errorCallback(response) {
                             ErrorSystem("Không lưu được chi tiết của báo giá");
                         });
@@ -1972,7 +1978,7 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
             }, function errorCallback(response) {
                 console.log(response);
-                ErrorSystem("Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục");
+                ErrorSystem("Sự cố hệ thống, Không lưu được phiếu báo giá, Bạn vui lòng liên hệ với admin để khắc phục");
             });
     }
 
