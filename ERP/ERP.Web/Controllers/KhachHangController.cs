@@ -19,9 +19,11 @@ namespace ERP.Web.Controllers
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
         XuLyNgayThang xulydate = new XuLyNgayThang();
         int so_dong_thanh_cong;
-        int dong;
+        int dong, slmua;
+        decimal dongiamua;
+        
         string makhach, tencongty, phanloaikhach, nhomnganh, diachivpgiaodich, diachixuathoadon, MST, somayban, fax, email, logo, website, tinh, quocgia, dieukhoanthanhtoan, songayduocno, sonotoida, tinhtranghoatdong, tructhuoc, ghichu, phutrachhienthoi, nguoilienhe, chucvu, phongban, ngaysinh, gioitinh, sdt1, sdt2, emailcanhan, emailcongty, skype, facebook, ghichulienhe, salephutrach, sotknganhang, tentaikhoan, tennganhang, chinhanhnganhang, tinhnganhang, loaitaikhoan, ghichutaikhoan, khophutrach;
-
+        string mahang, nvbanhang, ngaymua;
         // GET: KhachHang
         public ActionResult Index()
         {
@@ -88,7 +90,8 @@ namespace ERP.Web.Controllers
                             {
                                 if(workSheet.Cells[rowIterator, 1].Value != null)
                                  makhach = workSheet.Cells[rowIterator, 1].Value.ToString();
-                                tencongty = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 2].Value != null)
+                                    tencongty = workSheet.Cells[rowIterator, 2].Value.ToString();
                                 if (workSheet.Cells[rowIterator, 3].Value != null)
                                     phanloaikhach = workSheet.Cells[rowIterator, 3].Value.ToString();
                                 else
@@ -171,7 +174,7 @@ namespace ERP.Web.Controllers
                                 if (workSheet.Cells[rowIterator, 22].Value != null)
                                     khophutrach = workSheet.Cells[rowIterator, 22].Value.ToString();
                                 else
-                                    khophutrach = "";
+                                    khophutrach = null;
 
 
                                 if (workSheet.Cells[rowIterator, 23].Value != null)
@@ -271,9 +274,10 @@ namespace ERP.Web.Controllers
 
                                 //Thêm khách hàng
 
-                                var query = db.KHs.Where(x => x.MA_KHACH_HANG == makhach).FirstOrDefault();
+                                var query = db.KHs.Where(x => x.MST == MST).FirstOrDefault();
                                 if (query == null)
                                 {
+                                    #region "Xuly"
                                     KH khachhang = new KH();
                                     khachhang.MA_KHACH_HANG = GenerateMAKH();
                                     khachhang.TEN_CONG_TY = tencongty;
@@ -317,19 +321,19 @@ namespace ERP.Web.Controllers
                                     if(phutrachhienthoi != "")
                                     {
                                         KH_CHUYEN_SALES chuyensale = new KH_CHUYEN_SALES();
-                                        chuyensale.MA_KHACH_HANG = makhach;
+                                        chuyensale.MA_KHACH_HANG = khachhang.MA_KHACH_HANG;
                                         chuyensale.SALE_HIEN_THOI = phutrachhienthoi;
                                         chuyensale.KHO_PHU_TRACH = khophutrach;
                                         db.KH_CHUYEN_SALES.Add(chuyensale);
 
                                     }
                                     //Thêm phân loại khách
-                                    var DATA = db.KH_PHAN_LOAI_KHACH.Where(x => x.MA_KHACH_HANG == makhach).FirstOrDefault();
+                                    var DATA = db.KH_PHAN_LOAI_KHACH.Where(x => x.MA_KHACH_HANG == khachhang.MA_KHACH_HANG).FirstOrDefault();
                                     if(DATA ==null && phanloaikhach != "")
                                     {
                                        
                                         KH_PHAN_LOAI_KHACH plkhach = new KH_PHAN_LOAI_KHACH();
-                                        plkhach.MA_KHACH_HANG = makhach;
+                                        plkhach.MA_KHACH_HANG = khachhang.MA_KHACH_HANG;
                                         plkhach.MA_LOAI_KHACH = phanloaikhach;
                                         if(nhomnganh != "")
                                             plkhach.NHOM_NGANH = nhomnganh;
@@ -340,7 +344,7 @@ namespace ERP.Web.Controllers
                                     if (nguoilienhe != "")
                                     {
                                         KH_LIEN_HE lhkhach = new KH_LIEN_HE();
-                                        lhkhach.MA_KHACH_HANG = makhach;
+                                        lhkhach.MA_KHACH_HANG = khachhang.MA_KHACH_HANG;
                                         lhkhach.NGUOI_LIEN_HE = nguoilienhe;
                                         if (chucvu!="")
                                             lhkhach.CHUC_VU = chucvu;
@@ -384,7 +388,7 @@ namespace ERP.Web.Controllers
                                         if (sotknganhang!= "")
                                         {
                                             KH_TK_NGAN_HANG tkkhach = new KH_TK_NGAN_HANG();
-                                            tkkhach.MA_KHACH_HANG = makhach;
+                                            tkkhach.MA_KHACH_HANG = khachhang.MA_KHACH_HANG;
                                             tkkhach.SO_TAI_KHOAN = sotknganhang;
                                             if (tentaikhoan != "")
                                                 tkkhach.TEN_TAI_KHOAN = tentaikhoan;
@@ -407,7 +411,7 @@ namespace ERP.Web.Controllers
                                         }
 
                                     }
-                                   
+                                    #endregion
                                 }
                                 //trường hợp đã có khách hàng, chỉ thêm liên hệ, ...
                                 else
@@ -418,7 +422,7 @@ namespace ERP.Web.Controllers
                                     if (nguoilienhe != "")
                                     {
                                         KH_LIEN_HE lhkhach = new KH_LIEN_HE();
-                                        lhkhach.MA_KHACH_HANG = makhach;
+                                        lhkhach.MA_KHACH_HANG = query.MA_KHACH_HANG;
                                         lhkhach.NGUOI_LIEN_HE = nguoilienhe;
                                         if (chucvu != "")
                                             lhkhach.CHUC_VU = chucvu;
@@ -461,7 +465,7 @@ namespace ERP.Web.Controllers
                                         if (sotknganhang != "")
                                         {
                                             KH_TK_NGAN_HANG tkkhach = new KH_TK_NGAN_HANG();
-                                            tkkhach.MA_KHACH_HANG = makhach;
+                                            tkkhach.MA_KHACH_HANG = query.MA_KHACH_HANG;
                                             tkkhach.SO_TAI_KHOAN = sotknganhang;
                                             if (tentaikhoan != "")
                                                 tkkhach.TEN_TAI_KHOAN = tentaikhoan;
@@ -603,16 +607,8 @@ namespace ERP.Web.Controllers
 
         #region "Import giao dịch khách hàng"
 
-        public ActionResult Import_GiaoDichKhach()
-        {
-
-            return View();
-        }
-
-
-
         [HttpPost]
-        public ActionResult Import_GiaoDichKhach(HttpPostedFileBase file)
+        public ActionResult Import_ThongKeMuaHang(HttpPostedFileBase file)
         {
             try
             {
@@ -636,33 +632,37 @@ namespace ERP.Web.Controllers
                             {
                                 makhach = workSheet.Cells[rowIterator, 2].Value.ToString();
                                 if (workSheet.Cells[rowIterator, 3].Value != null)
-                                    diachixuathoadon = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    mahang = workSheet.Cells[rowIterator, 3].Value.ToString();
                                 else
-                                    diachixuathoadon = "";
+                                    mahang = "";
                                 if (workSheet.Cells[rowIterator, 4].Value != null)
-                                    diachivpgiaodich = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    slmua = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value);
                                 else
-                                    diachivpgiaodich = "";
+                                    slmua = 0;
                                 if (workSheet.Cells[rowIterator, 5].Value != null)
-                                    logo = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                    dongiamua = Convert.ToDecimal(workSheet.Cells[rowIterator, 5].Value);
                                 else
-                                    logo = "";
+                                    dongiamua = 0;
+                                //if (workSheet.Cells[rowIterator, 6].Value != null)
+                                    ngaymua = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                
+                                if (workSheet.Cells[rowIterator, 7].Value != null)
+                                    nvbanhang = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                else
+                                    nvbanhang = null;
 
 
 
                                 //Thêm khách hàng
-
-                                var query = db.KHs.Where(x => x.MA_KHACH_HANG == makhach).FirstOrDefault();
-
-                                if (query != null)
-                                {
-                                    query.DIA_CHI_XUAT_HOA_DON = diachixuathoadon;
-                                    query.VAN_PHONG_GIAO_DICH = diachivpgiaodich;
-                                    query.LOGO = logo;
-                                    db.SaveChanges();
-
-                                }
-
+                                KH_THONG_KE_MUA_HANG thongke = new KH_THONG_KE_MUA_HANG();
+                                thongke.MA_KHACH_HANG = makhach;
+                                thongke.MA_HANG = mahang;
+                                thongke.SL_MUA = slmua;
+                                thongke.DON_GIA_MUA = dongiamua;
+                                thongke.NGAY_MUA = xulydate.Xulydatetime(ngaymua);
+                                thongke.NHAN_VIEN_BAN_HANG = nvbanhang;
+                                db.KH_THONG_KE_MUA_HANG.Add(thongke);
+                                db.SaveChanges();
 
                                 so_dong_thanh_cong++;
                                 dong = rowIterator;
@@ -674,16 +674,16 @@ namespace ERP.Web.Controllers
             }
             catch (Exception Ex)
             {
-                ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
-                ViewBag.Information = "Lỗi tại các dòng: " + dong;
+                ViewBag.ErrorThongKe = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+                ViewBag.InformationThongKe = "Lỗi tại các dòng: " + dong;
 
             }
             finally
             {
-                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+                ViewBag.MessageThongKe = "Đã import thành công " + so_dong_thanh_cong + " dòng";
             }
 
-            return View();
+            return View("Import_KhachHang");
         }
 
         #endregion

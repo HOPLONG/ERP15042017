@@ -481,7 +481,7 @@ input:-ms-input-placeholder {
                     </div>
                     <div class="modal-footer">
                        
-                        <button type="button" data-dismiss="modal" data-toggle="modal" ng-click="save(kh.MA_KHACH_HANG,kh.ID)" class="btn fa fa-floppy-o">Save</button>
+                        <button type="button" data-dismiss="modal" data-toggle="modal" ng-click="save(kh.MA_KHACH_HANG,kh.ID)"  data-target="#chitietkhachhang"  class="btn fa fa-floppy-o">Save</button>
                         <button id="exit" name="exit" class="btn fa fa-sign-out" data-dismiss="modal">Exit</button>
                     </div>
                 </div>
@@ -679,7 +679,7 @@ input:-ms-input-placeholder {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="save" name="save" class="btn" data-dismiss="modal" ng-click="savelienhe(editlh.ID_LIEN_HE)">Save</button>
+                        <button id="save" name="save" class="btn" data-dismiss="modal" data-toggle="modal" data-target="#chitietkhachhang"  ng-click="savelienhe(editlh.ID_LIEN_HE)">Save</button>
                         <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
                     </div>
                 </div>
@@ -1127,7 +1127,7 @@ input:-ms-input-placeholder {
                         </script>
                     </div>
                     <div class="modal-footer" style="text-align: center;">
-                        <button id="save" name="save" class="btn btn-default" data-dismiss="modal" ng-click="addnew(item.MA_KHACH_HANG)">Thêm</button>
+                        <button id="save" name="save" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#chitietkhachhang" ng-click="addnew(item.MA_KHACH_HANG)">Thêm</button>
                         <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
                     </div>
                 </div>
@@ -1199,7 +1199,7 @@ input:-ms-input-placeholder {
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="anmelden"></label>
                             <div class="col-md-8 addnew">
-                                <button id="addnew" name="addnew" class="btn" ng-click="addnewtk(item.MA_KHACH_HANG)" data-dismiss="modal">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="addnew" name="addnew" class="btn" ng-click="addnewtk(item.MA_KHACH_HANG)" data-dismiss="modal" data-toggle="modal" data-target="#chitietkhachhang" >Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
                             </div>
                         </div>
@@ -1230,7 +1230,7 @@ input:-ms-input-placeholder {
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="anmelden"></label>
                             <div class="col-md-8 addnew" style="text-align: left;margin-top: 30px;">
-                                <button id="addnew" name="addnew" class="btn" ng-click="addnewphanhoi(item.MA_KHACH_HANG, item.USERNAME)" data-dismiss="modal">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="addnew" name="addnew" class="btn" ng-click="addnewphanhoi(item.MA_KHACH_HANG, item.USERNAME)" data-toggle="modal" data-target="#chitietkhachhang"  data-dismiss="modal">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
                             </div>
                         </div>
@@ -1257,7 +1257,7 @@ input:-ms-input-placeholder {
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="anmelden"></label>
                             <div class="col-md-8 addnew" style="text-align: left;margin-top: 30px;">
-                                <button id="addnew" name="addnew" class="btn" ng-click="save_thongtinphanhoi(khachphanhoi.ID,khachphanhoi.MA_KHACH_HANG)" data-dismiss="modal">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="addnew" name="addnew" class="btn" ng-click="save_thongtinphanhoi(khachphanhoi.ID,khachphanhoi.MA_KHACH_HANG)" data-toggle="modal" data-target="#chitietkhachhang"  data-dismiss="modal">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
                             </div>
                         </div>
