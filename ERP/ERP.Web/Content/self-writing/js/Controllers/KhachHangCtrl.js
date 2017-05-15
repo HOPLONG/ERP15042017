@@ -590,6 +590,17 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             $scope.nvkd.HO_VA_TEN = '';
             $scope.sales_moi='';
             $scope.sales_cu = '';
+            $http.get(window.location.origin + '/api/Api_NhanvienKD')
+        .then(function (response) {
+            if (response.data) {
+                $scope.arrayStaffs = response.data;
+                $scope.arrayNVFinded = $scope.arrayStaffs.map(function (item) {
+                    return item;
+                });
+            }
+        }, function (error) {
+            console.log(error);
+        });
         }, function errorCallback(response) {
             ErrorSystem("Đã xảy ra lỗi");
         });
