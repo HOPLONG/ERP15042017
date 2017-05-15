@@ -4,21 +4,24 @@
     $scope.$watch('selectedIndex', function (current, old) {
         switch (current) {
             case 0:
-                $location.url("/ListBaoGia");
+                $location.url("/ThemBaoGiaMoi");
                 break;
             case 1:
-                $location.url("/ListBaoGiaDaHuy");
+                $location.url("/ListBaoGia");
                 break;
             case 2:
-                $location.url("/ListBaoGiaThanhCong");
+                $location.url("/ListBaoGiaDaHuy");
                 break;
             case 3:
-                $location.url("/ListBaoGiaThatBai");
+                $location.url("/ListBaoGiaThanhCong");
                 break;
             case 4:
-                $location.url("/ListBaoGiaDangChoPhanHoi");
+                $location.url("/ListBaoGiaThatBai");
                 break;
             case 5:
+                $location.url("/ListBaoGiaDangChoPhanHoi");
+                break;
+            case 6:
                 $location.url("/ListBaoGiaDaLenPO");
                 break;
         }
@@ -34,7 +37,7 @@ app.controller('HomeDonPOCtrl', function ($scope, $location, $log) {
                 $location.url("/ListPO");
                 break;
             case 1:
-                $location.url("/ListPO_DaDuyet");
+                $location.url("/ThemMoiPO");
                 break;
             case 2:
                 $location.url("/ListPO_DaHuy");
@@ -53,6 +56,9 @@ app.controller('HomeDonPOCtrl', function ($scope, $location, $log) {
                 break;
             case 7:
                 $location.url("/ListPO_DangXuatDo");
+                break;
+            case 8:
+                $location.url("/ListPO_DaDuyet");
                 break;
         }
     });
@@ -136,10 +142,50 @@ app.controller('HomeHangCanXuatCtrl', function ($scope, $location, $log) {
     });
 });
 
+app.controller('KyDuyetPOCtrl', function ($scope, $location, $log) {
+    $scope.selectedIndex = 0;
+
+    $scope.$watch('selectedIndex', function (current, old) {
+        switch (current) {
+            case 0:
+                $location.url("/POCanDuyet");
+                break;
+            case 1:
+                $location.url("/PODaDuyet");
+                break;
+            case 2:
+                $location.url("/ListPOTongHop");
+                break;
+        }
+    });
+});
+
 app.config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
+    // Ky duyet PO
+    .state('POCanDuyet', {
+        url: "/POCanDuyet",
+        templateUrl: "POCanDuyet",
+        controller: "DonHangPOCtrl"
+    })
+    .state('PODaDuyet', {
+        url: "/PODaDuyet",
+        templateUrl: "PODaDuyet",
+        controller: "DonHangPOCtrl"
+    })
+    .state('ListPOTongHop', {
+        url: "/ListPOTongHop",
+        templateUrl: "ListPOTongHop",
+        controller: "DonHangPOCtrl"
+    })
+
     //Bao gia
+    .state('ThemBaoGiaMoi', {
+        url: "/ThemBaoGiaMoi",
+        templateUrl: "ThemBaoGiaMoi",
+        controller: "baogiaCtrl"
+    })
     .state('ListBaoGia', {
         url: "/ListBaoGia",
         templateUrl: "ListBaoGia",
@@ -211,6 +257,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         templateUrl: "ListPO_DangXuatDo",
         controller: "DonHangPOCtrl"
     })
+        .state('ThemMoiPO', {
+            url: "/ThemMoiPO",
+            templateUrl: "ThemMoiPO",
+            controller: "DonHangPOCtrl"
+        })
     // Don ban hang
     .state('ListDonBanHang', {
         url: "/ListDonBanHang",

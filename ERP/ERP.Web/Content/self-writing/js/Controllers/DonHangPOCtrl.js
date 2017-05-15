@@ -8,6 +8,30 @@
 
     }];
 
+    $scope.Detail.ListNew = [{
+        ma_hang: '',
+        ten_hang: '',
+        so_luong: 0,
+        ma_dieu_chinh: '',
+        dvt: '',
+        hang: '',
+        gia_list: 0,
+        gia_nhap: 0,
+        don_gia: 0,
+        he_so_loi_nhuan: 0,
+        chiet_khau: 0,
+        gia_bao_di_net: 0,
+        thanh_tien: 0,
+        thanh_tien_net: 0,
+        thoi_gian_giao_hang: '',
+        ghi_chu: '',
+        hoa_hong: 0,
+        bien_trung_gian: 0,
+        so_luong_trong_kho: 0,
+        tien_thanh_toan: 0,
+        tien_thue_gtgt: 0,
+    }];
+
     $scope.Detail.ListLocDuLieu = [{
         da_duyet: false,
         dang_duyet: false,
@@ -75,7 +99,7 @@
                 $scope.tong_tien_hang = tong_tien_hang;
                 $scope.tong_tien_thue_GTGT = tong_tien_thue_GTGT
                 $scope.tong_tien_thanh_toan = tong_tien_thanh_toan;
-                $scope.so_tien_viet_bang_chu = docso($scope.tong_tien_thanh_toan);
+                $scope.so_tien_viet_bang_chu = docso(parseInt($scope.tong_tien_thanh_toan));
             });
         });
     };
@@ -120,7 +144,7 @@
  
         var data_save = {
             MA_SO_PO: url,
-            NGAY_LEN_PO: $scope.thongtinchung[0].NGAY_LEN_PO.format('DD/MM/YYYY'),
+            NGAY_LEN_PO: $scope.thongtinchung[0].NGAY_LEN_PO,
             MA_KHACH_HANG: $scope.thongtinchung[0].MA_KHACH_HANG,
             TEN_LIEN_HE: $scope.thongtinchung[0].TEN_LIEN_HE,
             HINH_THUC_THANH_TOAN: $scope.thongtinchung[0].HINH_THUC_THANH_TOAN,
@@ -128,7 +152,7 @@
             TONG_TIEN_THUE_GTGT: $scope.tong_tien_thue_GTGT,
             TONG_TIEN_THANH_TOAN: $scope.tong_tien_thanh_toan,
             SO_TIEN_VIET_BANG_CHU: $scope.so_tien_viet_bang_chu,
-            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG.format('DD/MM/YYYY'),
+            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG,
             DIA_DIEM_GIAO_HANG: $scope.thongtinchung[0].DIA_DIEM_GIAO_HANG,
             DA_HUY: $scope.thongtinchung[0].DA_HUY,
             LY_DO_HUY: $scope.thongtinchung[0].LY_DO_HUY,
@@ -219,7 +243,7 @@
             SuccessSystem('Duyệt thành công đơn hàng PO có mã là ' + response.data)
             $(function () {
                 setTimeout(function () {
-                    window.location.href = "/DonHangPO/DanhSachDuyetPO";
+                    window.location.href = "/Marketing/KyDuyetPO/KyDuyetPOHome";
 
                 }, 2000);
             });
@@ -294,7 +318,7 @@
             TONG_TIEN_THUE_GTGT: $scope.tong_tien_thue_GTGT,
             TONG_TIEN_THANH_TOAN: $scope.tong_tien_thanh_toan,
             SO_TIEN_VIET_BANG_CHU: $scope.so_tien_viet_bang_chu,
-            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG.format('DD/MM/YYYY'),
+            NGAY_GIAO_HANG: $scope.thongtinchung[0].NGAY_GIAO_HANG,
             DIA_DIEM_GIAO_HANG: $scope.thongtinchung[0].DIA_DIEM_GIAO_HANG,
             DA_XUAT_KHO: false,
             DA_LAP_HOA_DON: false,
@@ -513,6 +537,299 @@
         });
     };
     $scope.readyfunction();
+
+
+    $scope.redirect = function (masoPO) {
+        window.location.href = "/KinhDoanh/DonHangPO/Edit/" + masoPO;
+    };
+
+    $scope.RedirectDuyetPO = function (masoPO) {
+        window.location.href = "/KinhDoanh/DonHangPO/Details/" + masoPO;
+    }
+
+
+    $scope.xemchitietPO = function (masoPO) {
+        window.location.href = "/Marketing/KyDuyetPO/ChiTietPO/" + masoPO;
+    }
+    
+
+    // Chon khach hang PO moi
+
+    $scope.arrayNewKH_BaoGiaFinded = [];
+    $scope.arrayKH_BaoGia = [];
+    $scope.showtable_KH_BaoGia = false;
+
+    $http.post(window.location.origin + '/api/Api_BaoGia/KhachHangTheoSale/' + username + '/' + isadmin)
+     .then(function (response) {
+         if (response.data) {
+             $scope.arrayKH_BaoGia = response.data;
+             $scope.arrayNewKH_BaoGiaFinded = $scope.arrayKH_BaoGia.map(function (item) {
+                 return item;
+             });
+         }
+     }, function (error) {
+         console.log(error);
+     });
+    //hàm tìm kiếm
+    $scope.onKH_BaoGiaFind = function () {
+        if (!$scope.TEN_CONG_TY) {
+            $scope.arrayNewKH_BaoGiaFinded = $scope.arrayKH_BaoGia.map(function (item) {
+                return item;
+            });
+        }
+        $scope.arrayNewKH_BaoGiaFinded = $scope.arrayKH_BaoGia.filter(function (item) {
+            if (item.TEN_CONG_TY.toLowerCase().indexOf($scope.ten_cong_ty.toLowerCase()) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+    // hiển thị danh sách đổi tượng(LẤY THEO MÃ)
+    $scope.showInfoKH_BaoGia = function (p_dt) {
+        $scope.ten_cong_ty = p_dt.TEN_CONG_TY;
+        $scope.ma_khach_hang = p_dt.MA_KHACH_HANG;
+        $scope.van_phong_giao_dich = p_dt.VAN_PHONG_GIAO_DICH;
+        $scope.dia_chi_xuat_hoa_don = p_dt.DIA_CHI_XUAT_HOA_DON;
+        $scope.hotline = p_dt.HOTLINE;
+        $scope.fax = p_dt.FAX;
+        $scope.showtable_KH_BaoGia = false;
+        $scope.lienhekh(p_dt.MA_KHACH_HANG);
+        $scope.nguoi_lien_he = '';
+    }
+
+    // Lien he
+    $scope.arrayLHFinded = [];
+    $scope.arrayLH = [];
+    $scope.showtable_id_lien_he = false;
+
+    $scope.lienhekh = function (url) {
+        //get data liên hệ
+        $http.post(window.location.origin + '/api/Api_LienHeKhachHang/' + url)
+             .then(function (response) {
+                 if (response.data) {
+                     $scope.arrayLH = response.data;
+                     $scope.arrayLHFinded = $scope.arrayLH.map(function (item) {
+                         return item;
+                     });
+                 }
+             }, function (error) {
+                 console.log(error);
+             });
+    }
+    $scope.lienhekh(url)
+
+
+    //hàm tìm kiếm
+    $scope.onLienHeFind = function () {
+        if (!$scope.NGUOI_LIEN_HE) {
+            $scope.arrayLHFinded = $scope.arrayLH.map(function (item) {
+                return item;
+            });
+        }
+        $scope.arrayLHFinded = $scope.arrayLH.filter(function (item) {
+            if (item.NGUOI_LIEN_HE.toLowerCase().indexOf($scope.arrayLienHe.nguoi_lien_he.toLowerCase()) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+    // hiển thị danh sách đổi tượng(LẤY THEO MÃ)
+    $scope.showInfoLH = function (p_dt) {
+        $scope.id_lien_he = p_dt.ID_LIEN_HE;
+        $scope.nguoi_lien_he = p_dt.NGUOI_LIEN_HE;
+        $scope.email_ca_nhan = p_dt.EMAIL_CA_NHAN;
+        $scope.sdt1 = p_dt.SDT1;
+        $scope.email_cong_ty = p_dt.EMAIL_CONG_TY;
+        $scope.showtable_id_lien_he = false;
+    }
+
+    //mảng hang hoa
+    $scope.arrayHHFinded = [];
+    $scope.arrayHH = [];
+    $scope.showtable_hanghoa = false;
+
+    //get data hang hoa
+
+    var inputChangedPromise;
+    //hàm tìm kiếm
+    $scope.onHHFind = function (mh) {
+        $http.get(window.location.origin + '/api/Api_HanghoaHL/GetAllHHBaoGia/' + mh)
+         .then(function (response) {
+             if (response.data) {
+                 $scope.arrayHH = response.data;
+                 $scope.arrayHHFinded = $scope.arrayHH.map(function (item) {
+                     return item;
+                 });
+             }
+         }, function (error) {
+             console.log(error);
+         })
+    }
+    // hiển thị danh sách đổi tượng(LẤY THEO MÃ)
+    $scope.inputstaff = function (kh, index, detail) {
+        $scope.showtable_hanghoa = true;
+        if (kh.SO_LUONG > 0) {
+            detail.ma_hang = kh.MA_HANG;
+            detail.ma_chuan = kh.MA_CHUAN;
+            detail.ten_hang = kh.TEN_HANG;
+            detail.so_luong = 0;
+            detail.ma_dieu_chinh = kh.MA_CHUAN;
+            detail.dvt = kh.DVT;
+            detail.hang = kh.MA_NHOM_HANG;
+            detail.gia_list = kh.GIA_LIST;
+            detail.gia_nhap = 0;
+            detail.don_gia = 0;
+            detail.he_so_loi_nhuan = 0;
+            detail.chiet_khau = 0;
+            detail.gia_bao_di_net = kh.GIA_LIST;
+            detail.thanh_tien = 0;
+            detail.thanh_tien_net = 0;
+            detail.thoi_gian_giao_hang = 'Có sẵn';
+            detail.ghi_chu = '';
+            detail.hoa_hong = 0;
+            so_luong_trong_kho = 0;
+        } else {
+            detail.ma_hang = kh.MA_HANG;
+            detail.ma_chuan = kh.MA_CHUAN;
+            detail.ten_hang = kh.TEN_HANG;
+            detail.so_luong = 0;
+            detail.ma_dieu_chinh = kh.MA_CHUAN;
+            detail.dvt = kh.DVT;
+            detail.hang = kh.MA_NHOM_HANG;
+            detail.gia_list = kh.GIA_LIST;
+            detail.gia_nhap = 0;
+            detail.don_gia = 0;
+            detail.he_so_loi_nhuan = 0;
+            detail.chiet_khau = 0;
+            detail.gia_bao_di_net = kh.GIA_LIST;
+            detail.thanh_tien = 0;
+            detail.thanh_tien_net = 0;
+            detail.thoi_gian_giao_hang = '';
+            detail.ghi_chu = '';
+            detail.hoa_hong = 0;
+            so_luong_trong_kho = 0;
+        }
+        detail.showtable_hanghoa = false;
+    }
+    //End lọc hàng hóa----------------------------------------------------------------------------------------------------------------------
+
+    $scope.addnewproduct = function () {
+        $scope.Detail.ListNew.push({
+            ma_hang: '',
+            ten_hang: '',
+            so_luong: 0,
+            ma_dieu_chinh: '',
+            dvt: '',
+            hang: '',
+            gia_list: 0,
+            gia_nhap: 0,
+            don_gia: 0,
+            he_so_loi_nhuan: 0,
+            chiet_khau: 0,
+            gia_bao_di_net: 0,
+            thanh_tien: 0,
+            thanh_tien_net: 0,
+            thoi_gian_giao_hang: '',
+            ghi_chu: '',
+            hoa_hong: 0,
+            tien_thue_gtgt: 0,
+            tien_thanh_toan : 0,
+        });
+    };
+
+    $scope.test = function (detail) {
+        $scope.detail = detail;
+        var tongtien = 0;
+        var thuegtgt = 0;
+        var tienthanhtoan = 0;
+
+
+        $scope.detail.thanh_tien = parseFloat($scope.detail.so_luong * parseInt($scope.detail.gia_list));
+        $scope.detail.tien_thue_gtgt = parseFloat($scope.detail.thanh_tien * 0.1);
+        $scope.detail.tien_thanh_toan = $scope.detail.thanh_tien + $scope.detail.tien_thue_gtgt;
+        for (i = 0; i < $scope.Detail.ListNew.length; i++) {
+            tongtien = parseInt(tongtien + $scope.detail.thanh_tien);
+            thuegtgt = parseInt(thuegtgt + $scope.detail.tien_thue_gtgt);
+            tienthanhtoan = parseInt(tienthanhtoan + $scope.detail.tien_thanh_toan);
+        }
+        $scope.tongtien = tongtien;
+        $scope.thuegtgt = thuegtgt;
+        $scope.tongtienthanhtoan = tienthanhtoan;
+        $scope.sotienvietbangchu = docso($scope.tongtienthanhtoan);
+    };
+
+
+    $scope.TaoPOMoi = function () {
+        
+            var username = $('#username').val();
+            var so_tien_viet_bang_chu = docso($scope.tong_gia_tri_theo_hop_dong_new);
+            var url = document.location.href;
+            //this removes the anchor at the end, if there is one
+            url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+            //this removes the query after the file name, if there is one
+            url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+            //this removes everything before the last slash in the path
+            url = url.substring(url.lastIndexOf("/") + 1, url.length);
+
+            $scope.arrayChiTietBaoGia = [];
+
+            for (var i = 0; i < $scope.Detail.ListNew.length; i++) {
+
+
+                var ChiTietBaoGia = {
+                    MA_HANG: $scope.Detail.ListNew[i].ma_hang,
+                    MA_DIEU_CHINH: $scope.Detail.ListNew[i].ma_dieu_chinh,
+                    DVT: $scope.Detail.ListNew[i].dvt,
+                    SO_LUONG: $scope.Detail.ListNew[i].so_luong,
+                    DON_GIA: $scope.Detail.ListNew[i].gia_list,
+                    THANH_TIEN_HANG: $scope.Detail.ListNew[i].thanh_tien,
+                    THUE_GTGT: 10,
+                }
+                //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
+                $scope.arrayChiTietBaoGia.push(ChiTietBaoGia);
+            }
+            $scope.Bao_Gia = {
+                MA_KHACH_HANG: $scope.ma_khach_hang,
+                TEN_LIEN_HE: $scope.nguoi_lien_he,
+                HINH_THUC_THANH_TOAN: $scope.hinh_thuc_thanh_toan,
+                TONG_TIEN_THANH_TOAN: $scope.tongtienthanhtoan,
+                TONG_TIEN_HANG: $scope.tongtien,
+                TONG_TIEN_THUE_GTGT: $scope.thuegtgt,
+                SO_TIEN_VIET_BANG_CHU: $scope.sotienvietbangchu,
+                TRUC_THUOC: 'HOPLONG',
+                NHAN_VIEN_QUAN_LY: username,
+                NGAY_GIAO_HANG_KD: $scope.ngay_giao_hang,
+                DIA_DIEM_GIAO_HANG: $scope.dia_diem_giao_hang,
+                CAN_XUAT_NGAY: $scope.can_xuat_ngay,
+                CAN_LAY_HOA_DON: $scope.can_lay_hoa_don,
+                ChiTietPO: $scope.arrayChiTietBaoGia,
+                THUE_SUAT_GTGT : 10,
+            };
+
+            //Lưu vào CSDL
+
+            $http({
+                method: 'POST',
+                data: $scope.Bao_Gia,
+                url: window.location.origin + '/api/Api_DonHangPO/ThemPOTuKinhDoanh'
+            }).then(function successCallback(response) {
+                SuccessSystem('Bạn đã tạo thành công 1 đơn PO có mã là ' + response.data);
+                $(function () {
+                    setTimeout(function () {
+                        window.location.href = "/KinhDoanh/DonHangPO/DonPOHome";
+
+                    }, 2000);
+                });
+            }, function errorCallback(response) {
+                console.log(response);
+                ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            });
+        
+    };
 });
 app.directive('date', function (dateFilter) {
     return {
@@ -553,68 +870,24 @@ app.directive("datepicker", function () {
         }
     }
 });
-////app.filter('words', function () {
-////    function isInteger(x) {
-////        return x % 1 === 0;
-////    }
+
+app.directive('format', ['$filter', function ($filter) {
+    return {
+        require: '?ngModel',
+        link: function (scope, elem, attrs, ctrl) {
+            if (!ctrl) return;
 
 
-////    return function (value) {
-////        if (value && isInteger(value))
-////            return toWords(value);
-
-////        return value;
-////    };
-
-////});
+            ctrl.$formatters.unshift(function (a) {
+                return $filter(attrs.format)(ctrl.$modelValue)
+            });
 
 
-////var th = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ'];
-////var dg = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
-////var tn = ['mười', 'mười một', 'mười 2', 'mười ba', 'mười bốn', 'mười lăm', 'mười sáu', 'mười bảy', 'mười tám', 'mười chín'];
-////var tw = ['hai muơi', 'ba mươi', 'bốn mươi', 'năm mươi', 'sáu mươi', 'bảy mươi', 'tám mươi', 'chín mươi'];
-
-
-////function toWords(s) {
-////    s = s.toString();
-////    s = s.replace(/[\, ]/g, '');
-////    if (s != parseFloat(s)) return 'Không phải là 1 số';
-////    var x = s.indexOf('.');
-////    if (x == -1) x = s.length;
-////    if (x > 15) return 'Số quá lớn';
-////    var n = s.split('');
-////    var str = '';
-////    var sk = 0;
-////    for (var i = 0; i < x; i++) {
-////        if ((x - i) % 3 == 2) {
-////            if (n[i] == '1') {
-////                str += tn[Number(n[i + 1])] + ' ';
-////                i++;
-////                sk = 1;
-////            }
-////            else if (n[i] != 0) {
-////                str += tw[n[i] - 2] + ' ';
-////                sk = 1;
-////            }
-////        }
-////        else if (n[i] != 0) {
-////            str += dg[n[i]] + ' ';
-////            if ((x - i) % 3 == 0) str += 'trăm ';
-////            sk = 1;
-////        }
-
-
-////        if ((x - i) % 3 == 1) {
-////            if (sk) str += th[(x - i - 1) / 3] + ' ';
-////            sk = 0;
-////        }
-////    }
-////    if (x != s.length) {
-////        var y = s.length;
-////        str += 'point ';
-////        for (var i = x + 1; i < y; i++) str += dg[n[i]] + ' ';
-////    }
-////    return str.replace(/\s+/g, ' ');
-////}
-
-////window.toWords = toWords;
+            ctrl.$parsers.unshift(function (viewValue) {
+                var plainNumber = viewValue.replace(/[^\d|\-+|\.+]/g, '');
+                elem.val($filter(attrs.format)(plainNumber));
+                return plainNumber;
+            });
+        }
+    };
+}]);

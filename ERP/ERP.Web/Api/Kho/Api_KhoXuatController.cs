@@ -121,6 +121,25 @@ namespace ERP.Web.Api.Kho
             var result = query.ToList();
             return result;
         }
-        
+
+
+        // GET: api/Api_BanHang (Cập nhật hàng cần đặt)
+        [Route("api/Api_KhoXuat/CanDatHang/{id}")]
+        public IHttpActionResult CanDatHang(int id)
+        {
+            String kq;
+            var query = db.BH_CT_DON_HANG_PO.Where(x => x.ID == id).FirstOrDefault();
+            if (query != null)
+            {
+                query.CAN_DAT_HANG = true;
+                db.SaveChanges();
+                kq = "Thành Công";
+            }
+            else
+                kq = "Thất bại";
+
+            return Ok(kq);
+        }
+
     }
 }

@@ -81,9 +81,9 @@ namespace ERP.Web.Api.HeThong
 
 
         [Route("api/Api_KH/ThongKeMuaHang/{makhach}/{page}")]
-        public List<KH_GetThongKeMuaHang_Result> ThongKeMuaHang(string makhach,int page)
+        public List<Prod_KH_GetThongKeMuaHang_Result> ThongKeMuaHang(string makhach,int page)
         {
-            var query = db.Database.SqlQuery<KH_GetThongKeMuaHang_Result>("KH_GetThongKeMuaHang @makhach,@page", new SqlParameter("makhach", makhach), new SqlParameter("page", page));
+            var query = db.Database.SqlQuery<Prod_KH_GetThongKeMuaHang_Result>("Prod_KH_GetThongKeMuaHang @makhach,@page", new SqlParameter("makhach", makhach), new SqlParameter("page", page));
             var result = query.ToList();
             return result;
         }

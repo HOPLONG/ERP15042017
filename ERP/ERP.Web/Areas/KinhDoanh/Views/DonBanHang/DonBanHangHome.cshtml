@@ -9,6 +9,8 @@
 <div ng-app="myApp"
      ng-controller="HomeBanHangCtrl"
      layout="column">
+    <input type="hidden" value="@Session["USERNAME"]" id="username" />
+    <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
     <md-toolbar>
         <h2 class="md-toolbar-tools">
             <span>Bạn đang trong mục Đơn bán hàng</span>

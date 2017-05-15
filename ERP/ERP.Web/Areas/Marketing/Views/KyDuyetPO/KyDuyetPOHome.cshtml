@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "DonPOHome";
+}
+
+<script src="~/Content/self-writing/js/Controllers/RouteCtrl.js"></script>
+<script src="~/Content/self-writing/js/Services/DonHangPOService.js"></script>
+<script src="~/Content/self-writing/js/Controllers/DonHangPOCtrl.js"></script>
+<div ng-app="myApp"
+     ng-controller="KyDuyetPOCtrl"
+     layout="column">
+    <md-toolbar>
+        <h2 class="md-toolbar-tools">
+            <span>Bạn đang trong mục Duyệt đơn PO</span>
+        </h2>
+    </md-toolbar>
+    <md-tabs md-stretch-tabs
+             md-selected="selectedIndex">
+        <md-tab label="List đơn cần duyệt"></md-tab>
+        <md-tab label="List đơn PO đã duyệt"></md-tab>
+        <md-tab label="List đơn PO tổng hợp"></md-tab>
+    </md-tabs>
+
+    <div id="content" ui-view flex> </div>
+
+</div>
+
+

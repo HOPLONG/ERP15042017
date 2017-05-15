@@ -21,6 +21,12 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
             return View(bH_DON_HANG_PO.ToList());
         }
 
+        public ActionResult GetPrintPO()
+        {
+
+            return View();
+        }
+
         public ActionResult DanhSachDuyetPO()
         {
 
