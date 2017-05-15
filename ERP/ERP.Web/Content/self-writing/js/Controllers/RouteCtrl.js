@@ -37,7 +37,7 @@ app.controller('HomeDonPOCtrl', function ($scope, $location, $log) {
                 $location.url("/ListPO");
                 break;
             case 1:
-                $location.url("/ListPO_DaDuyet");
+                $location.url("/ThemMoiPO");
                 break;
             case 2:
                 $location.url("/ListPO_DaHuy");
@@ -58,7 +58,7 @@ app.controller('HomeDonPOCtrl', function ($scope, $location, $log) {
                 $location.url("/ListPO_DangXuatDo");
                 break;
             case 8:
-                $location.url("/ThemMoiPO");
+                $location.url("/ListPO_DaDuyet");
                 break;
         }
     });

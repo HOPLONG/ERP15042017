@@ -14,28 +14,30 @@
                 <table class="table " cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Mã số PO</th>
-                            <th>Mã hàng</th>
-                            <th>Mã điều chỉnh</th>
-                            <th>Số lượng</th>
-                            <th>Đơn giá</th>
-                            <th>Ngày lên PO</th>
-                            <th>Nhân viên quản lý</th>
-                            <th>Tên khách hàng</th>
+                            <th class="text-left">Mã hàng</th>
+                            <th class="text-left">Hãng</th>
+                            <th class="text-left">Ngày giao</th>
+                            <th class="text-left">Ngày PO</th>
+                            <th class="text-left">Số PO</th>
+                            <th class="text-left">Số lượng</th>
+                            <th class="text-left">Đơn giá</th>
+                            <th class="text-left">Tên khách</th>
+                            <th class="text-left">Nhân viên bán</th>
 
                         </tr>
 
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in lisHangCanXuat" itemsPerPage: 30 class="hover" ng-click="DanLink(item.MA_SO_PO);" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="phanhoi">
-                            <td class="text-left">{{item.MA_SO_PO}}</td>
-                            <td class="text-left">{{item.MA_HANG}}</td>
-                            <td class="text-left">{{item.MA_DIEU_CHINH}}</td>
-                            <td class="text-left">{{item.SO_LUONG}}</td>
-                            <td class="text-left">{{item.DON_GIA | currency:""}}</td>
-                            <td class="text-left">{{item.NGAY_LEN_PO | date:'dd/MM/yyyy'}}</td>
-                            <td class="text-left">{{item.HO_VA_TEN}}</td>
+                        <tr ng-repeat="item in lisHangCanDat" itemsPerPage: 30 class="hover" ng-click="DanLink(item.MA_SO_PO);" ng-class-odd="'odd'" ng-class-even="'even'" pagination-id="phanhoi">
+                            <td class="text-left">{{item.MA_CHUAN}}</td>
+                            <td class="text-left">{{item.MA_NHOM_HANG}}</td>
+                            <td class="text-center">{{item.NGAY_GIAO_HANG | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item.NGAY_LEN_PO | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item.MA_SO_PO}}</td>
+                            <td class="text-center">{{item.SO_LUONG}}</td>
+                            <td class="text-right">{{item.DON_GIA | number:0}}</td>
                             <td class="text-left">{{item.TEN_CONG_TY}}</td>
+                            <td class="text-left">{{item.HO_VA_TEN}}</td>
                             
                         </tr>
                         <!--Detail row-->

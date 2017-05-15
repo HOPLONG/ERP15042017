@@ -1,13 +1,14 @@
 ﻿app.controller('KhoXuatController', function ($scope, $http) {
     var IsAdmin = $('#isadmin').val();
     var Username = $('#username').val();
+    var MaCongTy = $('#macongty').val();
     function init() {
         //Get List Hàng cần đặt
-        $scope.lisHangCanXuat = [];
+        $scope.lisHangCanDat = [];
         $http.get(window.location.origin + '/api/Api_KhoXuat/GetHangCanDat/' + IsAdmin + '/' + Username)
         .then(function (response) {
             if (response.data) {
-                $scope.lisHangCanXuat = response.data;
+                $scope.lisHangCanDat = response.data;
             }
         }, function (error) {
             console.log(error);
@@ -53,16 +54,20 @@
             console.log(error);
         });
         //Get List hàng cần xuất
-        var username = $('#username').val();
-        $scope.ListHangCanXuat = [];
-        $http.get(window.location.origin + '/api/Api_KhoXuat/Get_List_HANG_CAN_XUAT/' + IsAdmin + '/' + Username)
-        .then(function (response) {
-            if (response.data) {
-                $scope.ListHangCanXuat = response.data;
-            }
-        }, function (error) {
-            console.log(error);
-        });
+        $scope.GetDataHangCanXuat = function()
+        {
+            var username = $('#username').val();
+            $scope.ListHangCanXuat = [];
+            $http.get(window.location.origin + '/api/Api_KhoXuat/Get_List_HANG_CAN_XUAT/' + IsAdmin + '/' + Username)
+            .then(function (response) {
+                if (response.data) {
+                    $scope.ListHangCanXuat = response.data;
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        }
+        $scope.GetDataHangCanXuat();
         //Get List hàng giữ
         var username = $('#username').val();
         $scope.ListHangGiu = [];
@@ -138,4 +143,58 @@
     $scope.DanLinkXuatKho = function (item) {
         window.location = '/Inventory/KhoXuat/DetailXuatKho/' + item;
     }
+
+    $scope.chuyenmakho = function (makho) {
+        $scope.MA_KHO_TON = makho;
+        //console.log($scope.MA_KHO_TON);
+    };
+
+
+    $scope.GiuHang = function (id,mahang,dvt,soluong) {
+        //$scope.MA_KHO_TON = makhotang2;
+        var dl = {
+            MA_HANG :mahang,
+            MA_KHO_CON :$scope.MA_KHO_TON,
+            NHAP_TAI_KHO:'IVHOPLONG05',
+            DVT : dvt,
+            SO_LUONG :soluong
+        }
+        $scope.ListChiTiet = [];
+        $scope.ListChiTiet.push(dl);
+        console.log($scope.MA_KHO_TON, mahang, dvt, soluong);
+        var data = {
+            NGUOI_LAP_PHIEU: Username,
+            TRUC_THUOC: MaCongTy,
+            DIEN_GIAI:'Chuyển kho giữ hàng',
+            ChiTiet:  $scope.ListChiTiet
+        }
+        console.log(data);
+        $http.post(window.location.origin + '/api/Api_ChuyenKho/ChuyenKhoGiuHang/'+id,data)
+        .then(function (response) {
+            if (response.data) {
+                $scope.GetDataHangCanXuat();
+                SuccessSystem(response.data);
+
+            }
+        }, function (error) {
+            console.log(error);
+           ErrorSystem(error);
+        });
+    };
+
+    $scope.candathang = function (id) {
+        $http.post(window.location.origin + '/api/Api_KhoXuat/CanDatHang/' + id)
+        .then(function (response) {
+            if (response.data) {
+                $scope.GetDataHangCanXuat();
+                SuccessSystem(response.data);
+
+            }
+        }, function (error) {
+            console.log(error);
+            ErrorSystem(error);
+        });
+    };
+
+
 });
