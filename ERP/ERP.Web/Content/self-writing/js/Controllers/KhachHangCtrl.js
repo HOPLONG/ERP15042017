@@ -217,7 +217,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             TEN_CONG_TY: $scope.arraythongtin.ten_cong_ty,
             VAN_PHONG_GIAO_DICH: $scope.arraythongtin.van_phong_giao_dich,
             DIA_CHI_XUAT_HOA_DON: $scope.arraythongtin.dia_chi_xuat_hoa_don,
-            MA_SO_THUE: $scope.arraythongtin.ma_so_thue,
+            MST: $scope.arraythongtin.ma_so_thue,
             WEBSITE: $scope.arraythongtin.website,
             HOTLINE: $scope.arraythongtin.hotline,
             FAX: $scope.arraythongtin.fax,
@@ -296,8 +296,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 $scope.lastmakh = response.data;
                 var phanloaikh_add = {
                     MA_KHACH_HANG: $scope.lastmakh,
-                    MA_LOAI_KHACH: $scope.ma_loai_khach,
-                    NHOM_NGANH: $scope.nhom_nganh
+                    MA_LOAI_KHACH: $scope.arraythongtin.ma_loai_khach,
+                    NHOM_NGANH: $scope.arraythongtin.nhom_nganh
                 }
                 khachhangService.add_phanloaikh(phanloaikh_add).then(function (response) {
                     //$scope.phantrangkh(1);
@@ -472,7 +472,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             }
             var phanloai_add = {
                 MA_KHACH_HANG: makh,
-                MA_LOAI_KHACH: $scope.kh.MA_LOAI_KHACH
+                MA_LOAI_KHACH: $scope.kh.MA_LOAI_KHACH,
+                NHOM_NGANH : $scope.kh.NHOM_NGANH
             }
             if (id != null) {
                 khachhangService.save_phanloaikh(id, phanloai_save).then(function successCallback(response) {
@@ -573,23 +574,22 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             $scope.phantrangkh(0);
             $scope.new_ct_khachhang();
             SuccessSystem("Bạn đã thêm thành công 1 liên hệ của khách hàng");
+            $scope.get_lienhe(makh);
+
+            CKEDITOR.instances.ghichu.setData('');
             $scope.nguoi_lien_he = '';
             $scope.chuc_vu = '';
-            $scope.phong_ban ='';
-            $scope.ngay_sinh='';
-            $scope.gioi_tinh='';
-            $scope.email_ca_nhan='';
-            $scope.email_cong_ty='';
-            $scope.skype='';
-            $scope.facebook='';
-            CKEDITOR.instances.ghichu.setData('');
-            $scope.so_dien_thoai1='';
-            $scope.tinh_trang_lam_viec='';
-            $scope.so_dien_thoai2='';
-            $scope.nvkd.USERNAME = '';
-            $scope.nvkd.HO_VA_TEN = '';
-            $scope.sales_moi='';
-            $scope.sales_cu = '';
+            $scope.phong_ban = '';
+            $scope.ngay_sinh = null;
+            $scope.gioi_tinh = '';
+            $scope.email_ca_nhan = '';
+            $scope.email_cong_ty = '';
+            $scope.skype = '';
+            $scope.facebook = '';
+            $scope.so_dien_thoai1 = '';
+            $scope.tinh_trang_lam_viec = '';
+            $scope.so_dien_thoai2 = '';
+
             $http.get(window.location.origin + '/api/Api_NhanvienKD')
         .then(function (response) {
             if (response.data) {
@@ -761,8 +761,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
 
 
-    $scope.dieukhoantt = ['Thanh toán ngay','5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
-    $scope.tinhtranghoatdong = ['Cầm chừng', 'Bình thường', 'Sắp phá sản', 'Đã phá sản'];
+    $scope.dieukhoantt = ['','Tiền mặt','Chuyển khoản', 'Thanh toán luôn', 'Tiền mặt/Chuyển khoản'];
+    $scope.tinhtranghoatdong = ['','Cầm chừng', 'Bình thường', 'Sắp phá sản', 'Đã phá sản'];
     $scope.tinh_trang = ['Còn công tác', 'Đã luân chuyển', 'Đã nghỉ việc', 'Chuyển công ty khác'];
     $scope.thoi_gian_ap_dung = ['Hiện tại', 'Trước kia', 'Sau này'];
 
@@ -832,6 +832,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         khach_mua_so_luong_nhieu: '',
         khach_mua_doanh_so_cao: '',
         khach_dac_biet: '',
+        ma_loai_khach: '',
+        nhom_nganh : '',
     };
 
 
