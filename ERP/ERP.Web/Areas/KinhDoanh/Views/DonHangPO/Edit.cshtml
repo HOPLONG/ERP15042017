@@ -13,7 +13,7 @@
     <input type="hidden" value="@Session["USERNAME"]" id="username" />
     <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
 
-    <button class="btn btn-default" ng-click="deletePO()" style="float:right;margin: 15px;">Xóa đơn PO</button>
+    <button class="btn btn-default" ng-show="check_admin" ng-click="deletePO()" style="float:right;margin: 15px;">Xóa đơn PO</button>
     <div class="content">
         <div class="col-md-12" ng-repeat="item in thongtinchung">
             <div class="col-md-12">
@@ -57,7 +57,7 @@
                     <div class="col-md-12 form-group">
                         <div class="form-group">
                             <label class="col-md-4">Ngày giao hàng</label>
-                            <div class="col-md-4"><input type="text" date='dd-MM-yyyy' placeholder="Ngày giao hàng" class="form-control " ng-model="item.NGAY_GIAO_HANG" /></div>
+                            <div class="col-md-4"><input type="text" date='dd/MM/yyyy' placeholder="Ngày giao hàng" class="form-control " ng-model="item.NGAY_GIAO_HANG" /></div>
                         </div>
                     </div>
                     <div class="col-md-12 form-group">

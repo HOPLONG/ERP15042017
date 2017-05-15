@@ -110,8 +110,8 @@ namespace ERP.Web.Api.KhachHang
         }
 
 
-        // POST: api/Api_PhanLoaiKH
-        [ResponseType(typeof(KH_PHAN_LOAI_KHACH))]
+        // POST: api/Api_PhanLoaiKH/PostKH_PHAN_LOAI_KHACH
+        [Route("api/Api_PhanLoaiKH/PostKH_PHAN_LOAI_KHACH")]
         public IHttpActionResult PostKH_PHAN_LOAI_KHACH(KH_PHAN_LOAI_KHACH kH_PHAN_LOAI_KHACH)
         {
             if (!ModelState.IsValid)
@@ -119,10 +119,15 @@ namespace ERP.Web.Api.KhachHang
                 return BadRequest(ModelState);
             }
 
-            db.KH_PHAN_LOAI_KHACH.Add(kH_PHAN_LOAI_KHACH);
+            KH_PHAN_LOAI_KHACH newphanloaikh = new KH_PHAN_LOAI_KHACH();
+            newphanloaikh.MA_KHACH_HANG = kH_PHAN_LOAI_KHACH.MA_KHACH_HANG;
+            newphanloaikh.MA_LOAI_KHACH = kH_PHAN_LOAI_KHACH.MA_LOAI_KHACH;
+            newphanloaikh.NHOM_NGANH = kH_PHAN_LOAI_KHACH.NHOM_NGANH;
+
+            db.KH_PHAN_LOAI_KHACH.Add(newphanloaikh);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = kH_PHAN_LOAI_KHACH.ID }, kH_PHAN_LOAI_KHACH);
+            return Ok(newphanloaikh);
         }
 
         // DELETE: api/Api_PhanLoaiKH/5

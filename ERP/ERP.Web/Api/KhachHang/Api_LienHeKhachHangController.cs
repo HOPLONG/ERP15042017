@@ -133,12 +133,12 @@ namespace ERP.Web.Api.KhachHang
         [ResponseType(typeof(KH_LIEN_HE))]
         public IHttpActionResult PostKH_LIEN_HE(LienHeKH lh)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if(lh.NGUOI_LIEN_HE != "")
-            {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            //if(lh.NGUOI_LIEN_HE != "")
+            //{
                 KH_LIEN_HE lienhe = new KH_LIEN_HE();
                 lienhe.MA_KHACH_HANG = lh.MA_KHACH_HANG;
                 lienhe.NGUOI_LIEN_HE = lh.NGUOI_LIEN_HE;
@@ -176,10 +176,10 @@ namespace ERP.Web.Api.KhachHang
                 }
                 db.KH_SALES_PHU_TRACH.Add(salept);
                 db.SaveChanges();
-            }
+            //}
            
 
-            return CreatedAtRoute("DefaultApi", new { id = lh.ID_LIEN_HE }, lh);
+            return Ok(lienhe);
         }
 
         // DELETE: api/Api_LienHeKhachHang/5

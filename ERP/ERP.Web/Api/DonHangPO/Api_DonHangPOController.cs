@@ -464,6 +464,8 @@ namespace ERP.Web.Api.DonHangPO
             if (edit != null)
             {
                 edit.DANG_DUYET = thongtinPO.DANG_DUYET;
+                edit.DA_DUYET = thongtinPO.DA_DUYET;
+                edit.DA_HUY = thongtinPO.DA_HUY;
             }
 
             try
