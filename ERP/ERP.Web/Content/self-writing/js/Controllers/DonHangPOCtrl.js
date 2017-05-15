@@ -39,6 +39,8 @@
     }];
     var username = $('#username').val();
     var isadmin = $('#isadmin').val();
+
+
     $scope.load_danhsachPO = function () {
         DonHangPOService.get_danhsachPO(isadmin,username).then(function (a) {
             $scope.list_donhangPO = a;
@@ -102,6 +104,12 @@
                 $scope.so_tien_viet_bang_chu = docso(parseInt($scope.tong_tien_thanh_toan));
             });
         });
+
+        if (isadmin == 'True' ) {
+            $scope.check_admin = true;
+        } else {
+            $scope.check_admin = false;
+        }
     };
 
     $scope.load_thongtinchungPO();
@@ -186,7 +194,7 @@
         }
 
         DonHangPOService.save_thongtinchungPO(url,data_save).then(function successCallback(response) {
-            SuccessSystem('Thêm thông tin chung thành công');
+            SuccessSystem('Lưu thông tin chung thành công');
 
             for (var i = 0; i < $scope.arrayChiTietPO.length; i++) {
                 $scope.arrayChiTietPO[i].MA_SO_PO = url;
@@ -361,7 +369,9 @@
 
     $scope.ChangeStatus = function (masoPO) {
         var data_change = {
-            DANG_DUYET : true,
+            DANG_DUYET: true,
+            DA_DUYET: false,
+            DA_HUY : false,
         }
         $http.put('/api/Api_DonHangPO/TrangThaiPO/' + masoPO, data_change).then(function (response) {
             return response.data;
@@ -545,6 +555,15 @@
 
     $scope.RedirectDuyetPO = function (masoPO) {
         window.location.href = "/KinhDoanh/DonHangPO/Details/" + masoPO;
+
+        var data_change = {
+            DANG_DUYET: true,
+            DA_DUYET: false,
+            DA_HUY: false,
+        }
+        $http.put('/api/Api_DonHangPO/TrangThaiPO/' + masoPO, data_change).then(function (response) {
+            return response.data;
+        });
     }
 
 

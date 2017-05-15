@@ -1107,15 +1107,15 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
                 data: $scope.PhuongAnKD,
                 url: window.location.origin + '/api/Api_PhuongAnKinhDoanh/PostBH_PHUONG_AN_KINH_DOANH'
             }).then(function successCallback(response) {
-                SuccessSystem('Bạn đã tạo thành công 1 đơn PO có mã là ' + response.data.MA_SO_PAKD);
+                SuccessSystem('Bạn đã tạo thành công 1 PAKD có mã là ' + response.data.MA_SO_PAKD);
 
             }, function errorCallback(response) {
                 console.log(response);
-                ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+                ErrorSystem('Sự cố hệ thống, Không lưu được PAKD, Bạn vui lòng liên hệ với admin để khắc phục ');
             });
         }, function errorCallback(response) {
             console.log(response);
-            ErrorSystem('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+            ErrorSystem('Sự cố hệ thống, Không lưu được đơn PO, Bạn vui lòng liên hệ với admin để khắc phục ');
         });
     };
 

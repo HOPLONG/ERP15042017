@@ -64,7 +64,7 @@ app.service('khachhangService', function ($http) {
     //};
 
     this.add_phanloaikh = function (phanloaikh_add) {
-        return $http.post('/api/Api_PhanLoaiKH', phanloaikh_add);
+        return $http.post('/api/Api_PhanLoaiKH/PostKH_PHAN_LOAI_KHACH', phanloaikh_add);
     };
 
     this.save_khachhang = function (id, kh_save) {

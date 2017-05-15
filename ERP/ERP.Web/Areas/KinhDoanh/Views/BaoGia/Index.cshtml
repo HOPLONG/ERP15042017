@@ -37,6 +37,7 @@
 <script type="text/javascript">document.write('<div align="center"><span id="texttime"><i class="fa fa fa-spinner fa-spin"></i> Thời gian tải trang: <span id="endTime">0.0</span>s</span></div> ');var loopTime=setInterval("currentTime()",100);</script>
 <div ng-app="myApp" ng-controller="baogiaCtrl">
     <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
+    <input type="hidden" id="isadmin" name="salehienthoi" value="@Session["IS_AMIN"]" />
     <!-- Dashboard content -->
     <div class="row">
         <div class="col-lg-12">
