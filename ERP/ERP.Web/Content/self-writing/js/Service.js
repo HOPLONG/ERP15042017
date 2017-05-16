@@ -698,11 +698,11 @@ app.service('productdetailsService', function ($http) {
 
 // Nha cung cap
 app.service('nhacungcapService', function ($http) {
-    this.get_nhacungcap = function () {
-        return $http.get('/api/Api_NhaCungCap').then(function (response) {
-            return response.data;
-        });
-    };
+    //this.get_nhacungcap = function () {
+    //    return $http.get('/api/Api_NhaCungCap').then(function (response) {
+    //        return response.data;
+    //    });
+    //};
     this.get_phanloaincc = function () {
         return $http.get('/api/Api_LoaiNCC').then(function (response) {
             return response.data;
@@ -750,13 +750,9 @@ app.service('nhacungcapService', function ($http) {
         return $http.put('/api/Api_LienHeNhaCungCap/' + idlienhe, data_save);
     };
 
-    this.add_lienhencc = function (data_add) {
-        return $http.post('/api/Api_LienHeNhaCungCap', data_add);
-    };
+    
 
-    this.add_taikhoan = function (data_add) {
-        return $http.post('/api/Api_TaiKhoanNCC', data_add);
-    };
+    
 });
 // end nha cung cap
 
