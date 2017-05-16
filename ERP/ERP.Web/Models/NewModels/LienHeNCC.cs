@@ -22,7 +22,7 @@ namespace ERP.Web.Models.NewModels
         public string EMAIL { set; get; }
         public string GIOI_TINH { set; get; }
         public string SKYPE { set; get; }
-        public DateTime? NGAY_SINH { set; get; }
+        public string NGAY_SINH { set; get; }
         public string EMAIL_CA_NHAN { set; get; }
         public string EMAIL_CONG_TY { set; get; }
         public string SO_DIEN_THOAI_1 { set; get; }

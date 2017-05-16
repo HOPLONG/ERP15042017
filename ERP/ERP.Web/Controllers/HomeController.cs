@@ -151,7 +151,7 @@ namespace ERP.Web.Controllers
                 //lsdn.THOI_GIAN_DANG_XUAT = "";
                 //db.HT_LICH_SU_DANG_NHAP.Add(lsdn);
                 //db.SaveChanges();
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index","ThongBao");
 
                
 
