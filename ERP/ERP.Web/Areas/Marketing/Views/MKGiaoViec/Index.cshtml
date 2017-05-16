@@ -1,0 +1,129 @@
+﻿
+<script src="~/Content/self-writing/js/Controllers/MKGiaoViecCtrl.js"></script>
+
+
+<style>
+    blockquote{
+    border-left:none
+}
+
+.quote-badge{
+    background-color: rgba(0, 0, 0, 0.2);   
+}
+
+.quote-box{
+    
+    overflow: hidden;
+    margin-top: -50px;
+    padding-top: -100px;
+    border-radius: 17px;
+    background-color: #4ADFCC;
+    margin-top: 25px;
+    color:white;
+    width: 100%;
+    box-shadow: 2px 2px 2px 2px #E0E0E0;
+    
+}
+
+.quotation-mark{
+    
+    margin-top: -10px;
+    font-weight: bold;
+    font-size:100px;
+    color:white;
+    font-family: "Times New Roman", Georgia, Serif;
+    
+}
+
+.quote-text{
+    
+    font-size: 19px;
+    margin-top: -65px;
+}
+
+</style>
+<div ng-controller="MKGiaoViecCtrl" ng-app="myApp">
+    <input type="hidden" value="@Session["USERNAME"]" id="username"/>
+    <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
+    <div class="col-md-4">
+        <select size="10" name="decision2" style="height: 500px;" class="col-md-12">
+            <option ng-repeat="item in list_nhanvienHL" style="height:30px;margin-left: 15px;margin-bottom: 15px;vertical-align:middle;padding-top: 5px;" ng-click="transfer(item)">{{item.HO_VA_TEN}}</option>
+        </select>
+
+        <button type="button" ng-click="giaoviec()" class="btn btn-default" style="margin-top: 20px;">Giao việc</button>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-6">
+                <blockquote class="quote-box">
+                    <p>
+                        Thông báo từ công ty
+                    </p>
+                    <textarea id="thongbaomarketing" name="thongbaomarketing" class="col-md-12"></textarea>
+                    <hr>
+                    <div class="blog-post-actions">
+
+                    </div>
+                </blockquote>
+            </div>
+            <div class="col-md-6">
+                <blockquote class="quote-box">
+                    <p>
+                        Nhiệm vụ của phòng ban : {{item.TEN_PHONG_BAN}}
+                    </p>
+                    <p>
+                        <textarea id="nhiemvuphongban" name="nhiemvuphongban" class="col-md-12"></textarea>
+                    </p>
+                    <hr>
+                    <div class="blog-post-actions">
+
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <blockquote class="quote-box">
+                    <p>
+                        Nhiệm vụ công việc của : {{item.HO_VA_TEN}}
+                    </p>
+                    <p>
+                        <textarea id="nhiemvunhanvien" name="nhiemvunhanvien" class="col-md-12"></textarea>
+                    </p>
+                    <hr>
+                    <div class="blog-post-actions">
+
+                    </div>
+                </blockquote>
+            </div>
+            <div class="col-md-6">
+                <blockquote class="quote-box">
+                    <p>
+                        Mục tiêu công việc của : {{item.HO_VA_TEN}}
+                    </p>
+                    <p>
+                        <textarea id="muctieunhanvien" name="muctieunhanvien" class="col-md-12"></textarea>
+                    </p>
+                    <hr>
+                    <div class="blog-post-actions">
+
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <script>
+            CKEDITOR.replace('muctieunhanvien', {
+                height: 100
+            });
+            CKEDITOR.replace('nhiemvunhanvien', {
+                height: 100
+            });
+            CKEDITOR.replace('nhiemvuphongban', {
+                height: 100
+            });
+            CKEDITOR.replace('thongbaomarketing', {
+                height: 100
+            });
+        </script>
+    </div>
+</div>

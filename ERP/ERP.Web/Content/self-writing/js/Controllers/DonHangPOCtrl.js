@@ -771,9 +771,9 @@
         $scope.detail.tien_thue_gtgt = parseFloat($scope.detail.thanh_tien * 0.1);
         $scope.detail.tien_thanh_toan = $scope.detail.thanh_tien + $scope.detail.tien_thue_gtgt;
         for (i = 0; i < $scope.Detail.ListNew.length; i++) {
-            tongtien = parseInt(tongtien + $scope.detail.thanh_tien);
-            thuegtgt = parseInt(thuegtgt + $scope.detail.tien_thue_gtgt);
-            tienthanhtoan = parseInt(tienthanhtoan + $scope.detail.tien_thanh_toan);
+            tongtien = parseInt(tongtien + $scope.Detail.ListNew[i].thanh_tien);
+            thuegtgt = parseInt(thuegtgt + $scope.Detail.ListNew[i].tien_thue_gtgt);
+            tienthanhtoan = parseInt(tienthanhtoan + $scope.Detail.ListNew[i].tien_thanh_toan);
         }
         $scope.tongtien = tongtien;
         $scope.thuegtgt = thuegtgt;
