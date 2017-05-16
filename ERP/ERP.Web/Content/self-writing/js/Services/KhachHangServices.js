@@ -92,8 +92,8 @@ app.service('khachhangService', function ($http) {
         });
     };
 
-    this.save_salesphutrach = function (username, idlienhe, data_savesalesphutrach) {
-        return $http.put('/api/Api_SalePhuTrach/' + username + '/' + idlienhe, data_savesalesphutrach);
+    this.save_salesphutrach = function (idlienhe, data_savesalesphutrach) {
+        return $http.put('/api/Api_SalePhuTrach/EditSalePhuTrach/' + idlienhe, data_savesalesphutrach);
     };
 
     this.add_saletao = function (data_add) {

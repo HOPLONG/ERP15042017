@@ -50,6 +50,7 @@ namespace ERP.Web.Api.HeThong
             return kq;
         }
 
+        #region "Tìm kiếm khách"
         [Route("api/Api_KH/KH_THEO_SALES/{page}")]
         public List<HopLong_LocKHTheoSale_Result> KH_THEO_SALES(int page, ThongTinTimKiem timkiem)
         {
@@ -61,6 +62,55 @@ namespace ERP.Web.Api.HeThong
 
 
         }
+
+
+        [Route("api/Api_KH/TimKhachTheoMa/{page}")]
+        public List<HopLong_TimKH_TheoMaKhach_Result> TimKhachTheoMa(int page, ThongTinTimKiem timkiem)
+        {
+            var query = db.Database.SqlQuery<HopLong_TimKH_TheoMaKhach_Result>("HopLong_TimKH_TheoMaKhach @sale, @macongty, @isadmin, @tukhoa, @sotrang", new SqlParameter("sale", timkiem.sales), new SqlParameter("macongty", timkiem.macongty), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("tukhoa", timkiem.tukhoa), new SqlParameter("sotrang", page));
+            var result = query.ToList();
+
+            var kq = result.Take(10).ToList();
+            return kq;
+        }
+
+
+
+        [Route("api/Api_KH/TimKhachTheoEmail/{page}")]
+        public List<HopLong_TimKH_TheoEmail_Result> TimKhachTheoEmail(int page, ThongTinTimKiem timkiem)
+        {
+            var query = db.Database.SqlQuery<HopLong_TimKH_TheoEmail_Result>("HopLong_TimKH_TheoEmail @sale, @macongty, @isadmin, @tukhoa, @sotrang", new SqlParameter("sale", timkiem.sales), new SqlParameter("macongty", timkiem.macongty), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("tukhoa", timkiem.tukhoa), new SqlParameter("sotrang", page));
+            var result = query.ToList();
+
+            var kq = result.Take(10).ToList();
+            return kq;
+        }
+
+
+
+        [Route("api/Api_KH/TimKhachTheoSDT/{page}")]
+        public List<HopLong_TimKH_TheoSDT_Result> TimKhachTheoSDT(int page, ThongTinTimKiem timkiem)
+        {
+            var query = db.Database.SqlQuery<HopLong_TimKH_TheoSDT_Result>("HopLong_TimKH_TheoSDT @sale, @macongty, @isadmin, @tukhoa, @sotrang", new SqlParameter("sale", timkiem.sales), new SqlParameter("macongty", timkiem.macongty), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("tukhoa", timkiem.tukhoa), new SqlParameter("sotrang", page));
+            var result = query.ToList();
+
+            var kq = result.Take(10).ToList();
+            return kq;
+        }
+
+
+        [Route("api/Api_KH/TimKhachTheoTen/{page}")]
+        public List<HopLong_TimKH_TheoTen_Result> TimKhachTheoTen(int page, ThongTinTimKiem timkiem)
+        {
+            var query = db.Database.SqlQuery<HopLong_TimKH_TheoTen_Result>("HopLong_TimKH_TheoTen @sale, @macongty, @isadmin, @tukhoa, @sotrang", new SqlParameter("sale", timkiem.sales), new SqlParameter("macongty", timkiem.macongty), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("tukhoa", timkiem.tukhoa), new SqlParameter("sotrang", page));
+            var result = query.ToList();
+
+            var kq = result.Take(10).ToList();
+            return kq;
+        }
+
+        #endregion
+
         [Route("api/Api_KH/LOC_KH/{page}")]
         public List<HopLong_LocKHTheoSale_Result> LOC_KH(int page, ThongTinTimKiem timkiem)
         {
