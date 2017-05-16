@@ -183,37 +183,52 @@ namespace ERP.Web.Areas.Inventory.Controllers
                                     if (workSheet.Cells[rowIterator, 3].Value != null)
                                         hanghoa.MA_CHUAN = workSheet.Cells[rowIterator, 3].Value.ToString();
 
-                                    //if (workSheet.Cells[rowIterator, 4].Value != null)
-                                    //    hanghoa.THONG_SO = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 5].Value != null)
+                                        hanghoa.THONG_SO = workSheet.Cells[rowIterator, 5].Value.ToString();
                                     
-                                    //if (workSheet.Cells[rowIterator, 6].Value != null)
-                                    //    hanghoa.TEN_HANG = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 7].Value != null)
+                                        hanghoa.TEN_HANG = workSheet.Cells[rowIterator, 7].Value.ToString();
 
-                                   
-                                    //if (workSheet.Cells[rowIterator, 8].Value != null)
-                                    //    hanghoa.DON_VI_TINH = workSheet.Cells[rowIterator, 8].Value.ToString();
-                                    //if (workSheet.Cells[rowIterator, 9].Value != null)
-                                    //    hanghoa.KHOI_LUONG = Convert.ToInt32(workSheet.Cells[rowIterator, 9].Value);
-                                    if (workSheet.Cells[rowIterator, 10].Value != null)
-                                        hanghoa.XUAT_XU = workSheet.Cells[rowIterator, 10].Value.ToString();
-                                    if (workSheet.Cells[rowIterator, 12].Value != null)
-                                        hanghoa.GIA_NHAP = Convert.ToDecimal(workSheet.Cells[rowIterator, 12].Value.ToString());
+                                    if (workSheet.Cells[rowIterator, 8].Value != null)
+                                        hanghoa.MA_NHOM_HANG = workSheet.Cells[rowIterator, 8].Value.ToString();
+
+                                    if (workSheet.Cells[rowIterator, 9].Value != null)
+                                        hanghoa.DON_VI_TINH = workSheet.Cells[rowIterator, 9].Value.ToString();
+                                    //if (workSheet.Cells[rowIterator, 10].Value != null)
+                                    //    hanghoa.KHOI_LUONG = Convert.ToInt32(workSheet.Cells[rowIterator, 10].Value);
+                                    if (workSheet.Cells[rowIterator, 11].Value != null)
+                                        hanghoa.XUAT_XU = workSheet.Cells[rowIterator, 11].Value.ToString();
+                                    //if (workSheet.Cells[rowIterator, 12].Value != null)
+                                    //    hanghoa.GIA_NHAP = Convert.ToDecimal(workSheet.Cells[rowIterator, 12].Value.ToString());
                                     if (workSheet.Cells[rowIterator, 13].Value != null)
                                         hanghoa.GIA_LIST = Convert.ToDecimal(workSheet.Cells[rowIterator, 13].Value.ToString());
                                     //if (workSheet.Cells[rowIterator, 14].Value != null)
-                                    //    hanghoa.THONG_SO_KY_THUAT = workSheet.Cells[rowIterator, 14].Value.ToString();
+                                    //    hanghoa.BAO_HANH = Convert.ToInt32(workSheet.Cells[rowIterator, 14].Value.ToString());
+
                                     //if (workSheet.Cells[rowIterator, 15].Value != null)
-                                    //    hanghoa.QUY_CACH_DONG_GOI = workSheet.Cells[rowIterator, 15].Value.ToString();
+                                    //    hanghoa.THONG_SO_KY_THUAT = workSheet.Cells[rowIterator, 15].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 16].Value != null)
+                                        hanghoa.QUY_CACH_DONG_GOI = workSheet.Cells[rowIterator, 16].Value.ToString();
 
-                                    //if (workSheet.Cells[rowIterator, 16].Value != null)
-                                    //    hanghoa.DISCONTINUE = Convert.ToBoolean(workSheet.Cells[rowIterator, 16].Value);
                                     //if (workSheet.Cells[rowIterator, 17].Value != null)
-                                    //    hanghoa.MA_CHUYEN_DOI = workSheet.Cells[rowIterator, 17].Value.ToString();
-
+                                    //    hanghoa.DISCONTINUE = Convert.ToBoolean(workSheet.Cells[rowIterator, 17].Value);
                                     //if (workSheet.Cells[rowIterator, 18].Value != null)
-                                    //    hanghoa.HINH_ANH = workSheet.Cells[rowIterator, 18].Value.ToString();
+                                    //    hanghoa.MA_CHUYEN_DOI = workSheet.Cells[rowIterator, 18].Value.ToString();
+
                                     //if (workSheet.Cells[rowIterator, 19].Value != null)
-                                    //    hanghoa.GHI_CHU = workSheet.Cells[rowIterator, 19].Value.ToString();
+                                    //    hanghoa.HINH_ANH = workSheet.Cells[rowIterator, 19].Value.ToString();
+                                    //if (workSheet.Cells[rowIterator, 20].Value != null)
+                                    //    hanghoa.GHI_CHU = workSheet.Cells[rowIterator, 20].Value.ToString();
+
+
+                                    //if (workSheet.Cells[rowIterator, 21].Value != null)
+                                    //    hanghoa.TK_HACH_TOAN_KHO = workSheet.Cells[rowIterator, 21].Value.ToString();
+                                    //if (workSheet.Cells[rowIterator, 22].Value != null)
+                                    //    hanghoa.TK_DOANH_THU = workSheet.Cells[rowIterator, 22].Value.ToString();
+                                    //if (workSheet.Cells[rowIterator, 23].Value != null)
+                                    //    hanghoa.TK_CHI_PHI = workSheet.Cells[rowIterator, 23].Value.ToString();
+                                    //if (workSheet.Cells[rowIterator, 24].Value != null)
+                                    //    hanghoa.SERIES = workSheet.Cells[rowIterator, 24].Value.ToString();
                                     so_dong_thanh_cong++;
                                 }
                                 else

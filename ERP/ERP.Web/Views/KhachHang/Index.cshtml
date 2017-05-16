@@ -113,11 +113,11 @@ input:-ms-input-placeholder {
             <div class="search_box corner">
                 <form action="#" method="post">
                     <ul class="formSearch">
-                        <li><input class="addText corner" type="text" placeholder="Mã khách hàng" style="width:100%;"></li>
-                        <li><input class="addText corner" type="text" placeholder="Tên công ty" ng-model="search_text" ng-change="load_khachhang(1,search_text)" style="width:100%;"></li>
-                        <li><input class="addText corner" type="text" placeholder="Email" style="width:100%;"></li>
-                        <li><input class="addText corner" type="text" placeholder="Tỉnh" style="width:100%;"></li>
-                        <li><input class="addText corner" type="text" placeholder="Quốc gia" style="width:100%;"></li>
+                        <li><input class="addText corner" type="text" ng-model="timtheoma" ng-change="Find_Khach_Theo_Ma(1,timtheoma)" placeholder="Mã khách hàng" style="width:100%;"></li>
+                        <li><input class="addText corner" type="text" placeholder="Tên công ty" ng-model="timtheoten" ng-change="Find_Khach_Theo_Ten(1,timtheoten)" style="width:100%;"></li>
+                        <li><input class="addText corner" type="text" placeholder="Email" ng-model="timtheoemail" ng-change="Find_Khach_Theo_Email(1,timtheoemail)" style="width:100%;"></li>
+                        <li><input class="addText corner" type="text" placeholder="SĐT" ng-model="timtheosdt" ng-change="Find_Khach_Theo_SDT(1,timtheosdt)" style="width:100%;"></li>
+                        <li><input class="addText corner" type="text" placeholder="Tìm theo các thông tin khác" ng-model="search_text" ng-change="load_khachhang(1,search_text)" style="width:100%;"></li>
                         <li>
                             <select class="addText comboBoxSearch corner" name="worklocal" style="width:100%;">
                                 <option selected="selected" value="-1">--- Tình trạng hoạt động ---</option>
@@ -142,18 +142,22 @@ input:-ms-input-placeholder {
 
                             </select>
 </li>
-                        <li><input type="submit" class="sbox_header_action_search_btn" value="Tìm kiếm" /></li>
                     </ul>
                 </form>
             </div>
         </div>
         <!--End Form tìm kiếm-->
-
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Thêm khách mới</button>
-        <input type="button" class="btn btn-info" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
-        <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
-        <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/KhachChuaGiaoDich';" value="Danh sách khách chưa có giao dịch" />
-        <input type="button" class="btn btn-info" value="Hủy lọc" ng-show="huyloc" style="float:right" ng-click="cancel_locKH()"/>
+        <div class="col-md-12">
+            <br />
+            <button type="button" class="sbox_header_action_search_btn" data-toggle="modal" data-target="#myModal">Thêm khách mới</button>
+            <input type="button" class="btn btn-info" ng-show="isadmin" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
+            <input type="button" class="btn btn-info" ng-show="isadmin" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
+            <input type="button" class="btn btn-info" ng-show="isadmin" onclick="location.href = '/KhachHang/KhachChuaGiaoDich';" value="Danh sách khách chưa có giao dịch" />
+            <span style="cursor:pointer; text-decoration:underline" ng-show="isadmin"><a href="/KhachHang/Import_KhachHang">Update thông tin khách hàng loạt</a></span>
+            <input type="button" class="btn btn-info" value="Hủy lọc" ng-show="huyloc" style="float:right" ng-click="cancel_locKH()" />
+        </div>
+       
+       
         <!-- Modal Add New khách hàng -->
         <div class="modal fade" id="myModal" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-lg" style="width: 90%">
@@ -591,6 +595,7 @@ input:-ms-input-placeholder {
                             <label for="addmakhachhang" class="col-sm-2 control-label">ID Liên hệ</label>
                             <div class="col-sm-2">
                                 <input type="text" class="form-control" disabled="disabled" id="addmakhachhang" ng-model="editlh.ID_LIEN_HE">
+                              
                             </div>
                         </div>
                         <div class="form-group">
@@ -628,11 +633,11 @@ input:-ms-input-placeholder {
                             </div>
                             <label for="addsomayban" class="col-sm-1 control-label">Email cá nhân</label>
                             <div class="col-sm-2">
-                                <input type="tel" class="form-control" disabled="disabled" id="addsomayban" ng-model="editlh.EMAIL_CA_NHAN">
+                                <input type="tel" class="form-control"  id="addsomayban" ng-model="editlh.EMAIL_CA_NHAN">
                             </div>
                             <label for="addemail" class="col-sm-1 control-label">Số điện thoại 1</label>
                             <div class="col-sm-1">
-                                <input type="text" class="form-control" disabled="disabled" id="addemail" ng-model="editlh.SDT1">
+                                <input type="text" class="form-control"  id="addemail" ng-model="editlh.SDT1">
                             </div>
                         </div>
                         <div class="form-group">
@@ -715,11 +720,11 @@ input:-ms-input-placeholder {
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a data-toggle="tab" href="#chitiet">Thông tin chi tiết</a></li>
                                     <li><a data-toggle="tab" href="#lienhekhachhang">Liên hệ</a></li>
-                                    <li><a data-toggle="tab" href="#taikhoankhachhang">Tài khoản</a></li>
                                     <li><a data-toggle="tab" href="#phanhoikhachhang">Phản hồi khách hàng</a></li>
                                     <li><a data-toggle="tab" href="#thongkemuahang">Thống kê mua hàng</a></li>
                                     <li><a data-toggle="tab" href="#policy">POLICY</a></li>
                                     <li><a data-toggle="tab" href="#hosothanhtoan">Hồ sơ thanh toán</a></li>
+                                    <li><a data-toggle="tab" href="#taikhoankhachhang">Tài khoản</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <!--Tab chi tiết hàng hóa-->
@@ -817,9 +822,9 @@ input:-ms-input-placeholder {
                                                         <th style="border-top: 2px solid lightsteelblue !important; border-right: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important;">
                                                             <input type="text" class="form-control" placeholder="Skype" ng-model="skype" />
                                                         </th>
-                                                        <th colspan="4" style="border-top: 2px solid lightsteelblue !important; border-left: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important;">
+                                                        <th style="border-top: 2px solid lightsteelblue !important; border-left: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important;">
 
-                                                                <input type="text" class="form-control" ng-model="nvkd.HO_VA_TEN" value="{{nvkd.HO_VA_TEN}}" ng-change="onNhanVienFind()" ng-focus="item.showtable_ho_va_ten = true" ng-blur="item.showtable_ho_va_ten = false">
+                                                                <input type="text" class="form-control" placeholder="Sale phụ trách" ng-model="nvkd.HO_VA_TEN" value="{{nvkd.HO_VA_TEN}}" ng-change="onNhanVienFind()" ng-focus="item.showtable_ho_va_ten = true" ng-blur="item.showtable_ho_va_ten = false">
                                                                 <input type="hidden" class="form-control" ng-model="nvkd.USERNAME" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
                                                                 <div class="input-group-btn">
                                                                     <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="item.showtable_ho_va_ten">
@@ -950,15 +955,15 @@ input:-ms-input-placeholder {
                                             <thead >
                                                 <tr style="border: 2px solid #ddd !important; font-weight:bold; background:#64B5F6">
                                                     <th style="border: 2px solid lightsteelblue !important; background: wheat;">Mã nhóm hàng</th>
-                                                    <th style="border-top: 2px solid lightsteelblue !important; border-left: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important; background: wheat;">Giá bán</th>
-                                                    <th style="border-top: 2px solid lightsteelblue !important; border-right: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important; background: wheat;">Chiết khấu </th>
+                                                    <th style="border-top: 2px solid lightsteelblue !important; border-left: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important; background: wheat;">Giá bán<br />(Lợi nhuận từ giá nhập bao nhiêu %)</th>
+                                                    <th style="border-top: 2px solid lightsteelblue !important; border-right: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important; background: wheat;">Chiết khấu<br /> (từ giá list) </th>
                                                     <th style="border-top: 2px solid lightsteelblue !important; border-left: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important; background: wheat;">Giá bán cũ 1</th>
                                                     <th style="border-top: 2px solid lightsteelblue !important; border-right: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important; background: wheat;">Chiết khấu cũ 1</th>
                                                     <th style="border-top: 2px solid lightsteelblue !important; border-left: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important; background: wheat;">Giá bán cũ 2</th>
                                                     <th style="border-top: 2px solid lightsteelblue !important; border-right: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important; background: wheat;">Chiết khấu cũ 2</th>
                                                     <th style="border-top: 2px solid lightsteelblue !important; border-left: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important; background: wheat;">Giá báncũ 3</th>
                                                     <th style="border-top: 2px solid lightsteelblue !important; border-right: 2px solid lightsteelblue !important; border-bottom: 2px solid lightsteelblue !important; background: wheat;">Chiết khấu cũ 3</th>
-                                                    <th style="border: 2px solid lightsteelblue !important; background: wheat;" ng-show="isadmin">Sửa</th>
+                                                    <th style="border: 2px solid lightsteelblue !important; background: wheat;" ng-show="hienchucnang">Sửa</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -972,6 +977,7 @@ input:-ms-input-placeholder {
                                                     <td style="border-right: 2px solid lightsteelblue !important;">
                                                         <p ng-hide="editMode"><b style="color:blue">{{policy.CK}} %</b></p>
                                                         <input type="number" ng-model="policy.CK" ng-show="editMode" />
+                                                        <i style="font-size:9px;">{{policy.TEN_NGUOI_CAP_NHAT}}({{policy.NGAY_CAP_NHAT | date: 'dd/MM/yyyy HH:mm a'}})</i>
 
                                                     </td>
                                                     <td style="border-left: 2px solid lightsteelblue !important;">{{policy.GIA_HISTORY_1 | currency: '' : 0}}</td>
@@ -980,7 +986,7 @@ input:-ms-input-placeholder {
                                                     <td style="border-right: 2px solid lightsteelblue !important;">{{policy.CK_HISTORY_2 | currency: '' : 0}} %</td>
                                                     <td style="border-left: 2px solid lightsteelblue !important;">{{policy.GIA_HISTORY_3 | currency: '' : 0}}</td>
                                                     <td style="border-right: 2px solid lightsteelblue !important;">{{policy.CK_HISTORY_3 | currency: '' : 0}} %</td>
-                                                    <td style="border-right: 2px solid lightsteelblue !important;" ng-show="isadmin">
+                                                    <td style="border-right: 2px solid lightsteelblue !important;" ng-show="hienchucnang">
                                                         <button type="submit" ng-hide="editMode" ng-click="editMode = true; editpolicy(policy)" class="btn btn-default">Sửa nhanh</button>
                                                         <button type="submit" ng-show="editMode" ng-click="editMode = false; save_policy(policy)" class="btn btn-default">Save</button>
                                                         <button type="submit" ng-show="editMode" ng-click="editMode = false; delete_policy(policy)" class="btn btn-default">Delete</button>
@@ -1107,7 +1113,7 @@ input:-ms-input-placeholder {
                     </div>
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#myEdit" ng-click="edit(item)" class="btn fa fa-pencil-square-o">Sửa</button>
-                        <button id="exit" name="exit" class="btn fa fa-sign-out" data-dismiss="modal">Exit</button>
+                        <button id="exit" name="exit" ng-click="showrow = false" class="btn fa fa-sign-out" data-dismiss="modal">Exit</button>
                     </div>
                 </div>
 
@@ -1326,10 +1332,10 @@ input:-ms-input-placeholder {
 
         </div>
         <!--End update phản hồi-->
-        <div class="col-md-7" style="color: red; font-size:12.5px;">
-            <div class="col-md-1">Chú thích</div>
-            <div class="col-md-11" style="margin-top: 2px;">
+        <div class="col-md-10" style="color: red; font-size:12.5px;">
+            <div class="col-md-12" style="margin-top: 2px;">
                 <div class="col-md-12">
+                    Chú thích: 
                     <i class="fa fa-star-o" aria-hidden="true"></i> : Khách đặc biệt | 
                 
                 
@@ -1344,11 +1350,8 @@ input:-ms-input-placeholder {
                 </div>
             </div>
         </div>
-        <div class="col-md-3" ng-show="hienchucnang" style="font-size: 14px; color:#1191BF">
-            Hiện chức năng admin: <input type="checkbox" ng-model="isadmin"/>
-        </div>
         <div class="col-md-2" ng-show="hienchucnang" style="font-size: 14px; color:#1191BF">
-           <a href="/KhachHang/Import_KhachHang">Update thông tin khách hàng loạt</a>
+            Hiện chức năng admin: <input type="checkbox" ng-model="isadmin"/>
         </div>
         <table id="example" class="table" cellspacing="0">
             <thead>
@@ -1363,7 +1366,7 @@ input:-ms-input-placeholder {
                     <th>Tình trạng hoạt động </th>
                     <th>Nhân viên kho phụ trách</th>
                     <th>Sales phụ trách</th>
-                    <th>Sửa</th>
+                    <th ng-show="isadmin">Sửa</th>
                     <th ng-show="isadmin">Xóa</th>
                     <th ng-show="isadmin">Copy khách hàng</th>
                     <th>Tạo báo giá</th>
@@ -1407,7 +1410,7 @@ input:-ms-input-placeholder {
                     </th>
                     
                     <th>
-                    <th></th>
+                    <th  ng-show="isadmin"></th>
                     <th ng-show="isadmin"></th>
                     <th ng-show="isadmin"></th>
                 </tr>
@@ -1432,11 +1435,11 @@ input:-ms-input-placeholder {
                     </td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.MA_KHACH_HANG}}</td>
                     <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_CONG_TY}}</td>
-                    <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.EMAIL}}</td>
+                    <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.EMAIL}}</td>
                     <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{ item.TINH}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.QUOC_GIA}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_LOAI_KHACH}}</td>
-                    <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TINH_TRANG_HOAT_DONG}}</td>
+                    <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.TINH_TRANG_HOAT_DONG}}</td>
                     <td class="text-center">
                         <p ng-hide="editMode" ng-model="item.KHO_PHU_TRACH">{{item.TEN_CUA_KHO_PHU_TRACH}}</p>
                         <md-input-container ng-show="editMode">
@@ -1461,8 +1464,8 @@ input:-ms-input-placeholder {
                             </md-select>
                         </md-input-container>
                     </td>
-                    <td>
-                        <button type="submit" ng-hide="editMode" ng-click="editMode = true; editAppKey(item)" class="btn btn-default">Edit</button>
+                    <td  ng-show="isadmin">
+                        <button type="submit"  ng-hide="editMode" ng-click="editMode = true; editAppKey(item)" class="btn btn-default">Edit</button>
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; chuyensale(item)" class="btn btn-default">Save</button>
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button> 
                     </td>
