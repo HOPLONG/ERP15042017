@@ -112,6 +112,9 @@ input:-ms-input-placeholder {
         <div id="box-middle" class="corner">
             <div class="search_box corner">
                 <form action="#" method="post">
+
+
+
                     <ul class="formSearch">
                         <li><input class="addText corner" type="text" ng-model="timtheoma" ng-change="Find_Khach_Theo_Ma(1,timtheoma)" placeholder="Mã khách hàng" style="width:100%;"></li>
                         <li><input class="addText corner" type="text" placeholder="Tên công ty" ng-model="timtheoten" ng-change="Find_Khach_Theo_Ten(1,timtheoten)" style="width:100%;"></li>
@@ -149,15 +152,15 @@ input:-ms-input-placeholder {
         <!--End Form tìm kiếm-->
         <div class="col-md-12">
             <br />
-            <button type="button" class="sbox_header_action_search_btn" data-toggle="modal" data-target="#myModal">Thêm khách mới</button>
-            <input type="button" class="btn btn-info" ng-show="isadmin" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
-            <input type="button" class="btn btn-info" ng-show="isadmin" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
+            <button type="button" class="button_khachhang fa fa-plus" data-toggle="modal" data-target="#myModal">Thêm khách mới</button>
+            <input type="button" class="button_khachhang fa fa-stack-overflow" ng-show="isadmin" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
+            <input type="button" class="button_khachhang fa fa-search-plus" ng-show="isadmin" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
             <input type="button" class="btn btn-info" ng-show="isadmin" onclick="location.href = '/KhachHang/KhachChuaGiaoDich';" value="Danh sách khách chưa có giao dịch" />
-            <span style="cursor:pointer; text-decoration:underline" ng-show="isadmin"><a href="/KhachHang/Import_KhachHang">Update thông tin khách hàng loạt</a></span>
-            <input type="button" class="btn btn-info" value="Hủy lọc" ng-show="huyloc" style="float:right" ng-click="cancel_locKH()" />
+            <span style="cursor:pointer; text-decoration:underline" class="button_khachhang fa fa-plus-circle" ng-show="isadmin"><a href="/KhachHang/Import_KhachHang">Update thông tin khách hàng loạt</a></span>
+            <input type="button" class="button_khachhang btn-info" value="Hủy lọc" ng-show="huyloc" style="float:right" ng-click="cancel_locKH()" />
         </div>
        
-       
+
         <!-- Modal Add New khách hàng -->
         <div class="modal fade" id="myModal" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-lg" style="width: 90%">
@@ -1465,7 +1468,7 @@ input:-ms-input-placeholder {
                         </md-input-container>
                     </td>
                     <td  ng-show="isadmin">
-                        <button type="submit"  ng-hide="editMode" ng-click="editMode = true; editAppKey(item)" class="btn btn-default">Edit</button>
+                        <button type="submit"  ng-hide="editMode" ng-click="editMode = true; editAppKey(item)" class="button_khachhang fa fa-edit">Edit</button>
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; chuyensale(item)" class="btn btn-default">Save</button>
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button> 
                     </td>
