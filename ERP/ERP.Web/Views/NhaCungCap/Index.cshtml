@@ -107,35 +107,60 @@
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><label class="control-label">Mã cung cấp</label></td>
-                                        <td colspan="7"><input type="text" class="form-control" id="addtencongty" placeholder="Mã nhà cung cấp" ng-model="arraythongtin.ma_nha_cung_cap"></td>
 
-                                        <td colspan='2' rowspan='4'>
-                                            <p style="text-shadow: 1px 1px 5px #91DDFD; font-style:italic; font-size: 20px; color: #64B5F6; margin-left:10px; margin-top:5px;margin-bottom:15px; font-weight: bold">Ảnh đại diện</p>
-                                            <img id="blah" src="~/Content/self-writing/Images/default_avatar_male.jpg" />
-                                            @Html.AntiForgeryToken()
-                                            <input type='file' name="files" id="imgInp" style="width: 100%;display: inline-block" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label class="control-label">Tên nhà cung cấp</label></td>
-                                        <td colspan="7">
-                                            <input type="text" class="form-control" id="addtencongty" placeholder="Tên nhà cung cấp" ng-model="arraythongtin.ten_nha_cung_cap">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label class="control-label">Văn phòng giao dịch</label></td>
-                                        <td colspan="7">
-                                            <input type="text" placeholder="Văn phòng giao dịch" class="form-control" id="addvpgiaodich" ng-model="arraythongtin.van_phong_giao_dich">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label class="control-label">Địa chỉ xuất hóa đơn</label></td>
-                                        <td colspan="7">
-                                            <input type="text" class="form-control" placeholder="Địa chỉ xuất hóa đơn" id="adddiachixuathoadon" ng-model="arraythongtin.dia_chi_xuat_hoa_don">
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td><label class="control-label">Mã cung cấp</label></td>
+                                            <td colspan="7"><input type="text" class="form-control" id="addtencongty" placeholder="Mã nhà cung cấp" ng-model="arraythongtin.ma_nha_cung_cap"></td>
+
+                                            <td colspan='2' rowspan='4'>
+                                                <p style="text-shadow: 1px 1px 5px #91DDFD; font-style:italic; font-size: 20px; color: #64B5F6; margin-left:10px; margin-top:5px;margin-bottom:15px; font-weight: bold">Ảnh đại diện</p>
+                                                <img id="blah" src="~/Content/self-writing/Images/default_avatar_male.jpg" />
+                                                @Html.AntiForgeryToken()
+                                                <center><input type='file' name="files" id="imgInp" style="width: 100%;display: inline-block" /></center>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="control-label">Tên nhà cung cấp</label></td>
+                                            <td colspan="7">
+                                                <input type="text" class="form-control" id="addtencongty" placeholder="Tên nhà cung cấp" ng-model="arraythongtin.ten_nha_cung_cap">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="control-label">Văn phòng giao dịch</label></td>
+                                            <td colspan="7">
+                                                <input type="text" placeholder="Văn phòng giao dịch" class="form-control" id="addvpgiaodich" ng-model="arraythongtin.van_phong_giao_dich">
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td><label class="control-label">Địa chỉ xuất hóa đơn</label></td>
+                                            <td colspan="7">
+                                                <input type="text" class="form-control" placeholder="Địa chỉ xuất hóa đơn" id="adddiachixuathoadon" ng-model="arraythongtin.dia_chi_xuat_hoa_don">
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            @*<td><label class="control-label">Loại hàng cung cấp</label></td>
+                        <td colspan="4" ng-repeat="vthh in list_nhomvthh">
+                    <input type='checkbox' value="{{vthh.MA_NHOM_HANG_CHI_TIET}}" check-list='checked_fruits' /><span>{{vthh.CHUNG_LOAI_HANG}}</span>
+                </td>*@
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="2"><input type="text" class="form-control" placeholder="Mã số thuế" id="addmasothue" ng-model="arraythongtin.ma_so_thue"></td>
+                                            <td colspan="2"><input type="text" class="form-control" placeholder="Website" id="addwebsite" ng-model="arraythongtin.website"></td>
+                                            <td colspan="2"><input type="tel" class="form-control" placeholder="Số điện thoại" id="addsomayban" ng-model="arraythongtin.sdt"></td>
+                                            <td colspan="3"><input type="text" class="form-control" placeholder="Fax" id="addfax" ng-model="arraythongtin.fax"></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td><label class="control-label">Điều khoản thanh toán</label></td>
+                                            <td colspan="2"><select class="form-control" ng-model="arraythongtin.dieu_khoan_thanh_toan" id="adddieukhoanthanhtoan" data-ng-options="item as item for item in dieukhoantt"></select></td>
+                                            <td colspan="2"><input type="number" class="form-control" placeholder="Số ngày được nợ" id="addsongayduocno" ng-model="arraythongtin.so_ngay_duoc_no"></td>
+                                            <td colspan="2"><input type="number" class="form-control" placeholder="Số nợ tối đa" id="addsonotoida" ng-model="arraythongtin.so_no_toi_da"></td>
+                                            <td colspan="3"><input type="text" class="form-control" placeholder="Email" id="addemail" ng-model="arraythongtin.email"></td>
+
+
 
                                     <tr>
                                         @*<td><label class="control-label">Loại hàng cung cấp</label></td>

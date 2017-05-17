@@ -568,3 +568,13 @@ th
 background-color:#1191BF;
 color:white;
 }
+.button_hanghoa {
+    border-radius: 3px !important;
+    float: left;
+    height: 30px;
+    margin-right: 3px;
+    padding: 0 10px;
+    background-color: #38B8E6;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

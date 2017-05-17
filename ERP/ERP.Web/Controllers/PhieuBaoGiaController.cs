@@ -19,20 +19,7 @@ namespace ERP.Web.Controllers
 
 
 
-        public ActionResult DownloadActionAsPDF()
-        {
-            try
-            {
-                //will take ActionMethod and generate the pdf
-                return new Rotativa.ActionAsPdf("chitiet", new { id = "BG170009" } ) { FileName = "SecondPdf.pdf" };
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-        }
-
+     
         public ActionResult Index()
         {
             var bH_BAO_GIA = db.BH_BAO_GIA.Include(b => b.KH_LIEN_HE).Include(b => b.BH_DON_HANG_DU_KIEN).Include(b => b.KH).Include(b => b.CCTC_NHAN_VIEN);
