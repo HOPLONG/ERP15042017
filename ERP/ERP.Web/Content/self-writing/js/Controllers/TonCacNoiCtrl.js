@@ -1,6 +1,9 @@
 ﻿app.controller('TonCacNoiCtrl', function (TonCacNoiService, $scope, $http) {
     var salehienthoi = $('#salehienthoi').val();
 
+    
+
+
     $scope.edit = function (item) {
         $scope.ton = item;
         $scope.item = item;

@@ -98,17 +98,28 @@ namespace ERP.Web.Api.KhachHang
         [Route("api/Api_LienHeKhachHang/{id}")]
         public IHttpActionResult PutKH_LIEN_HE(int id, KH_LIEN_HE kH_LIEN_HE)
         {
-            if (!ModelState.IsValid)
+            var query = db.KH_LIEN_HE.Where(x => x.ID_LIEN_HE == id).FirstOrDefault();
+            if(query != null)
             {
-                return BadRequest(ModelState);
+                query.NGUOI_LIEN_HE = kH_LIEN_HE.NGUOI_LIEN_HE;
+                query.CHUC_VU = kH_LIEN_HE.CHUC_VU;
+                query.PHONG_BAN = kH_LIEN_HE.PHONG_BAN;
+                if(kH_LIEN_HE.NGAY_SINH != null)
+                {
+                    query.NGAY_SINH = kH_LIEN_HE.NGAY_SINH;
+                }
+                query.GIOI_TINH = kH_LIEN_HE.GIOI_TINH;
+                query.EMAIL_CA_NHAN = kH_LIEN_HE.EMAIL_CA_NHAN;
+                query.EMAIL_CONG_TY = kH_LIEN_HE.EMAIL_CONG_TY;
+                query.SKYPE = kH_LIEN_HE.SKYPE;
+                query.FACEBOOK = kH_LIEN_HE.FACEBOOK;
+                query.GHI_CHU = kH_LIEN_HE.GHI_CHU;
+                query.SDT1 = kH_LIEN_HE.SDT1;
+                query.SDT2 = kH_LIEN_HE.SDT2;
+                query.TINH_TRANG_LAM_VIEC = kH_LIEN_HE.TINH_TRANG_LAM_VIEC;
             }
 
-            if (id != kH_LIEN_HE.ID_LIEN_HE)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(kH_LIEN_HE).State = EntityState.Modified;
+            
 
             try
             {
@@ -133,12 +144,12 @@ namespace ERP.Web.Api.KhachHang
         [ResponseType(typeof(KH_LIEN_HE))]
         public IHttpActionResult PostKH_LIEN_HE(LienHeKH lh)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if(lh.NGUOI_LIEN_HE != "")
-            {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            //if(lh.NGUOI_LIEN_HE != "")
+            //{
                 KH_LIEN_HE lienhe = new KH_LIEN_HE();
                 lienhe.MA_KHACH_HANG = lh.MA_KHACH_HANG;
                 lienhe.NGUOI_LIEN_HE = lh.NGUOI_LIEN_HE;
@@ -176,10 +187,10 @@ namespace ERP.Web.Api.KhachHang
                 }
                 db.KH_SALES_PHU_TRACH.Add(salept);
                 db.SaveChanges();
-            }
+            //}
            
 
-            return CreatedAtRoute("DefaultApi", new { id = lh.ID_LIEN_HE }, lh);
+            return Ok(lienhe);
         }
 
         // DELETE: api/Api_LienHeKhachHang/5

@@ -64,7 +64,7 @@ app.service('khachhangService', function ($http) {
     //};
 
     this.add_phanloaikh = function (phanloaikh_add) {
-        return $http.post('/api/Api_PhanLoaiKH', phanloaikh_add);
+        return $http.post('/api/Api_PhanLoaiKH/PostKH_PHAN_LOAI_KHACH', phanloaikh_add);
     };
 
     this.save_khachhang = function (id, kh_save) {
@@ -92,8 +92,8 @@ app.service('khachhangService', function ($http) {
         });
     };
 
-    this.save_salesphutrach = function (username, idlienhe, data_savesalesphutrach) {
-        return $http.put('/api/Api_SalePhuTrach/' + username + '/' + idlienhe, data_savesalesphutrach);
+    this.save_salesphutrach = function (idlienhe, data_savesalesphutrach) {
+        return $http.put('/api/Api_SalePhuTrach/EditSalePhuTrach/' + idlienhe, data_savesalesphutrach);
     };
 
     this.add_saletao = function (data_add) {

@@ -10,62 +10,41 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using ERP.Web.Models.NewModels;
+using System.Data.SqlClient;
 
 namespace ERP.Web.Api.NhaCungCap
 {
+    
     public class Api_NhaCungCapController : ApiController
     {
+        public class ThongTinTimKiem
+        {
+            public string manv { get; set; }
+            public string macongty { get; set; }
+            public Boolean isadmin { get; set; }
+            public string tukhoa { get; set; }
+        }
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: api/Api_NhaCungCap
-        public List<NCC_HL> GetNCCs()
+        [HttpPost]
+        [Route("api/Api_NhaCungCap/GetNCCTheoTuKhoa")]
+        public List<HopLong_LocNCCtheotukhoa_Result> GetNCCTheoTuKhoa(ThongTinTimKiem timkiem)
         {
-            var vData = (from t1 in db.NCCs
-                         join t2 in db.NCC_LOAI on t1.PHAN_LOAI_NCC equals t2.MA_LOAI_NCC
-                         select new
-                         {
-                             t1.MA_NHA_CUNG_CAP,                          
-                             t1.TEN_NHA_CUNG_CAP,
-                             t1.VAN_PHONG_GIAO_DICH,
-                             t1.DIA_CHI_XUAT_HOA_DON,
-                             t1.PHAN_LOAI_NCC,
-                             t1.SDT,
-                             t1.MST,
-                             t1.DANH_GIA,
-                             t1.EMAIL,
-                             t1.FAX,
-                             t1.LOGO,
-                             t1.WEBSITE
-                         ,
-                             t1.DIEU_KHOAN_THANH_TOAN,
-                             t1.SO_NGAY_DUOC_NO,
-                             t1.SO_NO_TOI_DA,
-                             t1.GHI_CHU,
-                             t2.TEN_LOAI_NCC,
-                             t2.MA_LOAI_NCC
-                         });
-            var result = vData.ToList().Select(x => new NCC_HL()
+            if(timkiem.tukhoa == null)
             {
-                MA_NHA_CUNG_CAP = x.MA_NHA_CUNG_CAP,
-                TEN_NHA_CUNG_CAP = x.TEN_NHA_CUNG_CAP,
-                VAN_PHONG_GIAO_DICH = x.VAN_PHONG_GIAO_DICH,
-                DIA_CHI_XUAT_HOA_DON = x.DIA_CHI_XUAT_HOA_DON,
-                PHAN_LOAI_NCC = x.PHAN_LOAI_NCC,
-                SDT = x.SDT,
-                MST = x.MST,
-                DANH_GIA = x.DANH_GIA,
-                EMAIL = x.EMAIL,
-                FAX = x.FAX,
-                LOGO = x.LOGO,
-                WEBSITE = x.WEBSITE,
-                DIEU_KHOAN_THANH_TOAN = x.DIEU_KHOAN_THANH_TOAN,
-                SO_NGAY_DUOC_NO = x.SO_NGAY_DUOC_NO,
-                SO_NO_TOI_DA = x.SO_NO_TOI_DA,
-                GHI_CHU = x.GHI_CHU,
-                TEN_LOAI_NCC = x.TEN_LOAI_NCC,
-                MA_LOAI_NCC = x.MA_LOAI_NCC,
-            }).ToList();
-            return result;
+                var query = db.Database.SqlQuery<HopLong_LocNCCtheotukhoa_Result>("HopLong_LocNCCtheotukhoa @manv, @macongty, @isadmin, @tukhoa", new SqlParameter("manv", timkiem.manv), new SqlParameter("macongty", timkiem.macongty), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("tukhoa", DBNull.Value));
+                var result = query.ToList();
+                return result;
+            }
+            else
+            {
+                var query = db.Database.SqlQuery<HopLong_LocNCCtheotukhoa_Result>("HopLong_LocNCCtheotukhoa @manv, @macongty, @isadmin, @tukhoa", new SqlParameter("manv", timkiem.manv), new SqlParameter("macongty", timkiem.macongty), new SqlParameter("isadmin", timkiem.isadmin), new SqlParameter("tukhoa", timkiem.tukhoa));
+                var result = query.ToList();
+                return result;
+
+            }
+
         }
 
         // GET: api/Api_NhaCungCap/5

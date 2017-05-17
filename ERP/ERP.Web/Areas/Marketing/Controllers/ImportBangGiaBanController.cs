@@ -855,7 +855,7 @@ namespace ERP.Web.Areas.Marketing.Controllers
         public ActionResult ImportPolicy(HttpPostedFileBase file)
         {
             string makhachhang, manhomhangcha, mark, purc;
-            decimal ck, giaban, ckhistory1, ckhistory2, ckhistory3, giahistory1, giahistory2, giahistory3;
+            decimal ck, giaban;
 
 
             using (var db = new ERP_DATABASEEntities())
@@ -896,45 +896,15 @@ namespace ERP.Web.Areas.Marketing.Controllers
                                         giaban = Convert.ToDecimal(workSheet.Cells[rowIterator, 6].Value);
                                     else
                                         giaban = 0;
+                                   
                                     //=======================================
                                     if (workSheet.Cells[rowIterator, 7].Value != null)
-                                        ckhistory1 = Convert.ToDecimal(workSheet.Cells[rowIterator, 7].Value);
-                                    else
-                                        ckhistory1 = 0;
-                                    //========================================
-
-                                    if (workSheet.Cells[rowIterator, 8].Value != null)
-                                        giahistory1 = Convert.ToDecimal(workSheet.Cells[rowIterator, 8].Value);
-                                    else
-                                        giahistory1 = 0;
-                                    //==============================================
-                                    if (workSheet.Cells[rowIterator, 9].Value != null)
-                                        ckhistory2 = Convert.ToDecimal(workSheet.Cells[rowIterator, 9].Value);
-                                    else
-                                        ckhistory2 = 0;
-                                    //======================================
-                                    if (workSheet.Cells[rowIterator, 10].Value != null)
-                                        giahistory2 = Convert.ToDecimal(workSheet.Cells[rowIterator, 10].Value);
-                                    else
-                                        giahistory2 = 0;
-                                    //=======================================
-                                    if (workSheet.Cells[rowIterator, 11].Value != null)
-                                        ckhistory3 = Convert.ToDecimal(workSheet.Cells[rowIterator, 11].Value);
-                                    else
-                                        ckhistory3 = 0;
-                                    //=======================================
-                                    if (workSheet.Cells[rowIterator, 12].Value != null)
-                                        giahistory3 = Convert.ToDecimal(workSheet.Cells[rowIterator, 12].Value);
-                                    else
-                                        giahistory3 = 0;
-                                    //=======================================
-                                    if (workSheet.Cells[rowIterator, 13].Value != null)
-                                        mark = workSheet.Cells[rowIterator, 13].Value.ToString();
+                                        mark = workSheet.Cells[rowIterator, 7].Value.ToString();
                                     else
                                         mark = null;
                                     //=======================================
-                                    if (workSheet.Cells[rowIterator, 14].Value != null)
-                                        purc = workSheet.Cells[rowIterator, 14].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 8].Value != null)
+                                        purc = workSheet.Cells[rowIterator, 8].Value.ToString();
                                     else
                                         purc = null;
                                     //=======================================
@@ -950,12 +920,6 @@ namespace ERP.Web.Areas.Marketing.Controllers
                                         policykh.NGUOI_CAP_NHAT = Session["USERNAME"].ToString();
                                         policykh.CK = ck;
                                         policykh.GIA_BAN = giaban;
-                                        policykh.CK_HISTORY_1 = ckhistory1;
-                                        policykh.GIA_HISTORY_1 = giahistory1;
-                                        policykh.CK_HISTORY_2 = ckhistory2;
-                                        policykh.GIA_HISTORY_2 = giahistory2;
-                                        policykh.CK_HISTORY_3 = ckhistory3;
-                                        policykh.GIA_HISTORY_3 = giahistory3;
 
                                         db.KH_POLICY.Add(policykh);
 
@@ -986,12 +950,6 @@ namespace ERP.Web.Areas.Marketing.Controllers
                                         policykh.NGUOI_CAP_NHAT = Session["USERNAME"].ToString();
                                         policykh.CK = ck;
                                         policykh.GIA_BAN = giaban;
-                                        policykh.CK_HISTORY_1 = ckhistory1;
-                                        policykh.GIA_HISTORY_1 = giahistory1;
-                                        policykh.CK_HISTORY_2 = ckhistory2;
-                                        policykh.GIA_HISTORY_2 = giahistory2;
-                                        policykh.CK_HISTORY_3 = ckhistory3;
-                                        policykh.GIA_HISTORY_3 = giahistory3;
 
                                         db.KH_POLICY.Add(policykh);
 

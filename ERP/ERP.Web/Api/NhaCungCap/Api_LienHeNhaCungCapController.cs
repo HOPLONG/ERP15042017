@@ -10,71 +10,22 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using ERP.Web.Models.NewModels;
+using ERP.Web.Common;
+using System.Data.SqlClient;
+using ERP.Web.Models.BusinessModel;
 
 namespace ERP.Web.Api.NhaCungCap
 {
     public class Api_LienHeNhaCungCapController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
-
+        XuLyNgayThang xlnt = new XuLyNgayThang();
         // GET: api/Api_LienHeNhaCungCap
-        [Route("api/Api_LienHeNhaCungCap/{mancc}")]
-        public List<LienHeNCC> GetNCC_LIEN_HE(string mancc)
+        [Route("api/Api_LienHeNhaCungCap/GetNCC_LIEN_HE/{manhacungcap}")]
+        public List<GetAll_LienHeTheoNCC_Result> GetNCC_LIEN_HE(string manhacungcap)
         {
-            var vData = (from t1 in db.NCC_LIEN_HE
-                         join t2 in db.NCC_PUR_PHU_TRACH on t1.ID_LIEN_HE equals t2.ID_LIEN_HE
-                         join t3 in db.HT_NGUOI_DUNG on t2.PUR_PHU_TRACH equals t3.USERNAME
-                         join t4 in db.NCCs on t1.MA_NHA_CUNG_CAP equals t4.MA_NHA_CUNG_CAP
-                         where t1.MA_NHA_CUNG_CAP == mancc
-                         select new
-                         {
-                             t1.MA_NHA_CUNG_CAP,
-                             t1.NGUOI_LIEN_HE,
-                             t1.CHUC_VU,
-                             t1.PHONG_BAN,
-                             t1.NGAY_SINH,
-                             t1.GIOI_TINH,
-                             t1.EMAIL_CA_NHAN,
-                             t1.EMAIL_CONG_TY,
-                             t1.SKYPE,
-                             t1.SO_DIEN_THOAI_1,
-                             t1.SO_DIEN_THOAI_2,
-                             t1.GHI_CHU,
-                             t1.FACEBOOK
-                         ,
-                             t2.ID,
-                             t2.ID_LIEN_HE,
-                             t2.PUR_PHU_TRACH,
-                             t2.NGAY_BAT_DAU_PHU_TRACH,
-                             t2.NGAY_KET_THUC_PHU_TRACH,
-                             t2.TRANG_THAI,
-                             t3.HO_VA_TEN,
-                             t4.TEN_NHA_CUNG_CAP,
-                         });
-            var result = vData.ToList().Select(x => new LienHeNCC()
-            {
-                ID_LIEN_HE = x.ID_LIEN_HE,
-                HO_VA_TEN = x.HO_VA_TEN,
-                MA_NHA_CUNG_CAP = x.MA_NHA_CUNG_CAP,
-                NGUOI_LIEN_HE = x.NGUOI_LIEN_HE,
-                CHUC_VU = x.CHUC_VU,
-                PHONG_BAN = x.PHONG_BAN,
-                NGAY_SINH = x.NGAY_SINH,
-                GIOI_TINH = x.GIOI_TINH,
-                EMAIL_CA_NHAN = x.EMAIL_CA_NHAN,
-                EMAIL_CONG_TY = x.EMAIL_CONG_TY,
-                SKYPE = x.SKYPE,
-                FACEBOOK = x.FACEBOOK,
-                SO_DIEN_THOAI_1 = x.SO_DIEN_THOAI_1,
-                SO_DIEN_THOAI_2 = x.SO_DIEN_THOAI_2,
-                GHI_CHU = x.GHI_CHU,
-                ID = x.ID,
-                PUR_PHU_TRACH = x.PUR_PHU_TRACH,
-                TRANG_THAI = x.TRANG_THAI,
-                NGAY_KET_THUC_PHU_TRACH = x.NGAY_KET_THUC_PHU_TRACH,
-                NGAY_BAT_DAU_PHU_TRACH = x.NGAY_BAT_DAU_PHU_TRACH,
-                TEN_NHA_CUNG_CAP = x.TEN_NHA_CUNG_CAP,
-            }).ToList();
+            var query = db.Database.SqlQuery<GetAll_LienHeTheoNCC_Result>("GetAll_LienHeTheoNCC @manhacungcap", new SqlParameter("manhacungcap", manhacungcap));
+            var result = query.ToList();
             return result;
         }
 
@@ -92,38 +43,31 @@ namespace ERP.Web.Api.NhaCungCap
         }
 
         // PUT: api/Api_LienHeNhaCungCap/5
-        [Route("api/Api_LienHeNhaCungCap/{id}")]
-        public IHttpActionResult PutNCC_LIEN_HE(int id, NCC_LIEN_HE nCC_LIEN_HE)
+        [Route("api/Api_LienHeNhaCungCap/PuttNCC_LIEN_HE")]
+        public IHttpActionResult PuttNCC_LIEN_HE(LienHeNCC lh)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            var lienhe = db.NCC_LIEN_HE.Where(x => x.ID_LIEN_HE == lh.ID_LIEN_HE).FirstOrDefault();
+            lienhe.MA_NHA_CUNG_CAP = lh.MA_NHA_CUNG_CAP;
+            lienhe.NGUOI_LIEN_HE = lh.NGUOI_LIEN_HE;
+            lienhe.CHUC_VU = lh.CHUC_VU;
+            lienhe.PHONG_BAN = lh.PHONG_BAN;
+            lienhe.NGAY_SINH = xlnt.Xulydatetime(lh.NGAY_SINH);
+            lienhe.GIOI_TINH = lh.GIOI_TINH;
+            lienhe.EMAIL_CA_NHAN = lh.EMAIL_CA_NHAN;
+            lienhe.EMAIL_CONG_TY = lh.EMAIL_CONG_TY;
+            lienhe.SKYPE = lh.SKYPE;
+            lienhe.FACEBOOK = lh.FACEBOOK;
+            lienhe.GHI_CHU = lh.GHI_CHU;
+            lienhe.SO_DIEN_THOAI_1 = lh.SO_DIEN_THOAI_1;
+            lienhe.SO_DIEN_THOAI_2 = lh.SO_DIEN_THOAI_2;
+          
+            db.SaveChanges();
 
-            if (id != nCC_LIEN_HE.ID_LIEN_HE)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(nCC_LIEN_HE).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!NCC_LIEN_HEExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok() ;
         }
 
         // POST: api/Api_LienHeNhaCungCap
@@ -139,7 +83,7 @@ namespace ERP.Web.Api.NhaCungCap
             lienhe.NGUOI_LIEN_HE = lh.NGUOI_LIEN_HE;
             lienhe.CHUC_VU = lh.CHUC_VU;
             lienhe.PHONG_BAN = lh.PHONG_BAN;
-            lienhe.NGAY_SINH = lh.NGAY_SINH;
+            lienhe.NGAY_SINH = GeneralFunction.ConvertToTime(lh.NGAY_SINH);
             lienhe.GIOI_TINH = lh.GIOI_TINH;
             lienhe.EMAIL_CA_NHAN = lh.EMAIL_CA_NHAN;
             lienhe.EMAIL_CONG_TY = lh.EMAIL_CONG_TY;

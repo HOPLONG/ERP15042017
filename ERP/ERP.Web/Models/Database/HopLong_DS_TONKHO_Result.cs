@@ -67,5 +67,7 @@ namespace ERP.Web.Models.Database
         public Nullable<decimal> SL1 { get; set; }
         public Nullable<decimal> SL2 { get; set; }
         public Nullable<decimal> SL3 { get; set; }
+        public Nullable<decimal> GIA_LIST { get; set; }
+        public string QUY_CACH_DONG_GOI { get; set; }
     }
 }

@@ -6,8 +6,8 @@
 <div ng-app="myApp" ng-controller="baogiaCtrl" class="content">
     <input type="hidden" value="@Session["USERNAME"]" id="username" />
     <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
-    <div class="col-md-12">
-        <div class="col-md-6">
+    <div class="col-md-6">
+        <div class="col-md-12 form-group">
             <label class="col-md-2 control-label" for="name">Khách hàng :</label>
             <div class="col-md-10">
                 <input type="text" ng-model="ten_cong_ty" ng-change="onKH_BaoGiaFind()" ng-focus="showtable_KH_BaoGia = true" ng-blur="showtable_KH_BaoGia = false" style="border: 1px solid #F0F0F0 !important;width: 100%;border-radius: 0px !important">
@@ -34,9 +34,23 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-12 form-group">
+                <label class="col-md-2 control-label">Địa chỉ :</label>
+                <div class="col-md-10">
+                    <p>{{dia_chi_xuat_hoa_don}}</p>
+                </div>
+        </div>
+
+        <div class="col-md-12 form-group">
+
+                <label class="col-md-3 control-label">SĐT khách hàng:</label>
+                <div class="col-md-9">
+                    <p>{{hotline}}</p>
+                </div>
+        </div>
     </div>
-    <div class="col-md-12">
-        <div class="col-md-6">
+    <div class="col-md-6">
+        <div class="col-md-12 form-group">
             <label class="col-md-2 control-label" for="name">Người liên hệ: </label>
             <div class="col-md-10">
                 <input type="text" ng-model="nguoi_lien_he" ng-change="onLienHeFind()" ng-focus="showtable_id_lien_he = true" ng-blur="showtable_id_lien_he = false" style="border: 1px solid #F0F0F0 !important;width: 100%;border-radius: 0px !important">
@@ -69,39 +83,21 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-6">
-            <label class="col-md-2 control-label">Địa chỉ :</label>
-            <div class="col-md-10">
-                <p>{{van_phong_giao_dich}}</p>
-            </div>
+        <div class="col-md-12 form-group">
+                <label class="col-md-3 control-label">Email người liên hệ :</label>
+                <div class="col-md-6">
+                    <p>{{email_ca_nhan}}</p>
+                </div>
+        </div>
+        <div class="col-md-12 form-group">
+
+                <label class="col-md-3 control-label">Số điện thoại người liên hệ</label>
+                <div class="col-md-6">
+                    <p>{{sdt1}}</p>
+                </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <div class="col-md-6">
-            <label class="col-md-3 control-label">SĐT khách hàng:</label>
-            <div class="col-md-9">
-                <p>{{hotline}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-6">
-            <label class="col-md-3 control-label">Email người liên hệ :</label>
-            <div class="col-md-6">
-                <p>{{email_ca_nhan}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-6">
-            <label class="col-md-3 control-label">Số điện thoại người liên hệ</label>
-            <div class="col-md-6">
-                <p>{{sdt1}}</p>
-            </div>
-        </div>
-    </div>
+
 
     <div class="col-md-12" style="text-align: right;margin-bottom: 20px;">
         <label>Hiện bảng tính CM</label>

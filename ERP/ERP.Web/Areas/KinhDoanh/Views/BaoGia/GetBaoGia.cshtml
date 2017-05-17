@@ -161,7 +161,7 @@
                                     <tr height="30" ng-repeat="item in thongtinchitiet">
                                         <td height="30" style="height:30px; text-align: center">{{$index+1}}</td>
                                         <td align="left" colspan="2" style="padding:3.5px">
-                                            {{item.TEN_HANG}}
+                                            <i>{{item.TEN_HANG}}</i>
                                             <br />
                                             <b>{{item.MA_DIEU_CHINH}} </b>
                                         </td>
@@ -171,8 +171,8 @@
                                         </td>
                                         <td style="width:57px; text-align:center">{{item.SO_LUONG}}</td>
                                         <td style="width:47px; text-align:center"> {{item.DVT}}</td>
-                                        <td align="right">{{item.DON_GIA | currency:""}}</td>
-                                        <td style="width:87px; text-align:right">{{item.THANH_TIEN | currency:""}}</td>
+                                        <td align="right">{{item.DON_GIA | number:0}}</td>
+                                        <td style="width:87px; text-align:right">{{item.THANH_TIEN | number:0}}</td>
                                         <td style="width:71px;">{{item.THOI_GIAN_GIAO_HANG}}</td>
                                     </tr>
                                     <tr height="30">

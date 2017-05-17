@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in list_PO_DaDuyet">
+                <tr ng-repeat="item in list_PO_DaDuyet"  ng-click="xemchitietPO(item.MA_SO_PO)">
                     <td>{{item.MA_SO_PO}}</td>
                     <td>{{item.NGAY_LEN_PO | date: 'dd/MM/yyyy'}}</td>
                     <td>{{item.TEN_CONG_TY}}</td>

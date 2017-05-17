@@ -33,5 +33,8 @@ namespace ERP.Web.Models.Database
         public string SALES_TAO { get; set; }
         public string USERNAME { get; set; }
         public string HO_VA_TEN { get; set; }
+        public string MA_LOAI_KHACH { get; set; }
+        public string NHOM_NGANH { get; set; }
+        public string TEN_LOAI_KHACH { get; set; }
     }
 }

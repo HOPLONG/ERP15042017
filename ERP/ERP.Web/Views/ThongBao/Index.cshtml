@@ -1,0 +1,83 @@
+﻿<link href="~/Content/self-writing/css/ThongBao.css" rel="stylesheet" />
+<script src="~/Content/self-writing/js/Controllers/ThongBao/ThongBaoCtrl.js"></script>
+<div class="panel-heading">Thông báo của @Session["HO_VA_TEN"]</div>
+<br />
+<br />
+<div class="container" ng-app="myApp" ng-controller="ThongBaoCtrl">
+    <div style="box-shadow: 4px 4px 12px #888888;padding: 0px 0px 0px 10px; background-color: whitesmoke;">
+        <div class="center" style="margin-left: 87px;">
+            <input type="hidden" id="isadmin" value="@Session["IS_AMIN"]" />
+            <input type="hidden" id="username" value="@Session["USERNAME"]" />
+            <input type="hidden" id="username" value="@Session["MA_CONG_TY"]" />
+            <div class="row">
+                <div class="col-md-6">
+                    <blockquote class="quote-box" ng-repeat="item in listThongBaoMark">
+                        <p>
+                            {{item.HO_VA_TEN}}
+                        </p>
+                        <hr>
+                        <p style="font-size: 22px; font-weight:bold;">
+                            Thông báo từ công ty
+                        </p>
+                        <p ng-bind-html="item.NOI_DUNG | unsafe">
+                        </p>
+
+                    </blockquote>
+                </div>
+                <div class="col-md-6">
+                    <blockquote class="quote-box" ng-repeat="item in ListThongBaoPB">
+                        <p>
+                            {{item.HO_VA_TEN}}
+                        </p>
+
+                        <hr />
+                        <p style="font-size: 22px; font-weight:bold;">
+                            Nhiệm vụ của phòng ban {{item.TEN_PHONG_BAN}}
+                        </p>
+                        <p ng-bind-html="item.NHIEM_VU_PHAI_LAM | unsafe">
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="row" ng-repeat="item in ListThongBaoNV">
+                <div class="col-md-6">
+                    <blockquote class="quote-box">
+                        <p>
+                            {{item.HO_VA_TEN}}
+                        </p>
+                        <hr />
+                        <p style="font-size: 22px; font-weight:bold;">
+                            Nhiệm vụ của nhân viên: @Session["HO_VA_TEN"]
+                        </p>
+                        <p ng-bind-html="item.NHIEM_VU_CHI_TIET | unsafe">
+                        </p>
+
+
+                    </blockquote>
+                </div>
+                <div class="col-md-6">
+                    <blockquote class="quote-box">
+                        <p>
+                            {{item.HO_VA_TEN}}
+                        </p>
+                        <hr />
+                        <p style="font-size: 22px; font-weight:bold;">
+                            Mục tiêu của nhân viên: @Session["HO_VA_TEN"]
+                        </p>
+                        <p ng-bind-html="item.MUC_TIEU_CONG_VIEC | unsafe">
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </div></div>
+</div>
+<style>
+    .panel-heading {
+    margin: auto;
+    width: 40%;
+    text-align: center;
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+</style>

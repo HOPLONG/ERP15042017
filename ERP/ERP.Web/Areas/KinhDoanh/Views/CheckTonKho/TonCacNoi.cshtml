@@ -30,251 +30,364 @@
         <!--End Form tìm kiếm-->
 
         <div style="border:1px solid #ddd">
-
-                <div class="table" style="overflow:scroll">
-                    <table>
-                        <thead>
-                            <tr height="23">
-                                <th height="44" rowspan="2" style="height:44px;width:200px;">
-                                    Mã chuẩn
-                                </th>
-                                <th rowspan="2" style="width:253px;">
-                                    Thông số
-                                </th>
-                                <th rowspan="2" style="width:120px;">
-                                    Hãng/Xuất xứ
-                                </th>
-                                <th rowspan="2" style="width:60px;">
-                                    ĐVT
-                                </th>
-                                <th colspan="3" rowspan="2" style="width:210px;">
-                                    Giá
-                                </th>
-                                <th colspan="2" rowspan="2" style="width:60px;">
-                                    Tồn HL
-                                </th>
-                                <th colspan="2" rowspan="2" style="width:60px;">
-                                    Tồn ĐN
-                                </th>
-                                <th colspan="2" rowspan="2" style="width:60px;">
-                                    Tồn HP
-                                </th>
-                                <th colspan="2" rowspan="2" style="width:60px;">
-                                    Tồn HCM
-                                </th>
-                                <th rowspan="2" style="width:63px;">
-                                    Tồn Hãng
-                                </th>
-                                <th colspan="3"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in listtonkho" >
-                                <td colspan="16" >
-                                    <table border="1" cellpadding="0" cellspacing="0" style="width:1752px;">
-
-                                        <tbody>
-
-                                            <tr height="23">
-                                                <td height="23" style="height:23px;width:131px;">
-                                                    {{item.MA_CHUAN}}
-                                                </td>
-                                                <td style="width:183px;">
-                                                    {{item.THONG_SO}}
-                                                </td>
-                                                <td style="width:90px;">
-                                                    {{item.MA_NHOM_HANG}}
-                                                </td>
-                                                <td style="width:50px;">
-                                                    {{item.DVT}}
-                                                </td>
-                                                <td style="width:70px;">
-                                                    {{item.GIA1}}
-                                                </td>
-                                                <td style="width:70px;">
-                                                    {{item.GIA2}}
-                                                </td>
-                                                <td style="width:70px;">
-                                                    {{item.GIA3}}
-                                                </td>
-                                                <td colspan="2" style="width:60px;">
-                                                    {{item.tonHL}}
-                                                </td>
-                                                <td colspan="2" style="width:60px;">
-                                                    {{item.TON_DANANG + item.KY_GUI_DEN_DN}}
-                                                </td>
-                                                <td colspan="2" style="width:60px;">
-                                                    {{item.TON_HAIPHONG + item.KY_GUI_DEN_HP}}
-                                                </td>
-                                                <td colspan="2" style="width:60px;">
-                                                   {{item.TON_HCM + item.KY_GUI_DEN_HCM}}
-                                                </td>
-                                                <td align="right" style="width:40px;">
-                                                    {{item.TON_TAI_HANG}}
-                                                </td>
-                                            </tr>
-                                            <tr height="23">
-                                                <td rowspan="2" height="23" style="height:23px;width:131px;">
-                                                    {{item.TEN_HANG}}
-                                                </td>
-                                                <td style="width:183px;">
-                                                    
-                                                </td>
-                                                <td style="width:90px;">
-                                                    {{item.XUAT_XU}}
-                                                </td>
-                                                <td style="width:50px;">
-                                                    
-                                                </td>
-                                                <td style="width:70px;">
-                                                    {{item.GIA4}}
-                                                </td>
-                                                <td style="width:70px;">
-                                                    {{item.GIA5}}
-                                                </td>
-                                                <td style="width:70px;">
-                                                    {{item.GIA6}}
-                                                </td>
-                                                <td style="width:30px;">
-                                                    {{item.tonHL}}
-                                                </td>
-                                                <td style="width:30px;">
-                                                    {{item.DANG_GIU_HL}}
-                                                </td>
-                                                <td style="width:30px;">
-                                                    {{item.TON_DANANG}}
-                                                </td>
-                                                <td style="width:30px;">
-                                                    {{item.DANG_GIU_DN}}
-                                                </td>
-                                                <td style="width:30px;">
-                                                    {{item.TON_HAIPHONG}}
-                                                </td>
-                                                <td style="width:30px;">
-                                                   {{item.DANG_GIU_HP}}
-                                                </td>
-                                                <td style="width:30px;">
-                                                    {{item.TON_HCM}}
-                                                </td>
-                                                <td style="width:30px;">
-                                                    {{item.DANG_GIU_HCM}}
-                                                </td>
-                                                <td style="width:40px;">
-                                                    &nbsp;
-                                                </td>
-                                            </tr>
-                                            <tr height="23">
-                                                
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td style="width:70px;">
-                                                    {{item.GIA7}}
-                                                </td>
-                                                <td style="width:70px;">
-                                                    {{item.GIA8}}
-                                                </td>
-                                                <td style="width:70px;">
-                                                    {{item.GIA9}}
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    {{item.SL_DANG_VE_HL}}
-                                                </td>
-                                                <td>
-                                                    {{item.KY_GUI_DEN_DN}}
-                                                </td>
-                                                <td>
-                                                    {{item.SL_DANG_VE_DN}}
-                                                </td>
-                                                <td>
-                                                    {{item.KY_GUI_DEN_HP}}
-                                                </td>
-                                                <td>
-                                                    {{item.SL_DANG_VE_HP}}
-                                                </td>
-                                                <td>
-                                                    {{item.KY_GUI_DEN_HCM}}
-                                                </td>
-                                                <td>
-                                                    {{item.SL_DANG_VE_HCM}}
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                            </tr>
-                                            <tr height="23">
-                                                <td height="23" style="height:23px;">
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    {{item.GIA10}}
-                                                </td>
-                                                <td>
-                                                    {{item.GIA11}}
-                                                </td>
-                                                <td>
-                                                    {{item.GIA12}}
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" ng-click="edit(item)">Hỏi giá</button></td>
-                                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#nhatky" ng-click="nhatkyhoihang(item.MA_HANG)">Lịch sử hỏi giá</button></td>
-                                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#comment" ng-click="edit(item)">New Comment</button></td>
-                            </tr>
-                        </tbody>
+            <span class="text-right"> Hiển thị chức năng hỏi giá: <input type="checkbox" ng-model="showhide" /></span>
+            <div class="table" style="overflow:scroll">
+                <table border="1">
+                    <thead>
+                        <tr height="23" style="vertical-align:bottom !important">
+                            <th height="44" rowspan="2" style="height:40px; width:10%; vertical-align:bottom !important" class="text-left" >
+                                Mã hàng
+                            </th>
+                            <th rowspan="2" style="width:15%; vertical-align:bottom !important" class="text-left">
+                                Thông số
+                            </th>
+                            <th rowspan="2" style="width:10%;text-align:left; vertical-align:bottom !important">
+                                <span style="text-align:left"> Hãng</span><br /> <center><span style="font-weight:normal; color:blue; font-style:italic; font-size:13px;">xuất xứ</span></center>
+                            </th>
+                            <th rowspan="2" style="width:10%; vertical-align:bottom !important">
+                                ĐVT
+                            </th>
+                            <th rowspan="2" style="width:8%; vertical-align:bottom !important">
+                                Giá List
+                            </th>
+                            <th colspan="3" rowspan="2" style="width:15%; vertical-align:bottom !important">
+                                Giá bán tham khảo
+                            </th>
+                            <th colspan="9" style="width:25%;">
+                                Tồn Kho
+                            </th>
+                            <th colspan="3" style="width:7%;" ng-show="showhide">Tác vụ</th>
+                        </tr>
+                        
+                        <tr height="23">
+                            <th colspan="2" style="width:5%;">
+                                HL
+                            </th>
+                            <th colspan="2" style="width:5%;">
+                                TAĐN
+                            </th>
+                            <th colspan="2" rowspan="2" style="width:5%;">
+                                TAHP
+                            </th>
+                            <th colspan="2" rowspan="2" style="width:5%;">
+                                TAHCM
+                            </th>
+                            <th style="width:5%;">
+                                Hãng
+                            </th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
 
 
-                    </table>
+                        <tr height="23" ng-repeat="item in listtonkho">
+                            <td height="44" class="text-left" style="height:44px;padding-left:3.5px">
+                                <table style="height: 100%; width:100%">
+                                    <tr height="23">
+                                        <td class="text-left">
+                                            {{item.MA_CHUAN}}
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr height="23">
+                                        <td class="text-left">
+                                            <span style="font-size:12px; font-style:italic">{{item.TEN_HANG}}</span>
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr height="23">
+                                        <td class="text-left">
+                                            <span style="font-size:11px; font-style:italic; color:red" ng-show="item.DISCONTINUE"> ( Ngưng sản xuất ) </span><br />
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td class="text-left">
+                                            <span style="font-size:14px; color:blue; text-decoration:underline; " ng-click="datatonkho(item.MA_CHUYEN_DOI)" ng-show="item.DISCONTINUE">=> {{item.MA_CHUYEN_DOI}}</span>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td class="text-left" style="padding-left:3.5px" ng-bind-html="item.THONG_SO | unsafe"></td>
+                                
+                            <td class="text-left">
+                                <table style="height: 100%; width:100%">
+                                    <tr height="23">
+                                        <td class="text-left">{{item.MA_NHOM_HANG}}</td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td class="text-center" style="color:blue"><i>{{item.XUAT_XU}}</i></td>
+
+                                    </tr>
+                                    <tr height="23">
+                                        <td style="text-align:left"><a data-toggle="modal" data-target="#comment" ng-click="edit(item)" style="cursor:pointer; text-align:left">Ghi chú</a></td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td></td>
+                                    </tr>
+
+                                </table>
+                                
+                                
+
+                            </td>
+                            <td>
+                                <table style="height: 100%; width:100%">
+                                    <tr height="23">
+                                        <td>{{item.DVT}}</td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td ng-bind-html="item.QUY_CACH_DONG_GOI | unsafe"></td>
+
+                                    </tr>
+                                    <tr height="23">
+                                        <td></td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td></td>
+                                    </tr>
+
+                                </table>
+                                
+
+                            </td>
+                           
+                            <td>
+                                <table style="height: 100%; width:100%">
+                                    <tr height="23">
+                                        <td class="text-right">{{item.GIA_LIST | number:0}}</td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td><a data-toggle="modal" data-target="#myModal" ng-show="showhide" ng-click="edit(item)" style="cursor:pointer">Hỏi giá</a></td>
+
+                                    </tr>
+                                    <tr height="23">
+                                        <td><a data-toggle="modal" data-target="#nhatky" ng-show="showhide" ng-click="nhatkyhoihang(item.MA_HANG)" style="cursor:pointer">Lịch sử</a></td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td></td>
+                                    </tr>
+
+                                </table>
+                               
+                            </td>
+                            <td colspan="3">
+                                <table style="height: 100%; width:100%">
+                                    <tr  height="23">
+                                        <td> 
+                                            {{item.GIA1| number:0}}
+                                        </td>
+                                        <td>
+                                            {{item.GIA2| number:0}}
+                                        </td>
+                                        <td>
+                                            {{item.GIA3| number:0}}
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td>
+                                            {{item.GIA4| number:0}}
+                                        </td>
+                                        <td>
+                                            {{item.GIA5| number:0}}
+                                        </td>
+                                        <td>
+                                            {{item.GIA6| number:0}}
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td>
+                                            {{item.GIA7| number:0}}
+                                        </td>
+                                        <td>
+                                            {{item.GIA8| number:0}}
+                                        </td>
+                                        <td>
+                                            {{item.GIA9| number:0}}
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td>
+                                            {{item.GIA10}}
+                                        </td>
+                                        <td>
+                                            {{item.GIA11}}
+                                        </td>
+                                        <td>
+                                            {{item.GIA12}}
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td colspan="2">
+                                <table>
+                                    <tr height="23" >
+                                        <td colspan="2">
+                                            <span style="font-weight:bold; color:blue"><abbr title="Tổng số tồn có thể bán">{{item.tonHL}}</abbr> </span>
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td width="30px">
+                                            <span style="color:blue"><abbr title="Số tồn thực kho HL hiện tại">{{item.tonHL}}</abbr> </span>
+                                            
+                                        </td>
+                                        <td  width="30px">
+                                            <span style="font-weight:bold; color:red"><abbr title="Tổng số trong kho chờ (đã có P.O - chờ xuất)">{{item.DANG_GIU_HL}}</abbr> </span>
+                                           
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td>
+                                            <span style="color:blue"><abbr title="Tổng số sắp về tới (chưa về tới kho HL)">{{item.SL_DANG_VE_HL}}</abbr> </span>
+                                            
+                                        </td>
+                                        <td>
+                                            <span style="color:red"><abbr title="Tổng số trong kho giữ ( chờ khách ra P.O )">{{item.SL_DANG_VE_HL}}</abbr> </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td><span style="color:green"><abbr title="Tổng số đã order NCC (chưa về tới kho HL)">{{item.SL_DANG_VE_HL}}</abbr> </span></td>
+                                        <td></td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td colspan="2">
+                                <table>
+                                    <tr height="23" colspan="2">
+                                        <td colspan="2" style="width:60px;">
+                                            <span style="font-weight:bold; color:blue"><abbr title="Tổng số tồn có thể bán">{{item.TON_DANANG + item.KY_GUI_DEN_DN}}</abbr> </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td>
+                                            <span style="color:blue"><abbr title="Số tồn thực kho DN hiện tại">{{item.TON_DANANG}}</abbr> </span>
+                                            
+                                        </td>
+                                        <td>
+                                            <span style="font-weight:bold; color:red"><abbr title="Tổng số trong kho chờ (đã có P.O - chờ xuất)">{{item.DANG_GIU_DN}}</abbr> </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td>
+                                            <span style="color:blue"><abbr title="Tổng số sắp về tới (chưa về tới kho DN)">{{item.SL_DANG_VE_DN}}</abbr> </span>
+
+                                        </td>
+                                        <td>
+                                            <span style="color:red"><abbr title="Tổng số trong kho giữ ( chờ khách ra P.O )">{{item.SL_DANG_VE_DN}}</abbr> </span>
+
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td><span style="color:green"><abbr title="Tổng số đã order NCC (chưa về tới kho HL)">{{item.SL_DANG_VE_DN}}</abbr> </span></td>
+                                        <td></td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td colspan="2" style="width:60px;">
+                                <table>
+                                    <tr height="23" colspan="2">
+                                        <td colspan="2" style="width:60px;">
+                                            <span style="font-weight:bold; color:blue"><abbr title="Tổng số tồn có thể bán">{{item.TON_HAIPHONG + item.KY_GUI_DEN_HP}}</abbr> </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td style="width:30px;">
+                                            <span style="color:blue"><abbr title="Số tồn thực kho HP hiện tại">{{item.TON_HAIPHONG}}</abbr> </span>
+                                            
+                                        </td>
+                                        <td style="width:30px;">
+                                            <span style="font-weight:bold; color:red"><abbr title="Tổng số trong kho chờ (đã có P.O - chờ xuất)">{{item.DANG_GIU_HP}}</abbr> </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td>
+                                            <span style="color:blue"><abbr title="Tổng số sắp về tới (chưa về tới kho HP)">{{item.SL_DANG_VE_HP}}</abbr> </span>
+
+                                        </td>
+                                        <td>
+                                            <span style="color:red"><abbr title="Tổng số trong kho giữ ( chờ khách ra P.O )">{{item.SL_DANG_VE_HP}}</abbr> </span>
+
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td><span style="color:green"><abbr title="Tổng số đã order NCC (chưa về tới kho HL)">{{item.SL_DANG_VE_HP}}</abbr> </span></td>
+                                        <td></td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td colspan="2" style="width:60px;">
+                                <table>
+                                    <tr height="23" colspan="2">
+                                        <td colspan="2" style="width:60px;">
+                                            <span style="font-weight:bold; color:blue"><abbr title="Tổng số tồn có thể bán">{{item.TON_HCM + item.KY_GUI_DEN_HCM}}</abbr> </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td style="width:30px;">
+                                            <span style="color:blue"><abbr title="Số tồn thực kho HCM hiện tại">{{item.TON_HCM}}</abbr> </span>
+                                            
+                                        </td>
+                                        <td style="width:30px;">
+                                            <span style="font-weight:bold; color:red"><abbr title="Tổng số trong kho chờ (đã có P.O - chờ xuất)">{{item.DANG_GIU_HCM}}</abbr> </span>
+                                           
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td>
+                                            <span style="color:blue"><abbr title="Tổng số sắp về tới (chưa về tới kho HCM)">{{item.SL_DANG_VE_HCM}}</abbr> </span>
+
+                                        </td>
+                                        <td>
+                                            <span style="color:red"><abbr title="Tổng số trong kho giữ ( chờ khách ra P.O )">{{item.SL_DANG_VE_HCM}}</abbr> </span>
+
+                                        </td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td><span style="color:green"><abbr title="Tổng số đã order NCC (chưa về tới kho HL)">{{item.SL_DANG_VE_HCM}}</abbr> </span></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <table style="height: 100%; width:100%">
+                                    <tr height="23">
+                                        <td>{{item.TON_TAI_HANG}}</td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td></td>
+
+                                    </tr>
+                                    <tr height="23">
+                                        <td></td>
+                                    </tr>
+                                    <tr height="23">
+                                        <td></td>
+                                    </tr>
+
+                                </table>
+                                
+                            </td>
+                            <td colspan="3" >
+                                
+                                
+                            </td>
+                        </tr>
 
 
-                </div>
+                    </tbody>
+                </table>
+            </div>
 
 
         </div>

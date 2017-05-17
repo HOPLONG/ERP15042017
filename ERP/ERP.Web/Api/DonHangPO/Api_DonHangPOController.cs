@@ -464,6 +464,8 @@ namespace ERP.Web.Api.DonHangPO
             if (edit != null)
             {
                 edit.DANG_DUYET = thongtinPO.DANG_DUYET;
+                edit.DA_DUYET = thongtinPO.DA_DUYET;
+                edit.DA_HUY = thongtinPO.DA_HUY;
             }
 
             try
@@ -483,6 +485,66 @@ namespace ERP.Web.Api.DonHangPO
             }
 
             return Ok(edit.MA_SO_PO);
+        }
+
+        //Thêm PO từ kinh doanh
+        [HttpPost]
+        [Route("api/Api_DonHangPO/ThemPOTuKinhDoanh")]
+        public IHttpActionResult ThemPOTuKinhDoanh(ThongTinDonPO thongtinPO)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            BH_DON_HANG_PO baogia = new BH_DON_HANG_PO();
+            baogia.MA_SO_PO = GenerateMaSoPO();
+            baogia.NGAY_LEN_PO = DateTime.Today.Date;
+            baogia.MA_KHACH_HANG = thongtinPO.MA_KHACH_HANG;
+            baogia.TEN_LIEN_HE = thongtinPO.TEN_LIEN_HE;
+            baogia.HINH_THUC_THANH_TOAN = thongtinPO.HINH_THUC_THANH_TOAN;
+            baogia.TONG_TIEN_THANH_TOAN = thongtinPO.TONG_TIEN_THANH_TOAN;
+            baogia.TONG_TIEN_HANG = thongtinPO.TONG_TIEN_HANG;
+            baogia.TONG_TIEN_THUE_GTGT = thongtinPO.TONG_TIEN_THUE_GTGT;
+            baogia.SO_TIEN_VIET_BANG_CHU = thongtinPO.SO_TIEN_VIET_BANG_CHU;
+            baogia.TRUC_THUOC = thongtinPO.TRUC_THUOC;
+            baogia.NHAN_VIEN_QUAN_LY = thongtinPO.NHAN_VIEN_QUAN_LY;
+            baogia.SO_BAO_GIA = thongtinPO.SO_BAO_GIA;
+            if (thongtinPO.NGAY_GIAO_HANG_KD != null)
+                baogia.NGAY_GIAO_HANG = thongtinPO.NGAY_GIAO_HANG_KD;
+            baogia.DIA_DIEM_GIAO_HANG = thongtinPO.DIA_DIEM_GIAO_HANG;
+            baogia.CAN_LAY_HOA_DON = thongtinPO.CAN_LAY_HOA_DON;
+            baogia.CAN_XUAT_NGAY = thongtinPO.CAN_XUAT_NGAY;
+            db.BH_DON_HANG_PO.Add(baogia);
+            db.SaveChanges();
+
+            foreach (var item in thongtinPO.ChiTietPO)
+            {
+                BH_CT_DON_HANG_PO lienhe = new BH_CT_DON_HANG_PO();
+                lienhe.MA_SO_PO = baogia.MA_SO_PO;
+                lienhe.MA_HANG = item.MA_HANG;
+                lienhe.MA_DIEU_CHINH = item.MA_DIEU_CHINH;
+                lienhe.SO_LUONG = item.SO_LUONG;
+                lienhe.DVT = item.DVT;
+                lienhe.DON_GIA = item.DON_GIA;
+                lienhe.THANH_TIEN_HANG = item.THANH_TIEN_HANG;
+                lienhe.THUE_GTGT = thongtinPO.THUE_SUAT_GTGT;
+                lienhe.TIEN_THUE_GTGT = ((Convert.ToDouble(item.THANH_TIEN_HANG) * (thongtinPO.THUE_SUAT_GTGT / 100)));
+                lienhe.TIEN_THANH_TOAN = Convert.ToDouble(lienhe.THANH_TIEN_HANG) + lienhe.TIEN_THUE_GTGT;
+                db.BH_CT_DON_HANG_PO.Add(lienhe);
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+
+            return Ok(baogia.MA_SO_PO);
         }
 
         protected override void Dispose(bool disposing)

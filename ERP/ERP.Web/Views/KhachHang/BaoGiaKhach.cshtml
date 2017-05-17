@@ -8,7 +8,7 @@
 
 <div ng-app="myApp" ng-controller="baogiaCtrl" class="content">
     <input type="hidden" value="@Session["USERNAME"]" id="username"/>
-    
+    <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
     <div>
         <div class="col-md-12" ng-repeat="item in list_chitietkhachhangnew">
             @*<a href="/BaoGia/GetBaoGia/{{item.MA_KHACH_HANG}}"> In báo giá</a>*@

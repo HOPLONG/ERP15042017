@@ -1,6 +1,9 @@
 ﻿//Nha cung cap
 app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $location) {
-
+    var nv = $('#nv').val();
+    var macongty = $('#macongty').val();
+    var isadmin = $('#isadmin').val();
+    
     $scope.ListSelect = [];
     
     $scope.ListAdd = [];
@@ -151,18 +154,61 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
         });
     };
 
-    $scope.loai_hang_cung_cap = function (mancc) {
-        nhacungcapService.get_loaihangcungcap(mancc).then(function (loaihangcungcap) {
-            $scope.list_loai_hang_cung_cap = loaihangcungcap;
-        });
-    };
+    function loadncc() {
+        var data = {
+            manv: nv,
+            macongty: macongty,
+            isadmin: isadmin,
+            tukhoa: null,
 
-    $scope.load_nhacungcap = function () {
-        nhacungcapService.get_nhacungcap().then(function (a) {
-            $scope.list_nhacungcap = a;
-        });
-    };
-    $scope.load_nhacungcap();
+
+        }
+        $http.post('/api/Api_NhaCungCap/GetNCCTheoTuKhoa', data)
+            .then(function (response) {
+                console.log(response);
+                if (typeof (response.data) == "object") {
+                    $scope.list_nhacungcap = response.data;
+                    if ($scope.list_nhacungcap.length == 0) {
+                        Norecord();
+                    }
+                }
+                else {
+                    ErrorSystem();
+                }
+            }, function (error) {
+                ConnectFail();
+            });
+    }
+    loadncc();
+    
+    $scope.Loc_NCC = function (tukhoa) {
+        var data = {
+            manv: nv,
+            macongty: macongty,
+            isadmin: isadmin,
+            tukhoa: tukhoa,
+            
+            
+        }
+        $http.post('/api/Api_NhaCungCap/GetNCCTheoTuKhoa', data)
+            .then(function (response) {
+                console.log(response);
+                if (typeof (response.data) == "object") {
+                    $scope.list_nhacungcap = response.data;
+                    if ($scope.list_nhacungcap.length == 0) {
+                        Norecord();
+                    }
+                }
+                else {
+                    ErrorSystem();
+                }
+            }, function (error) {
+                ConnectFail();
+            });
+
+    }
+
+   
 
     $scope.load_phanloaincc = function () {
         nhacungcapService.get_phanloaincc().then(function (b) {
@@ -193,9 +239,20 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
     $scope.load_nhomvthh();
 
     $scope.get_lienhencc = function (mancc) {
-        nhacungcapService.get_lienhenhacungcap(mancc).then(function (lienhe) {
-            $scope.list_lienhencc = lienhe;
+        $http({
+            method: 'GET',
+            url: '/api/Api_LienHeNhaCungCap/GetNCC_LIEN_HE/' + mancc
+        }).then(function (response) {
+            if (typeof (response.data) == "object") {
+                $scope.list_lienhencc = response.data;
+            }
+            else {
+                ErrorSystem();
+            }
+        }, function (error) {
+            ConnectFail();
         });
+        
     };
 
     $scope.get_taikhoanncc = function (mancc) {
@@ -222,6 +279,8 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
 
     $scope.EditLienHe = function (lienhe) {
         $scope.editlh = lienhe;
+        var ghichulienhevalue = $('.' + lienhe.MA_NHA_CUNG_CAP).html();
+        CKEDITOR.instances.aditghichulienhe.setData(ghichulienhevalue);
     };
 
     $scope.save = function (mancc) {
@@ -265,52 +324,81 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
         
     };
     
+    $(function () {
 
-    $scope.savelienhencc = function (idlienhe) {
+        $('#ngaysinh').datetimepicker({
+            format: 'DD/MM/YYYY',
+            defaultDate: moment(),
+            sideBySide: true
+        });
+        
+    });
+    $scope.savelienhencc = function () {
+        var ngay_sinh = $("#ngaysinh").val();
+        $("textarea[name=aditghichulienhe]").val(CKEDITOR.instances.aditghichulienhe.getData());
+        var aditghichulienhe = $("[name=aditghichulienhe]").val();
         var data_save = {
-            ID_LIEN_HE: idlienhe,
+            ID_LIEN_HE: $scope.editlh.ID_LIEN_HE,
             MA_NHA_CUNG_CAP: $scope.editlh.MA_NHA_CUNG_CAP,
             NGUOI_LIEN_HE: $scope.editlh.NGUOI_LIEN_HE,
             CHUC_VU: $scope.editlh.CHUC_VU,
             PHONG_BAN: $scope.editlh.PHONG_BAN,
-            NGAY_SINH: $scope.editlh.NGAY_SINH,
+            NGAY_SINH: ngay_sinh,
             GIOI_TINH: $scope.editlh.GIOI_TINH,
             EMAIL_CA_NHAN: $scope.editlh.EMAIL_CA_NHAN,
             EMAIL_CONG_TY: $scope.editlh.EMAIL_CONG_TY,
             SKYPE: $scope.editlh.SKYPE,
             FACEBOOK: $scope.editlh.FACEBOOK,
-            GHI_CHU: $scope.editlh.GHI_CHU,
+            GHI_CHU: aditghichulienhe,
             SO_DIEN_THOAI_1: $scope.editlh.SO_DIEN_THOAI_1,
             SO_DIEN_THOAI_2: $scope.editlh.SO_DIEN_THOAI_2,
         }
-        nhacungcapService.save_lienhencc(idlienhe, data_save).then(function (response) {
+        $http({
+            method: 'PUT',
+            data: data_save,
+            url: window.location.origin + '/api/Api_LienHeNhaCungCap/PuttNCC_LIEN_HE/'
+        }).then(function successCallback(response1) {
+            SuccessSystem('Sửa liên hệ nhà cung cấp thành công');
             $scope.load_nhacungcap();
+        }, function errorCallback(response1) {
+            ErrorSystem('Sửa liên hệ nhà cung cấp lỗi');
         });
     };
 
     $scope.addnew = function (mancc) {
+        $("textarea[name=addghichulienhe]").val(CKEDITOR.instances.addghichulienhe.getData());
+        var addghichu = $("[name=addghichulienhe]").val();
         var data_add = {
             MA_NHA_CUNG_CAP: mancc,
             NGUOI_LIEN_HE: $scope.nguoi_lien_he,
             CHUC_VU: $scope.chuc_vu,
             PHONG_BAN: $scope.phong_ban,
-            NGAY_SINH: $scope.ngay_sinh,
+            NGAY_SINH: $scope.ngay_sinh.format('DD/MM/YYYY'),
             GIOI_TINH: $scope.gioi_tinh,
             EMAIL_CA_NHAN: $scope.email_ca_nhan,
             EMAIL_CONG_TY: $scope.email_cong_ty,
             SKYPE: $scope.skype,
             FACEBOOK: $scope.facebook,
-            GHI_CHU: $scope.ghi_chu_lh,
+            GHI_CHU: addghichu,
             SO_DIEN_THOAI_1: $scope.so_dien_thoai1,
             SO_DIEN_THOAI_2: $scope.so_dien_thoai2,
             PUR_PHU_TRACH: $scope.pur_phu_trach,
         }
-        nhacungcapService.add_lienhencc(data_add).then(function (response) {
+        $http({
+            method: 'POST',
+            data: data_add,
+                url: window.location.origin + '/api/Api_LienHeNhaCungCap/'
+        }).then(function successCallback(response1) {
+            SuccessSystem('Thêm mới liên hệ nhà cung cấp thành công');
             $scope.load_nhacungcap();
+        }, function errorCallback(response1) {
+            ErrorSystem('Thêm mới liên hệ nhà cung cấp lỗi');
         });
     };
 
     $scope.addnewtk = function (mancc) {
+        $("textarea[name=addghichutaikhoan]").val(CKEDITOR.instances.addghichutaikhoan.getData());
+        var addghichutaikhoan = $("[name=addghichutaikhoan]").val();
         var data_add = {
             MA_NHA_CUNG_CAP: mancc,
             SO_TAI_KHOAN: $scope.so_tai_khoan,
@@ -318,11 +406,18 @@ app.controller('nhacungcapCtrl', function (nhacungcapService, $scope, $http, $lo
             TEN_NGAN_HANG: $scope.ten_ngan_hang,
             CHI_NHANH: $scope.chi_nhanh,
             TINH_TP: $scope.tinh_tp,
-            GHI_CHU: $scope.ghi_chu_tk,
+            GHI_CHU: addghichutaikhoan,
             LOAI_TAI_KHOAN: $scope.loai_tai_khoan
         }
-        nhacungcapService.add_taikhoan(data_add).then(function (response) {
+        $http({
+            method: 'POST',
+            data: data_add,
+            url: window.location.origin + '/api/Api_TaiKhoanNCC/'
+        }).then(function successCallback(response1) {
+            SuccessSystem('Thêm mới tài khoản nhà cung cấp thành công');
             $scope.load_nhacungcap();
+        }, function errorCallback(response1) {
+            ErrorSystem('Thêm mới tài khoản nhà cung cấp lỗi');
         });
     };
 

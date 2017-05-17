@@ -25,13 +25,57 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
     <div class="content">
-
-        <div class="col-md-6">
-            <br />
-            @using (Html.BeginForm("Import_KhachHang", "KhachHang", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        <!--Import khách hàng-->
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <br />
+                @using (Html.BeginForm("Import_KhachHang", "KhachHang", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
 
                             <!-- Form Name -->
+                    <table>
+                        <tr>
+                            <th><h1>Import Khách Hàng Mới</h1></th>
+                            <th><a href="~/Content/Files/KHACH_HANG.xlsx" class="fa fa-file-excel-o"> Get sample file</a></th>
+
+                        <tr>
+                            <td colspan="2">
+                                <hr />
+                                <input type="file" name="UploadedFile" class="file" value="Choose File From Your Computer">
+                                <br />
+                                <input type="submit" class="btn btn-success" value="Add" />
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2">Dữ liệu trên tệp mà chưa có trong hệ thống thì sẽ được thêm vào, các dữ liệu khác sẽ giữ nguyên</td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p style="color:blue">@ViewBag.Message</p>
+                                <p style="color:blue">@ViewBag.Information</p>
+                                <p style="color:red">@ViewBag.Error</p>
+                            </td>
+
+                        </tr>
+                    </table>
+
+
+
+
+                }
+            </div>
+
+
+            <div class="col-md-6">
+                <br />
+                @using (Html.BeginForm("UpdateTT_KhachHang", "KhachHang", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                            <!-- Form Name -->
+
                 <table>
                     <tr>
                         <th><h1>Import Khách Hàng Mới</h1></th>
@@ -45,36 +89,42 @@
                             <br />
                             <input type="submit" class="btn btn-success" value="Add" />
 
-                        </td>
 
-                    </tr>
-                    <tr>
-                        <td colspan="2">Dữ liệu trên tệp mà chưa có trong hệ thống thì sẽ được thêm vào, các dữ liệu khác sẽ giữ nguyên</td>
+                            </td>
 
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <p style="color:blue">@ViewBag.Message</p>
-                            <p style="color:blue">@ViewBag.Information</p>
-                            <p style="color:red">@ViewBag.Error</p>
-                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Dữ liệu trên tệp thì sẽ được cập nhật trong hệ thống, các dữ liệu khác sẽ giữ nguyên</td>
 
-                    </tr>
-                </table>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p style="color:blue">@ViewBag.Message1</p>
+                                <p style="color:blue">@ViewBag.Information1</p>
+                                <p style="color:red">@ViewBag.Error1</p>
+                            </td>
+
+                        </tr>
+                    </table>
 
 
 
 
-            }
+                }
+            </div>
         </div>
+        <!--End Import khách hàng-->
 
 
-        <div class="col-md-6">
-            <br />
-            @using (Html.BeginForm("UpdateTT_KhachHang", "KhachHang", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        <!--Import thống kê mua hàng khách hàng-->
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <br />
+                @using (Html.BeginForm("Import_ThongKeMuaHang", "KhachHang", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
 
                             <!-- Form Name -->
+
                 <table>
                     <tr>
                         <th><h1>Update Thông Tin Khách Hàng </h1></th>
@@ -88,29 +138,38 @@
                             <br />
                             <input type="submit" class="btn btn-success" value="Add" />
 
-                        </td>
 
-                    </tr>
-                    <tr>
-                        <td colspan="2">Dữ liệu trên tệp thì sẽ được cập nhật trong hệ thống, các dữ liệu khác sẽ giữ nguyên</td>
+                            </td>
 
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <p style="color:blue">@ViewBag.Message1</p>
-                            <p style="color:blue">@ViewBag.Information1</p>
-                            <p style="color:red">@ViewBag.Error1</p>
-                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Dữ liệu trên tệp mà chưa có trong hệ thống thì sẽ được thêm vào, các dữ liệu khác sẽ giữ nguyên</td>
 
-                    </tr>
-                </table>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p style="color:blue">@ViewBag.MessageThongKe</p>
+                                <p style="color:blue">@ViewBag.InformationThongKe</p>
+                                <p style="color:red">@ViewBag.ErrorThongKe</p>
+                            </td>
+
+                        </tr>
+                    </table>
 
 
 
 
-            }
+                }
+            </div>
+
+
+            <div class="col-md-6">
+               
+            </div>
         </div>
-        
+        <!--End thống kê mua hàng khách hàng-->
+
+
     </div>
 
     <!-- jQuery 2.2.3 -->

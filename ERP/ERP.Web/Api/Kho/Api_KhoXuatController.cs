@@ -10,13 +10,20 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using System.Data.SqlClient;
+using ERP.Web.Models.BusinessModel;
 
 namespace ERP.Web.Api.Kho
 {
     public class Api_KhoXuatController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
-
+        XuLyNgayThang xlnt = new XuLyNgayThang();
+        List<GetAll_List_XuatHang_Result> resultDSXuatKho = new List<GetAll_List_XuatHang_Result>();
+        public class DataDSXuatKho
+        {
+            public string ngay { get; set; }
+            public string tukhoa { get; set; }
+        }
         // GET: api/Api_KhoXuat (List hàng cần đặt)
         [Route("api/Api_KhoXuat/GetHangCanDat/{isadmin}/{username}")]
         public List<Prod_HangCanDat_Result> GetHangCanDat(bool isadmin, string username)
@@ -37,15 +44,39 @@ namespace ERP.Web.Api.Kho
         // GET: api/Api_KhoXuat (List xuất hàng)
         [HttpPost]
         [Route("api/Api_KhoXuat/GetListXuatHang/{isadmin}/{username}")]
-
-        public List<GetAll_List_XuatHang_Result> GetListXuatHang(bool isadmin, string username)
-
+        public List<GetAll_List_XuatHang_Result> GetListXuatHang(bool isadmin, string username, DataDSXuatKho data)
         {
-            var query = db.Database.SqlQuery<GetAll_List_XuatHang_Result>("GetAll_List_XuatHang @macongty,@isadmin,@username", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("isadmin", isadmin), new SqlParameter("username", username));
-            var result = query.ToList();
-            return result;
+
+            if (data.ngay == null && data.tukhoa == null)
+            {
+
+                var query = db.Database.SqlQuery<GetAll_List_XuatHang_Result>("GetAll_List_XuatHang @macongty,@isadmin,@username,@tukhoa,@ngay", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("isadmin", isadmin), new SqlParameter("username", username), new SqlParameter("tukhoa", DBNull.Value), new SqlParameter("ngay", DBNull.Value));
+                resultDSXuatKho = query.ToList();
+            }
+            if (data.ngay == null && data.tukhoa != null)
+            {
+                
+                var query = db.Database.SqlQuery<GetAll_List_XuatHang_Result>("GetAll_List_XuatHang @macongty,@isadmin,@username,@tukhoa,@ngay", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("isadmin", isadmin), new SqlParameter("username", username), new SqlParameter("tukhoa", data.tukhoa), new SqlParameter("ngay", DBNull.Value));
+                resultDSXuatKho = query.ToList();
+            }
+            if (data.ngay != null && data.tukhoa == null)
+            {
+                DateTime ngay1 = xlnt.Xulydatetime(data.ngay);
+                var query = db.Database.SqlQuery<GetAll_List_XuatHang_Result>("GetAll_List_XuatHang @macongty,@isadmin,@username,@tukhoa,@ngay", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("isadmin", isadmin), new SqlParameter("username", username), new SqlParameter("tukhoa", DBNull.Value), new SqlParameter("ngay", ngay1));
+                resultDSXuatKho = query.ToList();
+            }
+            if (data.ngay != null && data.tukhoa != null)
+            {
+                DateTime ngay = xlnt.Xulydatetime(data.ngay);
+                var query = db.Database.SqlQuery<GetAll_List_XuatHang_Result>("GetAll_List_XuatHang @macongty,@isadmin,@username,@tukhoa,@ngay", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("isadmin", isadmin), new SqlParameter("username", username), new SqlParameter("tukhoa", data.tukhoa), new SqlParameter("ngay", ngay));
+                resultDSXuatKho = query.ToList();
+               
+            }
+            return resultDSXuatKho;
 
         }
+
+        
 
         // GET: api/Api_BanHang (List Bán Hàng Chưa Xuất)
         [Route("api/Api_KhoXuat/Get_DON_BAN_HANG_CHUA_XUAT/{isadmin}/{username}")]
@@ -121,6 +152,25 @@ namespace ERP.Web.Api.Kho
             var result = query.ToList();
             return result;
         }
-        
+
+
+        // GET: api/Api_BanHang (Cập nhật hàng cần đặt)
+        [Route("api/Api_KhoXuat/CanDatHang/{id}")]
+        public IHttpActionResult CanDatHang(int id)
+        {
+            String kq;
+            var query = db.BH_CT_DON_HANG_PO.Where(x => x.ID == id).FirstOrDefault();
+            if (query != null)
+            {
+                query.CAN_DAT_HANG = true;
+                db.SaveChanges();
+                kq = "Thành Công";
+            }
+            else
+                kq = "Thất bại";
+
+            return Ok(kq);
+        }
+
     }
 }

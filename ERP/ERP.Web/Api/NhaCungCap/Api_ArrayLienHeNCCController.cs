@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using ERP.Web.Models.NewModels;
+using ERP.Web.Common;
 
 namespace ERP.Web.Api.NhaCungCap
 {
@@ -86,7 +87,7 @@ namespace ERP.Web.Api.NhaCungCap
                 lienhe.NGUOI_LIEN_HE = item.NGUOI_LIEN_HE;
                 lienhe.CHUC_VU = item.CHUC_VU;
                 lienhe.PHONG_BAN = item.PHONG_BAN;
-                lienhe.NGAY_SINH = item.NGAY_SINH;
+                lienhe.NGAY_SINH = GeneralFunction.ConvertToTime(item.NGAY_SINH);
                 lienhe.GIOI_TINH = item.GIOI_TINH;
                 lienhe.EMAIL_CA_NHAN = item.EMAIL_CA_NHAN;
                 lienhe.EMAIL_CONG_TY = item.EMAIL_CONG_TY;

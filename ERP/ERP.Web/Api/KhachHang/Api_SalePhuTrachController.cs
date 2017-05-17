@@ -109,27 +109,26 @@ namespace ERP.Web.Api.HeThong
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
-        [Route("api/Api_SalePhuTrach/{username}/{idlienhe}")]
-        public IHttpActionResult PutKH_SALES_PHU_TRACH(string username, int idlienhe, SalesPhuTrach sale)
+        [HttpPut]
+        [Route("api/Api_SalePhuTrach/EditSalePhuTrach/{idlienhe}")]
+        public IHttpActionResult EditSalePhuTrach(int id, SalesPhuTrach sale)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (idlienhe != sale.ID_LIEN_HE)
-            {
-                return BadRequest();
-            }
-            var nv = db.KH_SALES_PHU_TRACH.Where(x => x.ID_LIEN_HE == idlienhe).FirstOrDefault();
+            var nv = db.KH_SALES_PHU_TRACH.Where(x => x.ID == id).FirstOrDefault();
             if(nv != null)
             {
-                nv.ID_LIEN_HE = idlienhe;
                 nv.SALES_PHU_TRACH = sale.SALES_PHU_TRACH;
                 if (sale.NGAY_KET_THUC_PHU_TRACH != null)
                     nv.NGAY_KET_THUC_PHU_TRACH = xlnt.Xulydatetime(sale.NGAY_KET_THUC_PHU_TRACH);
                 nv.TRANG_THAI = sale.TRANG_THAI;
+            }
+            else
+            {
+                nv.ID_LIEN_HE = sale.ID_LIEN_HE;
+                nv.SALES_PHU_TRACH = sale.SALES_PHU_TRACH;
+                nv.NGAY_BAT_DAU_PHU_TRACH = DateTime.Today.Date;
+                db.KH_SALES_PHU_TRACH.Add(nv);
+                db.SaveChanges();
             }
 
             
@@ -140,7 +139,7 @@ namespace ERP.Web.Api.HeThong
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!KH_SALES_PHU_TRACHExists(idlienhe))
+                if (!KH_SALES_PHU_TRACHExists(id))
                 {
                     return NotFound();
                 }
@@ -158,10 +157,7 @@ namespace ERP.Web.Api.HeThong
         [ResponseType(typeof(KH_SALES_PHU_TRACH))]
         public IHttpActionResult PostKH_SALES_PHU_TRACH(SalesPhuTrach sale)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+
             KH_SALES_PHU_TRACH nv = new KH_SALES_PHU_TRACH();
             nv.ID_LIEN_HE = sale.ID_LIEN_HE;
             nv.SALES_PHU_TRACH = sale.SALES_PHU_TRACH;

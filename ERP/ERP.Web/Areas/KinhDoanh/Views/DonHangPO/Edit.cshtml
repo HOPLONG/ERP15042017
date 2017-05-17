@@ -13,7 +13,7 @@
     <input type="hidden" value="@Session["USERNAME"]" id="username" />
     <input type="hidden" value="@Session["IS_AMIN"]" id="isadmin" />
 
-    <button class="btn btn-default" ng-click="deletePO()" style="float:right;margin: 15px;">Xóa đơn PO</button>
+    <button class="btn btn-default" ng-show="check_admin" ng-click="deletePO()" style="float:right;margin: 15px;">Xóa đơn PO</button>
     <div class="content">
         <div class="col-md-12" ng-repeat="item in thongtinchung">
             <div class="col-md-12">
@@ -43,15 +43,6 @@
                             <div class="col-md-8"><input type="text" placeholder="Tên liên hệ" class="form-control" ng-model="item.TEN_LIEN_HE" /></div>
                         </div>
                     </div>
-                    <div class="col-md-12 form-group">
-                        <div class="col-md-4">
-                            <label class="col-md-8">Đã hủy</label>
-                            <input type="checkbox" ng-model="item.DA_HUY" />
-                        </div>
-                        <div class="col-md-8" ng-show="item.DA_HUY">
-                            <textarea class="form-control" ng-model="item.LY_DO_HUY" placeholder="Lý do hủy"></textarea>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="col-md-12 form-group">
@@ -66,7 +57,7 @@
                     <div class="col-md-12 form-group">
                         <div class="form-group">
                             <label class="col-md-4">Ngày giao hàng</label>
-                            <div class="col-md-4"><input type="text" date='dd-MM-yyyy' placeholder="Ngày giao hàng" class="form-control " ng-model="item.NGAY_GIAO_HANG" /></div>
+                            <div class="col-md-4"><input type="text" date='dd/MM/yyyy' placeholder="Ngày giao hàng" class="form-control " ng-model="item.NGAY_GIAO_HANG" /></div>
                         </div>
                     </div>
                     <div class="col-md-12 form-group">
@@ -114,7 +105,6 @@
                                 <td class="text-center !important">Thành tiền hàng</td>
                                 <td class="text-center !important">% thuế GTGT</td>
                                 <td class="text-center !important">Tiền thuế GTGT</td>
-                                <td class="text-center !important">Đã bán</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -158,9 +148,6 @@
                                 <td class="text-center">
                                     {{item.TIEN_THUE_GTGT | currency: '':0}}
                                     <input ng-model="item.TIEN_THUE_GTGT" style="height: 27px;" class="form-control" type="hidden" ng-disabled="true" />
-                                </td>
-                                <td class="text-center">
-                                    <input type="checkbox" ng-model="item.DA_BAN" ng-disabled="true">
                                 </td>
                             </tr>
                         </tbody>
