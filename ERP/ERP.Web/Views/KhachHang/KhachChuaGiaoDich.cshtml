@@ -9,7 +9,9 @@
 <script src="~/Content/self-writing/js/Services/KhachChuaGiaoDichService.js"></script>
 <script src="~/Content/self-writing/js/Controllers/KhachChuaGiaoDichCtrl.js"></script>
 
-<div class="panel-heading">Bạn đang trong mục tìm kiếm khách hàng</div>
+<div class="panel-heading">
+    <marquee width="80%">Bạn đang xem danh mục tìm kiếm khách hàng.</marquee>
+</div>
 <br />
 <div class="tab-pane fade in" ng-app="myApp" ng-controller="KhachChuaGiaoDichCtrl">
     <input type="hidden" id="username" name="username" value="@Session["USERNAME"]">
@@ -22,10 +24,9 @@
             </div>
         </form>
     </div>
-
-    <input type="button" class="btn btn-info" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
-    <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
-    <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/KhachChuaGiaoDich';" value="Danh sách khách chưa có giao dịch" />
+    <button type="button" class="button_hanghoa fa fa-stack-overflow" onclick="location.href='/ChuyenSale/Index';"><span>Chuyển Sale</span></button>
+    <button type="button" class="button_hanghoa fa fa-search-plus" onclick="location.href = '/KhachHang/TimKiem_KhachHang';"><span>Tìm kiếm khách trên toàn hệ thống</span></button>
+    <button type="button" class="button_hanghoa fa fa-frown-o" onclick="location.href = '/KhachHang/KhachChuaGiaoDich';"><span>Danh sách khách chưa có giao dịch</span></button>
 
     <table id="example" class="table " cellspacing="0" name="tblhanghoa">
         <thead>

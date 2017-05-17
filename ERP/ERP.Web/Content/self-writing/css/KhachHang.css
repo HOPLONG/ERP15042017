@@ -559,6 +559,16 @@ h1{
     padding: 0 10px;
     background-color: #38B8E6;
 }
+.button_khachhang{
+    border-radius: 3px !important;
+    float: left;
+    height: 30px;
+    margin-right: 3px;
+    padding: 0 10px;
+    background-color: #38B8E6;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
 .button_addrow{
     border-radius: 3px !important;
@@ -645,7 +655,7 @@ cursor: pointer;}
     background-repeat: no-repeat;
     height: 15px;
     margin-left: -20px;
-
+}
 .kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
     margin: 0;
     padding: 0;
@@ -659,4 +669,12 @@ cursor: pointer;}
 }
 .box-header-title {
     background-color: #FACE0C;
+}
+#hinhanh_kh {
+    background-image: url('../Images/color-khach-hang.jpg');
+    background-repeat: no-repeat;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px;
 }
